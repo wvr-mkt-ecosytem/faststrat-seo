@@ -53,7 +53,17 @@ Optimiza naturalmente para la keyword sin saturarla. Incluye intro, 4-6 seccione
       markdown,
     });
 
-    return NextResponse.json({ ok: true, slug: post.slug, title: post.title });
+    // Preview: primeros ~500 caracteres del cuerpo para mostrar en el reporte.
+    const preview = markdown.trim().slice(0, 500);
+
+    return NextResponse.json({
+      ok: true,
+      slug: post.slug,
+      title: post.title,
+      excerpt,
+      preview,
+      wordCount: markdown.split(/\s+/).filter(Boolean).length,
+    });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     return NextResponse.json({ error: msg }, { status: 500 });
