@@ -1,8 +1,8 @@
 'use client'
 
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { ArrowLeft, Send, Check, Loader2, ExternalLink, AlertCircle, Sparkles } from 'lucide-react'
+import { Send, Check, Loader2, ExternalLink, AlertCircle, Sparkles } from 'lucide-react'
+import { BrandHeader } from '@/components/BrandHeader'
 
 type Post = {
   slug: string
@@ -129,31 +129,16 @@ export default function BlogsPage() {
 
   return (
     <main className="min-h-screen">
-      <header className="border-b border-black/10 px-6 py-4 dark:border-white/10 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Link
-            href="/"
-            className="text-neutral-400 hover:text-black dark:hover:text-white transition-colors"
-            aria-label="Volver al dashboard"
-          >
-            <ArrowLeft size={20} />
-          </Link>
-          <div>
-            <h1 className="text-lg font-bold">FastStrat · Blogs</h1>
-            <p className="text-sm text-neutral-500">
-              {posts.length} posts listos para publicar en WordPress
-            </p>
-          </div>
-        </div>
+      <BrandHeader subtitle={`Blogs · ${posts.length} posts para publicar en WordPress`}>
         <button
           onClick={publishAll}
           disabled={publishingAll || posts.length === 0}
-          className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded bg-black text-white dark:bg-white dark:text-black hover:opacity-90 disabled:opacity-50 transition-opacity"
+          className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-md bg-maroon text-cream hover:bg-maroon-hover disabled:opacity-50 transition-colors"
         >
           {publishingAll ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
           Publicar todos
         </button>
-      </header>
+      </BrandHeader>
 
       <div className="p-6 space-y-4 max-w-3xl">
         {loading && <p className="text-sm text-neutral-500">Cargando posts…</p>}
@@ -257,7 +242,7 @@ export default function BlogsPage() {
                     <button
                       onClick={() => applyEdit(post.slug)}
                       disabled={edit.loading || !edit.instruction.trim()}
-                      className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded bg-black text-white dark:bg-white dark:text-black hover:opacity-90 disabled:opacity-50 transition-opacity"
+                      className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-md bg-maroon text-cream hover:bg-maroon-hover disabled:opacity-50 transition-colors"
                     >
                       {edit.loading ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
                       {edit.loading ? 'Reescribiendo…' : 'Aplicar cambio'}

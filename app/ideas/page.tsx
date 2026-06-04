@@ -1,8 +1,8 @@
 'use client'
 
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { ArrowLeft, Lightbulb, TrendingUp, Users, Calendar } from 'lucide-react'
+import { TrendingUp, Users, Calendar } from 'lucide-react'
+import { BrandHeader } from '@/components/BrandHeader'
 
 type Idea = {
   title: string
@@ -46,31 +46,18 @@ export default function IdeasPage() {
 
   return (
     <main className="min-h-screen">
-      <header className="border-b border-black/10 px-6 py-4 dark:border-white/10 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Link
-            href="/"
-            className="text-neutral-400 hover:text-black dark:hover:text-white transition-colors"
-            aria-label="Volver al dashboard"
-          >
-            <ArrowLeft size={20} />
-          </Link>
-          <div>
-            <h1 className="text-lg font-bold flex items-center gap-2">
-              <Lightbulb size={18} /> Ideas de Contenido
-            </h1>
-            <p className="text-sm text-neutral-500">
-              {batch
-                ? `Semana del ${batch.weekOf} · ${batch.ideas.length} artículos sugeridos`
-                : 'Investigación semanal de temas'}
-            </p>
-          </div>
-        </div>
+      <BrandHeader
+        subtitle={
+          batch
+            ? `Ideas de contenido · semana del ${batch.weekOf} · ${batch.ideas.length} artículos sugeridos`
+            : 'Investigación semanal de temas'
+        }
+      >
         {batches.length > 1 && (
           <select
             value={selected}
             onChange={(e) => setSelected(Number(e.target.value))}
-            className="text-sm border border-black/10 dark:border-white/10 rounded px-2 py-1 dark:bg-neutral-900"
+            className="text-sm border border-maroon/15 bg-white/60 rounded-md px-2 py-1"
           >
             {batches.map((b, i) => (
               <option key={b.weekOf} value={i}>
@@ -79,7 +66,7 @@ export default function IdeasPage() {
             ))}
           </select>
         )}
-      </header>
+      </BrandHeader>
 
       <div className="p-6 max-w-4xl space-y-6">
         {loading && <p className="text-sm text-neutral-500">Cargando ideas…</p>}

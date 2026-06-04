@@ -1,26 +1,42 @@
 @import "tailwindcss";
 
+/* La marca FastStrat es siempre clara (crema/granate). Hacemos que las
+   utilidades dark: solo apliquen bajo una clase .dark (que nunca usamos),
+   neutralizando el modo oscuro automático del sistema. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Paleta de marca FastStrat (tomada de las portadas del blog) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cream: #f7f2e9;
+  --cream-2: #ece3d3;
+  --maroon: #5a1a1a;
+  --maroon-hover: #471414;
+  --ink: #201b1b;
+  --sand: #6e6a64;
+  --line: rgba(90, 26, 26, 0.14);
+
+  --background: var(--cream);
+  --foreground: var(--ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-cream: var(--cream);
+  --color-cream-2: var(--cream-2);
+  --color-maroon: var(--maroon);
+  --color-maroon-hover: var(--maroon-hover);
+  --color-ink: var(--ink);
+  --color-sand: var(--sand);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
+  background:
+    radial-gradient(1200px 600px at 100% 0%, #fbf8f1 0%, transparent 60%),
+    linear-gradient(160deg, var(--cream) 0%, var(--cream-2) 100%);
+  background-attachment: fixed;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }

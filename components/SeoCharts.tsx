@@ -22,9 +22,10 @@ type Cluster = {
   queryCount: number
 }
 
+// Paleta de marca FastStrat: granates + cálidos complementarios sobre crema.
 const PALETTE = [
-  '#6366f1', '#22c55e', '#f59e0b', '#ec4899', '#06b6d4',
-  '#8b5cf6', '#ef4444', '#14b8a6', '#eab308', '#64748b',
+  '#5a1a1a', '#a23b2e', '#c8742b', '#d8a534', '#7c8a3f',
+  '#3f7a6d', '#9c5d6b', '#7a4a2e', '#b58a4a', '#8a8276',
 ]
 
 function ChartCard({
@@ -37,9 +38,9 @@ function ChartCard({
   children: React.ReactNode
 }) {
   return (
-    <div className="border border-black/10 dark:border-white/10 rounded-lg p-4">
-      <h3 className="font-semibold text-sm">{title}</h3>
-      <p className="text-xs text-neutral-500 mb-2">{subtitle}</p>
+    <div className="border border-maroon/15 bg-white/60 rounded-lg p-4">
+      <h3 className="font-semibold text-sm text-ink">{title}</h3>
+      <p className="text-xs text-sand mb-2">{subtitle}</p>
       <div className="h-64">{children}</div>
     </div>
   )

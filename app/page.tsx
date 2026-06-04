@@ -1,9 +1,9 @@
 'use client'
 
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { TrendingUp, TrendingDown, Minus, ExternalLink, FileText, Lightbulb, FileBarChart } from 'lucide-react'
+import { TrendingUp, TrendingDown, Minus, ExternalLink } from 'lucide-react'
 import { SeoCharts } from '@/components/SeoCharts'
+import { BrandHeader } from '@/components/BrandHeader'
 
 type Row = {
   page: string
@@ -54,54 +54,23 @@ export default function SeoPage() {
 
   return (
     <main className="min-h-screen">
-      <header className="border-b border-black/10 px-6 py-4 dark:border-white/10">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-bold">FastStrat · SEO Dashboard</h1>
-            <p className="text-sm text-neutral-500">
-              {data ? `${data.startDate} → ${data.endDate}` : 'Google Search Console'}
-            </p>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="flex gap-1">
-              {DAYS_OPTIONS.map((d) => (
-                <button
-                  key={d}
-                  onClick={() => setDays(d)}
-                  className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
-                    days === d
-                      ? 'bg-black text-white dark:bg-white dark:text-black'
-                      : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-400'
-                  }`}
-                >
-                  {d}d
-                </button>
-              ))}
-            </div>
-            <Link
-              href="/reports"
-              className="flex items-center gap-2 text-sm font-medium px-3 py-1.5 rounded border border-black/10 hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-800 transition-colors"
+      <BrandHeader subtitle={data ? `Search Console · ${data.startDate} → ${data.endDate}` : 'Google Search Console'}>
+        <div className="flex gap-1">
+          {DAYS_OPTIONS.map((d) => (
+            <button
+              key={d}
+              onClick={() => setDays(d)}
+              className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+                days === d
+                  ? 'bg-maroon text-cream'
+                  : 'bg-maroon/8 text-ink/70 hover:bg-maroon/15'
+              }`}
             >
-              <FileBarChart size={16} />
-              Reportes
-            </Link>
-            <Link
-              href="/ideas"
-              className="flex items-center gap-2 text-sm font-medium px-3 py-1.5 rounded border border-black/10 hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-800 transition-colors"
-            >
-              <Lightbulb size={16} />
-              Ideas
-            </Link>
-            <Link
-              href="/blogs"
-              className="flex items-center gap-2 text-sm font-medium px-3 py-1.5 rounded border border-black/10 hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-800 transition-colors"
-            >
-              <FileText size={16} />
-              Blogs
-            </Link>
-          </div>
+              {d}d
+            </button>
+          ))}
         </div>
-      </header>
+      </BrandHeader>
 
       <div className="p-6 space-y-6">
         {/* Summary cards */}
@@ -120,7 +89,7 @@ export default function SeoPage() {
           placeholder="Filtrar páginas…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full border border-black/10 rounded px-3 py-2 text-sm dark:border-white/10 dark:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-black/20"
+          className="w-full border border-maroon/15 bg-white/60 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-maroon/30"
         />
 
         {/* Table */}
@@ -135,21 +104,21 @@ export default function SeoPage() {
         )}
 
         {!loading && !error && (
-          <div className="overflow-x-auto rounded border border-black/10 dark:border-white/10">
+          <div className="overflow-x-auto rounded-lg border border-maroon/15 bg-white/50">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-black/10 bg-neutral-50 dark:border-white/10 dark:bg-neutral-900">
-                  <th className="text-left px-4 py-3 font-medium text-neutral-600 dark:text-neutral-400">Página</th>
-                  <th className="text-right px-4 py-3 font-medium text-neutral-600 dark:text-neutral-400">Clicks</th>
-                  <th className="text-right px-4 py-3 font-medium text-neutral-600 dark:text-neutral-400">Impresiones</th>
-                  <th className="text-right px-4 py-3 font-medium text-neutral-600 dark:text-neutral-400">CTR</th>
-                  <th className="text-right px-4 py-3 font-medium text-neutral-600 dark:text-neutral-400">Posición</th>
+                <tr className="border-b border-maroon/15 bg-maroon/5 text-maroon">
+                  <th className="text-left px-4 py-3 font-semibold">Página</th>
+                  <th className="text-right px-4 py-3 font-semibold">Clicks</th>
+                  <th className="text-right px-4 py-3 font-semibold">Impresiones</th>
+                  <th className="text-right px-4 py-3 font-semibold">CTR</th>
+                  <th className="text-right px-4 py-3 font-semibold">Posición</th>
                 </tr>
               </thead>
               <tbody>
                 {rows.length === 0 && (
                   <tr>
-                    <td colSpan={5} className="px-4 py-8 text-center text-neutral-400">
+                    <td colSpan={5} className="px-4 py-8 text-center text-sand">
                       Sin resultados
                     </td>
                   </tr>
@@ -157,26 +126,26 @@ export default function SeoPage() {
                 {rows.map((row) => (
                   <tr
                     key={row.page}
-                    className="border-b border-black/5 hover:bg-neutral-50 dark:border-white/5 dark:hover:bg-neutral-900 transition-colors"
+                    className="border-b border-maroon/8 hover:bg-maroon/5 transition-colors"
                   >
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-xs text-neutral-500 max-w-xs truncate">
+                        <span className="font-mono text-xs text-sand max-w-xs truncate">
                           {row.page}
                         </span>
                         <a
                           href={`https://faststrat.ai${row.page}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-neutral-400 hover:text-black dark:hover:text-white shrink-0"
+                          className="text-sand hover:text-maroon shrink-0"
                         >
                           <ExternalLink size={12} />
                         </a>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-right font-semibold">{row.clicks.toLocaleString()}</td>
-                    <td className="px-4 py-3 text-right text-neutral-500">{row.impressions.toLocaleString()}</td>
-                    <td className="px-4 py-3 text-right text-neutral-500">{row.ctr}%</td>
+                    <td className="px-4 py-3 text-right font-semibold text-ink">{row.clicks.toLocaleString()}</td>
+                    <td className="px-4 py-3 text-right text-sand">{row.impressions.toLocaleString()}</td>
+                    <td className="px-4 py-3 text-right text-sand">{row.ctr}%</td>
                     <td className="px-4 py-3 text-right">
                       <PositionBadge position={row.position} />
                     </td>
@@ -193,9 +162,10 @@ export default function SeoPage() {
 
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="border border-black/10 dark:border-white/10 rounded-lg px-5 py-4">
-      <p className="text-xs text-neutral-500 mb-1">{label}</p>
-      <p className="text-2xl font-bold">{value}</p>
+    <div className="relative overflow-hidden border border-maroon/15 bg-white/60 rounded-lg px-5 py-4">
+      <span className="absolute right-0 top-0 h-full w-1.5 bg-maroon/70" />
+      <p className="text-xs uppercase tracking-wide text-sand mb-1">{label}</p>
+      <p className="text-2xl font-extrabold text-ink">{value}</p>
     </div>
   )
 }

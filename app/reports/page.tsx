@@ -1,8 +1,8 @@
 'use client'
 
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { ArrowLeft, FileBarChart, Loader2, PenLine, Lightbulb, Check, AlertCircle } from 'lucide-react'
+import { Loader2, PenLine, Lightbulb, Check, AlertCircle } from 'lucide-react'
+import { BrandHeader } from '@/components/BrandHeader'
 
 type Q = { query: string; clicks: number; impressions: number; ctr: number; position: number }
 type Data = {
@@ -78,34 +78,27 @@ export default function ReportsPage() {
 
   return (
     <main className="min-h-screen">
-      <header className="border-b border-black/10 px-6 py-4 dark:border-white/10 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Link href="/" className="text-neutral-400 hover:text-black dark:hover:text-white transition-colors" aria-label="Volver">
-            <ArrowLeft size={20} />
-          </Link>
-          <div>
-            <h1 className="text-lg font-bold flex items-center gap-2">
-              <FileBarChart size={18} /> Reporte de Queries
-            </h1>
-            <p className="text-sm text-neutral-500">
-              {data && !data.error ? `${data.startDate} → ${data.endDate} · ${data.totalQueries} queries` : 'Oportunidades de Search Console'}
-            </p>
-          </div>
-        </div>
+      <BrandHeader
+        subtitle={
+          data && !data.error
+            ? `Reporte de queries · ${data.startDate} → ${data.endDate} · ${data.totalQueries} queries`
+            : 'Oportunidades de Search Console'
+        }
+      >
         <div className="flex gap-1">
           {DAYS.map((d) => (
             <button
               key={d}
               onClick={() => setDays(d)}
-              className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
-                days === d ? 'bg-black text-white dark:bg-white dark:text-black' : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-400'
+              className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+                days === d ? 'bg-maroon text-cream' : 'bg-maroon/8 text-ink/70 hover:bg-maroon/15'
               }`}
             >
               {d}d
             </button>
           ))}
         </div>
-      </header>
+      </BrandHeader>
 
       <div className="p-6 space-y-8 max-w-5xl">
         {loading && <p className="text-sm text-neutral-500">Cargando reporte…</p>}
@@ -198,7 +191,7 @@ function OpportunityTable({
                         onClick={() => onGenerate(q)}
                         disabled={gen?.loading}
                         title="Generar artículo con el agente SEO"
-                        className="flex items-center gap-1 text-xs px-2 py-1 rounded bg-black text-white dark:bg-white dark:text-black hover:opacity-90 disabled:opacity-50"
+                        className="flex items-center gap-1 text-xs px-2 py-1 rounded bg-maroon text-cream hover:bg-maroon-hover disabled:opacity-50"
                       >
                         {gen?.loading ? <Loader2 size={12} className="animate-spin" /> : <PenLine size={12} />}
                         {gen?.loading ? 'Escribiendo…' : 'Generar'}
