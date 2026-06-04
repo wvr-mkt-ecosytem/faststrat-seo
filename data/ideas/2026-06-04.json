@@ -1,0 +1,184 @@
+{
+  "weekOf": "2026-06-04",
+  "generatedAt": "2026-06-04T00:00:00.000Z",
+  "source": "manual-seed",
+  "summary": "Primera tanda. 10 artículos derivados de oportunidades en Search Console (queries striking-distance y sin explotar) cruzadas con research de competidores (Jasper, HubSpot, Enrich Labs) y tendencias 2026 (GEO/AEO, AI employees, social commerce LATAM, click-less search).",
+  "research": {
+    "competitors": [
+      "Jasper publica fuerte sobre GEO/AEO y 'best AI tools' — capturan top-funnel de IA. Gap: poco enfoque PYME/LATAM.",
+      "HubSpot domina 'AI marketing predictions' y 'state of generative AI' — autoridad de marca, contenido genérico enterprise.",
+      "Enrich Labs rankea con títulos exactos: 'SEO Marketing for Small Business: 2026 Guide to Ranking Without an Agency' y 'GEO Complete Guide 2026' — competidor directo en el nicho SMB-sin-agencia.",
+      "Nadie fuerte combina IA + PYME + LATAM en español — hueco claro para FastStrat."
+    ],
+    "trends": [
+      "GEO/AEO: optimizar para ser citado por ChatGPT/Perplexity. Gartner: tráfico orgánico cae 25% en 2026; 40% de búsquedas sin clic.",
+      "'AI employees': PYMEs contratan flotas de agentes (SEO, social, data) como depto. de marketing 24/7 — alineado con el posicionamiento de FastStrat.",
+      "Social commerce LATAM: live shopping +300%, WhatsApp Business como canal silencioso, conversiones hasta 30%.",
+      "Video corto <60s = 78% del tráfico móvil 2026.",
+      "First-party data: 70% recolecta, solo 14% activa en tiempo real.",
+      "Contenido auténtico/humano gana frente al mar de contenido genérico de IA."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "GEO para PYMEs: Cómo Lograr que ChatGPT y Perplexity Citen tu Negocio (2026)",
+      "slug": "geo-pymes-citado-chatgpt-perplexity-2026",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "generative engine optimization small business",
+      "intent": "Informacional — entender y aplicar GEO",
+      "rationale": "Mega-tendencia 2026; Jasper y Enrich Labs ya rankean. GSC: 'engineering prompts that boost brand visibility' pos 7.4. Alinea con el posicionamiento de IA de FastStrat.",
+      "outline": [
+        "Qué es GEO vs SEO",
+        "Por qué importa (Gartner -25%, 40% sin clic)",
+        "Cómo estructurar contenido citable",
+        "Patrones de citación de ChatGPT vs Perplexity",
+        "Checklist GEO para PYMEs"
+      ]
+    },
+    {
+      "title": "SEO vs. GEO vs. AEO: Cuál Deben Priorizar las PYMEs en 2026",
+      "slug": "seo-vs-geo-vs-aeo-pymes-2026",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "seo vs geo vs aeo",
+      "intent": "Comparación — elegir estrategia",
+      "rationale": "Hueco de competidor; búsqueda creciente. Captura el cambio estructural de search antes que la competencia consolide.",
+      "outline": [
+        "Definiciones claras",
+        "Tabla comparativa",
+        "Cuándo cada una",
+        "Estrategia híbrida para PYME",
+        "Cómo medir cada una"
+      ]
+    },
+    {
+      "title": "Contratando 'Empleados de IA': Cómo una PYME Arma un Depto. de Marketing 24/7",
+      "slug": "empleados-ia-departamento-marketing-pyme-2026",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "ai marketing agents for small business",
+      "intent": "Informacional/comercial — entender agentes de IA",
+      "rationale": "Núcleo del posicionamiento de FastStrat. GSC: '/ai-team/' pos 5.2, '5 marketing agents every smb needs', 'smb agent' pos 5.9. Tendencia 'AI employees'.",
+      "outline": [
+        "De herramientas a agentes",
+        "Los 5 agentes esenciales",
+        "Costo vs. un hire/agencia",
+        "Cómo coordinarlos (el sistema, no la tarea)",
+        "Caso real"
+      ]
+    },
+    {
+      "title": "WhatsApp Commerce en LATAM: Cómo Vender en Vivo por WhatsApp (Guía 2026)",
+      "slug": "whatsapp-commerce-live-shopping-latam-2026",
+      "lang": "es",
+      "priority": "alta",
+      "primaryKeyword": "whatsapp commerce latam",
+      "intent": "Informacional/transaccional — vender por WhatsApp",
+      "rationale": "Extiende el post de pricing de WhatsApp. Tendencia: live shopping +300% LATAM, conversiones 30%. Hueco IA+PYME+LATAM en español.",
+      "outline": [
+        "Por qué WhatsApp en LATAM",
+        "Catálogo + pagos",
+        "Live shopping por WhatsApp",
+        "Automatización con IA",
+        "Métricas y costos"
+      ]
+    },
+    {
+      "title": "Guía SEO para PYMEs 2026: Cómo Rankear Sin Contratar una Agencia",
+      "slug": "guia-seo-pymes-2026-sin-agencia",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "small business seo guide 2026",
+      "intent": "Informacional — guía completa",
+      "rationale": "GSC striking-distance: 'small business seo guide 2026' pos 8.5, 'smb seo' pos 4, 'seo strategies for small businesses 2026' pos 3.8. Compite directo con Enrich Labs (mismo título).",
+      "outline": [
+        "Fundamentos sin agencia",
+        "Keyword research con tu propia data GSC",
+        "On-page + técnico",
+        "GEO como capa nueva",
+        "Stack de herramientas gratis"
+      ]
+    },
+    {
+      "title": "El Problema de las Búsquedas Sin Clic: Cómo Seguir Visible Cuando la IA Responde por Ti",
+      "slug": "busquedas-sin-clic-visibilidad-ia-2026",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "zero click search 2026",
+      "intent": "Informacional — adaptarse al cambio",
+      "rationale": "40% de búsquedas sin clic; Gartner -25% tráfico orgánico. Ángulo urgente que conecta con GEO.",
+      "outline": [
+        "Qué es zero-click",
+        "Por qué se acelera en 2026",
+        "Cómo capturar valor sin el clic",
+        "Marca + citación",
+        "Medir impacto"
+      ]
+    },
+    {
+      "title": "First-Party Data para PYMEs: Recolectar, Activar y Personalizar (2026)",
+      "slug": "first-party-data-pymes-2026",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "first party data small business",
+      "intent": "Informacional — activar datos propios",
+      "rationale": "Tendencia: 70% recolecta pero solo 14% activa. Gap de contenido práctico para PYME.",
+      "outline": [
+        "Qué es y por qué ahora",
+        "Cómo recolectar éticamente",
+        "De recolectar a activar",
+        "Personalización con IA",
+        "Herramientas"
+      ]
+    },
+    {
+      "title": "Video Corto para PYMEs: Un Sistema de Contenido de 60 Segundos (2026)",
+      "slug": "video-corto-pymes-sistema-60-segundos-2026",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "short form video small business",
+      "intent": "Informacional/práctico — producir video corto",
+      "rationale": "78% del tráfico móvil será video. Formato dominante; FastStrat puede mostrar producción asistida por IA.",
+      "outline": [
+        "Por qué <60s",
+        "El sistema repetible",
+        "Guiones con IA",
+        "Distribución multicanal",
+        "Medir retención"
+      ]
+    },
+    {
+      "title": "Benchmarks de Presupuesto de Marketing por Industria: Cuánto Gastan las PYMEs en 2026",
+      "slug": "benchmarks-presupuesto-marketing-industria-2026",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "marketing budget benchmarks by industry 2026",
+      "intent": "Informacional — comparar presupuesto",
+      "rationale": "Construye cluster de autoridad sobre el post de presupuesto SBA (que rankea pos 1-7). Profundiza por industria.",
+      "outline": [
+        "Benchmark general (recap SBA)",
+        "Por industria (B2B/B2C/retail/servicios)",
+        "Cómo asignar",
+        "Ejemplos",
+        "Calculadora"
+      ]
+    },
+    {
+      "title": "Cómo las PYMEs Latinoamericanas Usan IA para Competir con Grandes Marcas (2026)",
+      "slug": "pymes-latam-ia-competir-grandes-marcas-2026",
+      "lang": "es",
+      "priority": "media",
+      "primaryKeyword": "inteligencia artificial pymes latinoamerica",
+      "intent": "Informacional/inspiracional — IA para PYME LATAM",
+      "rationale": "Hueco claro: IA + PYME + LATAM en español. Tendencia de contenido auténtico y IA como núcleo estratégico.",
+      "outline": [
+        "El cambio de juego para PYMEs",
+        "Casos por país",
+        "Stack de IA accesible",
+        "Contenido auténtico vs. genérico",
+        "Primeros pasos"
+      ]
+    }
+  ]
+}
