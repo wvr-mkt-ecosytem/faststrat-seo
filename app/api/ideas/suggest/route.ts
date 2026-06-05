@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getIdeaBatches, type ArticleIdea, type IdeaBatch } from "@/lib/ideas";
 import { slugify } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
+import { persistChanges } from "@/lib/persist";
 
 const IDEAS_DIR = path.join(process.cwd(), "data", "ideas");
 
@@ -68,7 +69,9 @@ export async function POST(request: NextRequest) {
       };
     }
     if (!batch.ideas.some((i) => i.slug === idea.slug)) batch.ideas.unshift(idea);
-    fs.writeFileSync(path.join(IDEAS_DIR, `${today}.json`), JSON.stringify(batch, null, 2));
+    const outPath = path.join(IDEAS_DIR, `${today}.json`);
+    fs.writeFileSync(outPath, JSON.stringify(batch, null, 2));
+    await persistChanges(`idea suggested: ${idea.slug}`, [outPath]);
 
     return NextResponse.json({ ok: true, idea, weekOf: batch.weekOf });
   } catch (err: unknown) {

@@ -1,6 +1,8 @@
+import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 import { createBlogPost, slugify } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
+import { persistChanges } from "@/lib/persist";
 
 const WRITER_SYSTEM = `Eres un redactor SEO senior para FastStrat, plataforma de agentes de IA de marketing para PYMEs (LATAM y EEUU).
 
@@ -52,6 +54,11 @@ Optimiza naturalmente para la keyword sin saturarla. Incluye intro, 4-6 seccione
       status: "draft", // los generados desde reportes entran como borrador
       markdown,
     });
+
+    // Persiste al repo si está corriendo en producción (Render).
+    await persistChanges(`new blog draft: ${post.slug}`, [
+      path.join(process.cwd(), "content", "blog", `${post.slug}.md`),
+    ]);
 
     // Preview: primeros ~500 caracteres del cuerpo para mostrar en el reporte.
     const preview = markdown.trim().slice(0, 500);

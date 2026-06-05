@@ -1,6 +1,8 @@
+import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 import { getBlogPost, updateBlogMarkdown, renderHtml } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
+import { persistChanges } from "@/lib/persist";
 
 const SEO_EDITOR_SYSTEM = `Eres un editor de SEO y contenido para FastStrat, una plataforma de agentes de IA de marketing para PYMEs (mercado LATAM y EEUU).
 
@@ -50,6 +52,9 @@ Devuelve el artículo completo reescrito en Markdown.`,
     }
 
     const updated = updateBlogMarkdown(slug, newMarkdown);
+    await persistChanges(`edit blog: ${updated.slug}`, [
+      path.join(process.cwd(), "content", "blog", updated.file),
+    ]);
     return NextResponse.json({
       markdown: updated.markdown,
       html: renderHtml(updated),

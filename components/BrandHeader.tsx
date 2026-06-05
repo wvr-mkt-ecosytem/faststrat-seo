@@ -40,7 +40,7 @@ export function BrandHeader({
       <div className="px-6 py-3 flex items-center justify-between gap-4">
         <div className="flex items-center gap-6">
           <BrandMark />
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="flex items-center gap-1">
             {NAV.map((item) => {
               const active = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href)
               const Icon = item.icon
@@ -48,14 +48,15 @@ export function BrandHeader({
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-1.5 text-sm font-medium px-3 py-1.5 rounded-md transition-colors ${
+                  title={item.label}
+                  className={`flex items-center gap-1.5 text-sm font-medium px-2.5 sm:px-3 py-1.5 rounded-md transition-colors ${
                     active
                       ? 'bg-maroon text-cream'
                       : 'text-ink/70 hover:bg-maroon/8 hover:text-maroon'
                   }`}
                 >
                   <Icon size={15} />
-                  {item.label}
+                  <span className="hidden sm:inline">{item.label}</span>
                 </Link>
               )
             })}

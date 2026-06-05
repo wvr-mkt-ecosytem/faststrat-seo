@@ -3,6 +3,7 @@ import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 import { getIdeaBatches, type ArticleIdea, type IdeaBatch } from "@/lib/ideas";
 import { slugify } from "@/lib/blog";
+import { persistChanges } from "@/lib/persist";
 
 const IDEAS_DIR = path.join(process.cwd(), "data", "ideas");
 
@@ -51,6 +52,8 @@ export async function POST(request: NextRequest) {
     batch.ideas.unshift(idea);
   }
 
-  fs.writeFileSync(path.join(IDEAS_DIR, file), JSON.stringify(batch, null, 2));
+  const outPath = path.join(IDEAS_DIR, file);
+  fs.writeFileSync(outPath, JSON.stringify(batch, null, 2));
+  await persistChanges(`idea added: ${idea.slug}`, [outPath]);
   return NextResponse.json({ ok: true, weekOf: batch.weekOf, total: batch.ideas.length });
 }
