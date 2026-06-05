@@ -117,24 +117,51 @@ export default function ReportsPage() {
 
         {data && !data.error && (
           <>
+            <Legend />
+
             <OpportunityTable
               title="🎯 Striking distance — empujar a página 1"
-              subtitle="Posición 5-20 con demanda real. Optimizar o escribir contenido dedicado sube estos a top 5."
+              subtitle="Búsquedas reales donde apareces, pero estás en posición 5-20 (página 2 o final de la 1)."
+              explanation={
+                <>
+                  <b>Qué significa:</b> Google ya te considera relevante para estas búsquedas, pero los usuarios casi no te ven porque no estás en el top 5.{' '}
+                  <b className="text-maroon">Acción:</b> apretá <i>Idea</i> para que el agente te proponga un título y outline, o <i>Generar</i> para que escriba un borrador completo del artículo. Cualquiera de las dos sube tus chances de saltar a página 1.
+                </>
+              }
               rows={data.strikingDistance}
               results={results}
               onGenerate={generateArticle}
               onSuggestIdea={suggestIdea}
             />
+
             <OpportunityTable
               title="🚀 Sin explotar — falta contenido"
-              subtitle="Muchas impresiones, casi cero clicks. No tienes página que capture esta demanda."
+              subtitle="Búsquedas con muchas impresiones (la gente las hace), pero casi ningún click te llega."
+              explanation={
+                <>
+                  <b>Qué significa:</b> Google te muestra para estos términos, pero no tenés un artículo dedicado que enganche al lector — por eso clickean a otros.{' '}
+                  <b className="text-maroon">Acción:</b> esto es escribir contenido nuevo desde cero. Apretá <i>Generar</i> y el agente crea un borrador completo en{' '}
+                  <Link href="/blogs" className="text-maroon underline">Blogs</Link>, listo para revisar y publicar en faststrat.ai.
+                </>
+              }
               rows={data.untapped}
               results={results}
               onGenerate={generateArticle}
               onSuggestIdea={suggestIdea}
             />
-            <RefTable title="Top queries por clicks" rows={data.topByClicks} metric="clicks" />
-            <RefTable title="Top queries por impresiones" rows={data.topByImpressions} metric="impressions" />
+
+            <RefTable
+              title="Top queries por clicks"
+              caption="Las búsquedas que más tráfico real te están trayendo. Es tu tracción actual — mantenelas vivas con actualizaciones periódicas."
+              rows={data.topByClicks}
+              metric="clicks"
+            />
+            <RefTable
+              title="Top queries por impresiones"
+              caption="Las búsquedas donde más apareces, hagas clicks o no. Si una tiene muchas impresiones y pocos clicks, está en la sección de oportunidades de arriba."
+              rows={data.topByImpressions}
+              metric="impressions"
+            />
           </>
         )}
       </div>
@@ -151,9 +178,30 @@ type ResultMap = Record<string, {
   idea?: { title: string; intent: string; rationale: string; outline: string[]; lang: string }
 }>
 
+function Legend() {
+  return (
+    <details className="rounded-lg border border-maroon/15 bg-white/60 px-4 py-3">
+      <summary className="cursor-pointer font-semibold text-ink text-sm flex items-center gap-2">
+        <span className="text-maroon">📖</span> Cómo leer este reporte
+      </summary>
+      <div className="grid sm:grid-cols-2 gap-x-6 gap-y-2 mt-3 text-sm text-ink/80">
+        <p><b className="text-maroon">Query</b> — la búsqueda exacta que escribió alguien en Google y para la que apareciste.</p>
+        <p><b className="text-maroon">Impr. (impresiones)</b> — cuántas veces Google te mostró en los resultados de esa búsqueda.</p>
+        <p><b className="text-maroon">Pos. (posición promedio)</b> — qué número de resultado eres en promedio. #1-3 = top de la página 1. #10+ = página 2 o más.</p>
+        <p><b className="text-maroon">CTR</b> — de las veces que te mostraron, qué % hizo click. Bajo CTR = el título/descripción no engancha.</p>
+        <p className="sm:col-span-2 pt-1 border-t border-maroon/10"><b className="text-maroon">Acciones por fila:</b>{' '}
+          <span className="inline-block px-2 py-0.5 rounded border border-maroon/20 text-xs">💡 Idea</span> = el agente propone título + outline y lo guarda en <Link href="/ideas" className="text-maroon underline">Ideas</Link>.{' '}
+          <span className="inline-block px-2 py-0.5 rounded bg-maroon text-cream text-xs">✍️ Generar</span> = el agente escribe el artículo completo como borrador en <Link href="/blogs" className="text-maroon underline">Blogs</Link>; desde ahí lo publicas a faststrat.ai con un click.
+        </p>
+      </div>
+    </details>
+  )
+}
+
 function OpportunityTable({
   title,
   subtitle,
+  explanation,
   rows,
   results,
   onGenerate,
@@ -161,6 +209,7 @@ function OpportunityTable({
 }: {
   title: string
   subtitle: string
+  explanation?: React.ReactNode
   rows: Q[]
   results: ResultMap
   onGenerate: (q: Q) => void
@@ -169,7 +218,12 @@ function OpportunityTable({
   return (
     <section>
       <h2 className="font-semibold text-ink">{title}</h2>
-      <p className="text-sm text-sand mb-3">{subtitle}</p>
+      <p className="text-sm text-sand mb-2">{subtitle}</p>
+      {explanation && (
+        <div className="rounded-md bg-maroon/5 border-l-4 border-maroon px-3 py-2 mb-3 text-sm text-ink/80">
+          {explanation}
+        </div>
+      )}
       <div className="rounded-lg border border-maroon/15 bg-white/50 overflow-hidden">
         <table className="w-full text-sm">
           <thead className="bg-maroon/5 text-maroon">
@@ -287,27 +341,28 @@ function ResultPanel({ result: r }: { result: ResultMap[string] }) {
   return null
 }
 
-function RefTable({ title, rows, metric }: { title: string; rows: Q[]; metric: 'clicks' | 'impressions' }) {
+function RefTable({ title, caption, rows, metric }: { title: string; caption?: string; rows: Q[]; metric: 'clicks' | 'impressions' }) {
   return (
     <section>
-      <h2 className="font-semibold mb-3">{title}</h2>
-      <div className="rounded border border-black/10 dark:border-white/10 overflow-hidden">
+      <h2 className="font-semibold text-ink">{title}</h2>
+      {caption && <p className="text-sm text-sand mb-3">{caption}</p>}
+      <div className="rounded-lg border border-maroon/15 bg-white/50 overflow-hidden">
         <table className="w-full text-sm">
-          <thead className="bg-neutral-50 dark:bg-neutral-900 text-neutral-500">
+          <thead className="bg-maroon/5 text-maroon">
             <tr>
-              <th className="text-left px-3 py-2 font-medium">Query</th>
-              <th className="text-right px-3 py-2 font-medium">Clicks</th>
-              <th className="text-right px-3 py-2 font-medium">Impr.</th>
-              <th className="text-right px-3 py-2 font-medium">Pos.</th>
+              <th className="text-left px-3 py-2 font-semibold">Query</th>
+              <th className="text-right px-3 py-2 font-semibold">Clicks</th>
+              <th className="text-right px-3 py-2 font-semibold">Impr.</th>
+              <th className="text-right px-3 py-2 font-semibold">Pos.</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((q) => (
-              <tr key={q.query} className="border-t border-black/5 dark:border-white/5">
-                <td className="px-3 py-2">{q.query}</td>
-                <td className={`px-3 py-2 text-right ${metric === 'clicks' ? 'font-semibold' : 'text-neutral-500'}`}>{q.clicks}</td>
-                <td className={`px-3 py-2 text-right ${metric === 'impressions' ? 'font-semibold' : 'text-neutral-500'}`}>{q.impressions.toLocaleString()}</td>
-                <td className="px-3 py-2 text-right text-neutral-500">#{q.position}</td>
+              <tr key={q.query} className="border-t border-maroon/8">
+                <td className="px-3 py-2 text-ink">{q.query}</td>
+                <td className={`px-3 py-2 text-right ${metric === 'clicks' ? 'font-semibold text-ink' : 'text-sand'}`}>{q.clicks}</td>
+                <td className={`px-3 py-2 text-right ${metric === 'impressions' ? 'font-semibold text-ink' : 'text-sand'}`}>{q.impressions.toLocaleString()}</td>
+                <td className="px-3 py-2 text-right text-sand">#{q.position}</td>
               </tr>
             ))}
           </tbody>
