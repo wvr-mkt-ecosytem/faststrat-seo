@@ -1,0 +1,33 @@
+name: Weekly content batch
+
+on:
+  # Lunes 10:00 UTC = 5:00 AM Bogotá / 4:00 AM CDMX
+  schedule:
+    - cron: "0 10 * * 1"
+  # Permite dispararlo manualmente desde la pestaña Actions del repo
+  workflow_dispatch:
+
+jobs:
+  trigger-weekly:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wake up + run weekly endpoint
+        env:
+          APP_BASE_URL: ${{ secrets.APP_BASE_URL }}
+          WEEKLY_SECRET: ${{ secrets.WEEKLY_SECRET }}
+        run: |
+          # El web service de Render free se duerme; el primer request lo despierta
+          # (puede tardar ~30s). Damos hasta 120s y reintentamos hasta 3 veces.
+          for i in 1 2 3; do
+            echo "Intento $i…"
+            if curl -fsS -X POST \
+              --max-time 300 \
+              -H "x-weekly-secret: $WEEKLY_SECRET" \
+              "$APP_BASE_URL/api/weekly"; then
+              echo "✓ batch generado"
+              exit 0
+            fi
+            sleep 30
+          done
+          echo "✗ falló tras 3 intentos"
+          exit 1

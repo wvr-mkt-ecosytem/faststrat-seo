@@ -1,5 +1,6 @@
-# Render blueprint para FastStrat SEO Dashboard.
-# Servicio web (Next.js) + cron job semanal — todo en tier gratis.
+# Render blueprint para FastStrat SEO Dashboard (servicio web Next.js).
+# El cron semanal NO va aquí porque Render no permite cron en plan free —
+# se ejecuta desde GitHub Actions (.github/workflows/weekly.yml), también gratis.
 # Las variables de entorno se configuran en el dashboard de Render.
 services:
   - type: web
@@ -13,15 +14,3 @@ services:
     envVars:
       - key: NODE_VERSION
         value: 22
-
-  - type: cron
-    name: faststrat-seo-weekly
-    runtime: node
-    plan: free
-    region: oregon
-    # Lunes a las 10:00 UTC (= 5:00 AM Bogotá / 4:00 AM CDMX)
-    schedule: "0 10 * * 1"
-    buildCommand: 'echo "no build needed"'
-    # Llama al endpoint /api/weekly del propio servicio web.
-    # APP_BASE_URL y WEEKLY_SECRET se configuran en el dashboard de Render.
-    startCommand: 'curl -fsS -X POST -H "x-weekly-secret: $WEEKLY_SECRET" "$APP_BASE_URL/api/weekly"'
