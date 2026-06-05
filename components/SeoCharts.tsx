@@ -135,7 +135,7 @@ function Donut({ data }: { data: { name: string; value: number }[] }) {
           ))}
         </Pie>
         <Tooltip
-          formatter={(v: number) => v.toLocaleString()}
+          formatter={(v) => (typeof v === 'number' ? v.toLocaleString() : String(v))}
           contentStyle={{
             fontSize: 12,
             borderRadius: 8,
