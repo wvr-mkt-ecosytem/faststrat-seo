@@ -86,8 +86,6 @@ export default function ReportsPage() {
       </BrandHeader>
 
       <div className="p-6 space-y-6 max-w-5xl">
-        <PrimerSection />
-
         {loading && <p className="text-sm text-sand">Cargando reporte…</p>}
         {pagesData?.error && (
           <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded px-4 py-3">Error: {pagesData.error}</div>
@@ -108,70 +106,196 @@ export default function ReportsPage() {
   )
 }
 
-/* ========== Explicación inicial ========== */
+/* ========== Diagnóstico personalizado por artículo ========== */
 
-function PrimerSection() {
+type Diagnosis = {
+  headline: string
+  posture: 'star' | 'rising' | 'stuck' | 'untapped' | 'declining' | 'new'
+  bullets: { label: string; text: React.ReactNode }[]
+  whatToDo: React.ReactNode
+}
+
+/**
+ * Lee los números reales del artículo y devuelve un diagnóstico en lenguaje
+ * cotidiano: qué le está pasando, por qué, y qué hacer al respecto.
+ */
+function diagnosePage(p: PageDetail): Diagnosis {
+  const bullets: Diagnosis['bullets'] = []
+
+  // === Lectura de tráfico ===
+  if (p.clicks === 0 && p.impressions > 100) {
+    bullets.push({
+      label: 'Tráfico',
+      text: <>
+        Apareciste <b>{p.impressions.toLocaleString()} veces</b> en resultados de Google, pero <b className="text-red-600">cero personas hicieron click</b> en tu link.
+        Eso significa que estás siendo visible (Google te considera relevante), pero el título o la descripción no engancha — o estás tan abajo en la lista que ni te ven.
+      </>,
+    })
+  } else if (p.clicks > 0) {
+    bullets.push({
+      label: 'Tráfico',
+      text: <>
+        <b>{p.clicks} {p.clicks === 1 ? 'persona llegó' : 'personas llegaron'}</b> a esta página desde Google,
+        de las <b>{p.impressions.toLocaleString()}</b> veces que apareciste en resultados.
+        Es decir, de cada 100 personas que te vieron, <b>{p.ctr.toFixed(1)}</b> hicieron click.
+      </>,
+    })
+  } else {
+    bullets.push({
+      label: 'Tráfico',
+      text: <>Pocas impresiones ({p.impressions.toLocaleString()}) y ningún click — esta página apenas está empezando a aparecer en Google.</>,
+    })
+  }
+
+  // === Tendencia ===
+  if (p.clicksDelta > 0 && p.clicks > 0) {
+    bullets.push({
+      label: 'Tendencia',
+      text: <>
+        <span className="text-green-700">Subiendo.</span> Recibes <b>+{p.clicksDelta}</b> clicks comparado con el período anterior.
+        {p.impressionsDelta > 0 && <> Google también te muestra más veces (<b>+{p.impressionsDelta.toLocaleString()}</b> impresiones).</>}
+      </>,
+    })
+  } else if (p.clicksDelta < 0) {
+    bullets.push({
+      label: 'Tendencia',
+      text: <>
+        <span className="text-red-600">Bajando.</span> {Math.abs(p.clicksDelta)} clicks menos que el período anterior.
+        {p.impressionsDelta < -20 && <> Y también te muestran menos veces — probablemente un competidor te está pasando o Google reorganizó resultados.</>}
+        {p.impressionsDelta > 0 && <> Curiosamente te muestran <i>más</i> que antes pero clickean menos — algo cambió en tu título/snippet o aparece un competidor más atractivo arriba tuyo.</>}
+      </>,
+    })
+  } else if (p.impressionsDelta > 0 && p.clicks === 0) {
+    bullets.push({
+      label: 'Tendencia',
+      text: <>Google te está mostrando más (<b>+{p.impressionsDelta.toLocaleString()}</b> impresiones nuevas) pero todavía no convierte en clicks. Buena señal de visibilidad emergente.</>,
+    })
+  } else if (p.clicksDelta === 0 && p.impressionsDelta === 0 && p.clicks === 0) {
+    // sin info de tendencia útil
+  } else {
+    bullets.push({
+      label: 'Tendencia',
+      text: <>Estable. Métricas casi idénticas al período anterior.</>,
+    })
+  }
+
+  // === Posición ===
+  if (p.position > 0 && p.position <= 3) {
+    bullets.push({
+      label: 'Posición',
+      text: <>
+        Estás en el <b className="text-green-700">top 3 de Google</b> en promedio (posición #{p.position}).
+        Esa es la mejor zona — la mayoría de los clicks de cualquier búsqueda van a los 3 primeros resultados.
+      </>,
+    })
+  } else if (p.position > 0 && p.position <= 5) {
+    bullets.push({
+      label: 'Posición',
+      text: <>
+        Estás en el <b className="text-green-700">top 5</b> de la página 1 (posición #{p.position}). Buena zona — recibes una parte considerable de los clicks de cada búsqueda.
+      </>,
+    })
+  } else if (p.position > 0 && p.position <= 10) {
+    bullets.push({
+      label: 'Posición',
+      text: <>
+        Estás en la <b className="text-yellow-700">página 1 pero abajo del top 5</b> (posición #{p.position}). Te ven pero la mayoría de los clicks van a los resultados de arriba.
+        Subir al top 5 puede multiplicar tus clicks varias veces.
+      </>,
+    })
+  } else if (p.position > 0) {
+    bullets.push({
+      label: 'Posición',
+      text: <>
+        Estás <b className="text-red-600">en la página 2 o más abajo</b> en promedio (posición #{p.position}). Muy poca gente llega a esa zona — para ganar clicks reales necesitas subir significativamente.
+      </>,
+    })
+  }
+
+  // === Striking distance / oportunidad ===
+  if (p.strikingDistance.length > 0) {
+    const top = p.strikingDistance[0]
+    const totalOppImpr = p.strikingDistance.reduce((s, q) => s + q.impressions, 0)
+    bullets.push({
+      label: 'Oportunidad',
+      text: <>
+        Hay <b className="text-maroon">{p.strikingDistance.length} {p.strikingDistance.length === 1 ? 'búsqueda' : 'búsquedas'}</b> donde
+        este artículo aparece en posición 5-20 con buena demanda{' '}
+        (<b>{totalOppImpr.toLocaleString()}</b> impresiones combinadas).
+        Por ejemplo, para <b>&quot;{top.query}&quot;</b> sales en posición #{top.position} con {top.impressions} impresiones — estás a un empujón del top.
+      </>,
+    })
+  }
+
+  // === Postura general (para el título de la card) ===
+  let posture: Diagnosis['posture']
+  let headline: string
+  let whatToDo: React.ReactNode
+
+  if (p.clicks >= 5 && p.position <= 5) {
+    posture = 'star'
+    headline = '⭐ Este artículo está funcionando bien'
+    whatToDo = <>
+      <b>Qué hacer:</b> mantenelo vivo. Actualizá datos cada 6 meses, agregá ejemplos nuevos, y monitoreá si algún competidor te empieza a pasar. No lo dejes envejecer.
+    </>
+  } else if (p.clicksDelta > 0 && p.clicks > 0) {
+    posture = 'rising'
+    headline = '📈 Este artículo está creciendo'
+    whatToDo = p.strikingDistance.length > 0 ? <>
+      <b>Qué hacer:</b> ya viene subiendo, y todavía hay búsquedas donde no rankea óptimo. Apretá <b>Optimizar con IA</b> para reescribirlo cubriendo las búsquedas striking-distance — puede acelerar el salto al top 5.
+    </> : <>
+      <b>Qué hacer:</b> ya viene subiendo solo. Mantenelo actualizado y dale tiempo a Google para asentar las posiciones.
+    </>
+  } else if (p.strikingDistance.length >= 2) {
+    posture = 'untapped'
+    headline = '🎯 Este artículo tiene oportunidad sin explotar'
+    whatToDo = <>
+      <b>Qué hacer:</b> aparece para varias búsquedas pero ranquea fuera del top 5 en todas. El botón <b>Optimizar con IA</b> reescribe el artículo para cubrir mejor esas búsquedas específicas. Es la palanca con mejor retorno para esta página.
+    </>
+  } else if (p.clicksDelta < 0 && p.clicks > 0) {
+    posture = 'declining'
+    headline = '📉 Este artículo está perdiendo tracción'
+    whatToDo = <>
+      <b>Qué hacer:</b> revisalo. Probablemente esté desactualizado o un competidor publicó algo mejor. Si tiene búsquedas en striking-distance, <b>Optimizar con IA</b> puede revivirlo; si no, considerá rescribir el artículo desde otro ángulo o consolidarlo con otro post.
+    </>
+  } else if (p.impressions >= 100 && p.clicks === 0) {
+    posture = 'stuck'
+    headline = '👀 Este artículo lo ven pero no lo clickean'
+    whatToDo = <>
+      <b>Qué hacer:</b> tienes visibilidad pero el título o descripción no engancha — o ranqueás demasiado abajo. Si está en posición 5-20, <b>Optimizar con IA</b> ayuda a subirlo. Si está en posición 20+, el problema es más estructural y conviene reescribirlo en serio o crear un artículo nuevo más enfocado.
+    </>
+  } else {
+    posture = 'new'
+    headline = '🌱 Este artículo está empezando'
+    whatToDo = <>
+      <b>Qué hacer:</b> aún tiene poca señal en Google. Dale tiempo (los artículos nuevos suelen tardar semanas en posicionarse) y monitoreá el reporte semanal. Si después de 60 días sigue sin moverse, conviene reescribirlo.
+    </>
+  }
+
+  return { headline, posture, bullets, whatToDo }
+}
+
+const POSTURE_COLORS: Record<Diagnosis['posture'], string> = {
+  star: 'border-l-green-600 bg-green-50',
+  rising: 'border-l-green-600 bg-green-50',
+  untapped: 'border-l-maroon bg-maroon/8',
+  stuck: 'border-l-yellow-600 bg-yellow-50',
+  declining: 'border-l-red-500 bg-red-50',
+  new: 'border-l-blue-500 bg-blue-50',
+}
+
+function DiagnosisPanel({ page }: { page: PageDetail }) {
+  const d = diagnosePage(page)
   return (
-    <details className="rounded-lg border border-maroon/15 bg-white/60 px-4 py-3" open>
-      <summary className="cursor-pointer font-semibold text-ink text-sm flex items-center gap-2">
-        <span className="text-maroon">📖</span> ¿Qué es esto y cómo lo uso? (lee esto primero si no eres de SEO)
-      </summary>
-      <div className="mt-3 space-y-3 text-sm text-ink/85 leading-relaxed">
-        <p>
-          Cuando alguien busca algo en Google y aparece tu sitio en los resultados, Google va anotando todo: qué buscaron,
-          en qué posición saliste, cuántas veces te mostró, y si clickearon o no. Este reporte es ese expediente, traducido a algo accionable.
-        </p>
-
-        <div className="rounded-md bg-maroon/5 border border-maroon/15 p-3 space-y-2">
-          <p className="font-semibold text-maroon">Las 4 métricas que ves, explicadas sin tecnicismos</p>
-          <ul className="space-y-1.5 text-sm">
-            <li>
-              <b>Impresiones:</b> cuántas veces Google le mostró tu artículo a alguien que buscó algo relacionado.
-              Es <i>visibilidad</i>. Si tienes 1.000 impresiones, mil personas vieron tu link en los resultados.
-            </li>
-            <li>
-              <b>Clicks:</b> de esas veces que apareciste, cuántas la persona realmente clickeó tu link.
-              Es <i>tráfico real</i> que llega a la página.
-            </li>
-            <li>
-              <b>CTR (click-through rate):</b> el porcentaje de los que vieron tu link y clickearon.
-              Si tienes 1.000 impresiones y 30 clicks, tu CTR es 3%. <b>CTR bajo</b> = la gente te ve pero no le interesa hacer click
-              (probablemente tu título o descripción no engancha, o estás muy abajo en la lista).
-            </li>
-            <li>
-              <b>Posición:</b> en qué número de resultado apareces en promedio.
-              <span className="text-green-700"> #1-3 = top de la página 1</span> (donde llegan la mayoría de los clicks).
-              <span className="text-yellow-700"> #4-10 = el resto de la página 1.</span>
-              <span className="text-red-600"> #11+ = página 2 o más</span> (a donde casi nadie llega).
-            </li>
-          </ul>
-        </div>
-
-        <div className="rounded-md bg-maroon/5 border border-maroon/15 p-3 space-y-2">
-          <p className="font-semibold text-maroon">La idea clave: &quot;striking-distance&quot;</p>
-          <p>
-            Si tienes un artículo que aparece en <b>posición 7 para una búsqueda con 200 impresiones</b>,
-            está literalmente a un empujón de la página 1. La gente está googleando esa búsqueda,
-            Google ya te considera relevante para ella, pero estás justo afuera del top 5 donde llegan los clicks.
-          </p>
-          <p>
-            Eso es <b>striking distance</b>: estás cerca de capturar tráfico real con poco esfuerzo.
-            Reescribir o expandir ese artículo para que cubra mejor esa búsqueda puede subirte al top 5
-            y multiplicar tus clicks <i>sin escribir un artículo nuevo</i>.
-          </p>
-        </div>
-
-        <div className="rounded-md bg-maroon/5 border border-maroon/15 p-3 space-y-2">
-          <p className="font-semibold text-maroon">Cómo se usa este reporte</p>
-          <ol className="list-decimal list-inside space-y-1">
-            <li>Mira la tabla de abajo: cada fila es un artículo de tu sitio.</li>
-            <li>Las que tienen <b className="text-maroon">&quot;N en striking-distance&quot;</b> en rojo granate son las de mayor oportunidad — son artículos a un empujón del top.</li>
-            <li>Click en una fila para ver qué búsquedas la podrían empujar.</li>
-            <li>El botón <b>Optimizar con IA</b> hace ese empujón: el agente reescribe el artículo para cubrir mejor esas búsquedas y deja un nuevo borrador en <Link href="/blogs" className="text-maroon underline">Blogs</Link>. Tú lo revisas y lo publicas.</li>
-          </ol>
-        </div>
-      </div>
-    </details>
+    <div className={`rounded-md border border-maroon/15 border-l-4 ${POSTURE_COLORS[d.posture]} p-3 space-y-2`}>
+      <p className="font-semibold text-ink">{d.headline}</p>
+      <ul className="space-y-1.5 text-sm text-ink/85">
+        {d.bullets.map((b, i) => (
+          <li key={i}><b className="text-maroon">{b.label}:</b> {b.text}</li>
+        ))}
+      </ul>
+      <p className="text-sm text-ink/85 pt-1.5 border-t border-maroon/10">{d.whatToDo}</p>
+    </div>
   )
 }
 
@@ -191,8 +315,8 @@ function PublishedSection({
         <span>📊</span> Tus artículos publicados
       </h2>
       <p className="text-sm text-sand mb-3">
-        Cada fila es una página real de faststrat.ai. La columna <b>Δ</b> (delta) muestra si va subiendo o
-        bajando vs los {previousLabel.includes('→') ? previousLabel : 'días previos'} ({previousLabel}).
+        Cada fila es una página real de faststrat.ai. <b>Click en una fila</b> para ver qué le está pasando y qué hacer al respecto.
+        Comparamos contra el período anterior ({previousLabel}).
       </p>
 
       {pages.length === 0 && (
@@ -251,6 +375,8 @@ function PageRow({
             <Metric label="Impr." value={page.impressions} delta={page.impressionsDelta} />
             <span className="text-sand">CTR <b className="text-ink">{page.ctr}%</b></span>
           </div>
+
+          <DiagnosisPanel page={page} />
 
           {hasStriking && (
             <div className="rounded-md bg-white/70 border border-maroon/15 p-3">
