@@ -1,0 +1,183 @@
+{
+  "weekOf": "2026-06-06",
+  "generatedAt": "2026-06-06T00:39:31.344Z",
+  "source": "auto-weekly",
+  "summary": "Tanda enfocada en convertir 5 clústeres striking-distance de alto volumen (landing pages, SEO tools, marketing budget, AI tools comparison, WhatsApp LATAM) más 3 piezas en español para México/LATAM con ventana de oportunidad casi libre de competencia nativa.",
+  "research": {
+    "competitors": [
+      "HubSpot Blog y Neil Patel dominan los SERPs informativos ('marketing budget %', 'best SEO tools') con contenido amplio pero sin ángulo AI-nativo ni pricing LATAM; hueco claro para Fast Strat en profundidad SMB + IA.",
+      "G2 y Capterra monopolizan comparativas de herramientas (Jasper vs Copy.ai) con review aggregation; el hueco es contenido narrativo que combine workflow real + ROI para presupuestos de PYME bajo 500 USD/mes.",
+      "Semrush y Ahrefs controlan listicles de 'best SEO tools' pero no cubren herramientas AI-nativas de 2026 ni opciones LATAM; una pieza actualizada con benchmarks de junio 2026 puede desplazarlos.",
+      "La documentación oficial de Meta rankea para queries de WhatsApp Business pero carece de guías prácticas de implementación en español para México/Colombia/Argentina, dejando espacio casi vacío para Fast Strat."
+    ],
+    "trends": [
+      "GEO/AEO (Generative Engine Optimization / Answer Engine Optimization): las marcas deben optimizar para AI Overviews de Google, Perplexity y ChatGPT — schema markup, E-E-A-T y respuestas directas se vuelven ranking signals críticos en 2026.",
+      "Agentes IA de marketing full-funnel: stacks autónomos que gestionan creación de contenido, optimización de ads y secuencias de email sin intervención humana; demanda educativa muy alta entre PYMEs que no saben por dónde empezar.",
+      "WhatsApp como canal principal de ventas en LATAM: el push de Meta hacia conversational commerce lleva a que >60% de las interacciones comerciales de PYMEs latinoamericanas pasen por mensajería, elevando la urgencia de elegir el BSP correcto.",
+      "Economía zero-click: AI Overviews y featured snippets reducen el CTR orgánico hasta un 35%, haciendo que el contenido optimizado para respuestas directas y las búsquedas de marca sean más valiosas que el tráfico genérico.",
+      "Social commerce mainstream: TikTok Shop, Instagram Checkout y WhatsApp Catalog se convierten en canales de transacción de primera parte para PYMEs, compitiendo directamente con e-commerce tradicional y redefiniendo el funnel de conversión."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "The Ultimate Landing Page Checklist for 2026: 47 Elements That Actually Convert",
+      "slug": "the-ultimate-landing-page-checklist-for-2026-47-elements-tha",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "landing page checklist",
+      "intent": "transaccional / herramienta práctica",
+      "rationale": "Es la query de mayor volumen de toda la tanda (212 impr, pos 12.5) y está a un empuje editorial de entrar al top 10; un checklist accionable con ángulo AI diferencia de los resultados genéricos actuales.",
+      "outline": [
+        "Above-the-Fold Essentials: Hero Copy, CTA Placement & Value Prop",
+        "Trust & Social Proof Elements: Reviews, Badges, Stats",
+        "Mobile UX & Core Web Vitals Requirements for 2026",
+        "Technical SEO Checklist: Schema, Speed, Canonical & Indexability",
+        "AI-Powered A/B Testing Loop: Tools & Iteration Cadence"
+      ]
+    },
+    {
+      "title": "Best SEO Tools for Small Businesses in 2026: Honest Reviews & Pricing",
+      "slug": "best-seo-tools-for-small-businesses-in-2026-honest-reviews-p",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "best seo tools for small businesses 2026",
+      "intent": "commercial investigation",
+      "rationale": "Dos queries casi idénticas suman 112 impresiones (pos 9.4 y 17.6), señalando un gap real; un listicle actualizado a junio 2026 con herramientas AI-nativas puede desplazar a Semrush y Ahrefs que no han actualizado su stack.",
+      "outline": [
+        "How We Tested: Methodology, Budget Caps & SMB Criteria",
+        "Best All-in-One SEO Platforms (Under $100/mo)",
+        "Best Free & Freemium SEO Tools for Bootstrapped SMBs",
+        "AI-Native SEO Tools Worth Testing in 2026 (Including Agents)",
+        "Final Verdict: Which Tool Fits Which SMB Type & Budget"
+      ]
+    },
+    {
+      "title": "Small Business Marketing Budget: What Percentage of Revenue Should You Spend?",
+      "slug": "small-business-marketing-budget-what-percentage-of-revenue-s",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "small business marketing budget percentage of revenue",
+      "intent": "informacional / benchmark",
+      "rationale": "Cinco variantes del mismo query suman más de 240 impresiones con posiciones 5-6, lo que significa que una sola pieza de autoridad que consolide todos los ángulos SBA puede barrer todas las variantes y convertirlas en tráfico real.",
+      "outline": [
+        "The SBA 5–10% Rule: What It Actually Says and When It Applies",
+        "Budget Benchmarks by Industry, Revenue Stage & Business Age",
+        "How AI Tools Are Changing the ROI Math for SMB Marketing Spend",
+        "How to Allocate Your Budget Across Channels (Paid, SEO, Email, Social)",
+        "Free Marketing Budget Calculator + Real PYME Case Studies"
+      ]
+    },
+    {
+      "title": "HubSpot Breeze vs Jasper AI vs Copy.ai in 2026: Which AI Tool Wins for SMBs?",
+      "slug": "hubspot-breeze-vs-jasper-ai-vs-copy-ai-in-2026-which-ai-tool",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "hubspot marketing campaign assistant vs copy.ai vs jasper ai",
+      "intent": "commercial investigation",
+      "rationale": "Las queries de comparación de herramientas suman 63 impresiones (pos 10.3 y 16.1) con intención de compra clara; un análisis narrativo estilo G2 con pricing real para SMB superará a los aggregators de reviews que no tienen contexto de workflow.",
+      "outline": [
+        "Feature Matrix: What Each Tool Actually Does in a Real Campaign",
+        "Pricing Breakdown for SMB Teams (Solo Marketer to 10-Person Agency)",
+        "Content Quality & Brand Consistency: Blind Test Results",
+        "Workflow Automation & CRM Integrations Compared",
+        "Best Pick by Use Case: Solo Founder, Growth PYME, Full-Service Agency"
+      ]
+    },
+    {
+      "title": "AI Organic Marketing for SMBs: The 2026 Playbook to Cut CAC Without Paid Ads",
+      "slug": "ai-organic-marketing-for-smbs-the-2026-playbook-to-cut-cac-w",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "ai organic marketing smb",
+      "intent": "informacional / estratégico",
+      "rationale": "47 impresiones a pos 16.8 revelan demanda creciente de contenido sobre estrategia orgánica AI-first para PYMEs sin presupuesto de paid; Fast Strat tiene autoridad única para posicionarse aquí como plataforma nativa.",
+      "outline": [
+        "What 'AI Organic Marketing' Actually Means in 2026 (vs. Just Using ChatGPT)",
+        "Building a Content Engine with AI Agents: Keyword Research to Publishing",
+        "GEO & AEO: Optimizing for AI Overviews, Perplexity and ChatGPT Citations",
+        "Social + Email Automation at Scale Without Losing Brand Voice",
+        "Measuring Organic ROI When AI Does the Work: Metrics That Matter"
+      ]
+    },
+    {
+      "title": "GA4 Setup for Small Businesses in 2026: Step-by-Step Guide (No Agency Needed)",
+      "slug": "ga4-setup-for-small-businesses-in-2026-step-by-step-guide-no",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "ga4 setup small business",
+      "intent": "transaccional / tutorial",
+      "rationale": "32 impresiones a pos 16.3 indican que Fast Strat aún no tiene presencia sólida aquí; una guía paso a paso actualizada para 2026 con conexión a AI marketing stack captura intención de usuario en fase de configuración.",
+      "outline": [
+        "Why GA4 Still Matters for SMBs in 2026 (and What Changed from Universal Analytics)",
+        "Step-by-Step: Account, Property & Data Stream Setup in Under 30 Minutes",
+        "Configuring Key Events & Conversions for E-commerce, Leads & Bookings",
+        "Connecting GA4 to Google Ads, Search Console & Your AI Marketing Tools",
+        "5 GA4 Reports Every SMB Should Check Weekly (+ Free Dashboard Template)"
+      ]
+    },
+    {
+      "title": "Meta Ads Agency vs DIY AI Tools: The True Cost Breakdown for SMBs in 2026",
+      "slug": "meta-ads-agency-vs-diy-ai-tools-the-true-cost-breakdown-for-",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "average cost of meta ads agency vs diy ai tools",
+      "intent": "commercial investigation",
+      "rationale": "25 impresiones a pos 9.0 sitúan esta pieza a un paso de página 1; el ángulo de coste real (fees + ad spend + time) contra herramientas AI DIY responde a una decisión de compra de alta intención para PYMEs evaluando canales.",
+      "outline": [
+        "What a Meta Ads Agency Really Costs in 2026: Retainers, Setup Fees & Ad Spend",
+        "Best DIY AI Tools for Running Meta Campaigns (Creative, Copy & Bidding)",
+        "Performance Data: Agency vs AI-Assisted Self-Serve for SMB Accounts",
+        "When to Hire an Agency vs Go DIY: Decision Framework by Budget & Team Size",
+        "The Hybrid Model: AI Tools + Fractional Agency Support for Maximum ROI"
+      ]
+    },
+    {
+      "title": "Mejores BSP de WhatsApp para LATAM en 2026: Comparativa Completa para PYMEs",
+      "slug": "mejores-bsp-de-whatsapp-para-latam-en-2026-comparativa-compl",
+      "lang": "es",
+      "priority": "alta",
+      "primaryKeyword": "best whatsapp bsp latam",
+      "intent": "commercial investigation",
+      "rationale": "37 impresiones a pos 6.7 en un nicho con casi nula competencia en español; Fast Strat tiene ventaja nativa de LATAM para posicionarse como referencia de selección de BSP para PYMEs mexicanas, colombianas y argentinas.",
+      "outline": [
+        "Qué es un BSP de WhatsApp y por qué la elección correcta define tu ROI",
+        "Comparativa de los 7 principales BSP en LATAM: Precios, funciones y uptime",
+        "Cuáles tienen mejor soporte en español y onboarding para PYMEs",
+        "Integraciones con CRM, e-commerce y herramientas de automatización de marketing",
+        "Cómo elegir tu BSP según país, volumen de mensajes y caso de uso"
+      ]
+    },
+    {
+      "title": "WhatsApp Business Platform: Precios y Opciones para Empresas en México 2026",
+      "slug": "whatsapp-business-platform-precios-y-opciones-para-empresas-",
+      "lang": "es",
+      "priority": "alta",
+      "primaryKeyword": "twilio whatsapp pricing mexico 2026",
+      "intent": "informacional / transaccional",
+      "rationale": "Dos queries de pricing suman 58 impresiones (pos 10.3 y 9.3); el contenido de precios específico para México es casi inexistente en español y atrae a PYMEs en fase de decisión de compra activa.",
+      "outline": [
+        "Cómo funciona la estructura de precios de WhatsApp Business Platform en 2026",
+        "Twilio vs 360dialog vs Meta Direct API: comparativa de costos para México",
+        "Conversaciones gratuitas vs de pago: qué categoría aplica a cada flujo",
+        "Casos de uso reales para PYMEs mexicanas: ventas, soporte y notificaciones",
+        "Cómo activar y escalar WhatsApp API sin sobrepasar tu presupuesto mensual"
+      ]
+    },
+    {
+      "title": "Guía SEO 2026 para PYMEs: Datos Estructurados, Búsqueda Local e IA",
+      "slug": "guia-seo-2026-para-pymes-datos-estructurados-busqueda-local-",
+      "lang": "es",
+      "priority": "media",
+      "primaryKeyword": "small business seo guide 2026",
+      "intent": "informacional / educativo",
+      "rationale": "Dos queries relacionadas suman 60 impresiones (pos 8.4 y 8.5); combinar datos estructurados + SEO local + IA en español crea un recurso único que no existe en el mercado LATAM y cubre múltiples long-tails de una sola vez.",
+      "outline": [
+        "Los cambios de Google que más afectan a las PYMEs en 2026 (AI Overviews, SGE local)",
+        "Datos estructurados esenciales: LocalBusiness, FAQ, Product y Review Schema",
+        "Cómo aparecer en AI Overviews y respuestas de IA con contenido bien estructurado",
+        "SEO local avanzado: Google Business Profile, señales de proximidad y reseñas",
+        "Herramientas gratuitas y con IA para auditar y escalar tu SEO sin agencia"
+      ]
+    }
+  ]
+}
