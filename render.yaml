@@ -10,7 +10,7 @@ services:
     region: oregon
     buildCommand: npm install && npm run build
     startCommand: npm run start
-    healthCheckPath: /
+    healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
         value: 22
