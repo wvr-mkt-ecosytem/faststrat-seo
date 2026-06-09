@@ -26,29 +26,51 @@ FORMATO DE SALIDA: devuelve ÚNICAMENTE el cuerpo del artículo en Markdown. Sin
 // POST /api/blog/generate { keyword, title?, lang?, category? }
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => ({}));
-  const keyword: string = body.keyword;
-  if (!keyword) {
-    return NextResponse.json({ error: "Falta 'keyword'" }, { status: 400 });
+  // Modo A: keyword (+ title opcional). Modo B: topic libre (el agente elige título).
+  const keyword: string | undefined = body.keyword;
+  const topic: string | undefined = body.topic;
+  if (!keyword && !topic) {
+    return NextResponse.json({ error: "Falta 'keyword' o 'topic'" }, { status: 400 });
   }
   const lang: string = body.lang ?? "en";
   const category: string = body.category ?? "SEO";
-  const title: string =
-    body.title ??
-    (lang === "es"
-      ? `Guía 2026: ${keyword}`
-      : `${keyword}: The 2026 Guide`);
 
   try {
-    const markdown = await runClaude({
-      model: "sonnet",
-      system: WRITER_SYSTEM,
-      prompt: `Escribe el artículo completo siguiendo TODOS los estándares de calidad.
+    let title: string;
+    let markdown: string;
+
+    if (topic && !body.title) {
+      // El agente elige un título SEO atractivo a partir del tema y escribe.
+      const raw = await runClaude({
+        model: "sonnet",
+        system: WRITER_SYSTEM,
+        prompt: `Tema/ángulo para el artículo (puede ser un insight de competidor o tendencia): "${topic}"
+Idioma: ${lang === "es" ? "español (natural de LATAM)" : "inglés"}.
+Audiencia: dueños de PYMEs y marketers.
+
+Primero elige un TÍTULO SEO específico y atractivo para este tema (no genérico).
+Tu respuesta debe empezar EXACTAMENTE con la línea:
+TITLE: <el título>
+Luego una línea en blanco y después el artículo completo en Markdown (1.500–2.200 palabras, siguiendo todos los estándares de calidad).`,
+      });
+      const m = raw.match(/^\s*TITLE:\s*(.+?)\s*\n/i);
+      title = m ? m[1].trim().replace(/^["']|["']$/g, "") : topic.slice(0, 70);
+      markdown = raw.replace(/^\s*TITLE:\s*.+?\n/i, "").trim();
+    } else {
+      title =
+        body.title ??
+        (lang === "es" ? `Guía 2026: ${keyword}` : `${keyword}: The 2026 Guide`);
+      markdown = await runClaude({
+        model: "sonnet",
+        system: WRITER_SYSTEM,
+        prompt: `Escribe el artículo completo siguiendo TODOS los estándares de calidad.
 Título del artículo (es el H1, no lo repitas): "${title}"
-Keyword principal a posicionar: "${keyword}"
+Keyword principal a posicionar: "${keyword ?? title}"
 Idioma: ${lang === "es" ? "español (natural de LATAM, no traducido)" : "inglés"}.
 Audiencia: dueños de PYMEs y marketers que buscan resultados prácticos.
 Apunta a 1.500–2.200 palabras de contenido sustancioso y específico.`,
-    });
+      });
+    }
 
     const excerpt =
       markdown
@@ -62,7 +84,7 @@ Apunta a 1.500–2.200 palabras de contenido sustancioso y específico.`,
       title,
       slug: slugify(title),
       excerpt,
-      keywords: [keyword],
+      keywords: [keyword ?? title],
       lang,
       category,
       status: "draft", // los generados desde reportes entran como borrador

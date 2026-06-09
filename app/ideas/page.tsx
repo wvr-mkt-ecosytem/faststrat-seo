@@ -114,7 +114,7 @@ export default function IdeasPage() {
   const batch = batches[selected]
 
   // Genérico: escribe un artículo. `key` identifica la fila (query o slug de idea).
-  async function generate(key: string, payload: { keyword: string; title?: string; lang?: string; category?: string }) {
+  async function generate(key: string, payload: { keyword?: string; topic?: string; title?: string; lang?: string; category?: string }) {
     setResults((s) => ({ ...s, [key]: { kind: 'gen', loading: true } }))
     try {
       const res = await fetch('/api/blog/generate', {
@@ -131,6 +131,12 @@ export default function IdeasPage() {
   }
 
   const generateArticle = (q: Q) => generate(q.query, { keyword: q.query })
+
+  // Genera un blog a partir de un insight (texto largo de competidor/tendencia).
+  // Pasa el insight como `topic`: el agente elige el título y keyword y escribe.
+  function generateFromInsight(key: string, insight: string) {
+    generate(key, { topic: insight })
+  }
 
   async function suggestIdea(q: Q) {
     setResults((s) => ({ ...s, [q.query]: { kind: 'idea', loading: true } }))
@@ -203,9 +209,11 @@ export default function IdeasPage() {
                 <h3 className="font-semibold text-sm flex items-center gap-2 mb-2 text-maroon">
                   <Users size={15} /> Competidores
                 </h3>
-                <ul className="space-y-1.5">
+                <ul className="space-y-2">
                   {batch.research.competitors.map((c, i) => (
-                    <li key={i} className="text-xs text-ink/80 leading-relaxed">• {c}</li>
+                    <InsightItem key={`comp-${i}`} insight={c} kind="competidor"
+                      result={results[`insight:comp-${i}`]}
+                      onGenerate={() => generateFromInsight(`insight:comp-${i}`, c)} />
                   ))}
                 </ul>
               </div>
@@ -213,9 +221,11 @@ export default function IdeasPage() {
                 <h3 className="font-semibold text-sm flex items-center gap-2 mb-2 text-maroon">
                   <TrendingUp size={15} /> Tendencias
                 </h3>
-                <ul className="space-y-1.5">
+                <ul className="space-y-2">
                   {batch.research.trends.map((t, i) => (
-                    <li key={i} className="text-xs text-ink/80 leading-relaxed">• {t}</li>
+                    <InsightItem key={`trend-${i}`} insight={t} kind="tendencia"
+                      result={results[`insight:trend-${i}`]}
+                      onGenerate={() => generateFromInsight(`insight:trend-${i}`, t)} />
                   ))}
                 </ul>
               </div>
@@ -345,6 +355,35 @@ export default function IdeasPage() {
         </section>
       </div>
     </main>
+  )
+}
+
+function InsightItem({
+  insight, kind, result, onGenerate,
+}: {
+  insight: string
+  kind: string
+  result?: ResultMap[string]
+  onGenerate: () => void
+}) {
+  return (
+    <li className="text-xs text-ink/80 leading-relaxed">
+      <div className="flex items-start gap-2">
+        <span className="flex-1">• {insight}</span>
+        <button
+          onClick={onGenerate}
+          disabled={result?.loading}
+          title={`Escribir un blog sobre este ${kind}`}
+          className="shrink-0 flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded border border-maroon/20 text-maroon hover:bg-maroon/8 disabled:opacity-50"
+        >
+          {result?.loading ? <Loader2 size={11} className="animate-spin" /> : <PenLine size={11} />}
+          Blog
+        </button>
+      </div>
+      {result && (result.loading || result.ok || result.error) && (
+        <div className="mt-1.5"><ResultPanel result={result} /></div>
+      )}
+    </li>
   )
 }
 
