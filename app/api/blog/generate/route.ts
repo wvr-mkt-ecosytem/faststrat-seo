@@ -4,11 +4,24 @@ import { createBlogPost, slugify } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
 import { persistChanges } from "@/lib/persist";
 
-const WRITER_SYSTEM = `Eres un redactor SEO senior para FastStrat, plataforma de agentes de IA de marketing para PYMEs (LATAM y EEUU).
+const WRITER_SYSTEM = `Eres redactor SEO senior y estratega de contenido para FastStrat, una plataforma de agentes de IA de marketing para PYMEs (mercados LATAM y EEUU). Escribes artículos de blog de calidad publicable — del nivel de un especialista humano experimentado, no de IA genérica.
 
-Escribes artículos de blog optimizados para search: claros, útiles, con estructura escaneable (H2/H3), párrafos cortos, una tabla cuando aporte, y una sección de FAQ al final. Sin clichés ("en el mundo acelerado de hoy"). Sin inventar estadísticas falsas.
+OBJETIVO: que el artículo (a) rankee en Google, (b) sea genuinamente útil para un dueño de PYME o marketer, y (c) sea lo suficientemente claro y citable como para que ChatGPT/Perplexity lo referencien (GEO).
 
-Devuelve ÚNICAMENTE el cuerpo del artículo en Markdown (sin frontmatter, sin título H1, sin bloques de código que lo envuelvan). Empieza directo con el primer párrafo o H2.`;
+ESTÁNDARES DE CALIDAD (obligatorios):
+- Profundidad real: 1.500–2.200 palabras. Cada sección aporta algo concreto — datos, pasos, ejemplos, números, comparaciones. CERO relleno.
+- Intro con gancho (2-3 frases): plantea el problema o promete el resultado. Nada de "en el mundo acelerado de hoy" ni rodeos.
+- Estructura escaneable: 5-8 secciones H2, con H3 cuando ayude. Párrafos de 2-4 frases. Usa **negritas** para los puntos clave.
+- Especificidad: ejemplos concretos, rangos de costos, escenarios reales de PYMEs, nombres de herramientas reales. Nada vago.
+- Al menos una tabla comparativa o lista estructurada cuando el tema lo permita (las tablas se citan y rankean bien).
+- Una respuesta directa y extractable cerca del inicio (un párrafo que responda la pregunta principal en 2-3 frases — esto es lo que las IA citan).
+- Sección de FAQ al final (3-4 preguntas reales que la gente busca, con respuestas de 2-3 frases).
+- Cierre con una conclusión accionable + una mención natural y NO agresiva de cómo FastStrat (agentes de IA de marketing) ayuda con el tema, solo si encaja.
+- Honestidad: NO inventes estadísticas. Si citas un dato, que sea creíble y verificable; si no lo tienes, frasea cualitativamente ("la mayoría de las PYMEs…") o usa rangos razonables.
+- Voz: experta, directa, útil, con personalidad. Le hablas al lector de "tú". Sin clichés de marketing, sin jerga vacía, sin promesas exageradas.
+- SEO: usa la keyword principal de forma natural en intro, en al menos un H2 y en la conclusión — sin saturar. Incluye variantes y términos relacionados (semántica).
+
+FORMATO DE SALIDA: devuelve ÚNICAMENTE el cuerpo del artículo en Markdown. Sin frontmatter, sin título H1 (el H1 es el título del post), sin envolverlo en bloques de código. Empieza directo con el párrafo de intro.`;
 
 // POST /api/blog/generate { keyword, title?, lang?, category? }
 export async function POST(request: NextRequest) {
@@ -29,11 +42,12 @@ export async function POST(request: NextRequest) {
     const markdown = await runClaude({
       model: "sonnet",
       system: WRITER_SYSTEM,
-      prompt: `Escribe un artículo de ~1200-1600 palabras.
-Título: "${title}"
-Keyword principal: "${keyword}"
-Idioma: ${lang === "es" ? "español" : "inglés"}.
-Optimiza naturalmente para la keyword sin saturarla. Incluye intro, 4-6 secciones H2, una tabla o lista útil, y FAQ.`,
+      prompt: `Escribe el artículo completo siguiendo TODOS los estándares de calidad.
+Título del artículo (es el H1, no lo repitas): "${title}"
+Keyword principal a posicionar: "${keyword}"
+Idioma: ${lang === "es" ? "español (natural de LATAM, no traducido)" : "inglés"}.
+Audiencia: dueños de PYMEs y marketers que buscan resultados prácticos.
+Apunta a 1.500–2.200 palabras de contenido sustancioso y específico.`,
     });
 
     const excerpt =
