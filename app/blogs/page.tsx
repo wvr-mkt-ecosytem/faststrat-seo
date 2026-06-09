@@ -14,11 +14,13 @@ type Post = {
   status: string
   wordCount: number
   coverUrl: string | null
+  wpStatus: string | null
+  wpLink: string | null
 }
 
 type PublishState = {
   loading: boolean
-  result?: { ok: boolean; link?: string; action?: string; error?: string }
+  result?: { ok: boolean; link?: string; action?: string; error?: string; status?: string; live?: boolean }
 }
 
 type EditState = {
@@ -161,12 +163,26 @@ export default function BlogsPage() {
                       className="w-full rounded-md border border-black/10 dark:border-white/10 mb-3"
                     />
                   )}
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-medium px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
+                  <div className="flex items-center flex-wrap gap-2 mb-1">
+                    <span className="text-xs font-medium px-2 py-0.5 rounded bg-maroon/10 text-maroon">
                       {post.category}
                     </span>
-                    <span className="text-xs uppercase text-neutral-400">{post.lang}</span>
-                    <span className="text-xs text-neutral-400">· {post.wordCount} palabras</span>
+                    <span className="text-xs uppercase text-sand">{post.lang}</span>
+                    <span className="text-xs text-sand">· {post.wordCount} palabras</span>
+                    {post.wpStatus === 'publish' ? (
+                      <a href={post.wpLink ?? '#'} target="_blank" rel="noopener noreferrer"
+                        className="text-xs font-semibold px-2 py-0.5 rounded-full bg-green-100 text-green-700 hover:bg-green-200">
+                        ● En vivo
+                      </a>
+                    ) : post.wpStatus === 'draft' ? (
+                      <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-700">
+                        ● Borrador en WP
+                      </span>
+                    ) : (
+                      <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-neutral-200 text-neutral-600">
+                        ○ No publicado
+                      </span>
+                    )}
                   </div>
                   <h2 className="font-semibold">{post.title}</h2>
                   <p className="text-sm text-neutral-500 mt-1">{post.excerpt}</p>
@@ -200,16 +216,25 @@ export default function BlogsPage() {
                   </button>
 
                   {state?.result?.ok && (
-                    <a
-                      href={state.result.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 justify-end text-xs text-green-600 mt-2"
-                    >
-                      <Check size={12} />
-                      {state.result.action === 'updated' ? 'Actualizado' : 'Publicado'}
-                      <ExternalLink size={11} />
-                    </a>
+                    <div className="mt-2 text-right">
+                      {state.result.live ? (
+                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-green-700">
+                          <Check size={12} /> En vivo en faststrat.ai
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-yellow-700">
+                          <AlertCircle size={12} /> Guardado como borrador
+                        </span>
+                      )}
+                      <a
+                        href={state.result.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 justify-end text-xs text-maroon hover:underline mt-0.5"
+                      >
+                        Ver en el sitio <ExternalLink size={11} />
+                      </a>
+                    </div>
                   )}
                   {state?.result && !state.result.ok && (
                     <p className="flex items-start gap-1 justify-end text-xs text-red-500 mt-2 text-right">

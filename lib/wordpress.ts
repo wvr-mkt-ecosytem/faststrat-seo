@@ -97,6 +97,40 @@ async function uploadMedia(
   return body.id as number;
 }
 
+/**
+ * Consulta el estado en WordPress de una lista de slugs.
+ * Devuelve un mapa slug → { status, link } para los que existen en WP.
+ * Si no hay credenciales, devuelve {} (no rompe).
+ */
+export async function getPublishStatuses(
+  slugs: string[]
+): Promise<Record<string, { status: string; link: string }>> {
+  let cfg: WpConfig;
+  try {
+    cfg = getConfig();
+  } catch {
+    return {};
+  }
+  const out: Record<string, { status: string; link: string }> = {};
+  try {
+    // Trae los posts (publicados y borradores) y mapea por slug.
+    const list = await wpFetch(
+      cfg,
+      `posts?per_page=100&status=any&_fields=slug,status,link`
+    );
+    if (Array.isArray(list)) {
+      for (const p of list) {
+        if (p.slug && slugs.includes(p.slug)) {
+          out[p.slug] = { status: p.status, link: p.link };
+        }
+      }
+    }
+  } catch {
+    /* sin conexión WP → devolvemos lo que haya */
+  }
+  return out;
+}
+
 export interface PublishInput {
   title: string;
   slug: string;
@@ -112,6 +146,10 @@ export interface PublishResult {
   id: number;
   link: string;
   action: "created" | "updated";
+  /** Estado REAL devuelto por WordPress: "publish" = en vivo, "draft" = borrador. */
+  status: string;
+  /** true solo si WordPress confirma que está publicado en vivo. */
+  live: boolean;
 }
 
 /** Crea o actualiza un post en WordPress (idempotente por slug). */
@@ -140,17 +178,26 @@ export async function publishPost(input: PublishInput): Promise<PublishResult> {
   };
   if (featuredMedia) payload.featured_media = featuredMedia;
 
-  if (existing) {
-    const updated = await wpFetch(cfg, `posts/${existing.id}`, {
-      method: "POST",
-      body: JSON.stringify(payload),
-    });
-    return { id: updated.id, link: updated.link, action: "updated" };
+  const saved = existing
+    ? await wpFetch(cfg, `posts/${existing.id}`, { method: "POST", body: JSON.stringify(payload) })
+    : await wpFetch(cfg, "posts", { method: "POST", body: JSON.stringify(payload) });
+
+  // Releemos el post para confirmar el estado REAL en WordPress (no asumimos).
+  let confirmedStatus = saved.status as string;
+  let confirmedLink = saved.link as string;
+  try {
+    const check = await wpFetch(cfg, `posts/${saved.id}?status=any&_fields=status,link`);
+    confirmedStatus = check.status ?? confirmedStatus;
+    confirmedLink = check.link ?? confirmedLink;
+  } catch {
+    /* si falla la verificación, usamos lo que devolvió el guardado */
   }
 
-  const created = await wpFetch(cfg, "posts", {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
-  return { id: created.id, link: created.link, action: "created" };
+  return {
+    id: saved.id,
+    link: confirmedLink,
+    action: existing ? "updated" : "created",
+    status: confirmedStatus,
+    live: confirmedStatus === "publish",
+  };
 }
