@@ -7,6 +7,23 @@ import { generateCover } from "@/lib/cover";
 
 const EYEBROW: Record<string, string> = { en: "2026 Guide", es: "Guía 2026" };
 
+/**
+ * Mapea la categoría del frontmatter a una categoría REAL de faststrat.ai
+ * (las que muestra la página de Resources). Si no, los posts caen en
+ * categorías nuevas que esa página no lista.
+ *   - Español / LATAM  → "Recursos LATAM"
+ *   - Temas de IA      → "AI (Artificial Intelligence)"
+ *   - El resto         → "Marketing"
+ */
+function siteCategory(post: BlogPost): string {
+  if (post.lang === "es") return "Recursos LATAM";
+  const c = (post.category || "").toLowerCase();
+  if (/\bai\b|a\.i\.|inteligencia|gpt|llm|agent/.test(c)) {
+    return "AI (Artificial Intelligence)";
+  }
+  return "Marketing";
+}
+
 /** Devuelve el PNG de la portada: usa el de public/covers o lo genera al vuelo. */
 async function getCover(post: BlogPost): Promise<Buffer> {
   const file = path.join(process.cwd(), "public", "covers", `${post.slug}.png`);
@@ -47,7 +64,7 @@ export async function POST(request: NextRequest) {
         slug: post.slug,
         contentHtml: renderHtml(post),
         excerpt: post.excerpt,
-        category: post.category,
+        category: siteCategory(post),
         status: forceLive
           ? "publish"
           : forceDraft
