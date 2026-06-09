@@ -101,6 +101,12 @@ export default function BlogsPage() {
       const data = await res.json()
       const result = data.results?.[0] ?? { ok: false, error: data.error ?? 'Error desconocido' }
       setStates((s) => ({ ...s, [slug]: { loading: false, result } }))
+      // Actualiza el badge de estado al instante (sin necesidad de refresh).
+      if (result.ok && result.status) {
+        setPosts((ps) => ps.map((p) =>
+          p.slug === slug ? { ...p, wpStatus: result.status, wpLink: result.link ?? p.wpLink } : p
+        ))
+      }
     } catch (e) {
       setStates((s) => ({
         ...s,
@@ -205,7 +211,7 @@ export default function BlogsPage() {
                     className="w-full flex items-center justify-center gap-2 text-sm font-medium px-3 py-2 rounded-md bg-maroon text-cream hover:bg-maroon-hover disabled:opacity-50 transition-colors"
                   >
                     {state?.loading ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
-                    Publicar en vivo
+                    {post.wpStatus === 'publish' ? 'Actualizar (en vivo)' : 'Publicar en vivo'}
                   </button>
                   <button
                     onClick={() => publish(post.slug, false)}
