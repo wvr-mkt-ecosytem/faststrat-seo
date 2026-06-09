@@ -47,8 +47,23 @@ Reglas:
 - trends: 4-5 tendencias 2026 relevantes para PYMEs (GEO/AEO, agentes IA, social commerce, etc.).`;
 
 export async function POST(request: NextRequest) {
+  // Autoriza si: (a) trae el WEEKLY_SECRET (cron de GitHub Actions), o
+  // (b) viene con el login del dashboard (botón "Refrescar" desde el navegador).
   const secret = process.env.WEEKLY_SECRET;
-  if (secret && request.headers.get("x-weekly-secret") !== secret) {
+  const dashUser = process.env.DASHBOARD_USER;
+  const dashPass = process.env.DASHBOARD_PASSWORD;
+
+  const hasSecret = secret && request.headers.get("x-weekly-secret") === secret;
+
+  let hasDashAuth = false;
+  const authz = request.headers.get("authorization");
+  if (dashUser && dashPass && authz?.startsWith("Basic ")) {
+    const [u, p] = Buffer.from(authz.slice(6), "base64").toString().split(":");
+    hasDashAuth = u === dashUser && p === dashPass;
+  }
+
+  // Si hay credenciales configuradas, exige al menos una vía válida.
+  if ((secret || (dashUser && dashPass)) && !hasSecret && !hasDashAuth) {
     return NextResponse.json({ error: "no autorizado" }, { status: 401 });
   }
 
@@ -80,7 +95,10 @@ export async function POST(request: NextRequest) {
     const raw = await runClaude({
       model: "sonnet",
       system: RESEARCHER_SYSTEM,
-      prompt: `Hoy: ${today}.\n\nSeñales de GSC:\n${signalSummary}\n\nDevuelve la tanda semanal (JSON estricto).`,
+      // WebSearch activo → el agente busca en la web de verdad, así competidores
+      // y tendencias reflejan el estado actual, no la memoria del modelo.
+      allowedTools: ["WebSearch", "WebFetch"],
+      prompt: `Hoy: ${today}.\n\nSeñales de GSC:\n${signalSummary}\n\nINSTRUCCIONES DE INVESTIGACIÓN:\n1. Busca en la web qué están publicando AHORA los competidores de FastStrat (plataformas de IA de marketing para PYMEs: Jasper, HubSpot, Copy.ai, Enrich Labs, etc.) — temas, títulos recientes, ángulos.\n2. Busca tendencias actuales 2026 en marketing/IA/PYMEs (GEO/AEO, agentes de IA, social commerce, etc.).\n3. Combina esos hallazgos REALES con las señales de GSC de arriba.\nDevuelve la tanda semanal (JSON estricto). Los arrays competitors y trends deben reflejar lo que encontraste en la web, citando lo concreto.`,
     });
     const match = raw.match(/\{[\s\S]*\}/);
     if (!match) throw new Error("El agente no devolvió JSON válido");
@@ -119,10 +137,11 @@ export async function POST(request: NextRequest) {
     fs.writeFileSync(outPath, JSON.stringify(batch, null, 2));
     await persistChanges(`weekly batch: ${today}`, [outPath]);
 
-    // 4) Email de aviso
+    // 4) Email de aviso (se omite con ?noEmail=1, ej. el botón "Refrescar")
+    const noEmail = new URL(request.url).searchParams.get("noEmail") === "1";
     const to = process.env.REPORT_EMAIL_TO;
     let emailResult: { ok: boolean; error?: string } = { ok: false };
-    if (to) {
+    if (to && !noEmail) {
       const baseUrl = process.env.APP_BASE_URL ?? "http://localhost:3100";
       const html = `<div style="font-family:Arial,Helvetica,sans-serif;color:#201b1b;max-width:560px;margin:auto;padding:24px;background:#f7f2e9">
         <div style="border-top:6px solid #5a1a1a;padding-top:16px">

@@ -88,13 +88,13 @@ export default function BlogsPage() {
     }
   }
 
-  async function publish(slug: string) {
+  async function publish(slug: string, live: boolean) {
     setStates((s) => ({ ...s, [slug]: { loading: true } }))
     try {
       const res = await fetch('/api/wordpress/publish', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug }),
+        body: JSON.stringify({ slug, live, draft: !live }),
       })
       const data = await res.json()
       const result = data.results?.[0] ?? { ok: false, error: data.error ?? 'Error desconocido' }
@@ -114,7 +114,7 @@ export default function BlogsPage() {
       const res = await fetch('/api/wordpress/publish', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ all: true }),
+        body: JSON.stringify({ all: true, live: true }),
       })
       const data = await res.json()
       const next: Record<string, PublishState> = {}
@@ -182,18 +182,21 @@ export default function BlogsPage() {
                   </div>
                 </div>
 
-                <div className="shrink-0 w-40 text-right">
+                <div className="shrink-0 w-44 text-right space-y-2">
                   <button
-                    onClick={() => publish(post.slug)}
+                    onClick={() => publish(post.slug, true)}
                     disabled={state?.loading}
-                    className="flex items-center gap-2 text-sm font-medium px-3 py-2 rounded border border-black/10 hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-800 disabled:opacity-50 transition-colors ml-auto"
+                    className="w-full flex items-center justify-center gap-2 text-sm font-medium px-3 py-2 rounded-md bg-maroon text-cream hover:bg-maroon-hover disabled:opacity-50 transition-colors"
                   >
-                    {state?.loading ? (
-                      <Loader2 size={14} className="animate-spin" />
-                    ) : (
-                      <Send size={14} />
-                    )}
-                    {post.status === 'publish' ? 'Publicar' : 'Crear borrador'}
+                    {state?.loading ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
+                    Publicar en vivo
+                  </button>
+                  <button
+                    onClick={() => publish(post.slug, false)}
+                    disabled={state?.loading}
+                    className="w-full flex items-center justify-center gap-2 text-xs font-medium px-3 py-1.5 rounded-md border border-maroon/20 text-maroon hover:bg-maroon/8 disabled:opacity-50 transition-colors"
+                  >
+                    Guardar como borrador
                   </button>
 
                   {state?.result?.ok && (
@@ -217,7 +220,7 @@ export default function BlogsPage() {
 
                   <button
                     onClick={() => toggleEdit(post.slug)}
-                    className="flex items-center gap-2 text-sm font-medium px-3 py-2 rounded text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800 transition-colors ml-auto mt-2"
+                    className="w-full flex items-center justify-center gap-2 text-xs font-medium px-3 py-1.5 rounded-md text-sand hover:bg-maroon/8 hover:text-maroon transition-colors"
                   >
                     <Sparkles size={14} />
                     Editar con IA

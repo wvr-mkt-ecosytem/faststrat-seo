@@ -26,6 +26,10 @@ export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => ({}));
 
   const targets = body.all ? getBlogPosts() : [getBlogPost(body.slug)].filter(Boolean);
+  // Si live=true, publica EN VIVO sin importar el status del frontmatter.
+  // Si draft=true, fuerza borrador. Por defecto respeta el frontmatter.
+  const forceLive = body.live === true;
+  const forceDraft = body.draft === true;
 
   if (targets.length === 0) {
     return NextResponse.json(
@@ -44,7 +48,13 @@ export async function POST(request: NextRequest) {
         contentHtml: renderHtml(post),
         excerpt: post.excerpt,
         category: post.category,
-        status: post.status === "publish" ? "publish" : "draft",
+        status: forceLive
+          ? "publish"
+          : forceDraft
+            ? "draft"
+            : post.status === "publish"
+              ? "publish"
+              : "draft",
         coverImage: await getCover(post),
       });
       results.push({ slug: post.slug, ok: true, ...result });

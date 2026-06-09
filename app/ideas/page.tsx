@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState } from 'react'
 import Link from 'next/link'
 import {
   TrendingUp, Users, Calendar, Loader2, PenLine, Lightbulb,
-  Check, AlertCircle, ExternalLink,
+  Check, AlertCircle, ExternalLink, RefreshCw,
 } from 'lucide-react'
 import { BrandHeader } from '@/components/BrandHeader'
 
@@ -88,23 +88,49 @@ export default function IdeasPage() {
       .finally(() => setOppLoading(false))
   }, [])
 
+  const [refreshing, setRefreshing] = useState(false)
+
+  async function refreshResearch() {
+    if (!confirm('El agente va a buscar en la web y regenerar la investigación e ideas de esta semana. Toma 1-2 minutos. ¿Continuar?')) return
+    setRefreshing(true)
+    try {
+      const res = await fetch('/api/weekly?noEmail=1', { method: 'POST' })
+      const d = await res.json()
+      if (d.ok) {
+        // recarga las tandas para mostrar la investigación fresca
+        const fresh = await fetch('/api/ideas').then((r) => r.json())
+        setBatches(fresh.batches ?? [])
+        setSelected(0)
+      } else {
+        alert('Error al refrescar: ' + (d.error ?? 'desconocido'))
+      }
+    } catch (e) {
+      alert('Error: ' + String(e))
+    } finally {
+      setRefreshing(false)
+    }
+  }
+
   const batch = batches[selected]
 
-  async function generateArticle(q: Q) {
-    setResults((s) => ({ ...s, [q.query]: { kind: 'gen', loading: true } }))
+  // Genérico: escribe un artículo. `key` identifica la fila (query o slug de idea).
+  async function generate(key: string, payload: { keyword: string; title?: string; lang?: string; category?: string }) {
+    setResults((s) => ({ ...s, [key]: { kind: 'gen', loading: true } }))
     try {
       const res = await fetch('/api/blog/generate', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ keyword: q.query }),
+        body: JSON.stringify(payload),
       })
       const d = await res.json()
-      setResults((s) => ({ ...s, [q.query]: d.ok
+      setResults((s) => ({ ...s, [key]: d.ok
         ? { kind: 'gen', loading: false, ok: true, gen: { title: d.title, slug: d.slug, preview: d.preview, wordCount: d.wordCount } }
         : { kind: 'gen', loading: false, ok: false, error: d.error } }))
     } catch (e) {
-      setResults((s) => ({ ...s, [q.query]: { kind: 'gen', loading: false, ok: false, error: String(e) } }))
+      setResults((s) => ({ ...s, [key]: { kind: 'gen', loading: false, ok: false, error: String(e) } }))
     }
   }
+
+  const generateArticle = (q: Q) => generate(q.query, { keyword: q.query })
 
   async function suggestIdea(q: Q) {
     setResults((s) => ({ ...s, [q.query]: { kind: 'idea', loading: true } }))
@@ -144,6 +170,15 @@ export default function IdeasPage() {
             ))}
           </select>
         )}
+        <button
+          onClick={refreshResearch}
+          disabled={refreshing}
+          title="El agente busca en la web y regenera competidores, tendencias e ideas"
+          className="flex items-center gap-2 text-sm font-medium px-3 py-1.5 rounded-md bg-maroon text-cream hover:bg-maroon-hover disabled:opacity-50"
+        >
+          {refreshing ? <Loader2 size={15} className="animate-spin" /> : <RefreshCw size={15} />}
+          {refreshing ? 'Investigando…' : 'Refrescar investigación'}
+        </button>
       </BrandHeader>
 
       <div className="p-6 max-w-4xl space-y-8">
@@ -190,30 +225,49 @@ export default function IdeasPage() {
               <h3 className="font-semibold text-sm flex items-center gap-2 text-ink">
                 Artículos sugeridos esta semana
               </h3>
-              {batch.ideas.map((idea, i) => (
+              {batch.ideas.map((idea, i) => {
+                const r = results[idea.slug]
+                return (
                 <div key={idea.slug} className="border border-maroon/15 bg-white/60 rounded-lg p-4">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs text-sand font-mono">#{i + 1}</span>
-                    <span className={`text-xs font-medium px-2 py-0.5 rounded ${PRIORITY_STYLES[idea.priority]}`}>{idea.priority}</span>
-                    <span className="text-xs uppercase text-sand">{idea.lang}</span>
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xs text-sand font-mono">#{i + 1}</span>
+                        <span className={`text-xs font-medium px-2 py-0.5 rounded ${PRIORITY_STYLES[idea.priority]}`}>{idea.priority}</span>
+                        <span className="text-xs uppercase text-sand">{idea.lang}</span>
+                      </div>
+                      <h4 className="font-semibold text-ink">{idea.title}</h4>
+                      <p className="text-xs text-sand mt-1">
+                        <b>Keyword:</b> {idea.primaryKeyword} · <b>Intención:</b> {idea.intent}
+                      </p>
+                      <p className="text-sm text-ink/80 mt-2"><b>Por qué:</b> {idea.rationale}</p>
+                      {idea.outline.length > 0 && (
+                        <details className="mt-2">
+                          <summary className="text-xs text-sand cursor-pointer hover:text-maroon">Ver outline</summary>
+                          <ol className="list-decimal list-inside mt-1.5 space-y-0.5">
+                            {idea.outline.map((o, j) => (
+                              <li key={j} className="text-xs text-ink/80">{o}</li>
+                            ))}
+                          </ol>
+                        </details>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => generate(idea.slug, { keyword: idea.primaryKeyword, title: idea.title, lang: idea.lang })}
+                      disabled={r?.loading}
+                      title="Escribir el artículo con el agente SEO"
+                      className="shrink-0 flex items-center gap-1.5 text-sm font-medium px-3 py-1.5 rounded-md bg-maroon text-cream hover:bg-maroon-hover disabled:opacity-50"
+                    >
+                      {r?.loading ? <Loader2 size={14} className="animate-spin" /> : <PenLine size={14} />}
+                      {r?.loading ? 'Escribiendo…' : 'Escribir'}
+                    </button>
                   </div>
-                  <h4 className="font-semibold text-ink">{idea.title}</h4>
-                  <p className="text-xs text-sand mt-1">
-                    <b>Keyword:</b> {idea.primaryKeyword} · <b>Intención:</b> {idea.intent}
-                  </p>
-                  <p className="text-sm text-ink/80 mt-2"><b>Por qué:</b> {idea.rationale}</p>
-                  {idea.outline.length > 0 && (
-                    <details className="mt-2">
-                      <summary className="text-xs text-sand cursor-pointer hover:text-maroon">Ver outline</summary>
-                      <ol className="list-decimal list-inside mt-1.5 space-y-0.5">
-                        {idea.outline.map((o, j) => (
-                          <li key={j} className="text-xs text-ink/80">{o}</li>
-                        ))}
-                      </ol>
-                    </details>
+                  {r && (r.loading || r.ok || r.error) && (
+                    <div className="mt-3"><ResultPanel result={r} /></div>
                   )}
                 </div>
-              ))}
+                )
+              })}
             </div>
           </section>
         )}
