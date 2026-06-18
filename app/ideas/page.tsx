@@ -132,6 +132,26 @@ export default function IdeasPage() {
 
   const generateArticle = (q: Q) => generate(q.query, { keyword: q.query })
 
+  // Escribe TODOS los artículos de la tanda, uno por uno (secuencial).
+  const [writingAll, setWritingAll] = useState(false)
+  const [writeAllProgress, setWriteAllProgress] = useState<{ done: number; total: number } | null>(null)
+
+  async function writeAllBlogs() {
+    if (!batch) return
+    const pending = batch.ideas.filter((i) => !results[i.slug]?.ok)
+    if (pending.length === 0) { alert('Ya escribiste todos los artículos de esta tanda.'); return }
+    if (!confirm(`El agente va a escribir ${pending.length} artículos, uno por uno. Toma varios minutos — no cierres la página. Aparecerán en Blogs como borradores. ¿Continuar?`)) return
+    setWritingAll(true)
+    let done = 0
+    for (const idea of pending) {
+      setWriteAllProgress({ done, total: pending.length })
+      await generate(idea.slug, { keyword: idea.primaryKeyword, title: idea.title, lang: idea.lang })
+      done++
+      setWriteAllProgress({ done, total: pending.length })
+    }
+    setWritingAll(false)
+  }
+
   // Genera un blog a partir de un insight (texto largo de competidor/tendencia).
   // Pasa el insight como `topic`: el agente elige el título y keyword y escribe.
   function generateFromInsight(key: string, insight: string) {
@@ -173,13 +193,24 @@ export default function IdeasPage() {
           </select>
         )}
         <button
-          onClick={refreshResearch}
-          disabled={refreshing}
-          title="El agente busca en la web y regenera competidores, tendencias e ideas"
+          onClick={writeAllBlogs}
+          disabled={writingAll || !batch}
+          title="El agente escribe un artículo por cada idea de la tanda"
           className="flex items-center gap-2 text-sm font-medium px-3 py-1.5 rounded-md bg-maroon text-cream hover:bg-maroon-hover disabled:opacity-50"
         >
+          {writingAll ? <Loader2 size={15} className="animate-spin" /> : <PenLine size={15} />}
+          {writingAll && writeAllProgress
+            ? `Escribiendo ${writeAllProgress.done}/${writeAllProgress.total}…`
+            : 'Escribir todos los blogs'}
+        </button>
+        <button
+          onClick={refreshResearch}
+          disabled={refreshing}
+          title="El agente busca en la web y regenera competidores, tendencias e ideas nuevas"
+          className="flex items-center gap-2 text-sm font-medium px-3 py-1.5 rounded-md border border-maroon/25 text-maroon hover:bg-maroon/8 disabled:opacity-50"
+        >
           {refreshing ? <Loader2 size={15} className="animate-spin" /> : <RefreshCw size={15} />}
-          {refreshing ? 'Investigando…' : 'Refrescar investigación'}
+          {refreshing ? 'Buscando…' : 'Más ideas'}
         </button>
       </BrandHeader>
 

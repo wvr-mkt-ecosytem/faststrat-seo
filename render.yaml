@@ -11,6 +11,13 @@ services:
     buildCommand: npm install && npm run build
     startCommand: npm run start
     healthCheckPath: /api/health
+    # Los commits que solo tocan contenido generado (blogs, ideas, portadas)
+    # NO disparan redeploy — así generar un artículo no reinicia la instancia.
+    buildFilter:
+      ignoredPaths:
+        - "content/**"
+        - "data/**"
+        - "public/covers/**"
     envVars:
       - key: NODE_VERSION
         value: 22
