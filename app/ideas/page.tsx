@@ -7,6 +7,7 @@ import {
   Check, AlertCircle, ExternalLink, RefreshCw,
 } from 'lucide-react'
 import { BrandHeader } from '@/components/BrandHeader'
+import { postJson, wake, ApiError } from '@/lib/api'
 
 type Idea = {
   title: string
@@ -56,6 +57,7 @@ export default function IdeasPage() {
   const [results, setResults] = useState<ResultMap>({})
 
   useEffect(() => {
+    wake() // despierta el free tier de Render para que las acciones no fallen
     fetch('/api/ideas')
       .then((r) => r.json())
       .then((d) => setBatches(d.batches ?? []))
@@ -90,22 +92,24 @@ export default function IdeasPage() {
 
   const [refreshing, setRefreshing] = useState(false)
 
+  const [refreshMsg, setRefreshMsg] = useState<string | null>(null)
+
   async function refreshResearch() {
     if (!confirm('El agente va a buscar en la web y regenerar la investigación e ideas de esta semana. Toma 1-2 minutos. ¿Continuar?')) return
     setRefreshing(true)
+    setRefreshMsg(null)
     try {
-      const res = await fetch('/api/weekly?noEmail=1', { method: 'POST' })
-      const d = await res.json()
+      const d = await postJson<{ ok?: boolean; error?: string }>('/api/weekly?noEmail=1', {})
       if (d.ok) {
-        // recarga las tandas para mostrar la investigación fresca
         const fresh = await fetch('/api/ideas').then((r) => r.json())
         setBatches(fresh.batches ?? [])
         setSelected(0)
+        setRefreshMsg('✓ Investigación actualizada')
       } else {
-        alert('Error al refrescar: ' + (d.error ?? 'desconocido'))
+        setRefreshMsg('Error: ' + (d.error ?? 'desconocido'))
       }
     } catch (e) {
-      alert('Error: ' + String(e))
+      setRefreshMsg(e instanceof ApiError ? e.message : 'Error: ' + String(e))
     } finally {
       setRefreshing(false)
     }
@@ -117,16 +121,12 @@ export default function IdeasPage() {
   async function generate(key: string, payload: { keyword?: string; topic?: string; title?: string; lang?: string; category?: string }) {
     setResults((s) => ({ ...s, [key]: { kind: 'gen', loading: true } }))
     try {
-      const res = await fetch('/api/blog/generate', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-      const d = await res.json()
+      const d = await postJson<{ ok?: boolean; error?: string; title?: string; slug?: string; preview?: string; wordCount?: number }>('/api/blog/generate', payload)
       setResults((s) => ({ ...s, [key]: d.ok
-        ? { kind: 'gen', loading: false, ok: true, gen: { title: d.title, slug: d.slug, preview: d.preview, wordCount: d.wordCount } }
+        ? { kind: 'gen', loading: false, ok: true, gen: { title: d.title!, slug: d.slug!, preview: d.preview!, wordCount: d.wordCount! } }
         : { kind: 'gen', loading: false, ok: false, error: d.error } }))
     } catch (e) {
-      setResults((s) => ({ ...s, [key]: { kind: 'gen', loading: false, ok: false, error: String(e) } }))
+      setResults((s) => ({ ...s, [key]: { kind: 'gen', loading: false, ok: false, error: e instanceof ApiError ? e.message : String(e) } }))
     }
   }
 
@@ -141,16 +141,12 @@ export default function IdeasPage() {
   async function suggestIdea(q: Q) {
     setResults((s) => ({ ...s, [q.query]: { kind: 'idea', loading: true } }))
     try {
-      const res = await fetch('/api/ideas/suggest', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ keyword: q.query, context: `${q.impressions} impr, pos ${q.position}, CTR ${q.ctr}%.` }),
-      })
-      const d = await res.json()
+      const d = await postJson<{ ok?: boolean; error?: string; idea?: ResultMap[string]['idea'] }>('/api/ideas/suggest', { keyword: q.query, context: `${q.impressions} impr, pos ${q.position}, CTR ${q.ctr}%.` })
       setResults((s) => ({ ...s, [q.query]: d.ok
         ? { kind: 'idea', loading: false, ok: true, idea: d.idea }
         : { kind: 'idea', loading: false, ok: false, error: d.error } }))
     } catch (e) {
-      setResults((s) => ({ ...s, [q.query]: { kind: 'idea', loading: false, ok: false, error: String(e) } }))
+      setResults((s) => ({ ...s, [q.query]: { kind: 'idea', loading: false, ok: false, error: e instanceof ApiError ? e.message : String(e) } }))
     }
   }
 
@@ -188,6 +184,9 @@ export default function IdeasPage() {
       </BrandHeader>
 
       <div className="p-6 max-w-4xl space-y-8">
+        {refreshMsg && (
+          <p className={`text-sm ${refreshMsg.startsWith('✓') ? 'text-green-700' : 'text-red-600'}`}>{refreshMsg}</p>
+        )}
         {/* === Tanda semanal curada === */}
         {loading && <p className="text-sm text-sand">Cargando ideas…</p>}
 

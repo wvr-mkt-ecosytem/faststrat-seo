@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Send, Check, Loader2, ExternalLink, AlertCircle, Sparkles } from 'lucide-react'
 import { BrandHeader } from '@/components/BrandHeader'
+import { postJson, wake, ApiError } from '@/lib/api'
 
 type Post = {
   slug: string
@@ -38,6 +39,7 @@ export default function BlogsPage() {
   const [publishingAll, setPublishingAll] = useState(false)
 
   useEffect(() => {
+    wake()
     fetch('/api/blog')
       .then((r) => r.json())
       .then((d) => setPosts(d.posts ?? []))
@@ -62,12 +64,7 @@ export default function BlogsPage() {
     if (!instruction) return
     setEdits((e) => ({ ...e, [slug]: { ...e[slug], loading: true, message: undefined } }))
     try {
-      const res = await fetch('/api/blog/edit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug, instruction }),
-      })
-      const data = await res.json()
+      const data = await postJson<{ saved?: boolean; markdown?: string; error?: string }>('/api/blog/edit', { slug, instruction })
       if (data.saved) {
         // refresca el conteo de palabras del post
         const words = (data.markdown ?? '').split(/\s+/).filter(Boolean).length
@@ -85,7 +82,7 @@ export default function BlogsPage() {
     } catch (err) {
       setEdits((e) => ({
         ...e,
-        [slug]: { ...e[slug], loading: false, message: { ok: false, text: String(err) } },
+        [slug]: { ...e[slug], loading: false, message: { ok: false, text: err instanceof ApiError ? err.message : String(err) } },
       }))
     }
   }
@@ -93,24 +90,19 @@ export default function BlogsPage() {
   async function publish(slug: string, live: boolean) {
     setStates((s) => ({ ...s, [slug]: { loading: true } }))
     try {
-      const res = await fetch('/api/wordpress/publish', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ slug, live, draft: !live }),
-      })
-      const data = await res.json()
+      const data = await postJson<{ results?: PublishState['result'][]; error?: string }>('/api/wordpress/publish', { slug, live, draft: !live })
       const result = data.results?.[0] ?? { ok: false, error: data.error ?? 'Error desconocido' }
       setStates((s) => ({ ...s, [slug]: { loading: false, result } }))
       // Actualiza el badge de estado al instante (sin necesidad de refresh).
       if (result.ok && result.status) {
         setPosts((ps) => ps.map((p) =>
-          p.slug === slug ? { ...p, wpStatus: result.status, wpLink: result.link ?? p.wpLink } : p
+          p.slug === slug ? { ...p, wpStatus: result.status ?? p.wpStatus, wpLink: result.link ?? p.wpLink } : p
         ))
       }
     } catch (e) {
       setStates((s) => ({
         ...s,
-        [slug]: { loading: false, result: { ok: false, error: String(e) } },
+        [slug]: { loading: false, result: { ok: false, error: e instanceof ApiError ? e.message : String(e) } },
       }))
     }
   }
@@ -119,17 +111,15 @@ export default function BlogsPage() {
     setPublishingAll(true)
     setStates(Object.fromEntries(posts.map((p) => [p.slug, { loading: true }])))
     try {
-      const res = await fetch('/api/wordpress/publish', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ all: true, live: true }),
-      })
-      const data = await res.json()
+      const data = await postJson<{ results?: { slug: string; ok: boolean; error?: string }[] }>('/api/wordpress/publish', { all: true, live: true })
       const next: Record<string, PublishState> = {}
       for (const r of data.results ?? []) {
         next[r.slug] = { loading: false, result: r }
       }
       setStates(next)
+    } catch (e) {
+      const msg = e instanceof ApiError ? e.message : String(e)
+      setStates(Object.fromEntries(posts.map((p) => [p.slug, { loading: false, result: { ok: false, error: msg } }])))
     } finally {
       setPublishingAll(false)
     }

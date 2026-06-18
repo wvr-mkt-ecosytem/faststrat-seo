@@ -7,6 +7,7 @@ import {
   TrendingUp, TrendingDown, Minus, Sparkles, ChevronDown, ChevronRight,
 } from 'lucide-react'
 import { BrandHeader } from '@/components/BrandHeader'
+import { postJson, wake, ApiError } from '@/lib/api'
 
 type Q = { query: string; clicks: number; impressions: number; ctr: number; position: number }
 
@@ -46,6 +47,8 @@ export default function ReportsPage() {
   const [days, setDays] = useState(28)
   const [optResults, setOptResults] = useState<Record<string, OptResult>>({})
 
+  useEffect(() => { wake() }, [])
+
   useEffect(() => {
     setLoading(true)
     fetch(`/api/gsc/pages-detail?days=${days}`)
@@ -57,16 +60,12 @@ export default function ReportsPage() {
   async function optimizePage(p: PageDetail) {
     setOptResults((s) => ({ ...s, [p.path]: { loading: true } }))
     try {
-      const res = await fetch('/api/blog/optimize', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ path: p.path, queries: p.strikingDistance }),
-      })
-      const d = await res.json()
+      const d = await postJson<OptResult['data'] & { ok?: boolean; error?: string }>('/api/blog/optimize', { path: p.path, queries: p.strikingDistance })
       setOptResults((s) => ({ ...s, [p.path]: d.ok
         ? { loading: false, ok: true, data: d }
         : { loading: false, ok: false, error: d.error } }))
     } catch (e) {
-      setOptResults((s) => ({ ...s, [p.path]: { loading: false, ok: false, error: String(e) } }))
+      setOptResults((s) => ({ ...s, [p.path]: { loading: false, ok: false, error: e instanceof ApiError ? e.message : String(e) } }))
     }
   }
 
