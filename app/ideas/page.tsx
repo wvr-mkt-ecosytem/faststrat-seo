@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState } from 'react'
 import Link from 'next/link'
 import {
   TrendingUp, Users, Calendar, Loader2, PenLine, Lightbulb,
-  Check, AlertCircle, ExternalLink, RefreshCw,
+  Check, AlertCircle, ExternalLink, RefreshCw, Plus,
 } from 'lucide-react'
 import { BrandHeader } from '@/components/BrandHeader'
 import { postJson, wake, ApiError } from '@/lib/api'
@@ -93,6 +93,29 @@ export default function IdeasPage() {
   const [refreshing, setRefreshing] = useState(false)
 
   const [refreshMsg, setRefreshMsg] = useState<string | null>(null)
+  const [moreLoading, setMoreLoading] = useState(false)
+
+  // Agrega MÁS artículos sugeridos a la tanda, alimentado por clicks, striking-distance
+  // y research de competidores/industria. No reemplaza la tanda, suma.
+  async function generateMore() {
+    setMoreLoading(true)
+    setRefreshMsg(null)
+    try {
+      const d = await postJson<{ ok?: boolean; added?: number; error?: string }>('/api/ideas/more', {})
+      if (d.ok) {
+        const fresh = await fetch('/api/ideas').then((r) => r.json())
+        setBatches(fresh.batches ?? [])
+        setSelected(0)
+        setRefreshMsg(`✓ ${d.added} artículos nuevos agregados a la tanda`)
+      } else {
+        setRefreshMsg('Error: ' + (d.error ?? 'desconocido'))
+      }
+    } catch (e) {
+      setRefreshMsg(e instanceof ApiError ? e.message : 'Error: ' + String(e))
+    } finally {
+      setMoreLoading(false)
+    }
+  }
 
   async function refreshResearch() {
     if (!confirm('El agente va a buscar en la web y regenerar la investigación e ideas de esta semana. Toma 1-2 minutos. ¿Continuar?')) return
@@ -207,13 +230,22 @@ export default function IdeasPage() {
             : 'Escribir todos los blogs'}
         </button>
         <button
+          onClick={generateMore}
+          disabled={moreLoading}
+          title="Suma más artículos a la tanda: basados en lo que más clicks da, striking-distance y research de competidores/industria"
+          className="flex items-center gap-2 text-sm font-medium px-3 py-1.5 rounded-md bg-maroon text-cream hover:bg-maroon-hover disabled:opacity-50"
+        >
+          {moreLoading ? <Loader2 size={15} className="animate-spin" /> : <Plus size={15} />}
+          {moreLoading ? 'Investigando…' : 'Generar más artículos'}
+        </button>
+        <button
           onClick={refreshResearch}
           disabled={refreshing}
-          title="El agente busca en la web y regenera competidores, tendencias e ideas nuevas"
+          title="Regenera la tanda completa desde cero (research + ideas nuevas)"
           className="flex items-center gap-2 text-sm font-medium px-3 py-1.5 rounded-md border border-maroon/25 text-maroon hover:bg-maroon/8 disabled:opacity-50"
         >
           {refreshing ? <Loader2 size={15} className="animate-spin" /> : <RefreshCw size={15} />}
-          {refreshing ? 'Buscando…' : 'Más ideas'}
+          {refreshing ? 'Buscando…' : 'Tanda nueva'}
         </button>
       </BrandHeader>
 

@@ -40,11 +40,11 @@ Devuelves SOLO un JSON válido con esta forma (sin texto extra, sin code fence):
 
 Reglas:
 - Exactamente 10 ideas.
-- 7 en inglés, 3 en español (mercado LATAM).
+- TODAS en inglés (lang: "en"). Los títulos, keywords, intención, rationale y outline en inglés — así el blog se publica directo en inglés.
 - Prioriza queries striking-distance reales del input cuando aporten.
 - Mezcla tipos: comparaciones, guías, listicles, "vs", tendencias.
-- competitors: 3-4 observaciones sobre quién rankea y qué huecos hay.
-- trends: 4-5 tendencias 2026 relevantes para PYMEs (GEO/AEO, agentes IA, social commerce, etc.).`;
+- competitors: 3-4 observaciones (en inglés) sobre quién rankea y qué huecos hay.
+- trends: 4-5 tendencias 2026 (en inglés) relevantes para PYMEs (GEO/AEO, agentes IA, social commerce, etc.).`;
 
 export async function POST(request: NextRequest) {
   // Autoriza si: (a) trae el WEEKLY_SECRET (cron de GitHub Actions), o
