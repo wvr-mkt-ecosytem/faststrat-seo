@@ -37,6 +37,7 @@ export default function BlogsPage() {
   const [states, setStates] = useState<Record<string, PublishState>>({})
   const [edits, setEdits] = useState<Record<string, EditState>>({})
   const [publishingAll, setPublishingAll] = useState(false)
+  const [publishAllProgress, setPublishAllProgress] = useState<{ done: number; total: number } | null>(null)
 
   useEffect(() => {
     wake()
@@ -107,22 +108,21 @@ export default function BlogsPage() {
     }
   }
 
+  // Publica TODOS en vivo, uno por uno (robusto: cada uno es una petición corta,
+  // con progreso y confirmación real; evita el timeout de una sola request gigante).
   async function publishAll() {
+    const pending = posts.filter((p) => p.wpStatus !== 'publish')
+    const targets = pending.length > 0 ? pending : posts // si ya están todos live, re-publica todos
     setPublishingAll(true)
-    setStates(Object.fromEntries(posts.map((p) => [p.slug, { loading: true }])))
-    try {
-      const data = await postJson<{ results?: { slug: string; ok: boolean; error?: string }[] }>('/api/wordpress/publish', { all: true, live: true })
-      const next: Record<string, PublishState> = {}
-      for (const r of data.results ?? []) {
-        next[r.slug] = { loading: false, result: r }
-      }
-      setStates(next)
-    } catch (e) {
-      const msg = e instanceof ApiError ? e.message : String(e)
-      setStates(Object.fromEntries(posts.map((p) => [p.slug, { loading: false, result: { ok: false, error: msg } }])))
-    } finally {
-      setPublishingAll(false)
+    let done = 0
+    for (const p of targets) {
+      setPublishAllProgress({ done, total: targets.length })
+      await publish(p.slug, true)
+      done++
+      setPublishAllProgress({ done, total: targets.length })
     }
+    setPublishingAll(false)
+    setPublishAllProgress(null)
   }
 
   return (
@@ -134,7 +134,9 @@ export default function BlogsPage() {
           className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-md bg-maroon text-cream hover:bg-maroon-hover disabled:opacity-50 transition-colors"
         >
           {publishingAll ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
-          Publicar todos
+          {publishingAll && publishAllProgress
+            ? `Publicando ${publishAllProgress.done}/${publishAllProgress.total}…`
+            : 'Publicar todos en vivo'}
         </button>
       </BrandHeader>
 

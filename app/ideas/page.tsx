@@ -142,6 +142,7 @@ export default function IdeasPage() {
     if (pending.length === 0) { alert('Ya escribiste todos los artículos de esta tanda.'); return }
     if (!confirm(`El agente va a escribir ${pending.length} artículos, uno por uno. Toma varios minutos — no cierres la página. Aparecerán en Blogs como borradores. ¿Continuar?`)) return
     setWritingAll(true)
+    setWriteAllDone(false)
     let done = 0
     for (const idea of pending) {
       setWriteAllProgress({ done, total: pending.length })
@@ -150,7 +151,9 @@ export default function IdeasPage() {
       setWriteAllProgress({ done, total: pending.length })
     }
     setWritingAll(false)
+    setWriteAllDone(true)
   }
+  const [writeAllDone, setWriteAllDone] = useState(false)
 
   // Genera un blog a partir de un insight (texto largo de competidor/tendencia).
   // Pasa el insight como `topic`: el agente elige el título y keyword y escribe.
@@ -217,6 +220,12 @@ export default function IdeasPage() {
       <div className="p-6 max-w-4xl space-y-8">
         {refreshMsg && (
           <p className={`text-sm ${refreshMsg.startsWith('✓') ? 'text-green-700' : 'text-red-600'}`}>{refreshMsg}</p>
+        )}
+        {writeAllDone && (
+          <div className="rounded-md bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-800 flex items-center justify-between gap-3">
+            <span>✓ Artículos escritos. Ya están en Blogs como borradores.</span>
+            <Link href="/blogs" className="font-semibold underline shrink-0">Ir a Blogs y publicar todos →</Link>
+          </div>
         )}
         {/* === Tanda semanal curada === */}
         {loading && <p className="text-sm text-sand">Cargando ideas…</p>}
