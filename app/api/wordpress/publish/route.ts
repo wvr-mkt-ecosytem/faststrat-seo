@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
+import { apiRoute } from "@/lib/google-auth-state";
 import { getBlogPosts, getBlogPost, renderHtml, type BlogPost } from "@/lib/blog";
 import { publishPost } from "@/lib/wordpress";
 import { runQa } from "@/lib/qa";
@@ -44,7 +45,7 @@ async function getCover(post: BlogPost): Promise<Buffer> {
 // POST /api/wordpress/publish
 //   body: { slug: string }   → publica un post
 //   body: { all: true }      → publica todos los posts locales
-export async function POST(request: NextRequest) {
+export const POST = apiRoute(async (request: NextRequest) => {
   const body = await request.json().catch(() => ({}));
 
   const targets = body.all ? getBlogPosts() : [getBlogPost(body.slug)].filter(Boolean);
@@ -117,4 +118,4 @@ export async function POST(request: NextRequest) {
   }
 
   return NextResponse.json({ results });
-}
+});

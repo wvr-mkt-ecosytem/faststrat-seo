@@ -1,4 +1,5 @@
 import path from "path";
+import { apiRoute } from "@/lib/google-auth-state";
 import { NextRequest, NextResponse } from "next/server";
 import { getBlogPost, updateBlogMarkdown, renderHtml } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
@@ -17,7 +18,7 @@ Reglas:
 
 // POST /api/blog/edit  { slug, instruction, preview?: boolean }
 // preview=true devuelve el resultado SIN guardar; sin preview, guarda el archivo.
-export async function POST(request: NextRequest) {
+export const POST = apiRoute(async (request: NextRequest) => {
   const { slug, instruction, preview } = await request.json().catch(() => ({}));
 
   if (!slug || !instruction) {
@@ -64,4 +65,4 @@ Devuelve el artículo completo reescrito en Markdown.`,
     const msg = err instanceof Error ? err.message : String(err);
     return NextResponse.json({ error: msg }, { status: 500 });
   }
-}
+});

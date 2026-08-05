@@ -1,4 +1,5 @@
 import path from "path";
+import { apiRoute } from "@/lib/google-auth-state";
 import { NextRequest, NextResponse } from "next/server";
 import { getBlogPosts, createBlogPost, slugify, renderHtml } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
@@ -23,7 +24,7 @@ FORMATO: devuelve SOLO el cuerpo markdown reescrito (sin frontmatter, sin H1, si
 
 // POST /api/blog/optimize
 //   { path: "/slug/", queries: [{query, position, impressions}], existingMarkdown?: string }
-export async function POST(request: NextRequest) {
+export const POST = apiRoute(async (request: NextRequest) => {
   const body = await request.json().catch(() => ({}));
   const urlPath: string = body.path;
   const queries: Array<{ query: string; position: number; impressions: number }> = body.queries ?? [];
@@ -99,4 +100,4 @@ export async function POST(request: NextRequest) {
     const msg = err instanceof Error ? err.message : String(err);
     return NextResponse.json({ error: msg }, { status: 500 });
   }
-}
+});

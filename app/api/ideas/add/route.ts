@@ -1,4 +1,5 @@
 import fs from "fs";
+import { apiRoute } from "@/lib/google-auth-state";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 import { getIdeaBatches, type ArticleIdea, type IdeaBatch } from "@/lib/ideas";
@@ -9,7 +10,7 @@ const IDEAS_DIR = path.join(process.cwd(), "data", "ideas");
 
 // POST /api/ideas/add { title, primaryKeyword, lang?, priority?, intent?, rationale? }
 // Agrega una idea a la tanda más reciente (o crea una para la semana actual).
-export async function POST(request: NextRequest) {
+export const POST = apiRoute(async (request: NextRequest) => {
   const body = await request.json().catch(() => ({}));
   if (!body.title || !body.primaryKeyword) {
     return NextResponse.json({ error: "Faltan 'title' o 'primaryKeyword'" }, { status: 400 });
@@ -56,4 +57,4 @@ export async function POST(request: NextRequest) {
   fs.writeFileSync(outPath, JSON.stringify(batch, null, 2));
   await persistChanges(`idea added: ${idea.slug}`, [outPath]);
   return NextResponse.json({ ok: true, weekOf: batch.weekOf, total: batch.ideas.length });
-}
+});

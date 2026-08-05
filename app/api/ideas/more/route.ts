@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
+import { apiRoute } from "@/lib/google-auth-state";
 import { queryAnalytics } from "@/lib/gsc";
 import { runClaude } from "@/lib/claude";
 import { slugify } from "@/lib/blog";
@@ -30,7 +31,7 @@ Reglas:
 
 // POST /api/ideas/more  — agrega ideas nuevas a la tanda actual (no la reemplaza).
 // Auth: WEEKLY_SECRET o login del dashboard.
-export async function POST(request: NextRequest) {
+export const POST = apiRoute(async (request: NextRequest) => {
   const secret = process.env.WEEKLY_SECRET;
   const dashUser = process.env.DASHBOARD_USER;
   const dashPass = process.env.DASHBOARD_PASSWORD;
@@ -127,4 +128,4 @@ Investiga en la web (competidores Jasper/HubSpot/Copy.ai/Enrich Labs y tendencia
     const msg = err instanceof Error ? err.message : String(err);
     return NextResponse.json({ error: msg }, { status: 500 });
   }
-}
+});

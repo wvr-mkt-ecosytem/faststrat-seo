@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
+import { apiRoute } from "@/lib/google-auth-state";
 import { queryAnalytics } from "@/lib/gsc";
 
 // Ruido: operadores booleanos de bots, urls, marca, IDs numéricos.
 const NOISE = /"|http|daterange:|\bfast ?strat\b|\bstrat ?fast\b|faststrat|^\d+:/i;
 
-export async function GET(request: NextRequest) {
+export const GET = apiRoute(async (request: NextRequest) => {
   const { searchParams } = new URL(request.url);
   const days = parseInt(searchParams.get("days") ?? "90");
 
@@ -65,4 +66,4 @@ export async function GET(request: NextRequest) {
     const msg = err instanceof Error ? err.message : String(err);
     return NextResponse.json({ error: msg }, { status: 500 });
   }
-}
+});

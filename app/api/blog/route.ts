@@ -1,10 +1,11 @@
 import fs from "fs";
+import { apiRoute } from "@/lib/google-auth-state";
 import path from "path";
 import { NextResponse } from "next/server";
 import { getBlogPosts, renderHtml } from "@/lib/blog";
 import { getPublishStatuses } from "@/lib/wordpress";
 
-export async function GET() {
+export const GET = apiRoute(async () => {
   const coversDir = path.join(process.cwd(), "public", "covers");
   const all = getBlogPosts();
 
@@ -31,4 +32,4 @@ export async function GET() {
     };
   });
   return NextResponse.json({ posts });
-}
+});

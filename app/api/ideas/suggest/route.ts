@@ -1,4 +1,5 @@
 import fs from "fs";
+import { apiRoute } from "@/lib/google-auth-state";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 import { getIdeaBatches, type ArticleIdea, type IdeaBatch } from "@/lib/ideas";
@@ -21,7 +22,7 @@ Dada una query de búsqueda real, propones UN artículo de blog para capturarla.
 
 // POST /api/ideas/suggest { keyword, context? }
 // Usa el agente para crear una idea rica desde el keyword y la guarda en la tanda.
-export async function POST(request: NextRequest) {
+export const POST = apiRoute(async (request: NextRequest) => {
   const body = await request.json().catch(() => ({}));
   const keyword: string = body.keyword;
   if (!keyword) {
@@ -78,4 +79,4 @@ export async function POST(request: NextRequest) {
     const msg = err instanceof Error ? err.message : String(err);
     return NextResponse.json({ error: msg }, { status: 500 });
   }
-}
+});

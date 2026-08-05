@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
+import { apiRoute } from "@/lib/google-auth-state";
 import { queryAnalytics } from "@/lib/gsc";
 import { runClaude } from "@/lib/claude";
 import { slugify } from "@/lib/blog";
@@ -46,7 +47,7 @@ Reglas:
 - competitors: 3-4 observaciones (en inglés) sobre quién rankea y qué huecos hay.
 - trends: 4-5 tendencias 2026 (en inglés) relevantes para PYMEs (GEO/AEO, agentes IA, social commerce, etc.).`;
 
-export async function POST(request: NextRequest) {
+export const POST = apiRoute(async (request: NextRequest) => {
   // Autoriza si: (a) trae el WEEKLY_SECRET (cron de GitHub Actions), o
   // (b) viene con el login del dashboard (botón "Refrescar" desde el navegador).
   const secret = process.env.WEEKLY_SECRET;
@@ -172,4 +173,4 @@ export async function POST(request: NextRequest) {
     const msg = err instanceof Error ? err.message : String(err);
     return NextResponse.json({ error: msg }, { status: 500 });
   }
-}
+});

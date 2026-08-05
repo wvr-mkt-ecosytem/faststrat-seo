@@ -1,4 +1,5 @@
 import path from "path";
+import { apiRoute } from "@/lib/google-auth-state";
 import { NextRequest, NextResponse } from "next/server";
 import { createBlogPost, slugify } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
@@ -24,7 +25,7 @@ ESTÁNDARES DE CALIDAD (obligatorios):
 FORMATO DE SALIDA: devuelve ÚNICAMENTE el cuerpo del artículo en Markdown. Sin frontmatter, sin título H1 (el H1 es el título del post), sin envolverlo en bloques de código. Empieza directo con el párrafo de intro.`;
 
 // POST /api/blog/generate { keyword, title?, lang?, category? }
-export async function POST(request: NextRequest) {
+export const POST = apiRoute(async (request: NextRequest) => {
   const body = await request.json().catch(() => ({}));
   // Modo A: keyword (+ title opcional). Modo B: topic libre (el agente elige título).
   const keyword: string | undefined = body.keyword;
@@ -111,4 +112,4 @@ Apunta a 1.500–2.200 palabras de contenido sustancioso y específico.`,
     const msg = err instanceof Error ? err.message : String(err);
     return NextResponse.json({ error: msg }, { status: 500 });
   }
-}
+});
