@@ -3,7 +3,12 @@ import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 import { getBlogPosts, getBlogPost, renderHtml, type BlogPost } from "@/lib/blog";
 import { publishPost } from "@/lib/wordpress";
+import { runQa } from "@/lib/qa";
 import { generateCover } from "@/lib/cover";
+
+// Reglas de casa de FastStrat. El em dash queda prohibido por decisión de
+// marca; el resto de comprobaciones no dependen de esto.
+const HOUSE = { noEmDash: true } as const;
 
 const EYEBROW: Record<string, string> = { en: "2026 Guide", es: "Guía 2026" };
 
@@ -55,9 +60,39 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  // La compuerta de calidad, antes de tocar WordPress.
+  //
+  // Publicar en vivo no se deshace con un clic, así que el bloqueo va aquí y no
+  // en la interfaz: un botón se puede pulsar desde otro sitio, y esta ruta
+  // también acepta `all: true`, que publica todo el directorio de una vez.
+  //
+  // `force: true` permite saltárselo a sabiendas, y entonces los hallazgos
+  // viajan en la respuesta: saltarse la revisión es una decisión que queda
+  // registrada, no una casilla que se marca y se olvida.
+  const gate = targets
+    .filter((p): p is BlogPost => Boolean(p))
+    .map((p) => ({
+      slug: p.slug,
+      qa: runQa({ title: p.title, metaDescription: p.excerpt, markdown: p.markdown, house: HOUSE }),
+    }))
+    .filter((r) => !r.qa.ok);
+
+  if (gate.length && body.force !== true) {
+    return NextResponse.json(
+      {
+        blocked: true,
+        message:
+          "Not published: the quality gate found claims the draft cannot back up. Fix them, or resend with force: true to publish anyway.",
+        findings: gate.map((g) => ({ slug: g.slug, blocking: g.qa.blocking, warnings: g.qa.warnings })),
+      },
+      { status: 409 },
+    );
+  }
+
   const results: unknown[] = [];
   for (const post of targets) {
     if (!post) continue;
+    const qa = runQa({ title: post.title, metaDescription: post.excerpt, markdown: post.markdown, house: HOUSE });
     try {
       const result = await publishPost({
         title: post.title,
@@ -74,7 +109,7 @@ export async function POST(request: NextRequest) {
               : "draft",
         coverImage: await getCover(post),
       });
-      results.push({ slug: post.slug, ok: true, ...result });
+      results.push({ slug: post.slug, ok: true, ...result, warnings: qa.warnings, bypassed: qa.blocking.length ? qa.blocking : undefined });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       results.push({ slug: post.slug, ok: false, error: msg });
