@@ -50,7 +50,8 @@ const SITEMAP_PATHS = [
 ];
 
 // Lo que nos interesa es contenido editorial, no páginas de producto ni legales.
-const EDITORIAL = /\/(blog|resources|insights|articles|learn|guides|news|library)\//i;
+const EDITORIAL =
+  /\/(blog|resources|insights|articles|learn|guides|news|library|academy|noticias|publicidad|campa|marketing|tecnolog|actualidad|tendencias|opinion)\//i;
 const NOT_EDITORIAL = /\/(category|tag|author|page|feed|wp-content)\//i;
 
 const get = async (url) => {
@@ -85,6 +86,45 @@ const entries = (xml) =>
     lastmod: (m[1].match(/<lastmod>\s*([^<]+?)\s*<\/lastmod>/) || [])[1] || "",
   }));
 
+
+/**
+ * Lee un RSS/Atom y lo devuelve con la misma forma que un sitemap.
+ *
+ * Solo se usa cuando no hay sitemap: un feed trae una ventana reciente, no el
+ * archivo, así que sus totales NO son comparables con los de un sitemap.
+ */
+async function pagesFromRss(url) {
+  try {
+    const r = await fetch(url, { headers: HEADERS, redirect: "follow", signal: AbortSignal.timeout(20000) });
+    if (!r.ok) return null;
+    const xml = await r.text();
+    const items = [...xml.matchAll(/<(?:item|entry)[\s>]([\s\S]*?)<\/(?:item|entry)>/g)];
+    if (!items.length) return null;
+    const pages = items
+      .map((m) => {
+        const b = m[1];
+        const link =
+          (b.match(/<link[^>]*>\s*([^<\s]+)\s*<\/link>/) || [])[1] ||
+          (b.match(/<link[^>]+href="([^"]+)"/) || [])[1] ||
+          "";
+        const date =
+          (b.match(/<pubDate>\s*([^<]+?)\s*<\/pubDate>/) || [])[1] ||
+          (b.match(/<updated>\s*([^<]+?)\s*<\/updated>/) || [])[1] ||
+          "";
+        let lastmod = "";
+        if (date) {
+          const t = Date.parse(date);
+          if (!Number.isNaN(t)) lastmod = new Date(t).toISOString().slice(0, 10);
+        }
+        return { url: link.trim(), lastmod };
+      })
+      .filter((e) => e.url);
+    return pages.length ? pages : null;
+  } catch {
+    return null;
+  }
+}
+
 async function pagesOf(comp) {
   let xml = null;
   let bloqueado = false;
@@ -94,10 +134,20 @@ async function pagesOf(comp) {
     if (res.xml) { xml = res.xml; break; }
   }
   if (!xml) {
+    // Antes de darlo por perdido: puede publicar por RSS y no por sitemap.
+    if (comp.rss) {
+      const viaRss = await pagesFromRss(comp.rss);
+      if (viaRss) {
+        return {
+          pages: viaRss,
+          note: "vía RSS: es una ventana reciente, no el archivo. Su total no se compara con el de un sitemap",
+        };
+      }
+    }
     return {
       error: bloqueado
         ? "bloquea el acceso automatizado (403)"
-        : "sin sitemap en las rutas habituales",
+        : "sin sitemap en las rutas habituales" + (comp.rss ? " y su RSS tampoco se pudo leer" : ""),
     };
   }
 
@@ -129,7 +179,12 @@ async function pagesOf(comp) {
   }
 
   const pages = found
-    .filter((e) => e.url && !NOT_EDITORIAL.test(e.url) && (e.trusted || EDITORIAL.test(e.url)))
+    .filter(
+      (e) =>
+        e.url &&
+        !NOT_EDITORIAL.test(e.url) &&
+        (comp.wholeSiteEditorial || e.trusted || EDITORIAL.test(e.url)),
+    )
     .map((e) => ({ url: e.url, lastmod: (e.lastmod || "").slice(0, 10) }));
 
   // Deduplicar conservando la fecha más reciente.

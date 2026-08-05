@@ -2,44 +2,202 @@
   "_comment": [
     "A quién se vigila, y por qué está cada uno.",
     "",
-    "Tres categorías, y la separación es el punto. La primera versión de esta lista",
-    "salió de contar menciones en el blog, y el blog compara herramientas de SEO —",
-    "pero FastStrat no vende SEO: vende software de marketing con IA. Vigilar a",
-    "Ahrefs como si fuera competidor de producto daba una lectura equivocada del",
-    "mercado.",
+    "Tres categorías, y la separación es el punto. La primera versión salió de contar",
+    "menciones en el blog, y el blog compara herramientas de SEO — pero FastStrat no",
+    "vende SEO: vende software de marketing con IA. Vigilar a Ahrefs como competidor",
+    "de producto leía mal el mercado.",
     "",
     "  producto  = compiten por el mismo CLIENTE. Interesa qué mensaje eligen.",
     "  busqueda  = compiten por el mismo TRÁFICO. Interesa qué tema cubrieron.",
     "  medio     = publican sobre el sector. Interesa qué aceptan publicar.",
     "",
-    "Los 12 de aquí se probaron contra su sitemap real antes de entrar. Search",
-    "Engine Land (403) y Marketing Brew (sin sitemap) quedaron fuera a propósito:",
-    "una fuente ilegible aparece siempre en cero y ese cero se lee como 'no",
-    "publicaron', que es falso.",
-    "",
-    "FALTA: medios en español. El producto es LATAM-first y todo esto es prensa",
-    "anglosajona. Esa lista es una decisión de PR, no algo que se deduzca del",
-    "contenido, así que la dejo pendiente en vez de rellenarla."
+    "Las 19 fuentes se probaron una por una contra su sitemap o su RSS antes de",
+    "entrar. Las 9 de _descartados no entran aunque sean relevantes: una fuente",
+    "ilegible sale en cero cada semana y ese cero se lee como no publicaron, que es",
+    "falso."
   ],
   "confirmed": true,
   "sources": [
-    { "name": "Jasper", "host": "https://www.jasper.ai", "kind": "producto", "tier": "directo · agentic marketing platform" },
-    { "name": "HubSpot", "host": "https://blog.hubspot.com", "kind": "producto", "tier": "directo · Breeze agents" },
-    { "name": "Copy.ai", "host": "https://www.copy.ai", "kind": "producto", "tier": "directo · plataforma agéntica" },
-    { "name": "AdCreative.ai", "host": "https://www.adcreative.ai", "kind": "producto", "tier": "solapa en ejecución de campaña" },
-    { "name": "Writer", "host": "https://writer.com", "kind": "producto", "tier": "contenido de marca, perfil empresa" },
-    { "name": "Typeface", "host": "https://www.typeface.ai", "kind": "producto", "tier": "mismo espacio agéntico" },
-
-    { "name": "Semrush", "host": "https://www.semrush.com", "kind": "busqueda", "tier": "16 menciones en el blog" },
-    { "name": "Ahrefs", "host": "https://ahrefs.com", "kind": "busqueda", "tier": "23 menciones en el blog" },
-    { "name": "Surfer SEO", "host": "https://surferseo.com", "kind": "busqueda", "tier": "7 menciones en el blog" },
-    { "name": "Screaming Frog", "host": "https://www.screamingfrog.co.uk", "kind": "busqueda", "tier": "7 menciones en el blog" },
-
-    { "name": "Search Engine Journal", "host": "https://www.searchenginejournal.com", "kind": "medio", "tier": "tier 1" },
-    { "name": "Content Marketing Institute", "host": "https://contentmarketinginstitute.com", "kind": "medio", "tier": "tier 1" }
+    {
+      "name": "Jasper",
+      "host": "https://www.jasper.ai",
+      "kind": "producto",
+      "tier": "directo · agentic marketing platform"
+    },
+    {
+      "name": "HubSpot",
+      "host": "https://blog.hubspot.com",
+      "kind": "producto",
+      "tier": "directo · Breeze agents"
+    },
+    {
+      "name": "Copy.ai",
+      "host": "https://www.copy.ai",
+      "kind": "producto",
+      "tier": "directo · plataforma agéntica"
+    },
+    {
+      "name": "AdCreative.ai",
+      "host": "https://www.adcreative.ai",
+      "kind": "producto",
+      "tier": "solapa en ejecución de campaña"
+    },
+    {
+      "name": "Writer",
+      "host": "https://writer.com",
+      "kind": "producto",
+      "tier": "contenido de marca, perfil empresa"
+    },
+    {
+      "name": "Typeface",
+      "host": "https://www.typeface.ai",
+      "kind": "producto",
+      "tier": "mismo espacio agéntico"
+    },
+    {
+      "name": "Semrush",
+      "host": "https://www.semrush.com",
+      "kind": "busqueda",
+      "tier": "16 menciones en el blog"
+    },
+    {
+      "name": "Ahrefs",
+      "host": "https://ahrefs.com",
+      "kind": "busqueda",
+      "tier": "23 menciones en el blog"
+    },
+    {
+      "name": "Surfer SEO",
+      "host": "https://surferseo.com",
+      "kind": "busqueda",
+      "tier": "7 menciones en el blog"
+    },
+    {
+      "name": "Screaming Frog",
+      "host": "https://www.screamingfrog.co.uk",
+      "kind": "busqueda",
+      "tier": "7 menciones en el blog"
+    },
+    {
+      "name": "Search Engine Journal",
+      "host": "https://www.searchenginejournal.com",
+      "kind": "medio",
+      "tier": "tier 1 · EN"
+    },
+    {
+      "name": "Content Marketing Institute",
+      "host": "https://contentmarketinginstitute.com",
+      "kind": "medio",
+      "tier": "tier 1 · EN"
+    },
+    {
+      "name": "Merca2.0",
+      "host": "https://www.merca20.com",
+      "rss": "https://www.merca20.com/feed/",
+      "kind": "medio",
+      "tier": "LATAM · marketing, el más grande",
+      "wholeSiteEditorial": true
+    },
+    {
+      "name": "Adlatina",
+      "host": "https://www.adlatina.com",
+      "kind": "medio",
+      "tier": "LATAM · publicidad",
+      "wholeSiteEditorial": true
+    },
+    {
+      "name": "Roastbrief",
+      "host": "https://www.roastbrief.com.mx",
+      "rss": "https://www.roastbrief.com.mx/feed/",
+      "kind": "medio",
+      "tier": "LATAM · marketing y creatividad, MX",
+      "wholeSiteEditorial": true
+    },
+    {
+      "name": "Informa BTL",
+      "host": "https://www.informabtl.com",
+      "rss": "https://www.informabtl.com/feed/",
+      "kind": "medio",
+      "tier": "LATAM · marketing y retail, MX",
+      "wholeSiteEditorial": true
+    },
+    {
+      "name": "Revista Neo",
+      "host": "https://www.revistaneo.com",
+      "kind": "medio",
+      "tier": "LATAM · marketing, MX",
+      "wholeSiteEditorial": true
+    },
+    {
+      "name": "Contxto",
+      "host": "https://contxto.com",
+      "rss": "https://contxto.com/en/feed/",
+      "kind": "medio",
+      "tier": "LATAM · startups y founder stories",
+      "wholeSiteEditorial": true
+    },
+    {
+      "name": "Gazú Technology",
+      "host": "https://gazutechnology.com",
+      "rss": "https://gazutechnology.com/feed/",
+      "kind": "medio",
+      "tier": "LATAM · Colombia, el más accesible para columna",
+      "wholeSiteEditorial": true
+    }
+  ],
+  "_medios_latam": [
+    "Solo medios de NICHO. El Tiempo entró y salió: encontró sitemap, devolvió 670",
+    "URLs, y al abrirlas eran fútbol y tráfico de Bogotá. Un diario generalista",
+    "publica de todo y su sitemap lo refleja, así que vigilar 'su sección de",
+    "tecnología' por sitemap no se puede sin filtrar por ruta. En un medio de nicho",
+    "el problema no existe: todo lo que publica es del tema. Por eso llevan",
+    "wholeSiteEditorial, que salta el filtro de rutas.",
+    "",
+    "Se probaron 17 medios; entran 7. La mayoría de la prensa de marketing en",
+    "español bloquea el acceso automatizado: Marketing4eCommerce (MX y CO),",
+    "Mercado Negro, Marketing Directo y PuroMarketing dan 403 o no exponen feed",
+    "legible. Se quedan fuera en vez de figurar en cero cada semana.",
+    "",
+    "El RSS es respaldo, no equivalente: trae una ventana reciente (10-100 items),",
+    "no el archivo. Sus totales NO se comparan con los de un sitemap, y la",
+    "instantánea lo deja anotado para que nadie lo haga."
   ],
   "_descartados": [
-    { "name": "Search Engine Land", "motivo": "403: bloquea el acceso automatizado" },
-    { "name": "Marketing Brew", "motivo": "sin sitemap en las rutas habituales" }
+    {
+      "name": "Search Engine Land",
+      "motivo": "403: bloquea el acceso automatizado"
+    },
+    {
+      "name": "Marketing Brew",
+      "motivo": "sin sitemap en las rutas habituales"
+    },
+    {
+      "name": "IAB Colombia",
+      "motivo": "403 tanto en sitemap como en RSS. No es vigilable; su vía es newsletter y participación en sus reportes"
+    },
+    {
+      "name": "PuroMarketing",
+      "motivo": "el sitemap no devuelve XML válido y el RSS indicado no trae items. Habría que encontrar otra ruta antes de añadirlo"
+    },
+    {
+      "name": "Marketing4eCommerce (MX/CO)",
+      "motivo": "403 en sitemap y RSS"
+    },
+    {
+      "name": "Mercado Negro",
+      "motivo": "403"
+    },
+    {
+      "name": "Marketing Directo",
+      "motivo": "403"
+    },
+    {
+      "name": "TotalMedios / Dossiernet",
+      "motivo": "404: dominio o ruta distintos"
+    },
+    {
+      "name": "El Tiempo Tecnósfera",
+      "motivo": "diario generalista: su sitemap trae deportes y ciudad, no solo tecnología"
+    }
   ]
 }
