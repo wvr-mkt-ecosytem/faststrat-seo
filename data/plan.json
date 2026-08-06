@@ -1,0 +1,132 @@
+{
+  "cadence": {
+    "weekdays": [
+      2,
+      4
+    ],
+    "perWeek": 2
+  },
+  "updatedAt": "2026-08-06",
+  "pieces": [
+    {
+      "date": "2026-08-11",
+      "slug": "geo-pymes-citado-chatgpt-perplexity-2026",
+      "title": "GEO para PYMEs: Cómo Lograr que ChatGPT y Perplexity Citen tu Negocio (2026)",
+      "keyword": "generative engine optimization small business",
+      "lang": "en",
+      "priority": "alta",
+      "batch": "2026-06-04",
+      "written": false
+    },
+    {
+      "date": "2026-08-13",
+      "slug": "seo-vs-geo-vs-aeo-pymes-2026",
+      "title": "SEO vs. GEO vs. AEO: Cuál Deben Priorizar las PYMEs en 2026",
+      "keyword": "seo vs geo vs aeo",
+      "lang": "en",
+      "priority": "alta",
+      "batch": "2026-06-04",
+      "written": false
+    },
+    {
+      "date": "2026-08-18",
+      "slug": "empleados-ia-departamento-marketing-pyme-2026",
+      "title": "Contratando 'Empleados de IA': Cómo una PYME Arma un Depto. de Marketing 24/7",
+      "keyword": "ai marketing agents for small business",
+      "lang": "en",
+      "priority": "alta",
+      "batch": "2026-06-04",
+      "written": false
+    },
+    {
+      "date": "2026-08-20",
+      "slug": "whatsapp-commerce-live-shopping-latam-2026",
+      "title": "WhatsApp Commerce en LATAM: Cómo Vender en Vivo por WhatsApp (Guía 2026)",
+      "keyword": "whatsapp commerce latam",
+      "lang": "es",
+      "priority": "alta",
+      "batch": "2026-06-04",
+      "written": false
+    },
+    {
+      "date": "2026-08-25",
+      "slug": "small-business-marketing-budget-is-5-or-10-of-revenue-the-ri",
+      "title": "Small Business Marketing Budget: Is 5% or 10% of Revenue the Right Benchmark for You?",
+      "keyword": "small business marketing budget percentage of revenue 5% 10% benchmark",
+      "lang": "en",
+      "priority": "media",
+      "batch": "2026-06-04",
+      "written": false
+    },
+    {
+      "date": "2026-08-27",
+      "slug": "the-ultimate-landing-page-checklist-27-points-to-maximize-co",
+      "title": "The Ultimate Landing Page Checklist: 27 Points to Maximize Conversions",
+      "keyword": "landing page checklist",
+      "lang": "en",
+      "priority": "media",
+      "batch": "2026-06-04",
+      "written": false
+    },
+    {
+      "date": "2026-09-01",
+      "slug": "busquedas-sin-clic-visibilidad-ia-2026",
+      "title": "El Problema de las Búsquedas Sin Clic: Cómo Seguir Visible Cuando la IA Responde por Ti",
+      "keyword": "zero click search 2026",
+      "lang": "en",
+      "priority": "media",
+      "batch": "2026-06-04",
+      "written": false
+    },
+    {
+      "date": "2026-09-03",
+      "slug": "first-party-data-pymes-2026",
+      "title": "First-Party Data para PYMEs: Recolectar, Activar y Personalizar (2026)",
+      "keyword": "first party data small business",
+      "lang": "en",
+      "priority": "media",
+      "batch": "2026-06-04",
+      "written": false
+    },
+    {
+      "date": "2026-09-08",
+      "slug": "video-corto-pymes-sistema-60-segundos-2026",
+      "title": "Video Corto para PYMEs: Un Sistema de Contenido de 60 Segundos (2026)",
+      "keyword": "short form video small business",
+      "lang": "en",
+      "priority": "media",
+      "batch": "2026-06-04",
+      "written": false
+    },
+    {
+      "date": "2026-09-10",
+      "slug": "benchmarks-presupuesto-marketing-industria-2026",
+      "title": "Benchmarks de Presupuesto de Marketing por Industria: Cuánto Gastan las PYMEs en 2026",
+      "keyword": "marketing budget benchmarks by industry 2026",
+      "lang": "en",
+      "priority": "media",
+      "batch": "2026-06-04",
+      "written": false
+    },
+    {
+      "date": "2026-09-15",
+      "slug": "pymes-latam-ia-competir-grandes-marcas-2026",
+      "title": "Cómo las PYMEs Latinoamericanas Usan IA para Competir con Grandes Marcas (2026)",
+      "keyword": "inteligencia artificial pymes latinoamerica",
+      "lang": "es",
+      "priority": "media",
+      "batch": "2026-06-04",
+      "written": false
+    },
+    {
+      "date": "2026-09-17",
+      "slug": "guia-seo-2026-para-pymes-datos-estructurados-busqueda-local-",
+      "title": "Guía SEO 2026 para PYMEs: Datos Estructurados, Búsqueda Local e IA",
+      "keyword": "small business seo guide 2026",
+      "lang": "es",
+      "priority": "media",
+      "batch": "2026-06-06",
+      "written": false
+    }
+  ]
+}
