@@ -28,7 +28,18 @@ export interface GoogleErrorInfo {
 }
 
 const AUTH_SIGNS =
-  /invalid_grant|invalid_rapt|unauthorized_client|Token has been expired or revoked|Account has been deleted|invalid_token|401/i;
+  /invalid_grant|invalid_rapt|unauthorized_client|deleted_client|The OAuth client was deleted|Token has been expired or revoked|Account has been deleted|invalid_token|401/i;
+
+/**
+ * El cliente OAuth borrado es su propio caso, y merece mensaje propio.
+ *
+ * Un token caducado se arregla reautorizando. Un CLIENTE borrado no: mata a la
+ * vez todos los tokens emitidos con él, en local y en producción, y no hay
+ * reautorización posible porque la aplicación a la que se pediría permiso ya no
+ * existe. Confundir los dos manda a la gente a repetir un paso que no puede
+ * funcionar.
+ */
+const CLIENT_GONE = /deleted_client|The OAuth client was deleted/i;
 
 /** ¿Este error es "perdimos el acceso" y no "falló la consulta"? */
 export function isAuthFailure(e: unknown): boolean {
@@ -48,6 +59,15 @@ export function isAuthFailure(e: unknown): boolean {
 export function describeGoogleError(e: unknown): GoogleErrorInfo {
   const err = e as { message?: string; response?: { data?: { error_description?: string } } };
   const detail = err?.response?.data?.error_description || err?.message || "Unknown error";
+
+  if (CLIENT_GONE.test(detail)) {
+    return {
+      kind: "auth",
+      message: "The OAuth client itself was deleted, so every token issued with it is dead.",
+      action:
+        "Reauthorising will not help: the application being asked for permission no longer exists. A new OAuth client has to be created in a Google Cloud project owned by an account that will persist, its APIs enabled, and every refresh token reissued here and in Render.",
+    };
+  }
 
   if (isAuthFailure(e)) {
     return {
