@@ -136,7 +136,7 @@ function phraseOf(url: string): string | null {
 const BRANDED =
   /\b(jasper|hubspot|breeze|copy\.?ai|adcreative|typeface|semrush|ahrefs|surfer ?seo|screaming ?frog|faststrat)\b/i;
 const PRESS_RELEASE =
-  /\b(recognis|recogniz|award|partner|partnership|names?d|appoints?|announces|celebrat|anniversar|webinar|selects?|converts?|wins?)\b/i;
+  /\b(recognis|recogniz|award|premio|partner|partnership|names?d|appoints?|announces|anuncia|celebrat|anniversar|aniversario|webinar|selects?|converts?|wins?|gana|nombramiento|nombra|asume|ficha|fichaje|se une|se suma|designa|nuevo director|nueva directora|new (?:ceo|cmo|coo|head|chief)|se incorpora|deja la agencia|renuncia)\b/i;
 
 /** Palabras significativas de una frase, sin ruido ni duplicados. */
 const sig = (phrase: string) => [
