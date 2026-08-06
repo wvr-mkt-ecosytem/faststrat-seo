@@ -19,9 +19,22 @@ type Post = {
   wpLink: string | null
 }
 
+type Finding = { severity: string; rule: string; detail: string; excerpt?: string }
+
 type PublishState = {
   loading: boolean
-  result?: { ok: boolean; link?: string; action?: string; error?: string; status?: string; live?: boolean }
+  result?: {
+    ok: boolean
+    link?: string
+    action?: string
+    error?: string
+    status?: string
+    live?: boolean
+    /** Lo que impidió publicar. Va aquí y no en un error suelto porque hay que
+     *  poder leer QUÉ arreglar, no solo que algo falló. */
+    blocking?: Finding[]
+    warnings?: Finding[]
+  }
 }
 
 type EditState = {
@@ -91,8 +104,24 @@ export default function BlogsPage() {
   async function publish(slug: string, live: boolean) {
     setStates((s) => ({ ...s, [slug]: { loading: true } }))
     try {
-      const data = await postJson<{ results?: PublishState['result'][]; error?: string }>('/api/wordpress/publish', { slug, live, draft: !live })
-      const result = data.results?.[0] ?? { ok: false, error: data.error ?? 'Error desconocido' }
+      const data = await postJson<{
+        results?: PublishState['result'][]
+        error?: string
+        blocked?: boolean
+        message?: string
+        findings?: { slug: string; blocking: Finding[]; warnings: Finding[] }[]
+      }>('/api/wordpress/publish', { slug, live, draft: !live })
+
+      // La compuerta responde con `blocked` y los hallazgos, no con results.
+      const gate = data.blocked ? data.findings?.find((f) => f.slug === slug) : undefined
+      const result = gate
+        ? {
+            ok: false,
+            error: data.message ?? 'Bloqueado por la compuerta de calidad',
+            blocking: gate.blocking,
+            warnings: gate.warnings,
+          }
+        : (data.results?.[0] ?? { ok: false, error: data.error ?? 'Error desconocido' })
       setStates((s) => ({ ...s, [slug]: { loading: false, result } }))
       // Actualiza el badge de estado al instante (sin necesidad de refresh).
       if (result.ok && result.status) {
@@ -238,6 +267,22 @@ export default function BlogsPage() {
                     <p className="flex items-start gap-1 justify-end text-xs text-red-500 mt-2 text-right">
                       <AlertCircle size={12} className="mt-0.5 shrink-0" />
                       {state.result.error}
+                      {/* Los hallazgos, no solo el hecho de que falló: sin la
+                          frase concreta nadie puede arreglar nada. */}
+                      {!!state.result.blocking?.length && (
+                        <ul className="mt-1.5 flex flex-col gap-1">
+                          {state.result.blocking.map((f, i) => (
+                            <li key={i} className="text-[11px] leading-snug">
+                              <span className="font-medium">{f.detail}</span>
+                              {f.excerpt && (
+                                <span className="block text-[10px] opacity-70 font-mono mt-0.5">
+                                  …{f.excerpt}…
+                                </span>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </p>
                   )}
 
