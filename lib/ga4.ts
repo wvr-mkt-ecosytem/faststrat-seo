@@ -129,10 +129,21 @@ export function joinWithSearch(
       let verdict: string;
       let action: string;
 
-      if (!a || a.sessions === 0) {
+      // El orden importa y este es deliberado: primero si hubo clic, porque
+      // sin clic no hay nada que GA4 pueda haber medido. Preguntar antes por
+      // GA4 convertía "nadie la clica" en "la medición está rota".
+      if (g.clicks === 0) {
+        verdict =
+          g.impressions >= 100 ? "sale y no la clican" : "casi nadie la ve";
+        action =
+          g.impressions >= 100
+            ? "Google la muestra y nadie entra: es título y meta. GA4 no la ve porque no hay clic que ver, no porque falte medición."
+            : "Ni la muestran ni la clican. Es alcance: enlaces internos y cobertura del tema.";
+      } else if (!a || a.sessions === 0) {
+        // AHORA sí es señal de medición: hubo clics y GA4 no registró sesiones.
         verdict = "sin datos en GA4";
         action =
-          "GSC la ve y GA4 no. Suele ser medición: comprueba en Medición que la etiqueta cubre esta ruta.";
+          "Hubo clics desde búsqueda y GA4 no registró sesiones. Eso sí es medición: comprueba en Medición que la etiqueta cubre esta ruta.";
       } else if (g.impressions < 100) {
         verdict = "casi nadie la ve";
         action = "No es problema de contenido: es de alcance. Necesita enlaces internos o más cobertura del tema.";
