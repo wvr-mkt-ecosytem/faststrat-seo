@@ -87,22 +87,35 @@ export async function auditContainers(): Promise<ContainerAudit[]> {
         measurementId:
           param(tag, "measurementId") ??
           param(tag, "measurementIdOverride") ??
+          // La etiqueta de Google (googtag) lo guarda aquí, y es la que
+          // configura GA4 en la mayoría de contenedores modernos.
+          param(tag, "tagId") ??
           param(tag, "trackingId") ??
           undefined,
         paused: Boolean(tag.paused),
         firingTriggers: (tag.firingTriggerId ?? []).length,
       }));
 
+      // web | server | ios | android. Un contenedor de servidor no lleva
+      // etiqueta de configuración de GA4 y no por eso está roto.
+      const usage = (c.usageContext ?? []).map((u) => String(u).toLowerCase());
+      const isWeb = usage.includes("web") || usage.length === 0;
+
       const ga4 = summaries.filter((s) => /gaawc|googtag|gaawe/i.test(s.type));
       const ids = [...new Set(summaries.map((s) => s.measurementId).filter(Boolean) as string[])];
 
       const findings: ContainerAudit["findings"] = [];
 
-      if (!ga4.length) {
+      if (!isWeb) {
+        findings.push({
+          severity: "ok",
+          detail: `Contenedor de ${usage.join("/") || "otro tipo"}: no lleva etiqueta de GA4 y no debe llevarla. Las reglas de abajo son para contenedores web.`,
+        });
+      } else if (!ga4.length) {
         findings.push({
           severity: "block",
           detail:
-            "No hay ninguna etiqueta de GA4 en este contenedor. Sin ella no se está midiendo nada, y los informes de GA4 estarán vacíos o incompletos.",
+            "No hay ninguna etiqueta de GA4 en este contenedor web. Sin ella no se está midiendo nada, y los informes de GA4 estarán vacíos o incompletos.",
         });
       } else {
         const activas = ga4.filter((g) => !g.paused);
@@ -119,6 +132,16 @@ export async function auditContainers(): Promise<ContainerAudit[]> {
             detail: `${sinTrigger.length} etiqueta(s) de GA4 sin activador: nunca se disparan (${sinTrigger.map((s) => s.name).join(", ")}).`,
           });
         }
+      }
+
+      // Decir "bien montada" sin saber contra qué mide es afirmar más de lo
+      // comprobado: es justo el caso que destapó el fallo del tagId.
+      if (isWeb && ga4.length && ids.length === 0) {
+        findings.push({
+          severity: "warn",
+          detail:
+            "Hay etiqueta de GA4 pero no se pudo leer contra qué propiedad mide. Ábrela en GTM y confirma el ID de medición.",
+        });
       }
 
       if (ids.length > 1) {
