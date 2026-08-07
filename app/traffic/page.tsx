@@ -1,8 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Activity, Loader2, AlertCircle } from 'lucide-react'
+import { Activity, Loader2, AlertCircle, Sparkles, PenLine } from 'lucide-react'
 import { BrandHeader } from '@/components/BrandHeader'
+import { postJson, ApiError } from '@/lib/api'
 
 type Page = {
   path: string
@@ -48,6 +49,34 @@ function Stat({ label, value, accent }: { label: string; value: string | number;
   )
 }
 
+type Rec = {
+  kind: string
+  target: string
+  reason: string
+  evidence: string
+  suggestion: string
+  priority: string
+}
+
+type Analysis = {
+  recommendations?: Rec[]
+  limits?: string[]
+  error?: string
+}
+
+const KIND_LABEL: Record<string, string> = {
+  'rewrite-title': 'Reescribir título',
+  'improve-page': 'Mejorar la página',
+  'new-article': 'Artículo nuevo',
+  'add-cta': 'Añadir CTA',
+}
+
+const PRIO: Record<string, string> = {
+  alta: 'bg-green-100 text-green-700',
+  media: 'bg-yellow-100 text-yellow-700',
+  baja: 'bg-neutral-100 text-neutral-600',
+}
+
 export default function TrafficPage() {
   const [data, setData] = useState<Resp | null>(null)
   const [loading, setLoading] = useState(true)
@@ -64,6 +93,22 @@ export default function TrafficPage() {
   }, [days])
 
   const pages = (data?.pages ?? []).filter((p) => !filter || p.verdict === filter)
+
+  const [analysis, setAnalysis] = useState<Analysis | null>(null)
+  const [analysing, setAnalysing] = useState(false)
+
+  async function runAnalyst() {
+    setAnalysing(true)
+    setAnalysis(null)
+    try {
+      const j = await postJson<Analysis>('/api/ga4/analyst', { days })
+      setAnalysis(j)
+    } catch (e) {
+      setAnalysis({ error: e instanceof ApiError ? e.message : String(e) })
+    } finally {
+      setAnalysing(false)
+    }
+  }
 
   return (
     <>
@@ -125,6 +170,64 @@ export default function TrafficPage() {
                 estos números.
               </div>
             )}
+
+            {/* El analista, junto a los números que cita. */}
+            <section className="rounded-lg border border-line bg-white p-5 flex flex-col gap-3">
+              <div className="flex items-baseline gap-3 flex-wrap">
+                <h2 className="text-sm font-bold text-ink flex items-center gap-2">
+                  <Sparkles size={15} className="text-maroon" /> Qué escribir, según estos datos
+                </h2>
+                <span className="text-[11px] text-sand">
+                  El agente solo puede citar los números de esta pantalla, no busca en la web
+                </span>
+              </div>
+
+              <button
+                onClick={runAnalyst}
+                disabled={analysing}
+                className="self-start px-3 py-1.5 rounded-md bg-maroon text-cream text-sm font-medium hover:bg-maroon-hover disabled:opacity-50 flex items-center gap-1.5"
+              >
+                {analysing ? <Loader2 size={14} className="animate-spin" /> : <PenLine size={14} />}
+                {analysing ? 'Analizando…' : 'Analizar y recomendar'}
+              </button>
+
+              {analysis?.error && (
+                <p className="text-xs text-red-700 flex items-center gap-1">
+                  <AlertCircle size={12} /> {analysis.error}
+                </p>
+              )}
+
+              {/* Lo que el análisis NO pudo mirar. Callarlo haría pasar una
+                  lectura parcial por completa. */}
+              {!!analysis?.limits?.length && (
+                <ul className="flex flex-col gap-0.5">
+                  {analysis.limits.map((l, i) => (
+                    <li key={i} className="text-[11px] text-amber-800 leading-relaxed">⚠ {l}</li>
+                  ))}
+                </ul>
+              )}
+
+              {!!analysis?.recommendations?.length && (
+                <div className="flex flex-col gap-2.5">
+                  {analysis.recommendations.map((r, i) => (
+                    <div key={i} className="border-t border-line pt-2.5 first:border-0 first:pt-0">
+                      <div className="flex items-baseline gap-2 flex-wrap">
+                        <span className={`text-[10px] px-1.5 py-0.5 rounded ${PRIO[r.priority] ?? ''}`}>
+                          {r.priority}
+                        </span>
+                        <span className="text-[11px] text-sand">{KIND_LABEL[r.kind] ?? r.kind}</span>
+                        <span className="text-sm text-ink font-medium">{r.target}</span>
+                      </div>
+                      <p className="text-[12px] text-ink/80 leading-snug mt-0.5">{r.suggestion}</p>
+                      <p className="text-[11px] text-sand leading-snug">{r.reason}</p>
+                      {/* El dato que la sostiene. Una recomendación sin su
+                          número es una opinión y no se puede priorizar. */}
+                      <p className="text-[11px] font-mono text-maroon mt-0.5">{r.evidence}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
 
             <div className="flex items-center gap-1.5 flex-wrap">
               <button

@@ -60,6 +60,16 @@ export function describeGoogleError(e: unknown): GoogleErrorInfo {
   const err = e as { message?: string; response?: { data?: { error_description?: string } } };
   const detail = err?.response?.data?.error_description || err?.message || "Unknown error";
 
+  // Un fallo marcado como del agente NO es de Google, aunque traiga un 401.
+  // Atribuírselo a Google manda a rehacer credenciales que funcionan.
+  if (/^AGENT_AUTH:/.test(detail)) {
+    return {
+      kind: "auth",
+      message: detail.replace(/^AGENT_AUTH:\s*/, ""),
+      action: "Regenera el token con `claude setup-token` y cópialo a .env.local y a Render.",
+    };
+  }
+
   if (CLIENT_GONE.test(detail)) {
     return {
       kind: "auth",
