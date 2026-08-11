@@ -12,8 +12,21 @@ export function proxy(request: NextRequest) {
   const user = process.env.DASHBOARD_USER;
   const pass = process.env.DASHBOARD_PASSWORD;
 
-  // Sin credenciales configuradas → acceso libre (desarrollo local).
-  if (!user || !pass) return NextResponse.next();
+  // Sin credenciales configuradas: libre en local, CERRADO en producción.
+  //
+  // El valor por defecto importa más que el caso normal. Si estas variables
+  // faltan en Render, la versión anterior servía el panel entero sin login y
+  // sin avisar, incluidas las rutas que publican en el sitio en vivo. Un fallo
+  // de configuración no puede convertirse en acceso público.
+  if (!user || !pass) {
+    if (process.env.NODE_ENV === "production") {
+      return new NextResponse(
+        "Falta configurar DASHBOARD_USER y DASHBOARD_PASSWORD. El panel no se sirve sin ellas.",
+        { status: 503 },
+      );
+    }
+    return NextResponse.next();
+  }
 
   const auth = request.headers.get("authorization");
   if (auth) {

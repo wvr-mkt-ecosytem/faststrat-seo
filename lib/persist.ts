@@ -43,6 +43,12 @@ export async function persistChanges(message: string, files: string[]): Promise<
     await run(["push", remote, `HEAD:${branch}`]);
   } catch (err) {
     // Fallar persist no debe romper la operación principal; lo logueamos.
-    console.error("[persist] fallo:", err instanceof Error ? err.message : err);
+    // El mensaje de execFile trae la línea de comando entera, y ahí va el
+    // token dentro de la URL del remoto. Se redacta antes de imprimir: un PAT
+    // con permiso de escritura en un log es un PAT que hay que rotar.
+    const crudo = err instanceof Error ? err.message : String(err);
+    const stderr = (err as { stderr?: string })?.stderr ?? "";
+    const limpio = (s: string) => s.split(token).join("***");
+    console.error("[persist] fallo:", limpio(crudo), limpio(stderr));
   }
 }

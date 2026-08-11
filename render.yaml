@@ -19,5 +19,11 @@ services:
         - "data/**"
         - "public/covers/**"
     envVars:
+      # sync:false obliga a Render a pedirlas al desplegar el blueprint.
+      # Sin esto, un servicio recreado arrancaba sin autenticación.
+      - key: DASHBOARD_USER
+        sync: false
+      - key: DASHBOARD_PASSWORD
+        sync: false
       - key: NODE_VERSION
         value: 22
