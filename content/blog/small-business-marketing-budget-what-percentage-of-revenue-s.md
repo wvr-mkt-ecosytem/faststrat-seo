@@ -141,6 +141,10 @@ If managing all of that manually sounds like a full-time job, it's worth knowing
 
 ---
 
-FastStrat runs this as one system instead of a stack you have to assemble: content, lead nurture and reporting in one place, built for teams without a marketing department.
+You now know what to do. The hard part is doing it every week, without a marketing team, while you run the business.
+
+That is the job FastStrat does: it plans the content, writes it, publishes it, and tells you what actually moved. One place, no stack to assemble.
 
 **[Start free at app.faststrat.ai →](https://app.faststrat.ai)**
+
+Set it up in minutes. Keep what works.

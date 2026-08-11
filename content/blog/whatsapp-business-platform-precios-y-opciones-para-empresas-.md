@@ -149,6 +149,10 @@ Si además quieres que esas conversaciones conviertan — con flujos automatizad
 
 ---
 
-FastStrat corre esto como un sistema y no como un conjunto de herramientas que toca ensamblar: contenido, seguimiento de leads y reportes en un solo sitio, pensado para equipos sin departamento de marketing.
+Ya sabes qué hacer. Lo difícil es hacerlo cada semana, sin equipo de marketing y mientras sacas adelante el negocio.
+
+De eso se encarga FastStrat: planea el contenido, lo escribe, lo publica y te dice qué funcionó de verdad. En un solo sitio, sin herramientas que ensamblar.
 
 **[Empieza gratis en app.faststrat.ai →](https://app.faststrat.ai)**
+
+Se configura en minutos. Te quedas con lo que funcione.
