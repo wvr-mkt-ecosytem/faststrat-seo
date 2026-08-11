@@ -1,0 +1,183 @@
+{
+  "weekOf": "2026-08-11",
+  "generatedAt": "2026-08-11T21:50:01.109Z",
+  "source": "auto-weekly",
+  "summary": "10-piece English content batch anchored on top GSC striking-distance signals (landing page checklist 518 impr, WhatsApp BSP LATAM 302 impr, AI SEO tools 91 impr) blended with 2026 agentic-AI, GEO/AEO, and WhatsApp-commerce trends — all calibrated to the SMB gap left by enterprise-pivoting competitors.",
+  "research": {
+    "competitors": [
+      "Jasper and Copy.ai have both pivoted hard to enterprise in 2026 (Jasper: 850+ enterprise clients, $2.2M avg annual savings per its own State of AI in Marketing 2026 report; Copy.ai rebranded around GTM/sales automation) — SMBs are explicitly underserved, creating FastStrat's clearest positioning gap.",
+      "HubSpot Breeze AI is deeply wired into CRM/email workflows but delivers value only inside the HubSpot ecosystem; businesses without an existing HubSpot stack receive little native AI benefit, and comparison queries ('HubSpot Breeze vs Jasper vs Copy.ai 2026') already drive significant SERP traffic FastStrat partially captures.",
+      "A new crop of niche SEO-AI roundup sites (MEGA AI, Moonrank AI, Layer3 Labs, Metamenu AI, Ryze AI, Snezzi) is flooding 'best AI SEO tools for small businesses 2026' with generic listicles — none address LATAM-specific ranking factors, local directory SEO, or WhatsApp commerce workflows, leaving a clear content gap.",
+      "AgentMarketCap and Improvado are publishing agentic-stack content targeting B2B and enterprise ('The Agentic Marketing Stack 2026: HubSpot, Jasper, and Copy.ai Automating the $30B Content Creation Layer') — the affordable, practical SMB-agent implementation angle remains largely unclaimed in organic search."
+    ],
+    "trends": [
+      "GEO (Generative Engine Optimization) is now a mainstream SMB imperative: 34% of marketers are actively optimizing so AI models cite their brand as authoritative (Digiday 2026 Marketer's Guide to GEO/AEO); this has spawned its own tool category and checklist content demand.",
+      "AEO (Answer Engine Optimization) has diverged from GEO as a distinct discipline — structured FAQ content, schema markup, and Google's 2026 local-business structured data guidelines are the tactical levers SMBs need to appear in AI-generated answers.",
+      "WhatsApp Commerce in LATAM reached critical mass in 2026: Meta reports 98% open rates, 75-90% marketing-template response rates, and 60% of Business API users plan AI-automation integrations by end of year (Blip/Mazkara 2026 data) — BSP selection is now a strategic, high-stakes SMB decision.",
+      "Agentic AI marketing stacks are replacing single-point tools: HubSpot, Jasper, and Copy.ai all launched multi-agent pipeline features in 2026, forcing SMBs to evaluate orchestration layers vs. standalone tools — the 'SMB agent' query cluster (pos 5.2, 38 impr) signals early commercial intent.",
+      "Social commerce via interactive short-form video (shoppable Instagram Reels, TikTok in-app checkout) became a primary direct-revenue channel for SMBs in 2026, converging with AI-generated UGC and creator-led selling — a trend reshaping both content strategy and paid-social budgets."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "The Ultimate Landing Page Checklist for Small Businesses in 2026 (50-Point CRO Guide)",
+      "slug": "the-ultimate-landing-page-checklist-for-small-businesses-in-",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "landing page checklist",
+      "intent": "informational / conversion optimization tool",
+      "rationale": "Highest GSC signal in the batch (518 impr, pos 12.9) — a comprehensive, downloadable-style checklist outranks generic lists by going deeper on mobile-first, AI-personalization, and AEO-friendly page structure.",
+      "outline": [
+        "H2 1: Why Your Landing Page Is Costing You Conversions in 2026 (Benchmarks: 2-9% avg vs 12-28% top quartile)",
+        "H2 2: Section 1 — Message Match & Headline Clarity (10-Point Checklist)",
+        "H2 3: Section 2 — Page Speed, Mobile-First Design & Core Web Vitals (10-Point Checklist)",
+        "H2 4: Section 3 — Trust Signals, Social Proof & Form Optimization (15-Point Checklist)",
+        "H2 5: Section 4 — CTA Architecture, AI Personalization & Post-Click Tracking (15-Point Checklist)"
+      ]
+    },
+    {
+      "title": "Best WhatsApp BSP for LATAM Small Businesses in 2026: Full Provider Comparison",
+      "slug": "best-whatsapp-bsp-for-latam-small-businesses-in-2026-full-pr",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "best WhatsApp BSP LATAM",
+      "intent": "commercial comparison / vendor selection",
+      "rationale": "302 impressions at pos 4.5 is the highest-volume unexploited signal — page is nearly on page 1 and the topic (BSP selection for LATAM SMBs with AI integration) is uncovered by any major competitor, making this a low-lift, high-return authority piece.",
+      "outline": [
+        "H2 1: Why WhatsApp BSP Choice Is Now a Strategic Decision for LATAM SMBs (98% Open Rate Reality Check)",
+        "H2 2: How WhatsApp Business API & BSPs Actually Work (and When to Upgrade from the Free App)",
+        "H2 3: Top 7 WhatsApp BSPs for LATAM in 2026 — Features, Pricing & AI-Automation Readiness",
+        "H2 4: BSP Cost Calculator: What 3,000 Conversations/Month Actually Costs by Country",
+        "H2 5: How to Choose Your BSP: Decision Framework for Retail, Service & SaaS SMBs in LATAM"
+      ]
+    },
+    {
+      "title": "Best AI SEO Tools for Small Businesses in 2026: Ranked, Tested & Compared",
+      "slug": "best-ai-seo-tools-for-small-businesses-in-2026-ranked-tested",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "best AI SEO tools for small businesses 2026",
+      "intent": "commercial comparison / tool selection",
+      "rationale": "Three overlapping GSC query variants (91 + 69 + 66 impr, positions 19.5 / 9.0 / 18.4) represent a consolidated opportunity — a single authoritative piece with a LATAM and SMB-budget angle differentiates against the generic roundups flooding this SERP.",
+      "outline": [
+        "H2 1: What Actually Matters in an AI SEO Tool for a Small Business in 2026 (5 Non-Negotiables)",
+        "H2 2: The 12 Best AI SEO Tools for Small Businesses — Budget-Tier Breakdown ($0–$50 / $50–$150 / $150+)",
+        "H2 3: GEO & AEO Features: Which Tools Help You Rank in AI Search (ChatGPT, Gemini, Perplexity)",
+        "H2 4: LATAM-Specific Considerations: Local Directory SEO, Spanish-Language Crawling & Schema Support",
+        "H2 5: Head-to-Head Quick Picks — Best Tool by Use Case (Solo Founder / Growing SMB / Agency)"
+      ]
+    },
+    {
+      "title": "Claude vs ChatGPT for Marketing: Which AI Wins for Small Businesses in 2026?",
+      "slug": "claude-vs-chatgpt-for-marketing-which-ai-wins-for-small-busi",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "claude vs chatgpt for marketing",
+      "intent": "comparison / commercial research",
+      "rationale": "216 impressions is the second-highest volume query in the dataset despite pos 37.7 — a targeted, SMB-framed comparison can leap multiple pages and captures high-intent users evaluating AI tools before purchase.",
+      "outline": [
+        "H2 1: Claude vs ChatGPT for Marketing in 2026 — Why the Answer Depends on Your Use Case",
+        "H2 2: Content Creation Head-to-Head: Blog Posts, Ad Copy, Email Sequences & Social Captions",
+        "H2 3: SEO & Keyword Research Capabilities: Which AI Gives More Actionable Insights?",
+        "H2 4: Workflow Integration & Automation: API Access, Plugins & Agent Capabilities for SMBs",
+        "H2 5: Price, Privacy & Practical Verdict — Which Should Your Small Business Use (and When to Use Both)"
+      ]
+    },
+    {
+      "title": "SEO for LATAM Local Business Directories: The Complete 2026 Guide",
+      "slug": "seo-for-latam-local-business-directories-the-complete-2026-g",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "SEO for LATAM local business directory",
+      "intent": "informational / how-to guide",
+      "rationale": "306 impressions at pos 7.4 is just outside the top-5 click zone — a structured, schema-forward guide covering Google Business Profile, LATAM-specific directories, and structured data closes the gap where no competitor has a dedicated, authoritative resource.",
+      "outline": [
+        "H2 1: Why LATAM Local Directory SEO Is Different from US/EU Strategies (and What Actually Works)",
+        "H2 2: The Essential LATAM Business Directories: Google Business Profile, Páginas Amarillas, Yelp LATAM & Sector-Specific Platforms",
+        "H2 3: NAP Consistency, Citation Building & Structured Data (Schema.org LocalBusiness) for Spanish-Language Listings",
+        "H2 4: GEO & AEO for Local Search: Getting Your Business Cited by AI Assistants in 2026",
+        "H2 5: 30-Day LATAM Local SEO Action Plan — Tools, Templates & KPIs to Track"
+      ]
+    },
+    {
+      "title": "The SMB Agent Playbook: How to Integrate and Manage AI Agents for Your Small Business in 2026",
+      "slug": "the-smb-agent-playbook-how-to-integrate-and-manage-ai-agents",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "SMB AI agent",
+      "intent": "informational / implementation guide",
+      "rationale": "'smb agent' at pos 5.2 (38 impr) shows commercial intent from buyers actively evaluating agentic tools, while the 'startup/smb guide to integrating ai agents' variants signal unmet demand — no major competitor has a practical, budget-aware SMB implementation guide.",
+      "outline": [
+        "H2 1: What Is an AI Agent (and Why Every SMB Needs to Care About Agentic Marketing in 2026)",
+        "H2 2: The 5 Core AI Agents Most Valuable for Small Businesses — Lead Qual, Content, SEO, Social & Email",
+        "H2 3: Build vs Buy vs Orchestrate: Evaluating AI Agent Platforms for SMB Budgets",
+        "H2 4: Step-by-Step: Deploying Your First AI Marketing Agent Without a Dev Team",
+        "H2 5: Managing AI Agents Safely — Guardrails, Human-in-the-Loop Checkpoints & ROI Measurement"
+      ]
+    },
+    {
+      "title": "GEO vs AEO in 2026: Best Tools and Tactics for Small Businesses to Rank in AI Search",
+      "slug": "geo-vs-aeo-in-2026-best-tools-and-tactics-for-small-business",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "best GEO SEO tools for small business 2026",
+      "intent": "informational + commercial comparison",
+      "rationale": "'best GEO SEO tools for small business 2026' at pos 12.5 (34 impr) is striking-distance and the GEO/AEO space has almost no SMB-focused content — while enterprise brands race to optimize for Perplexity and Gemini, SMBs lack a practical entry point.",
+      "outline": [
+        "H2 1: GEO vs AEO vs Traditional SEO — What's Actually Different and Why It Matters for SMBs in 2026",
+        "H2 2: How AI Search Engines (Perplexity, ChatGPT Search, Gemini) Decide Which Small Businesses to Cite",
+        "H2 3: Best GEO & AEO Tools for Small Business in 2026 — Ranked by Price and Ease of Use",
+        "H2 4: Practical GEO Tactics: Structured Data, E-E-A-T Signals & Authority-Building for Local SMBs",
+        "H2 5: Your 60-Day GEO/AEO Launch Roadmap — From Zero AI Citations to Consistent Brand Mentions"
+      ]
+    },
+    {
+      "title": "Agency vs DIY AI: The True Cost of Meta Ads and Yelp Marketing for Small Businesses in 2026",
+      "slug": "agency-vs-diy-ai-the-true-cost-of-meta-ads-and-yelp-marketin",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "average cost of meta ads agency vs diy AI tools",
+      "intent": "commercial comparison / cost-decision research",
+      "rationale": "Two overlapping GSC signals ('average cost of meta ads agency vs diy ai tools' pos 9.0 + 'comparing diy vs agency-led yelp marketing services' pos 5.1) share the same buyer intent — a single honest cost-breakdown piece captures both and drives FastStrat's core value prop (AI-powered DIY at agency quality).",
+      "outline": [
+        "H2 1: The 2026 Small Business Marketing Budget Reality — What the SBA Data Actually Says",
+        "H2 2: Meta Ads Agency vs DIY AI Tools — Full Cost Breakdown (Setup, Monthly Fees, Creative, Management)",
+        "H2 3: Yelp Marketing: Agency-Led vs Self-Managed with AI — What You Get for Your Dollar",
+        "H2 4: Performance Comparison: Do Agencies Deliver Better ROAS Than AI-Assisted DIY for SMBs?",
+        "H2 5: Decision Framework — When to Hire an Agency, When to Go AI-DIY, and How to Transition"
+      ]
+    },
+    {
+      "title": "10 Tools Like Jasper and Copy.ai for Full Content Pipeline Automation in 2026",
+      "slug": "10-tools-like-jasper-and-copy-ai-for-full-content-pipeline-a",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "tools like jasper or copy.ai for full content pipeline automation",
+      "intent": "commercial comparison / alternative research",
+      "rationale": "Query at pos 9.6 (27 impr) targets users who have outgrown or priced out of Jasper/Copy.ai — exactly FastStrat's prospect — and no competitor publishes a dedicated alternatives listicle focused on end-to-end pipeline automation for SMBs.",
+      "outline": [
+        "H2 1: Why SMBs Are Looking Beyond Jasper and Copy.ai in 2026 (Enterprise Pivot = SMB Opportunity)",
+        "H2 2: What a 'Full Content Pipeline' Actually Means — Strategy, Brief, Draft, SEO, Publish, Distribute",
+        "H2 3: 10 Jasper and Copy.ai Alternatives Ranked — With Pricing, Best Use Case & Pipeline Coverage Score",
+        "H2 4: Head-to-Head Comparison Table — Features, Integrations & SMB-Friendliness at a Glance",
+        "H2 5: How to Build Your Own AI Content Pipeline Stack Under $200/Month"
+      ]
+    },
+    {
+      "title": "Structured Data for Local Business in 2026: Google's SEO Starter Guide Applied to SMBs",
+      "slug": "structured-data-for-local-business-in-2026-google-s-seo-star",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "structured data local business 2026",
+      "intent": "informational / how-to implementation",
+      "rationale": "'Google search central seo starter guide structured data local business 2026' at pos 8.7 (82 impr) has strong informational intent with zero direct SMB-focused content in top results — a practical implementation guide with real schema examples and a FastStrat AI-agent hook converts readers to users.",
+      "outline": [
+        "H2 1: Why Structured Data Is No Longer Optional for Local Businesses in 2026 (GEO + Rich Results Double Value)",
+        "H2 2: The Google SEO Starter Guide's Key Structured Data Requirements — What Actually Matters for SMBs",
+        "H2 3: Step-by-Step: Implementing LocalBusiness, Review, FAQ & Product Schema Without a Developer",
+        "H2 4: Schema Markup for LATAM Local Businesses — Language, Currency, Service Area & Multi-Location Tips",
+        "H2 5: How to Test, Monitor & Maintain Your Structured Data — Tools, Validators & a 30-Day Audit Checklist"
+      ]
+    }
+  ]
+}
