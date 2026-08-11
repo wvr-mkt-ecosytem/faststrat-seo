@@ -61,10 +61,12 @@ const line = (p: Joined) =>
   `${p.path} | ${p.clicks} clics, ${p.impressions} impr, pos ${p.position}, ${p.sessions} ses, ${p.avgEngagement}s, ${p.conversions} conv | ${p.verdict}`;
 
 export async function analyse(days = 28): Promise<AnalystResult> {
-  const [ga, gscRes] = await Promise.all([
-    pageStats(days),
-    queryAnalytics("page", days).catch(() => ({ rows: [] })),
-  ]);
+  // Si Search Console falla, esto TIENE que reventar. Antes se tragaba el
+  // error y devolvía `rows: []`; como joinWithSearch recorre las filas de GSC,
+  // el resultado era cero páginas y el agente analizaba la nada y aun así
+  // devolvía recomendaciones. Un fallo de red se leía como "no hay tráfico",
+  // que es la conclusión contraria y la que peor decisión provoca.
+  const [ga, gscRes] = await Promise.all([pageStats(days), queryAnalytics("page", days)]);
 
   const gsc = (gscRes.rows ?? []).map((r) => ({
     page: r.page,
@@ -153,6 +155,22 @@ Da las recomendaciones en JSON.`;
     // Devolver el análisis sin recomendaciones y decirlo es mejor que fingir
     // que no hubo respuesta: los números de arriba siguen siendo válidos.
     limits.push("El agente no devolvió un JSON válido, así que no hay recomendaciones en esta corrida.");
+  }
+
+  // "No inventes cifras" era solo una instrucción en el prompt, y una
+  // instrucción no es una garantía. Aquí se comprueba: si una recomendación
+  // apunta a una ruta concreta, esa ruta tiene que estar en los datos que se
+  // le pasaron. Una recomendación sobre una página que no existe se lee como
+  // un hallazgo y no lo es, así que se cae y se dice cuántas cayeron.
+  const rutas = new Set(joined.map((p) => p.path));
+  const apuntaARuta = (r: Recommendation) => r.target?.startsWith("/");
+  const descartadas = recommendations.filter((r) => apuntaARuta(r) && !rutas.has(r.target.replace(/\/+$/, "") || "/"));
+  if (descartadas.length) {
+    recommendations = recommendations.filter((r) => !descartadas.includes(r));
+    limits.push(
+      `${descartadas.length} recomendación(es) descartada(s) por apuntar a rutas que no están en los datos: ` +
+        descartadas.map((r) => r.target).join(", "),
+    );
   }
 
   return { days, totals, counts, recommendations, limits };

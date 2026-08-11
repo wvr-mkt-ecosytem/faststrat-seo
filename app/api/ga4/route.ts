@@ -26,10 +26,11 @@ export const GET = apiRoute(async (req: Request) => {
     });
   }
 
-  const [ga, gscRes] = await Promise.all([
-    pageStats(days),
-    queryAnalytics("page", days).catch(() => ({ rows: [] })),
-  ]);
+  // Sin catch a propósito: joinWithSearch recorre las filas de GSC, así que
+  // tragarse el error aquí devolvía una tabla vacía con `connected: true`, y
+  // un fallo de Search Console se leía en pantalla como "este sitio no tiene
+  // tráfico". Que falle y se vea el motivo.
+  const [ga, gscRes] = await Promise.all([pageStats(days), queryAnalytics("page", days)]);
 
   const gsc = (gscRes.rows ?? []).map((r) => ({
     page: r.page,

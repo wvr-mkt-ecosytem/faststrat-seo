@@ -134,10 +134,32 @@ export function joinWithSearch(
 ): Joined[] {
   const byPath = new Map(ga.map((g) => [toPath(g.path), g]));
 
-  return gsc
-    .filter((g) => g.page)
-    .map((g) => {
-      const p = toPath(g.page!);
+  // Search Console puede devolver VARIAS filas que son la misma página: la
+  // home salía partida en una de 339 impresiones y otra de 4, y cada una
+  // recibía su propio diagnóstico. El de la fila pequeña ("casi nadie la ve")
+  // acababa pisando al real ("entran y se van"), y las sesiones de GA4 se
+  // pegaban a las dos, así que también se contaban dos veces.
+  //
+  // La posición se pondera por impresiones. Promediarla a secas dejaría que
+  // una fila de 4 impresiones pesara lo mismo que una de 339.
+  const agregado = new Map<string, { clicks: number; impressions: number; posSum: number }>();
+  for (const g of gsc) {
+    if (!g.page) continue;
+    const p = toPath(g.page);
+    const acc = agregado.get(p) ?? { clicks: 0, impressions: 0, posSum: 0 };
+    acc.clicks += g.clicks;
+    acc.impressions += g.impressions;
+    acc.posSum += g.position * Math.max(g.impressions, 1);
+    agregado.set(p, acc);
+  }
+
+  return [...agregado.entries()]
+    .map(([p, sum]) => {
+      const g = {
+        clicks: sum.clicks,
+        impressions: sum.impressions,
+        position: sum.posSum / Math.max(sum.impressions, 1),
+      };
       const a = byPath.get(p);
 
       let verdict: string;

@@ -307,8 +307,53 @@ export function rivalTopics(days = 120, limit = 60): RivalTopicsResult {
   // que varios trataron pocas veces y hunde la etiqueta que sale en todas.
   const specificity = (t: RivalTopic) => t.sources.length / Math.sqrt(t.hits);
 
-  const topics = [...byKey.values()]
-    .filter((t) => t.hits <= CATEGORY_NOISE && t.sources.length >= 2)
+  const candidatos = [...byKey.values()].filter((t) => t.hits <= CATEGORY_NOISE && t.sources.length >= 2);
+
+  // Un titular compartido producía SIETE temas, no uno.
+  //
+  // Cuando dos medios publican la misma nota ("El 97% de las agencias de
+  // publicidad en México prioriza la IA pero solo el 19% ejerce un liderazgo
+  // formal"), cada pareja de palabras significativas se registraba como tema
+  // propio: ejerce+formal, ejerce+liderazgo, ejerce+prioriza, formal+liderazgo…
+  // Con veinte huecos en pantalla, dos historias se comían la lista entera y
+  // las demás no llegaban a verse.
+  //
+  // Los pares que salen del MISMO conjunto de artículos son la misma historia,
+  // así que se agrupan por ahí: por las URLs de ejemplo, que es el dato que
+  // dice de dónde salió cada par.
+  const porHistoria = new Map<string, RivalTopic[]>();
+  for (const t of candidatos) {
+    const clave = t.examples
+      .map((e) => e.url)
+      .sort()
+      .join("|");
+    (porHistoria.get(clave) ?? porHistoria.set(clave, []).get(clave)!).push(t);
+  }
+
+  const agrupados: RivalTopic[] = [...porHistoria.values()].map((grupo) => {
+    const base = grupo[0];
+    if (grupo.length === 1) return base;
+
+    // La etiqueta, en el orden en que las palabras aparecen en el titular.
+    // "ejerce + formal" no dice nada; "agencias publicidad prioriza liderazgo"
+    // se lee como el tema que es. El orden sale del slug, no del alfabeto.
+    const enGrupo = new Set(grupo.flatMap((t) => t.phrase.split(" + ")));
+    const frase = phraseOf(base.examples[0].url) ?? "";
+    const enOrden = frase.split(" ").filter((w) => enGrupo.has(w));
+    const etiqueta = [...new Set(enOrden)].slice(0, 5).join(" + ");
+
+    return {
+      ...base,
+      phrase: etiqueta || base.phrase,
+      // Las fuentes son las mismas en todo el grupo (por eso agrupan), pero se
+      // unen igualmente para no depender de esa suposición.
+      sources: [...new Set(grupo.flatMap((t) => t.sources))],
+      kinds: [...new Set(grupo.flatMap((t) => t.kinds))],
+      hits: Math.max(...grupo.map((t) => t.hits)),
+    };
+  });
+
+  const topics = agrupados
     .sort((a, b) => specificity(b) - specificity(a) || b.newest.localeCompare(a.newest))
     .slice(0, limit);
 
