@@ -76,3 +76,9 @@ Prompts that produce clear, structured, data-rich, quotable content are more lik
 ---
 
 **Bottom line:** treat prompts as a repeatable system, not one-off requests. Master the 5-part framework, build a small library of recipes for your core tasks, and feed the AI your real data (Search Console queries, brand voice) — that is how marketers turn generic AI into a genuine competitive advantage.
+
+---
+
+FastStrat runs this as one system instead of a stack you have to assemble: content, lead nurture and reporting in one place, built for teams without a marketing department.
+
+**[Start free at app.faststrat.ai →](https://app.faststrat.ai)**

@@ -175,3 +175,9 @@ Nike didn't become a storytelling superpower by accident or by budget alone. It 
 The "Just Do It" tagline still works in 2026 because it was never a tagline. It was a story compressed into three words. And every time Nike opens a new chapter — a new athlete, a new cultural moment, a new medium — it's adding to the same story it started telling in 1988.
 
 That's what brand storytelling, done right, actually looks like. Not a campaign. A mythology you keep building.
+
+---
+
+FastStrat runs this as one system instead of a stack you have to assemble: content, lead nurture and reporting in one place, built for teams without a marketing department.
+
+**[Start free at app.faststrat.ai →](https://app.faststrat.ai)**

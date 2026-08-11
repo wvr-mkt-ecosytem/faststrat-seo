@@ -86,3 +86,9 @@ They replace execution, not strategy. AI tools produce content, creative, and ca
 ---
 
 **Bottom line:** the AI era has made DIY marketing genuinely competitive with agencies on output — at a fraction of the cost. Run the break-even math against your own revenue and margins before signing a retainer. For a lot of small businesses, the $60K you would hand an agency is better spent on tools, ads, and one expert hire.
+
+---
+
+FastStrat runs this as one system instead of a stack you have to assemble: content, lead nurture and reporting in one place, built for teams without a marketing department.
+
+**[Start free at app.faststrat.ai →](https://app.faststrat.ai)**

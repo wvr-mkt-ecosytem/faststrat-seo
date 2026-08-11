@@ -183,3 +183,9 @@ AI organic marketing for SMBs in 2026 isn't about replacing marketing — it's a
 Start with the channel closest to your existing audience — usually email or review automation — get one win, then layer in SEO content and social distribution. The CAC reduction follows from consistent execution, not from any single tool.
 
 If you want to skip the tool-stacking phase and run this as a coordinated system from day one, FastStrat's AI marketing agents are built specifically for SMBs — handling content scheduling, lead nurture, and reporting in one place, without requiring you to hire a three-person marketing team to manage the stack.
+
+---
+
+FastStrat runs this as one system instead of a stack you have to assemble: content, lead nurture and reporting in one place, built for teams without a marketing department.
+
+**[Start free at app.faststrat.ai →](https://app.faststrat.ai)**

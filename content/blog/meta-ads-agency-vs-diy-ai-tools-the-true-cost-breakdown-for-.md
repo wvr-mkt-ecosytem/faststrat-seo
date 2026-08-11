@@ -146,3 +146,9 @@ The **average cost of Meta ads agency vs DIY AI tools** comes down to this: agen
 If you're spending over $10K/month on Meta and have no internal marketing resource, an agency is likely worth it. If you're under that threshold, have even moderate marketing aptitude, and want to keep more budget working in the platform, a modern AI tool stack — or an AI agent layer — will give you more control and better unit economics.
 
 The mistake most SMBs make is treating this as a permanent decision. **Start with the path that matches your current budget and team capacity, build your own data foundation, and re-evaluate every six months** as your ad spend and capabilities grow.
+
+---
+
+FastStrat runs this as one system instead of a stack you have to assemble: content, lead nurture and reporting in one place, built for teams without a marketing department.
+
+**[Start free at app.faststrat.ai →](https://app.faststrat.ai)**

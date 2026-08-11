@@ -174,3 +174,9 @@ Absolutely. Shopify has a native GA4 integration via the Online Store preference
 
 **What's the difference between GA4 events and conversions?**
 In GA4, everything is an event — a pageview, a scroll, a button click, a purchase. A conversion is simply an event you've flagged as high-value. GA4 tracks all events automatically (or via custom setup); you manually promote the important ones to "conversion" status under Admin > Conversions. Think of events as raw data and conversions as the business outcomes you care about.
+
+---
+
+FastStrat runs this as one system instead of a stack you have to assemble: content, lead nurture and reporting in one place, built for teams without a marketing department.
+
+**[Start free at app.faststrat.ai →](https://app.faststrat.ai)**

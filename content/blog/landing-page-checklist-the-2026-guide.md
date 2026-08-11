@@ -203,3 +203,9 @@ Yes — AI can generate draft checklists quickly and adapt them to your industry
 
 **What's the difference between a landing page and a homepage?**
 A homepage serves many audiences and goals at once. A landing page is designed around a single offer and a single conversion action. The more specific the audience and offer, the fewer distractions the page should have — which is why most effective landing pages don't share a template with the main site.
+
+---
+
+FastStrat runs this as one system instead of a stack you have to assemble: content, lead nurture and reporting in one place, built for teams without a marketing department.
+
+**[Start free at app.faststrat.ai →](https://app.faststrat.ai)**

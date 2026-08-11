@@ -138,3 +138,9 @@ The **small business marketing budget percentage of revenue** question has a cle
 Start with the SBA's 7–8% benchmark, pressure-test it against your CAC math, and allocate across at least three channels. Review every 90 days. Cut what isn't converting; invest more in what is.
 
 If managing all of that manually sounds like a full-time job, it's worth knowing that tools like **FastStrat** are built specifically for this problem — AI marketing agents that help small businesses automate campaign management, track cross-channel attribution, and reallocate budget based on real-time performance data, without needing a full marketing team. The goal is the same whether you do it manually or with automation: make sure every dollar you spend has a measurable path back to revenue.
+
+---
+
+FastStrat runs this as one system instead of a stack you have to assemble: content, lead nurture and reporting in one place, built for teams without a marketing department.
+
+**[Start free at app.faststrat.ai →](https://app.faststrat.ai)**

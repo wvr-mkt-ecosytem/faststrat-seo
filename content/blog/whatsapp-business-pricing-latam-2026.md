@@ -82,3 +82,9 @@ Depende del volumen: Twilio para empezar sin compromisos, un BSP de tarifa plana
 ---
 
 **En resumen:** en 2026 pagas por mensaje de plantilla, no por conversación, y el servicio iniciado por el cliente es gratis. Elige tu BSP según volumen, prioriza mensajes Utility sobre Marketing, y diseña tu embudo para que sea el cliente quien abra la conversación. Bien hecho, WhatsApp sigue siendo el canal con mejor retorno en Latinoamérica.
+
+---
+
+FastStrat corre esto como un sistema y no como un conjunto de herramientas que toca ensamblar: contenido, seguimiento de leads y reportes en un solo sitio, pensado para equipos sin departamento de marketing.
+
+**[Empieza gratis en app.faststrat.ai →](https://app.faststrat.ai)**

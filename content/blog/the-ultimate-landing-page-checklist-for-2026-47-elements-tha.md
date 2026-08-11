@@ -192,3 +192,9 @@ The difference between a 2% and a 10% conversion rate is almost never a single t
 If you're managing multiple campaigns and building pages regularly, working through 47 items manually every cycle gets expensive fast. **FastStrat's AI marketing agents** can audit existing landing pages, flag missing conversion elements against frameworks like this one, and generate copy variants for A/B testing — compressing what used to take days into a single workflow. For SMB teams running lean, that leverage compounds quickly.
 
 Run the checklist. Every item you skip is a conversion you're leaving on the table.
+
+---
+
+FastStrat runs this as one system instead of a stack you have to assemble: content, lead nurture and reporting in one place, built for teams without a marketing department.
+
+**[Start free at app.faststrat.ai →](https://app.faststrat.ai)**

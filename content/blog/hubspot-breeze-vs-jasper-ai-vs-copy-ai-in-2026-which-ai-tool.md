@@ -143,3 +143,9 @@ The "best" AI marketing tool in 2026 isn't the one with the most features — it
 Before committing to a $500+/month stack of AI tools, run one tool for one specific use case for 30 days and measure output quality against your time investment.
 
 If you're exploring how AI marketing agents can take on entire campaign workflows — not just individual copy tasks — FastStrat's platform is built specifically for SMBs who want autonomous execution, not just writing assistance. The difference between an AI writing tool and an AI marketing agent is the difference between a draft and a result.
+
+---
+
+FastStrat runs this as one system instead of a stack you have to assemble: content, lead nurture and reporting in one place, built for teams without a marketing department.
+
+**[Start free at app.faststrat.ai →](https://app.faststrat.ai)**

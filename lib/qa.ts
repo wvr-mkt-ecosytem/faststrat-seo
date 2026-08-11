@@ -277,7 +277,12 @@ export function runQa(input: QaInput): QaResult {
 
   // Autocita circular: si la única fuente de una cifra es nuestra propia web,
   // no está respaldada, está repetida.
-  const external = [...markdown.matchAll(/https?:\/\/([^/\s)]+)/g)].map((m) => m[1]);
+  // El enlace del CTA queda fuera: un 'empieza gratis' no cita nada, y
+  // contarlo hacía que añadir el botón volviera impublicable el artículo.
+  // Que no haya fuentes externas ya lo dice la regla no-external-links.
+  const external = [...markdown.matchAll(/https?:\/\/([^/\s)]+)/g)]
+    .map((m) => m[1])
+    .filter((h) => !/^app\.faststrat\.ai$/i.test(h));
   if (external.length && external.every((h) => /faststrat\.ai$/i.test(h))) {
     findings.push({
       severity: "block",
