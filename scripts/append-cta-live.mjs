@@ -84,7 +84,10 @@ const errores = [];
 
 for (const p of todos) {
   const html = p.content?.rendered ?? "";
-  if (html.includes(ANCLA) || html.includes(URL_CTA)) {
+  // Solo el ancla. Mirar también la URL del producto hacía que cualquier post
+  // que ya enlazara a app.faststrat.ai contara como "ya lo tiene" y nunca
+  // recibiera el CTA, sin que el recuento lo delatara.
+  if (html.includes(ANCLA)) {
     conCta++;
     continue;
   }
@@ -102,7 +105,13 @@ for (const p of todos) {
     // `content` sin renderizar: se pide en crudo para no perder shortcodes ni
     // bloques de Gutenberg al reescribir.
     const crudo = await wp(`posts/${p.id}?context=edit&_fields=content`);
-    const cuerpo = crudo.content?.raw ?? html;
+    // Nunca el HTML renderizado. Escribirlo como cuerpo destruye los bloques
+    // de Gutenberg y deja los shortcodes ya expandidos, sin vuelta atrás, y
+    // encima se imprimía "actualizado" como si hubiera funcionado.
+    const cuerpo = crudo.content?.raw;
+    if (typeof cuerpo !== "string") {
+      throw new Error("WordPress no devolvió el contenido en crudo; no se toca este post");
+    }
     await wp(`posts/${p.id}`, { method: "POST", body: JSON.stringify({ content: cuerpo + CTA[lang] }) });
     console.log(`  [${lang}] actualizado: ${p.slug.slice(0, 60)}`);
   } catch (e) {

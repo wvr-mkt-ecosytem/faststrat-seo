@@ -101,7 +101,13 @@ export async function auditContainers(): Promise<ContainerAudit[]> {
       const usage = (c.usageContext ?? []).map((u) => String(u).toLowerCase());
       const isWeb = usage.includes("web") || usage.length === 0;
 
-      const ga4 = summaries.filter((s) => /gaawc|googtag|gaawe/i.test(s.type));
+      // gaawe es la etiqueta de EVENTO y no mide nada por sí sola: necesita una
+      // de configuración (gaawc) o la etiqueta de Google (googtag) que le diga
+      // a dónde manda los datos. Contarlas juntas hacía que un contenedor con
+      // solo eventos, que es el caso definitivamente roto, saliera en verde.
+      const config = summaries.filter((s) => /gaawc|googtag/i.test(s.type));
+      const eventos = summaries.filter((s) => /gaawe/i.test(s.type));
+      const ga4 = [...config, ...eventos];
       const ids = [...new Set(summaries.map((s) => s.measurementId).filter(Boolean) as string[])];
 
       const findings: ContainerAudit["findings"] = [];
@@ -110,6 +116,11 @@ export async function auditContainers(): Promise<ContainerAudit[]> {
         findings.push({
           severity: "ok",
           detail: `Contenedor de ${usage.join("/") || "otro tipo"}: no lleva etiqueta de GA4 y no debe llevarla. Las reglas de abajo son para contenedores web.`,
+        });
+      } else if (eventos.length && !config.length) {
+        findings.push({
+          severity: "block",
+          detail: `Hay ${eventos.length} etiqueta(s) de evento de GA4 pero ninguna de configuración. Los eventos no tienen a dónde enviar los datos: no se está midiendo nada.`,
         });
       } else if (!ga4.length) {
         findings.push({

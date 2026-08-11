@@ -24,6 +24,23 @@ export async function runClaude({
   delete env.ANTHROPIC_API_KEY;
   delete env.ANTHROPIC_AUTH_TOKEN;
 
+  try {
+    return await ejecutar();
+  } catch (e) {
+    const msg = String((e as Error)?.message ?? e);
+    if (/revoked|401|unauthorized|authenticate|invalid_token/i.test(msg)) {
+      throw new Error(
+        "AGENT_AUTH: el token de Claude (CLAUDE_CODE_OAUTH_TOKEN) no es válido. " +
+          "No tiene que ver con Google: esas credenciales son otras. " +
+          "Regenéralo con `claude setup-token` y actualízalo en .env.local y en Render.",
+      );
+    }
+    throw e;
+  }
+
+  // La envoltura vive AQUÍ y no en cada llamador: seis rutas llamaban a esto
+  // sin ella y reportaban un token de Claude caducado como un fallo de Google.
+  async function ejecutar(): Promise<string> {
   for await (const message of query({
     prompt,
     options: {
@@ -43,4 +60,5 @@ export async function runClaude({
     }
   }
   throw new Error("Claude no devolvió un resultado");
+  }
 }

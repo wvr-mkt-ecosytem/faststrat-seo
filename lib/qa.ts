@@ -34,11 +34,14 @@ const EM_DASH = /—/g;
 // Un número dentro de un ejemplo hipotético no es una afirmación que verificar.
 // "Si un cliente te deja $50 de valor, no puedes gastar $40 en captarlo" no
 // necesita fuente: no dice que eso ocurra, dice cómo se hace la cuenta.
+// Cada alternativa lleva su propio límite final. Sin él, /say/ casaba dentro
+// de "says" y degradaba a aviso la forma más común de citar una estadística
+// real ("Gartner says 63% of..."), y /si/ hacía lo mismo con "Si bien...".
 const HYPOTHETICAL =
-  /\b(if|say|suppose|imagine|let'?s say|for example|e\.g\.|assume|hypothetical|pretend|pongamos|supongamos|por ejemplo|imagina|si\b)/i;
+  /\b(if|say|says|suppose|imagine|let'?s say|for example|e\.g\.|assume|hypothetical|pretend|pongamos|supongamos|por ejemplo|imagina|si)\b/i;
 
 /** Porcentajes y millares: la forma que toma una estadística. */
-const STAT = /\b\d{1,3}(?:[.,]\d+)?\s?%|\b\d{1,3}(?:,\d{3})+\b/g;
+const STAT = /\d+(?:[.,]\d+)?\s?%|\b\d{1,3}(?:,\d{3})+\b|\b\d{4,}\b/g;
 /** Importes: casi siempre precio o ejemplo, verificables en la propia página del proveedor. */
 const MONEY = /\$\s?\d[\d,.]*/g;
 
@@ -67,6 +70,7 @@ export function unsourcedFigures(markdown: string): Finding[] {
   const seen = new Set<string>();
 
   lines.forEach((line, i) => {
+    void i;
     // Los bloques de código y las tablas de datos propios no son afirmaciones.
     if (/^\s{4,}|^\s*```|^\s*\|/.test(line)) return;
 
@@ -91,31 +95,45 @@ export function unsourcedFigures(markdown: string): Finding[] {
     }
     const inCode = (idx: number) => codeSpans.some(([a, b]) => idx >= a && idx < b);
 
-    const add = (f: string, severity: Severity, why: string) => {
+    // La posición llega desde fuera, por aparición. Antes se resolvía con
+    // line.indexOf(f), que devuelve siempre la PRIMERA: una cifra dentro de un
+    // bloque de código silenciaba la misma cifra escrita más adelante en prosa,
+    // y esa segunda sí era una afirmación sin fuente.
+    const add = (f: string, at: number, severity: Severity, why: string) => {
       const t = f.trim();
       if (/^\b(19|20)\d{2}\b$/.test(t)) return; // años
-      const at = line.indexOf(f);
-      if (at >= 0 && (inCode(at) || isSpec(at + f.length))) return;
-      if (seen.has(t)) return;
-      seen.add(t);
+      if (inCode(at) || isSpec(at + f.length)) return;
+      // La clave incluye dónde aparece: si no, una cifra citada al principio
+      // daba inmunidad a la misma cifra sin fuente páginas después.
+      const clave = i + ":" + at + ":" + t;
+      if (seen.has(clave)) return;
+      seen.add(clave);
       out.push({
         severity,
         rule: "figure-without-source",
         detail: `${t} ${why}`,
-        excerpt: excerptAround(line, line.indexOf(f)),
+        excerpt: excerptAround(line, at),
       });
     };
 
+    // Los importes se miran PRIMERO y se guardan sus tramos, para que los
+    // dígitos de dentro no se cuenten otra vez como estadística. Sin esto,
+    // "$4,500" producía un aviso por el importe y un BLOQUEO por "4,500", y
+    // cualquier artículo de precios quedaba impublicable.
+    const tramosMoney: [number, number][] = [];
+    for (const m of line.matchAll(MONEY)) {
+      const at = m.index ?? 0;
+      tramosMoney.push([at, at + m[0].length]);
+      add(m[0], at, "warn", "is a figure with no source nearby. Check it is a price you can point at.");
+    }
+    const dentroDeMoney = (idx: number) => tramosMoney.some(([a, b]) => idx >= a && idx < b);
+
     // Una estadística dentro de una hipótesis sigue mereciendo mirada, pero no
     // frena una publicación: no afirma un hecho del mundo.
-    for (const f of line.match(STAT) || []) {
-      add(f, hypothetical ? "warn" : "block", "has no link to a source near it.");
-    }
-    // Los importes van como aviso: casi siempre son precios (verificables en la
-    // página del proveedor) o números de un ejemplo. Bloquear con ellos hacía
-    // que un artículo de precios fuera imposible de publicar.
-    for (const f of line.match(MONEY) || []) {
-      add(f, "warn", "is a figure with no source nearby. Check it is a price you can point at.");
+    for (const m of line.matchAll(STAT)) {
+      const at = m.index ?? 0;
+      if (dentroDeMoney(at)) continue;
+      add(m[0], at, hypothetical ? "warn" : "block", "has no link to a source near it.");
     }
   });
   return out;

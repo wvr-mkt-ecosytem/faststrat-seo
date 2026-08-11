@@ -98,13 +98,27 @@ export interface Joined {
   action: string;
 }
 
-/** Normaliza a ruta: GSC da URL completa y GA4 da path. */
+/**
+ * Normaliza a ruta. GSC da URL completa y GA4 da path, y las dos ramas tienen
+ * que acabar en la MISMA forma.
+ *
+ * Antes no lo hacían: new URL() percent-codifica el pathname y quita la query,
+ * y la rama del catch no hacía ninguna de las dos cosas. Un slug acentuado
+ * daba "/blog/c%C3%B3mo-..." por un lado y "/blog/cómo-..." por el otro, así
+ * que ningún artículo en español cruzaba y todos salían con "sin datos en
+ * GA4": un diagnóstico de medición rota provocado por la normalización.
+ */
 const toPath = (u: string) => {
+  let s = u.trim();
+  s = s.replace(/^https?:\/\/[^/]+/i, ""); // fuera protocolo y dominio
+  s = s.split(/[?#]/)[0]; // fuera query y ancla
   try {
-    return new URL(u).pathname.replace(/\/$/, "") || "/";
+    s = decodeURIComponent(s);
   } catch {
-    return u.replace(/\/$/, "") || "/";
+    // Una secuencia mal codificada se deja como está antes que perder la ruta.
   }
+  s = s.toLowerCase().replace(/\/+$/, "");
+  return s || "/";
 };
 
 /**
@@ -150,7 +164,7 @@ export function joinWithSearch(
       } else if (g.clicks / Math.max(g.impressions, 1) < 0.02 && g.position <= 20) {
         verdict = "sale y no la clican";
         action = "Google ya la muestra. Es título y meta, no el artículo.";
-      } else if (a.avgEngagement < 30) {
+      } else if (a.avgEngagement < 30 && a.sessions >= 10) {
         verdict = "entran y se van";
         action =
           "El clic funciona y la página no cumple lo que promete el título. Revisa que la primera pantalla responda la búsqueda.";

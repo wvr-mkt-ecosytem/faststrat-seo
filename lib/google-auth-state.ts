@@ -28,7 +28,7 @@ export interface GoogleErrorInfo {
 }
 
 const AUTH_SIGNS =
-  /invalid_grant|invalid_rapt|unauthorized_client|deleted_client|The OAuth client was deleted|Token has been expired or revoked|Account has been deleted|invalid_token|401/i;
+  /invalid_grant|invalid_rapt|unauthorized_client|deleted_client|The OAuth client was deleted|Token has been expired or revoked|Account has been deleted|invalid_token|\bHTTP 401\b|\berror 401\b/i;
 
 /**
  * El cliente OAuth borrado es su propio caso, y merece mensaje propio.
@@ -84,7 +84,7 @@ export function describeGoogleError(e: unknown): GoogleErrorInfo {
       kind: "auth",
       message: `Google access is not valid any more: ${detail}`,
       action:
-        "The account that issued the tokens no longer has access. Reconnect with an account that can reach the sheets, and update GOOGLE_SHEETS_REFRESH_TOKEN and GOOGLE_REFRESH_TOKEN here and in Render.",
+        "Vuelve a emitir el token con la cuenta que sí tiene acceso: GOOGLE_REFRESH_TOKEN para Search Console (scripts/get-refresh-token.mjs) o GOOGLE_MEASUREMENT_REFRESH_TOKEN para GA4 y Tag Manager (scripts/get-measurement-token.mjs). Actualízalo aquí y en Render.",
     };
   }
   return {
