@@ -72,8 +72,12 @@ export default function IdeasPage() {
       .finally(() => setLoading(false))
   }, [])
 
-  // Carga queries sin explotar + páginas para filtrar las que ya están cubiertas
-  useEffect(() => {
+  // Carga queries sin explotar + páginas para filtrar las que ya están cubiertas.
+  //
+  // Vive en una función y no dentro del useEffect para poder repetirla desde el
+  // botón: antes solo corría al abrir la página, así que la única forma de ver
+  // datos frescos de Search Console era recargar el navegador.
+  const cargarOportunidades = () => {
     setOppLoading(true)
     Promise.all([
       fetch('/api/gsc/queries?days=90').then((r) => r.json()),
@@ -104,7 +108,9 @@ export default function IdeasPage() {
       })
       .catch((e) => setOppError(String(e?.message ?? e)))
       .finally(() => setOppLoading(false))
-  }, [])
+  }
+
+  useEffect(cargarOportunidades, [])
 
   const [refreshing, setRefreshing] = useState(false)
 
@@ -377,9 +383,22 @@ export default function IdeasPage() {
 
         {/* === Oportunidades del Search Console === */}
         <section className="space-y-3 pt-4 border-t border-maroon/15">
-          <h2 className="font-semibold text-ink text-lg flex items-center gap-2">
-            <span>🌱</span> Oportunidades de queries (Search Console · 90 días)
-          </h2>
+          <div className="flex items-center justify-between gap-3 flex-wrap">
+            <h2 className="font-semibold text-ink text-lg flex items-center gap-2">
+              <span>🌱</span> Oportunidades de queries (Search Console · 90 días)
+            </h2>
+            {/* Search Console se actualiza a diario y esto solo se leía al
+                abrir la página: para ver algo nuevo había que recargar el
+                navegador, cosa que nadie adivina. */}
+            <button
+              onClick={cargarOportunidades}
+              disabled={oppLoading}
+              className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-md bg-maroon/10 text-maroon hover:bg-maroon/20 disabled:opacity-50 transition-colors"
+            >
+              {oppLoading ? <Loader2 size={13} className="animate-spin" /> : <RefreshCw size={13} />}
+              {oppLoading ? 'Leyendo…' : 'Volver a leer'}
+            </button>
+          </div>
           <p className="text-sm text-ink/80">
             Búsquedas reales de Google donde tu sitio aparece pero <b>no tienes un artículo dedicado</b> que las capture.
           </p>

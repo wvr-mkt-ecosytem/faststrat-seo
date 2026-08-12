@@ -20,9 +20,9 @@ Vamos a desglosarlo con números reales.
 
 Durante años, Meta cobró por "conversación" (ventanas de 24 horas). Desde julio de 2025, el modelo cambió a **cobro por mensaje de plantilla (template)**, agrupado en tres categorías:
 
-- **Marketing** — promociones, ofertas, lanzamientos (la categoría más cara)
-- **Utility** — confirmaciones de pedido, recordatorios, actualizaciones de envío
-- **Authentication** — códigos OTP y verificación
+- **Marketing**, promociones, ofertas, lanzamientos (la categoría más cara)
+- **Utility**, confirmaciones de pedido, recordatorios, actualizaciones de envío
+- **Authentication**, códigos OTP y verificación
 
 Las conversaciones de **servicio** (cuando el cliente te escribe primero y respondes dentro de 24 horas) son **gratis e ilimitadas**. Esto premia a las marcas que generan que el cliente inicie la conversación.
 

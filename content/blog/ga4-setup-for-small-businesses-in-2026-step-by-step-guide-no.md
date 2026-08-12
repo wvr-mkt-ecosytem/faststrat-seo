@@ -3,7 +3,7 @@ title: 'GA4 Setup for Small Businesses in 2026: Step-by-Step Guide (No Agency Ne
 slug: ga4-setup-for-small-businesses-in-2026-step-by-step-guide-no
 excerpt: >-
   If your website is running without GA4 properly configured, you're making
-  marketing decisions based on gut feeling — or worse, on bad data. The good
+  marketing decisions based on gut feeling, or worse, on bad data. The good
   news: 
 keywords:
   - ga4 setup small business

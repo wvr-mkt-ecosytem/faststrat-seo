@@ -31,13 +31,25 @@ import { persistChanges } from "@/lib/persist";
 
 const HOUSE: HouseRules = { noEmDash: true };
 
+/**
+ * Sustituye las rayas largas. Determinista y sin criterio: por eso no se le
+ * pide a un agente, que además se deja alguna (29 de 30 en la primera prueba
+ * real, y una sola basta para que el artículo no se publique).
+ */
+const barrerRayas = (t: string) =>
+  t
+    // Al final de línea, un punto: una coma dejaría la frase colgando.
+    .replace(/\s*—\s*$/gm, ".")
+    // Entre espacios es un inciso: la coma es lo que menos cambia el ritmo.
+    .replace(/\s+—\s+/g, ", ")
+    .replace(/—/g, ", ");
+
 const SYSTEM = `Eres el editor que deja un artículo listo para publicar. Recibes el artículo en Markdown y la lista EXACTA de lo que una comprobación mecánica bloqueó.
 
 Tu trabajo es arreglar cada hallazgo con el mínimo cambio posible. No es una reescritura: si un hallazgo se arregla cambiando tres palabras, cambias tres palabras.
 
 Cómo se arregla cada tipo:
 
-- em-dash: sustituye la raya por una coma, un punto o paréntesis, lo que mejor lea. No dejes ninguna raya larga.
 - banned-phrase: reescribe la frase diciendo lo mismo sin esa palabra. No la cambies por otra igual de vacía.
 - placeholder-left-in: el marcador se resuelve o se va, junto con la frase que lo necesitaba si no puedes resolverlo.
 - figure-without-source: tienes búsqueda web. Busca la fuente real de la cifra y enlázala en la misma frase o en la siguiente. Si NO encuentras una fuente que diga exactamente esa cifra, QUITA la cifra y reformula en cualitativo. Prohibido inventar un enlace, atribuir la cifra a alguien que no la publicó, o enlazar a una página que no la contiene.
@@ -65,18 +77,43 @@ export const POST = apiRoute(async (request: NextRequest) => {
   const post = getBlogPost(slug);
   if (!post) return NextResponse.json({ error: `No se encontró el post '${slug}'` }, { status: 404 });
 
+  // El barrido va PRIMERO, no solo al final.
+  //
+  // Estaba solo después, para que el agente eligiera entre coma, punto y
+  // paréntesis. Medido sobre los 17 artículos: de 306 bloqueos, 203 eran rayas
+  // largas. El agente gastaba la mayor parte de su respuesta sustituyendo
+  // caracteres, y esas llamadas son lo que se agota cuando llega el límite de
+  // sesión: dos corridas seguidas se quedaron a medias por eso. Sustituir un
+  // carácter no necesita criterio, así que se hace antes gratis y el agente se
+  // queda con lo único que sí lo necesita, las cifras sin fuente.
+  //
+  // Sigue habiendo un barrido al final, como red por si el agente reintroduce
+  // alguna al reescribir.
+  const markdownBase = HOUSE.noEmDash ? barrerRayas(post.markdown) : post.markdown;
+
   const antes = runQa({
     title: post.title,
     metaDescription: post.excerpt,
-    markdown: post.markdown,
+    markdown: markdownBase,
     house: HOUSE,
   });
 
   if (antes.ok) {
+    // Si el barrido bastó, se guarda: descartarlo obligaría a rehacerlo en la
+    // siguiente corrida y el artículo seguiría bloqueado en pantalla.
+    const cambio = markdownBase !== post.markdown;
+    if (cambio && !preview) {
+      const actualizado = updateBlogMarkdown(slug, markdownBase);
+      await persistChanges(`fix blog (barrido) : ${actualizado.slug}`, [
+        path.join(process.cwd(), "content", "blog", actualizado.file),
+      ]);
+    }
     return NextResponse.json({
-      changed: false,
+      changed: cambio,
       publishable: true,
-      message: "No había nada que bloqueara la publicación; no se tocó el artículo.",
+      message: cambio
+        ? "Bastó con el barrido de rayas largas; no hizo falta el agente."
+        : "No había nada que bloqueara la publicación; no se tocó el artículo.",
       qa: antes,
     });
   }
@@ -95,7 +132,7 @@ ${listar(antes.warnings)}
 
 ARTÍCULO:
 ---
-${post.markdown}
+${markdownBase}
 ---
 
 Devuelve el artículo entero corregido en Markdown.`,
@@ -107,20 +144,12 @@ Devuelve el artículo entero corregido en Markdown.`,
     .replace(/```$/, "")
     .trim();
 
-  // Barrido determinista de rayas largas, DESPUÉS del agente.
+  // El mismo barrido otra vez, ahora como red.
   //
-  // En la primera prueba real el agente arregló 29 de 30 y dejó una: con
-  // treinta apariciones, que se escape una es lo normal, y una sola basta para
-  // que el artículo siga sin publicarse. Esta regla no necesita criterio (es
-  // sustituir un carácter), así que no tiene sentido dejarla en manos de un
-  // modelo. Va después y no antes porque el agente elige mejor entre coma,
-  // punto y paréntesis; esto solo recoge lo que quedó.
-  if (HOUSE.noEmDash) {
-    limpio = limpio
-      .replace(/\s*—\s*$/gm, ".") // final de línea: un punto
-      .replace(/\s+—\s+/g, ", ") // entre espacios: inciso
-      .replace(/—/g, ", ");
-  }
+  // El texto que recibió el agente ya venía sin rayas, pero al reescribir
+  // párrafos puede introducir alguna nueva, y una sola basta para que el
+  // artículo no se publique.
+  if (HOUSE.noEmDash) limpio = barrerRayas(limpio);
 
   // La segunda pasada es el único juez. Lo que el agente crea haber arreglado
   // no cuenta: cuenta lo que la misma comprobación dice del texto nuevo.

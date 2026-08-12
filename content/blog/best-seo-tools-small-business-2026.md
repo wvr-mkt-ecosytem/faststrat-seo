@@ -2,7 +2,7 @@
 title: The 12 Best SEO Tools for Small Businesses in 2026 (Free & Paid)
 slug: best-seo-tools-small-business-2026
 excerpt: >-
-  The best SEO tools for small businesses in 2026 — including free options and
+  The best SEO tools for small businesses in 2026, including free options and
   AI-powered platforms. What each does, what it costs, and which to pick on a
   tight budget.
 keywords:

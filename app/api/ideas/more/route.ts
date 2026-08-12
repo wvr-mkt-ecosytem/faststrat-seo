@@ -128,10 +128,17 @@ Investiga en la web (competidores Jasper/HubSpot/Copy.ai/Enrich Labs y tendencia
       };
     }
     const seen = new Set(batch.ideas.map((i) => i.slug));
+    const nuevas: ArticleIdea[] = [];
     let added = 0;
     for (const idea of newIdeas) {
-      if (!seen.has(idea.slug)) { batch.ideas.push(idea); seen.add(idea.slug); added++; }
+      // Arriba, no abajo. Con push, las ideas nuevas caían al final de una
+      // lista de dieciocho y la pantalla se veía idéntica: se pulsaba el botón,
+      // se esperaban tres minutos y "seguían siendo las mismas". Lo que acabas
+      // de pedir es lo que quieres ver primero.
+      if (!seen.has(idea.slug)) { nuevas.push(idea); seen.add(idea.slug); added++; }
     }
+
+    batch.ideas = [...nuevas, ...batch.ideas];
 
     const outPath = path.join(IDEAS_DIR, `${batch.weekOf}.json`);
     fs.writeFileSync(outPath, JSON.stringify(batch, null, 2));
