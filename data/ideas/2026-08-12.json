@@ -1,0 +1,183 @@
+{
+  "weekOf": "2026-08-12",
+  "generatedAt": "2026-08-12T00:39:11.360Z",
+  "source": "auto-weekly",
+  "summary": "10 English-language content ideas anchored in GSC striking-distance signals and verified 2026 research on GEO/AEO adoption, WhatsApp LATAM commerce, social commerce AI infrastructure, and the SMB enterprise-tool pricing gap left by Jasper and Copy.ai.",
+  "research": {
+    "competitors": [
+      "Jasper and Copy.ai have both pivoted hard toward enterprise/GTM automation in 2026 — abandoning transparent SMB pricing — creating a clear content gap for budget-focused AI marketing comparisons targeting sub-$2M-revenue businesses.",
+      "HubSpot locks its AI 'Breeze' narrative to existing CRM users; it dominates 'AI for HubSpot customers' searches but produces almost no standalone content for LATAM SMBs or WhatsApp-first markets.",
+      "Enrich Labs is actively publishing SMB social media strategy content in 2026 (e.g. 'Small Business Social Media Marketing in 2026') — a direct competitor in the social commerce + AI niche who is taking up space FastStrat should own.",
+      "Thin roundup sites (MEGA AI, Moonrank.ai, Layer3labs.io, Snezzi.com) dominate 'best AI SEO tools' SERPs with shallow listicles that lack LATAM-specific pricing context, GEO/AEO depth, or structured-data guidance — leaving FastStrat room to win decisively with operational depth."
+    ],
+    "trends": [
+      "GEO (Generative Engine Optimization) is the defining 2026 SEO shift: AI-sourced traffic grew 527% from January–May 2025, ChatGPT now processes 72 billion messages monthly, and being cited by AI engines is the new 'page 1' — most SMB competitors have not started optimizing for it yet.",
+      "Agentic AI is crossing from experiment to production: 62% of SMBs are experimenting with AI agents, 73% plan to expand heading into 2027, and Salesforce data shows 82% of current adopters expect major or moderate ROI gains — creating surging demand for practical 'how to deploy' content.",
+      "WhatsApp-first commerce is exploding in LATAM: the WhatsApp Business economy is valued at $45B globally, LATAM leads adoption in Chile, Brazil, and Mexico, and AI-driven automation is cutting service workload by up to 54% — yet BSP comparison content specific to the region remains thin.",
+      "Social commerce has reached $2.11T globally in 2026 with TikTok Shop hitting $84.3B in GMV; the H2 2026 competitive edge for sellers is AI infrastructure (automated listings, DM agents, creator management) rather than manual creative skill, per Agentative and Stormy AI research.",
+      "The hybrid DIY+AI model is overtaking pure-agency retainers for SMBs under $2M revenue: AI content drafting delivers 3.2x ROI, a full AI stack costs $200–$1,500/month versus $60K–$100K/year for a mid-tier agency, and results become measurable in 4–8 weeks versus 6–12 months with an agency."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "The Ultimate Landing Page Checklist for 2026: 37 Elements That Actually Drive Conversions",
+      "slug": "the-ultimate-landing-page-checklist-for-2026-37-elements-tha",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "landing page checklist",
+      "intent": "informational / bottom-of-funnel tool-seeker",
+      "rationale": "Highest-volume striking-distance signal (512 impr, pos 13.0) — a comprehensive, printable checklist format with structured data markup can leapfrog thin listicles and earn the featured snippet currently held by generic SaaS blogs.",
+      "outline": [
+        "H2: Why Most Landing Pages Fail in 2026 (and What Conversion Data Shows)",
+        "H2: Above-the-Fold Checklist — Hero Copy, Primary CTA, and Trust Signals",
+        "H2: Messaging and Persuasion Checklist — Value Prop, Objection Handling, Social Proof",
+        "H2: Technical and SEO Checklist — Page Speed, Core Web Vitals, Structured Data",
+        "H2: Post-Launch Checklist — A/B Testing, Analytics Setup, and AI Optimization Loop"
+      ]
+    },
+    {
+      "title": "Best AI SEO Tools for Small Businesses in 2026: Ranked by ROI, Not Feature Count",
+      "slug": "best-ai-seo-tools-for-small-businesses-in-2026-ranked-by-roi",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "best AI SEO tools for small businesses 2026",
+      "intent": "commercial investigation / tool comparison",
+      "rationale": "Three overlapping GSC signals totaling 215 impressions across positions 9–19.5 — one authoritative guide with LATAM-relevant pricing tiers and a GEO-readiness column consolidates all variants and beats the shallow roundups currently ranking.",
+      "outline": [
+        "H2: How We Evaluated AI SEO Tools — Methodology Focused on SMB Budgets and Results",
+        "H2: Top 8 AI SEO Tools for Small Businesses — Full Comparison Table",
+        "H2: Budget Tiers Breakdown — Under $50/mo, $50–$150/mo, and $150+/mo Options",
+        "H2: GEO-Ready Tools — Which Platforms Also Optimize for ChatGPT and Perplexity Citations",
+        "H2: Our Verdict — Best Tool by Business Type, Growth Stage, and Region"
+      ]
+    },
+    {
+      "title": "Best WhatsApp BSP for LATAM Small Businesses in 2026: The Definitive Buyer's Guide",
+      "slug": "best-whatsapp-bsp-for-latam-small-businesses-in-2026-the-def",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "best WhatsApp BSP LATAM",
+      "intent": "commercial investigation / vendor selection",
+      "rationale": "299 impressions already sitting at position 4.5 — knocking on the top-3 door; a LATAM-specific BSP comparison (Manychat vs. Wati vs. Ycloud vs. SendPulse) covers a gap no major competitor fills with operational depth.",
+      "outline": [
+        "H2: What Is a WhatsApp Business Solution Provider (BSP) and Why LATAM SMBs Need One",
+        "H2: Top 6 WhatsApp BSPs for Latin America — Features, Pricing, and Country Coverage",
+        "H2: Automation Capabilities Compared — Chatbots, Broadcast Campaigns, and AI Flows",
+        "H2: Compliance, Meta Policy, and LGPD/LATAM Data Privacy Checklist",
+        "H2: Which BSP Is Right for Your Business Size, Volume, and Country"
+      ]
+    },
+    {
+      "title": "Claude vs ChatGPT for Marketing in 2026: Which AI Actually Grows Your Small Business?",
+      "slug": "claude-vs-chatgpt-for-marketing-in-2026-which-ai-actually-gr",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "Claude vs ChatGPT for marketing",
+      "intent": "commercial investigation / platform comparison",
+      "rationale": "216 impressions stranded at position 37.7 — extremely high demand signal with almost no SMB-specific competition on page 1; a structured head-to-head using real marketing use cases can crack the top 5 with domain authority.",
+      "outline": [
+        "H2: Claude vs ChatGPT — How They Differ Under the Hood (What Marketers Actually Need to Know)",
+        "H2: Content Creation Showdown — Blog Posts, Ad Copy, Email, and Social Media",
+        "H2: Workflow Automation and AI Agent Capabilities for SMB Marketing Teams",
+        "H2: Pricing, Context Windows, and Total Cost of Ownership for a 5-Person Team",
+        "H2: Our Verdict — Which AI Platform Should LATAM and US SMBs Choose in 2026"
+      ]
+    },
+    {
+      "title": "GEO vs SEO: The Small Business Guide to Getting Found by AI Search Engines in 2026",
+      "slug": "geo-vs-seo-the-small-business-guide-to-getting-found-by-ai-s",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "best GEO SEO tools for small business 2026",
+      "intent": "informational / educational — early-stage awareness",
+      "rationale": "GEO tools signal (34 impr, pos 12.5) plus 'small business SEO trends 2026' (23 impr, pos 6.0) plus the verified 527% AI-traffic growth stat create a timely, highly shareable piece most competitors haven't published at SMB depth.",
+      "outline": [
+        "H2: What Is Generative Engine Optimization (GEO) and How Is It Different from Traditional SEO",
+        "H2: Why AI-Sourced Traffic Grew 527% in 2025 — and What to Expect Through 2026",
+        "H2: GEO Tactics That Work for Small Businesses Right Now — Entities, Citations, Structured Data",
+        "H2: Best GEO + SEO Tool Combos for SMBs Under $200 Per Month",
+        "H2: Your 90-Day GEO Action Plan — From Zero Mentions to Consistently AI-Cited"
+      ]
+    },
+    {
+      "title": "SEO for LATAM Local Business Directories in 2026: Structured Data, Google Maps, and AI Search",
+      "slug": "seo-for-latam-local-business-directories-in-2026-structured-",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "SEO for LATAM local business directory",
+      "intent": "informational / local SEO implementation guide",
+      "rationale": "Two converging GSC signals — 306 impr at pos 7.4 and 79 impr at pos 8.7 for structured data local business — form a natural two-in-one article that no current ranking page addresses for the LATAM market specifically.",
+      "outline": [
+        "H2: Why Local SEO Works Differently in LATAM — The Directory Landscape in Mexico, Colombia, Chile, and Argentina",
+        "H2: Structured Data for Local Businesses — LocalBusiness Schema Implementation Step-by-Step",
+        "H2: Google Business Profile Optimization Playbook for LATAM Markets",
+        "H2: Building Local Citations in LATAM-Specific Directories — The Prioritized List for 2026",
+        "H2: How AI Search (GEO/AEO) Is Changing Local Discovery in Spanish-Language Markets"
+      ]
+    },
+    {
+      "title": "Agency vs DIY vs AI Tools: The Real Cost of Marketing for SMBs in 2026",
+      "slug": "agency-vs-diy-vs-ai-tools-the-real-cost-of-marketing-for-smb",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "average cost of meta ads agency vs DIY AI tools",
+      "intent": "commercial investigation / budget decision",
+      "rationale": "'Comparing DIY vs agency-led services' (69 impr, pos 5.1) and 'average cost Meta ads agency vs DIY AI tools' (25 impr, pos 9.0) signal strong buyer-stage intent; hard cost data ($60K+/year agency vs. $200–$1,500/month AI stack) makes this extremely shareable and linkable.",
+      "outline": [
+        "H2: The True Cost of Hiring a Marketing Agency in 2026 — Retainers, Ad Spend Fees, and Hidden Charges",
+        "H2: DIY Marketing With AI Tools — What a Full Stack Actually Costs Per Month",
+        "H2: Meta Ads Specifically — Agency-Managed vs. AI-Assisted Self-Service Cost and ROI Breakdown",
+        "H2: Which Model Wins for Businesses Under $2M Revenue — Hard Data and Case Studies",
+        "H2: The Hybrid Model — When to Use an Agency, When to Use AI, and When to Combine Both"
+      ]
+    },
+    {
+      "title": "How to Deploy Your First AI Agent as an SMB in 2026: A No-Jargon Integration Guide",
+      "slug": "how-to-deploy-your-first-ai-agent-as-an-smb-in-2026-a-no-jar",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "SMB AI agent integration 2026",
+      "intent": "informational / implementation guide",
+      "rationale": "'SMB agent' (38 impr, pos 5.2) and 'startup/SMB guide to integrating AI agents' (56 impr, pos 38+) reveal unmet demand; the verified stat that 73% of SMBs plan to expand agent use into 2027 signals a massive audience that needs practical how-to content now.",
+      "outline": [
+        "H2: What Makes an AI Agent Different From a Chatbot or AI Writing Copilot",
+        "H2: The 5 SMB Use Cases With the Fastest ROI — Lead Response, Content, Support, Email, and Social",
+        "H2: Choosing Your First AI Agent Platform — Budget-First Comparison for Small Businesses",
+        "H2: Step-by-Step: Deploying Your First AI Agent in Under One Week",
+        "H2: Measuring Agent Performance — KPIs, Iteration Loops, and Scaling Checklist"
+      ]
+    },
+    {
+      "title": "Beyond Jasper and Copy.ai: Best Full Content Pipeline Automation Tools for SMBs in 2026",
+      "slug": "beyond-jasper-and-copy-ai-best-full-content-pipeline-automat",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "tools like Jasper or Copy.ai for full content pipeline automation",
+      "intent": "commercial investigation / tool migration",
+      "rationale": "'Tools like Jasper or Copy.ai for full content pipeline automation' (27 impr, pos 9.6) captures high-intent users already frustrated with enterprise pricing shifts — FastStrat can position as the SMB-native alternative to both platforms.",
+      "outline": [
+        "H2: Why Marketers Are Moving Beyond Jasper and Copy.ai in 2026 — The Enterprise Pricing Problem",
+        "H2: What a True Content Pipeline Covers — From Brief to Draft to Publish to Distribute",
+        "H2: Top 7 Alternatives for SMBs — Ranked by Pipeline Depth and Actual SMB Pricing",
+        "H2: AI-Native Pipelines vs. Bolt-On AI Features — The Checklist That Separates Them",
+        "H2: Building Your Own Content Automation Stack for Under $300 Per Month"
+      ]
+    },
+    {
+      "title": "Social Commerce for SMBs in Mexico and LATAM: Selling on TikTok Shop, Instagram, and WhatsApp in 2026",
+      "slug": "social-commerce-for-smbs-in-mexico-and-latam-selling-on-tikt",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "social commerce small business LATAM 2026",
+      "intent": "informational / strategic guide",
+      "rationale": "'PYMEs en Mexico 2026' (60 impr, pos 5.9) meets the $2.11T social commerce market trend and the WhatsApp-first LATAM commerce boom — a regional angle none of the major competitors (Jasper, HubSpot, Enrich Labs) are covering with LATAM specificity.",
+      "outline": [
+        "H2: The $2T Social Commerce Opportunity — What It Means for Mexican and LATAM Small Businesses",
+        "H2: TikTok Shop for LATAM Sellers — Getting Started, Product Strategy, and AI-Powered Ads",
+        "H2: Instagram Shopping and Reels Commerce — The 2026 LATAM Playbook",
+        "H2: WhatsApp Commerce Automation — Catalogs, AI Agents, and Conversion Flows for PYMEs",
+        "H2: Choosing Your First Social Commerce Channel — Decision Framework by Business Type and Budget"
+      ]
+    }
+  ]
+}
