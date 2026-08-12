@@ -104,31 +104,42 @@ async function uploadMedia(
  */
 export async function getPublishStatuses(
   slugs: string[]
-): Promise<Record<string, { status: string; link: string }>> {
+): Promise<{ statuses: Record<string, { status: string; link: string }>; error: string | null }> {
+  // Devuelve el error en vez de tragárselo.
+  //
+  // Antes devolvía {} tanto si faltaban credenciales como si WordPress fallaba,
+  // y la pantalla pintaba "○ No publicado" en TODOS los posts. Dos problemas:
+  // el estado que se enseñaba era falso, y "Publicar todos" tomaba esa lista
+  // de falsos pendientes como objetivo y reempujaba al sitio en vivo artículos
+  // que ya estaban publicados.
   let cfg: WpConfig;
   try {
     cfg = getConfig();
-  } catch {
-    return {};
+  } catch (e) {
+    return { statuses: {}, error: `WordPress sin configurar: ${(e as Error).message}` };
   }
-  const out: Record<string, { status: string; link: string }> = {};
+
+  const statuses: Record<string, { status: string; link: string }> = {};
   try {
-    // Trae los posts (publicados y borradores) y mapea por slug.
-    const list = await wpFetch(
-      cfg,
-      `posts?per_page=100&status=any&_fields=slug,status,link`
-    );
-    if (Array.isArray(list)) {
+    // Todas las páginas. Con el tope de 100 por petición, el post 101 en
+    // adelante siempre salía como "No publicado" sin que nada lo delatara.
+    for (let page = 1; page <= 20; page++) {
+      const list = await wpFetch(
+        cfg,
+        `posts?per_page=100&page=${page}&status=any&_fields=slug,status,link`
+      );
+      if (!Array.isArray(list) || list.length === 0) break;
       for (const p of list) {
         if (p.slug && slugs.includes(p.slug)) {
-          out[p.slug] = { status: p.status, link: p.link };
+          statuses[p.slug] = { status: p.status, link: p.link };
         }
       }
+      if (list.length < 100) break;
     }
-  } catch {
-    /* sin conexión WP → devolvemos lo que haya */
+  } catch (e) {
+    return { statuses, error: `No se pudo consultar WordPress: ${(e as Error).message}` };
   }
-  return out;
+  return { statuses, error: null };
 }
 
 export interface PublishInput {

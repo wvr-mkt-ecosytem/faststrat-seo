@@ -50,6 +50,8 @@ export default function BlogsPage() {
   const [states, setStates] = useState<Record<string, PublishState>>({})
   const [edits, setEdits] = useState<Record<string, EditState>>({})
   const [fixing, setFixing] = useState<string | null>(null)
+  const [wpError, setWpError] = useState<string | null>(null)
+  const [loadError, setLoadError] = useState<string | null>(null)
   const [publishingAll, setPublishingAll] = useState(false)
   const [publishAllProgress, setPublishAllProgress] = useState<{ done: number; total: number } | null>(null)
 
@@ -57,7 +59,16 @@ export default function BlogsPage() {
     wake()
     fetch('/api/blog')
       .then((r) => r.json())
-      .then((d) => setPosts(d.posts ?? []))
+      .then((d) => {
+        if (d.error) throw new Error(d.error)
+        setPosts(d.posts ?? [])
+        // Si WordPress no respondió, el estado de publicación de cada post es
+        // desconocido, no "no publicado". Decirlo evita dos cosas: creer que
+        // nada está en vivo, y que "Publicar todos" reempuje al sitio en vivo
+        // artículos que ya estaban publicados.
+        setWpError(d.wpError ?? null)
+      })
+      .catch((e) => setLoadError(String(e?.message ?? e)))
       .finally(() => setLoading(false))
   }, [])
 
@@ -126,7 +137,7 @@ export default function BlogsPage() {
           loading: false,
           result: {
             ok: data.publishable,
-            error: data.publishable ? undefined : data.message,
+            error: data.publishable ? undefined : (data.message ?? (data as { error?: string }).error ?? 'No se pudo corregir.'),
             action: data.publishable ? data.message : undefined,
             blocking: quedan.length ? quedan : undefined,
             warnings: data.qa?.despues?.warnings,
@@ -187,6 +198,10 @@ export default function BlogsPage() {
   // Publica TODOS en vivo, uno por uno (robusto: cada uno es una petición corta,
   // con progreso y confirmación real; evita el timeout de una sola request gigante).
   async function publishAll() {
+    // Con el estado de WordPress desconocido, "los que faltan" es una lista
+    // inventada: serían TODOS, y esto reempujaría al sitio en vivo artículos
+    // ya publicados. Mejor no hacer nada que hacer eso.
+    if (wpError) return
     const pending = posts.filter((p) => p.wpStatus !== 'publish')
     const targets = pending.length > 0 ? pending : posts // si ya están todos live, re-publica todos
     setPublishingAll(true)
@@ -206,7 +221,7 @@ export default function BlogsPage() {
       <BrandHeader subtitle={`Blogs · ${posts.length} posts para publicar en WordPress`}>
         <button
           onClick={publishAll}
-          disabled={publishingAll || posts.length === 0}
+          disabled={publishingAll || posts.length === 0 || !!wpError}
           className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-md bg-maroon text-cream hover:bg-maroon-hover disabled:opacity-50 transition-colors"
         >
           {publishingAll ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
@@ -218,6 +233,19 @@ export default function BlogsPage() {
 
       <div className="p-6 space-y-4 max-w-3xl">
         {loading && <p className="text-sm text-neutral-500">Cargando posts…</p>}
+
+        {!loading && loadError && (
+          <div className="text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded px-4 py-3">
+            No se pudieron cargar los posts: {loadError}
+          </div>
+        )}
+
+        {wpError && (
+          <div className="text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded px-4 py-3">
+            {wpError} El estado de publicación que ves abajo es desconocido, no
+            &quot;no publicado&quot;: no uses &quot;Publicar todos&quot; hasta que esto se resuelva.
+          </div>
+        )}
 
         {posts.map((post) => {
           const state = states[post.slug]

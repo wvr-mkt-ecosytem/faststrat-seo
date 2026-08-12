@@ -68,7 +68,16 @@ export default function PlanPage() {
     setLoading(true)
     fetch('/api/plan')
       .then((r) => r.json())
-      .then((j: Plan) => setPlan(j))
+      .then((j: Plan & { error?: string; connected?: boolean }) => {
+        // Se comprueba la forma antes de aceptarla. Si /api/plan devuelve el
+        // objeto de error (sin `cadence`), el render hacía plan.cadence.perWeek
+        // y la pantalla se quedaba en blanco sin decir por qué.
+        if (j.error || j.connected === false || !j.cadence || !j.pieces) {
+          setError(j.error ?? 'El plan llegó incompleto.')
+          return
+        }
+        setPlan(j)
+      })
       .catch(() => setError('No se pudo cargar el plan.'))
       .finally(() => setLoading(false))
   }

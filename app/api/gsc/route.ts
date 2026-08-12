@@ -44,7 +44,14 @@ export const GET = apiRoute(async (request: NextRequest) => {
 
     return NextResponse.json({ rows, startDate, endDate })
   } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : String(err)
-    return NextResponse.json({ error: msg }, { status: 500 })
+    // Se relanza a propósito, no se convierte en {error} aquí.
+    //
+    // Este catch devolvía {error: msg} con 500, y eso le robaba el error a
+    // apiRoute, que es quien sabe distinguir "falta acceso" de "falló otra
+    // cosa" y quien añade `connected` y `kind`. Sin esos campos el banner de
+    // acceso a Google no podía dispararse NUNCA: con el token revocado, el
+    // componente devolvía null y cada pantalla se vaciaba en silencio, que es
+    // exactamente lo que ese banner existe para evitar.
+    throw err;
   }
 });

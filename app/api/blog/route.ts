@@ -2,7 +2,7 @@ import fs from "fs";
 import { apiRoute } from "@/lib/google-auth-state";
 import path from "path";
 import { NextResponse } from "next/server";
-import { getBlogPosts, renderHtml } from "@/lib/blog";
+import { getBlogPosts } from "@/lib/blog";
 import { getPublishStatuses } from "@/lib/wordpress";
 
 export const GET = apiRoute(async () => {
@@ -10,7 +10,7 @@ export const GET = apiRoute(async () => {
   const all = getBlogPosts();
 
   // Estado real en WordPress por slug (en vivo / borrador / no publicado).
-  const wpStatuses = await getPublishStatuses(all.map((p) => p.slug));
+  const { statuses: wpStatuses, error: wpError } = await getPublishStatuses(all.map((p) => p.slug));
 
   const posts = all.map((p) => {
     const hasCover = fs.existsSync(path.join(coversDir, `${p.slug}.png`));
@@ -28,8 +28,13 @@ export const GET = apiRoute(async () => {
       // Estado en WordPress: "publish" (en vivo), "draft" (borrador), o null (no está en WP)
       wpStatus: wp?.status ?? null,
       wpLink: wp?.link ?? null,
-      html: renderHtml(p),
+      // `html` se enviaba con el artículo entero renderizado para cada post y
+      // la pantalla nunca lo usa: era el cuerpo completo de 17 artículos
+      // viajando al navegador para tirarlo. Fuera.
     };
   });
-  return NextResponse.json({ posts });
+  // Si WordPress no respondió, se dice. Sin esto, todos los posts salían con
+  // wpStatus null y la pantalla los pintaba como "No publicado" aunque
+  // estuvieran en vivo.
+  return NextResponse.json({ posts, wpError });
 });

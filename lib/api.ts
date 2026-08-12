@@ -65,5 +65,36 @@ export async function postJson<T = unknown>(
   } catch {
     throw new ApiError(`Respuesta inesperada del servidor (HTTP ${res.status}). Reintenta en unos segundos.`);
   }
+
+  // Un fallo del servidor TIENE que llegar como excepción.
+  //
+  // Esto solo reventaba con error de red, cuerpo vacío o cuerpo no-JSON. Una
+  // respuesta `{error: "..."}` con HTTP 500, o la de auth con `connected:false`
+  // y HTTP 200, se resolvía como si todo hubiera ido bien. El caso peor estaba
+  // en el botón de escribir del calendario: hacía la llamada, tiraba el cuerpo
+  // y ponía un tick verde de "Escrito" sin que se hubiera escrito nada.
+  // Reproducible hoy: una idea guardada con primaryKeyword vacío hace que
+  // /api/blog/generate devuelva 400 "Falta 'keyword' o 'topic'", y el usuario
+  // veía una palomita.
+  //
+  // Aquí es donde tiene que romper: un solo sitio para todos los llamadores,
+  // en vez de confiar en que cada uno se acuerde de mirar `error`.
+  const cuerpo = data as { error?: unknown; connected?: unknown; action?: unknown } | null;
+  if (cuerpo && typeof cuerpo === "object") {
+    const err = typeof cuerpo.error === "string" ? cuerpo.error : null;
+    if (err) {
+      const accion = typeof cuerpo.action === "string" ? ` ${cuerpo.action}` : "";
+      throw new ApiError(err + accion);
+    }
+    // La forma que devuelve apiRoute cuando Google no responde: 200 con
+    // connected:false. Sin esto, "sin acceso" se leía como "operación hecha".
+    if (cuerpo.connected === false) {
+      throw new ApiError("No hay acceso a Google ahora mismo. Revisa la pestaña de Medición.");
+    }
+  }
+  if (!res.ok) {
+    throw new ApiError(`Error del servidor (HTTP ${res.status}).`);
+  }
+
   return data;
 }

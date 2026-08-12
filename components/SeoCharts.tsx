@@ -55,17 +55,27 @@ function shortenPath(p: string) {
 export function SeoCharts({ rows, days }: { rows: PageRow[]; days: number }) {
   const [clusters, setClusters] = useState<Cluster[]>([])
   const [other, setOther] = useState<{ impressions: number } | null>(null)
+  // Por qué no hay datos. Sin esto, el `.catch(() => {})` de antes hacía que
+  // un token de Google caducado pintara los dos donuts vacíos con "Sin datos":
+  // en pantalla se leía como "no hay demanda temática y no hay oportunidad",
+  // que es justo la mentira que este sistema existe para no contar.
+  const [fallo, setFallo] = useState<string | null>(null)
 
   useEffect(() => {
+    setFallo(null)
     fetch(`/api/gsc/clusters?days=${days}`)
       .then((r) => r.json())
       .then((d) => {
-        if (d.clusters) {
-          setClusters(d.clusters)
-          setOther(d.other)
+        if (d.error || d.connected === false) {
+          setFallo(d.error ?? 'No hay acceso a Search Console.')
+          setClusters([])
+          setOther(null)
+          return
         }
+        setClusters(d.clusters ?? [])
+        setOther(d.other ?? null)
       })
-      .catch(() => {})
+      .catch((e) => setFallo(String(e?.message ?? e)))
   }, [days])
 
   // Pie 1: clicks por página (top 7 + otros)
@@ -95,22 +105,32 @@ export function SeoCharts({ rows, days }: { rows: PageRow[]; days: number }) {
 
       <ChartCard
         title="Demanda por tema (impresiones)"
-        subtitle="Queries agrupadas por cluster temático · 90 días"
+        // El subtítulo decía "90 días" fijo, mientras el fetch usa el selector
+        // de la pantalla: en 7d el gráfico se rotulaba como si fueran 90.
+        subtitle={`Queries agrupadas por cluster temático · ${days} días`}
       >
-        <Donut data={clusterImpr} />
+        <Donut data={clusterImpr} fallo={fallo} />
       </ChartCard>
 
       <ChartCard
         title="Oportunidad: temas nuevos"
         subtitle="Impresiones de los blogs que vamos a publicar"
       >
-        <Donut data={opportunity} />
+        <Donut data={opportunity} fallo={fallo} />
       </ChartCard>
     </div>
   )
 }
 
-function Donut({ data }: { data: { name: string; value: number }[] }) {
+function Donut({ data, fallo }: { data: { name: string; value: number }[]; fallo?: string | null }) {
+  // "No se pudo leer" y "no hay nada que leer" son cosas distintas y llevan a
+  // decisiones opuestas. Antes las dos pintaban el mismo "Sin datos".
+  if (fallo)
+    return (
+      <div className="h-full flex items-center justify-center px-3 text-center text-xs text-amber-700 leading-snug">
+        No se pudo leer Search Console. {fallo}
+      </div>
+    )
   if (data.length === 0)
     return (
       <div className="h-full flex items-center justify-center text-xs text-neutral-400">

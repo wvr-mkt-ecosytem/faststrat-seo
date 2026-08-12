@@ -54,13 +54,21 @@ export default function IdeasPage() {
   // Oportunidades de Search Console
   const [untapped, setUntapped] = useState<Q[]>([])
   const [oppLoading, setOppLoading] = useState(true)
+  const [oppError, setOppError] = useState<string | null>(null)
+  const [loadError, setLoadError] = useState<string | null>(null)
   const [results, setResults] = useState<ResultMap>({})
 
   useEffect(() => {
     wake() // despierta el free tier de Render para que las acciones no fallen
     fetch('/api/ideas')
       .then((r) => r.json())
-      .then((d) => setBatches(d.batches ?? []))
+      .then((d) => {
+        // Sin esto, un fallo dejaba la lista vacía y la pantalla decía "aún no
+        // hay tandas de ideas", indistinguible de un sistema recién estrenado.
+        if (d.error || d.connected === false) throw new Error(d.error ?? 'Sin acceso')
+        setBatches(d.batches ?? [])
+      })
+      .catch((e) => setLoadError(String(e?.message ?? e)))
       .finally(() => setLoading(false))
   }, [])
 
@@ -84,9 +92,17 @@ export default function IdeasPage() {
             }
           }
         }
+        // Si Search Console no respondió, `untapped` se quedaba en [] y la
+        // pantalla imprimía "toda la demanda ya está siendo capturada por
+        // algún artículo": una afirmación de negocio construida sobre una
+        // petición fallida. Ahora se dice que no se pudo leer.
+        if (q.error || q.connected === false) throw new Error(q.error ?? 'Sin acceso a Search Console')
+        if (p.error || p.connected === false) throw new Error(p.error ?? 'Sin acceso a Search Console')
         const fresh = (q.untapped ?? []).filter((qq: Q) => !owned.has(qq.query.toLowerCase()))
         setUntapped(fresh)
+        setOppError(null)
       })
+      .catch((e) => setOppError(String(e?.message ?? e)))
       .finally(() => setOppLoading(false))
   }, [])
 
@@ -165,7 +181,7 @@ export default function IdeasPage() {
     if (pending.length === 0) { alert('Ya escribiste todos los artículos de esta tanda.'); return }
     if (!confirm(`El agente va a escribir ${pending.length} artículos, uno por uno. Toma varios minutos — no cierres la página. Aparecerán en Blogs como borradores. ¿Continuar?`)) return
     setWritingAll(true)
-    setWriteAllDone(false)
+    setWriteAllResumen(null)
     let done = 0
     for (const idea of pending) {
       setWriteAllProgress({ done, total: pending.length })
@@ -174,15 +190,20 @@ export default function IdeasPage() {
       setWriteAllProgress({ done, total: pending.length })
     }
     setWritingAll(false)
-    setWriteAllDone(true)
+    // El recuento real, no un "hecho" incondicional.
+    //
+    // Antes esto era `setWriteAllDone(true)` a secas, así que el banner verde
+    // "✓ Artículos escritos. Ya están en Blogs" salía igual aunque hubieran
+    // fallado los N. Se cuenta cuántos quedaron con ok y se dice el número.
+    setWriteAllResumen({
+      ok: pending.filter((i) => results[i.slug]?.ok).length,
+      total: pending.length,
+    })
   }
-  const [writeAllDone, setWriteAllDone] = useState(false)
+  const [writeAllResumen, setWriteAllResumen] = useState<{ ok: number; total: number } | null>(null)
 
   // Genera un blog a partir de un insight (texto largo de competidor/tendencia).
   // Pasa el insight como `topic`: el agente elige el título y keyword y escribe.
-  function generateFromInsight(key: string, insight: string) {
-    generate(key, { topic: insight })
-  }
 
   async function suggestIdea(q: Q) {
     setResults((s) => ({ ...s, [q.query]: { kind: 'idea', loading: true } }))
@@ -253,16 +274,37 @@ export default function IdeasPage() {
         {refreshMsg && (
           <p className={`text-sm ${refreshMsg.startsWith('✓') ? 'text-green-700' : 'text-red-600'}`}>{refreshMsg}</p>
         )}
-        {writeAllDone && (
-          <div className="rounded-md bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-800 flex items-center justify-between gap-3">
-            <span>✓ Artículos escritos. Ya están en Blogs como borradores.</span>
-            <Link href="/blogs" className="font-semibold underline shrink-0">Ir a Blogs y publicar todos →</Link>
+        {writeAllResumen && (
+          <div
+            className={`rounded-md border px-4 py-3 text-sm flex items-center justify-between gap-3 ${
+              writeAllResumen.ok === writeAllResumen.total
+                ? 'bg-green-50 border-green-200 text-green-800'
+                : 'bg-amber-50 border-amber-200 text-amber-900'
+            }`}
+          >
+            <span>
+              {writeAllResumen.ok === writeAllResumen.total
+                ? `✓ ${writeAllResumen.ok} artículos escritos. Ya están en Blogs como borradores.`
+                : `${writeAllResumen.ok} de ${writeAllResumen.total} escritos. Los que fallaron tienen el motivo en su fila.`}
+            </span>
+            {writeAllResumen.ok > 0 && (
+              <Link href="/blogs" className="font-semibold underline shrink-0">Ir a Blogs y publicar →</Link>
+            )}
           </div>
         )}
         {/* === Tanda semanal curada === */}
         {loading && <p className="text-sm text-sand">Cargando ideas…</p>}
 
-        {!loading && !batch && (
+        {/* "No se pudo cargar" y "no hay nada" llevan a decisiones opuestas:
+            una se arregla mirando las credenciales y la otra generando ideas.
+            Antes las dos pintaban el mismo mensaje de sistema vacío. */}
+        {!loading && loadError && (
+          <div className="text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded px-4 py-3">
+            No se pudieron cargar las ideas: {loadError}
+          </div>
+        )}
+
+        {!loading && !loadError && !batch && (
           <div className="text-sm text-sand border border-dashed border-maroon/15 rounded-lg p-8 text-center">
             Aún no hay tandas de ideas. La investigación semanal aparecerá aquí.
           </div>
@@ -351,7 +393,13 @@ export default function IdeasPage() {
           {oppLoading && <p className="text-sm text-sand">Cargando oportunidades…</p>}
 
           {!oppLoading && untapped.length === 0 && (
-            <p className="text-sm text-sand italic">No hay queries nuevas en este período — toda la demanda ya está siendo capturada por algún artículo.</p>
+            oppError ? (
+              <p className="text-sm text-amber-800 bg-amber-50 border border-amber-200 rounded px-3 py-2">
+                No se pudieron leer las oportunidades: {oppError}. Esto NO significa que no las haya.
+              </p>
+            ) : (
+              <p className="text-sm text-sand italic">No hay queries nuevas en este período — toda la demanda ya está siendo capturada por algún artículo.</p>
+            )
           )}
 
           {!oppLoading && untapped.length > 0 && (
@@ -409,34 +457,6 @@ export default function IdeasPage() {
   )
 }
 
-function InsightItem({
-  insight, kind, result, onGenerate,
-}: {
-  insight: string
-  kind: string
-  result?: ResultMap[string]
-  onGenerate: () => void
-}) {
-  return (
-    <li className="text-xs text-ink/80 leading-relaxed">
-      <div className="flex items-start gap-2">
-        <span className="flex-1">• {insight}</span>
-        <button
-          onClick={onGenerate}
-          disabled={result?.loading}
-          title={`Escribir un blog sobre este ${kind}`}
-          className="shrink-0 flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded border border-maroon/20 text-maroon hover:bg-maroon/8 disabled:opacity-50"
-        >
-          {result?.loading ? <Loader2 size={11} className="animate-spin" /> : <PenLine size={11} />}
-          Blog
-        </button>
-      </div>
-      {result && (result.loading || result.ok || result.error) && (
-        <div className="mt-1.5"><ResultPanel result={result} /></div>
-      )}
-    </li>
-  )
-}
 
 function ResultPanel({ result: r }: { result: ResultMap[string] }) {
   if (r.loading) {

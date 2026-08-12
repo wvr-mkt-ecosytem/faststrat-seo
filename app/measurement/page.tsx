@@ -27,6 +27,10 @@ type Container = {
 type Resp = {
   connected: boolean
   reason?: string
+  /** Lo que devuelve apiRoute cuando Google falla. La pantalla solo pintaba
+   *  `reason`, que apiRoute NO manda, así que un fallo de credenciales salía
+   *  como una caja blanca sin explicación. */
+  error?: string
   action?: string
   containers?: Container[]
   blocking?: (Finding & { container: string })[]
@@ -75,7 +79,7 @@ export default function MeasurementPage() {
 
         {!loading && data && !data.connected && (
           <div className="rounded-lg border border-line bg-white p-5">
-            <p className="text-sm text-ink leading-relaxed">{data.reason}</p>
+            <p className="text-sm text-ink leading-relaxed">{data.reason ?? data.error}</p>
             {data.action && (
               <p className="text-[12px] text-sand mt-2 leading-relaxed">
                 {data.action}
@@ -86,7 +90,7 @@ export default function MeasurementPage() {
 
         {!loading && data?.connected && !data.containers?.length && (
           <div className="rounded-lg border border-amber-300 bg-amber-50 p-4 text-[13px] text-amber-900 leading-relaxed">
-            {data.reason}
+            {data.reason ?? data.error}
           </div>
         )}
 
