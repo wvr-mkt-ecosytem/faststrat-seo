@@ -23,7 +23,7 @@ Visitors decide within seconds whether to keep reading or leave. Everything abov
 
 **Headline**
 - States a clear, specific outcome (not a feature list)
-- Matches the ad copy or link that brought the visitor here, message match is one of the highest-leverage fixes you can make
+- Matches the ad copy or link that brought the visitor here, message match is one of the highest-impact fixes you can make
 - Avoids jargon your audience wouldn't use themselves
 
 **Subheadline**
@@ -199,7 +199,7 @@ Generally no, for dedicated campaign pages. Removing navigation eliminates exits
 Use Google PageSpeed Insights with a real URL (not localhost). Target the "Good" threshold for LCP, CLS, and INP in the Core Web Vitals section. Test on mobile network conditions, not just desktop, since most paid traffic is mobile.
 
 **Can I use AI tools to build a landing page checklist?**
-Yes, AI can generate draft checklists quickly and adapt them to your industry or offer type. Treat the output as a starting point, then layer in your own conversion data, customer feedback, and testing results to make it specific to your context.
+Yes, AI can generate draft checklists quickly and adapt them to your industry or offer type. [FastStrat](https://app.faststrat.ai) does this automatically and layers in your conversion data over time. Treat any AI output as a starting point, then add your own customer feedback and testing results to make it specific to your context.
 
 **What's the difference between a landing page and a homepage?**
 A homepage serves many audiences and goals at once. A landing page is designed around a single offer and a single conversion action. The more specific the audience and offer, the fewer distractions the page should have, which is why most effective landing pages don't share a template with the main site.
