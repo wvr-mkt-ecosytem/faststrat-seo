@@ -3,28 +3,119 @@ import { apiRoute } from "@/lib/google-auth-state";
 import { NextRequest, NextResponse } from "next/server";
 import { createBlogPost, slugify } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
+import { REGLAS_DE_CASA } from "@/lib/house-rules";
+import { runQa } from "@/lib/qa";
 import { persistChanges } from "@/lib/persist";
 
-const WRITER_SYSTEM = `Eres redactor SEO senior y estratega de contenido para FastStrat, una plataforma de agentes de IA de marketing para PYMEs (mercados LATAM y EEUU). Escribes artículos de blog de calidad publicable — del nivel de un especialista humano experimentado, no de IA genérica.
+const WRITER_SYSTEM = `Eres redactor SEO senior y estratega de contenido para FastStrat, una plataforma de agentes de IA de marketing para PYMEs (mercados LATAM y EEUU). Escribes artículos de blog de calidad publicable, del nivel de un especialista humano experimentado, no de IA genérica.
 
 OBJETIVO: que el artículo (a) rankee en Google, (b) sea genuinamente útil para un dueño de PYME o marketer, y (c) sea lo suficientemente claro y citable como para que ChatGPT/Perplexity lo referencien (GEO).
 
 ESTÁNDARES DE CALIDAD (obligatorios):
-- Profundidad real: 1.500–2.200 palabras. Cada sección aporta algo concreto — datos, pasos, ejemplos, números, comparaciones. CERO relleno.
-- Intro con gancho (2-3 frases): plantea el problema o promete el resultado. Nada de "en el mundo acelerado de hoy" ni rodeos.
-- Estructura escaneable: 5-8 secciones H2, con H3 cuando ayude. Párrafos de 2-4 frases. Usa **negritas** para los puntos clave.
-- Especificidad: ejemplos concretos, rangos de costos, escenarios reales de PYMEs, nombres de herramientas reales. Nada vago.
+- Extensión: la que exija el tema. NO hay mínimo de palabras. Un suelo de palabras se rellena con secciones que no cambian nada, que es justo lo que las reglas prohíben: 900 palabras que resuelven ganan a 2.000 que rodean.
+- El primer párrafo RESPONDE la pregunta del título, entera, en 40 palabras o menos, antes de cualquier contexto. Nada de plantear el problema primero: quien llega desde el resultado número diez ya leyó a dos competidores y viene a comprobar si aquí está la respuesta. Si tiene que bajar para averiguarlo, no baja.
+- Estructura escaneable: como mucho 8 secciones H2, con H3 cuando ayude. Párrafos de 2-4 frases. Usa **negritas** para los puntos clave.
+- Especificidad: ejemplos concretos, precios reales de herramientas reales con enlace a su página de precios, escenarios reales de PYMEs. Nada vago.
 - Al menos una tabla comparativa o lista estructurada cuando el tema lo permita (las tablas se citan y rankean bien).
 - Una respuesta directa y extractable cerca del inicio (un párrafo que responda la pregunta principal en 2-3 frases — esto es lo que las IA citan).
 - Sección de FAQ al final (3-4 preguntas reales que la gente busca, con respuestas de 2-3 frases).
-- Cierre con una conclusión accionable + una mención natural y NO agresiva de cómo FastStrat (agentes de IA de marketing) ayuda con el tema, solo si encaja.
-- Honestidad: NO inventes estadísticas. Si citas un dato, que sea creíble y verificable; si no lo tienes, frasea cualitativamente ("la mayoría de las PYMEs…") o usa rangos razonables.
+- Cierre: qué hace el lector el lunes, no un resumen de lo que acaba de leer. El enlace a una página nuestra es OBLIGATORIO y va a la página más útil para lo que acaba de leer, no a la home; la mención comercial de FastStrat es opcional y solo si encaja.
+- Honestidad: toda cifra sale de una página que ABRISTE en esta sesión y cuya URL puedes pegar. Un "rango razonable" inventado es una estadística inventada con otro nombre. Si no encontraste el dato, escribe el mecanismo en vez del número ("el costo lo dominan las horas de setup, no la licencia"). Sustituir una cifra por una vaguedad tipo "la mayoría de las PYMEs" no cumple la regla: la incumple en silencio y deja la página sin nada que citar.
 - Voz: experta, directa, útil, con personalidad. Le hablas al lector de "tú". Sin clichés de marketing, sin jerga vacía, sin promesas exageradas.
 - SEO: usa la keyword principal de forma natural en intro, en al menos un H2 y en la conclusión — sin saturar. Incluye variantes y términos relacionados (semántica).
+
+${REGLAS_DE_CASA}
 
 FORMATO DE SALIDA: devuelve ÚNICAMENTE el cuerpo del artículo en Markdown. Sin frontmatter, sin título H1 (el H1 es el título del post), sin envolverlo en bloques de código. Empieza directo con el párrafo de intro.`;
 
 // POST /api/blog/generate { keyword, title?, lang?, category? }
+/**
+ * Deja el borrador dentro de las reglas antes de guardarlo.
+ *
+ * Devuelve el markdown corregido. Si no puede dejarlo limpio del todo,
+ * devuelve lo mejor que consiguió: un artículo con un bloqueo se arregla
+ * después, uno que no se guardó se pierde entero.
+ */
+async function dejarPublicable(title: string, markdown: string): Promise<string> {
+  const qa = runQa({ title, markdown, house: { noEmDash: true } });
+  if (qa.ok) return markdown;
+
+  let texto = markdown;
+  try {
+    const corregido = await runClaude({
+      model: "sonnet",
+      system: `Eres el editor que deja un artículo dentro de las reglas de publicación. Arregla cada hallazgo con el mínimo cambio posible: no es una reescritura.
+
+Ante una cifra sin fuente: PRIMERO búscala, que tienes WebSearch. Si la encuentras, enlázala y CONSERVA la cifra. Solo si no existe, sustitúyela por un hecho concreto y verificable del mismo tema, nunca por una generalidad: "muchas empresas", "la mayoría", "significativamente" están prohibidos como reemplazo. Borrar especificidad es una regresión, no un arreglo: deja la página sin nada que un lector recuerde ni un asistente cite.
+
+Nunca inventes un enlace ni atribuyas el dato a quien no lo publicó.
+
+${REGLAS_DE_CASA}
+
+Devuelve ÚNICAMENTE el cuerpo en Markdown, sin explicaciones y sin bloques de código.`,
+      prompt: `Hallazgos que bloquean:
+${qa.blocking.map((f) => `- [${f.rule}] ${f.detail}${f.excerpt ? ` en: "${f.excerpt}"` : ""}`).join("\n")}
+
+ARTÍCULO:
+---
+${texto}
+---`,
+      allowedTools: ["WebSearch", "WebFetch"],
+    });
+    const limpio = corregido.trim().replace(/^```(?:markdown|md)?/i, "").replace(/```$/, "").trim();
+    // Solo se acepta si mejora. Un "arreglo" que empeora se descarta.
+    if (limpio && runQa({ title, markdown: limpio, house: { noEmDash: true } }).blocking.length < qa.blocking.length) {
+      texto = limpio;
+    }
+  } catch {
+    // Si el corrector falla, se guarda el original. Perder el artículo por no
+    // poder pulirlo sería peor que guardarlo con hallazgos.
+  }
+
+  // Barrido determinista de rayas largas: no necesita criterio, y es lo que
+  // más bloqueos produce con diferencia.
+  return texto
+    .replace(/\s*—\s*$/gm, ".")
+    .replace(/\s+—\s+/g, ", ")
+    .replace(/—/g, ", ");
+}
+
+/**
+ * Un título que compita en la SERP, no uno que rellene el hueco.
+ *
+ * El valor por defecto era `Guía 2026: <keyword>`. En una pantalla con otros
+ * nueve resultados, "guía" y "2026" es lo que promete todo el mundo: el
+ * resultado se ve igual que los demás y se clica el que dice algo concreto.
+ * Con posición media 10,5 y CTR de 0,33%, el título es de lo poco que se puede
+ * cambiar sin escribir nada nuevo.
+ *
+ * Si la llamada falla, se cae al patrón viejo antes que perder el artículo.
+ */
+async function tituloPara(keyword: string, lang: string): Promise<string> {
+  const LIMITE = 45; // 60 de Google menos " - faststrat.ai"
+  try {
+    const raw = await runClaude({
+      model: "sonnet",
+      system: `Escribes titulares para resultados de búsqueda. Devuelves SOLO el titular, sin comillas y sin explicación.
+
+Reglas:
+- Máximo ${LIMITE} caracteres. Cuéntalos.
+- Contiene la consulta objetivo, lo más a la izquierda que la frase permita: Google resalta en negrita los términos de la consulta, y eso es lo que hace que un resultado se vea relevante entre nueve.
+- Contiene algo concreto que los demás no prometen: un número, un plazo, una cantidad, un nombre de herramienta o el resultado exacto.
+- PROHIBIDO: "guía completa", "guía definitiva", "todo lo que necesitas saber", "la guía", y el año suelto sin nada más.
+- No prometas nada que el artículo no entregue en los dos primeros párrafos.`,
+      prompt: `Consulta objetivo: "${keyword}"
+Idioma: ${lang === "es" ? "español" : "inglés"}.
+Devuelve el titular.`,
+    });
+    const t = raw.trim().split(/\r?\n/)[0].replace(/^["']|["']$/g, "").trim();
+    if (t && t.length <= LIMITE + 15) return t;
+  } catch {
+    // Cae al patrón de siempre: un título flojo es mejor que ningún artículo.
+  }
+  return lang === "es" ? `${keyword}: qué elegir en 2026` : `${keyword}: what to pick in 2026`;
+}
+
 export const POST = apiRoute(async (request: NextRequest) => {
   const body = await request.json().catch(() => ({}));
   // Modo A: keyword (+ title opcional). Modo B: topic libre (el agente elige título).
@@ -45,6 +136,13 @@ export const POST = apiRoute(async (request: NextRequest) => {
       const raw = await runClaude({
         model: "sonnet",
         system: WRITER_SYSTEM,
+        // El escritor busca en la web. Sin esto se le exigía que toda cifra
+        // llevara fuente enlazada y no se le daba con qué encontrarla, así que
+        // sus dos únicas salidas eran inventar el dato u omitirlo. Inventaba, y
+        // la compuerta lo bloqueaba después: 440 hallazgos en 17 artículos
+        // salieron de esta contradicción, no de cómo estaban redactadas las
+        // reglas. El corrector sí tenía búsqueda; el escritor no.
+        allowedTools: ["WebSearch", "WebFetch"],
         prompt: `Tema/ángulo para el artículo (puede ser un insight de competidor o tendencia): "${topic}"
 Idioma: ${lang === "es" ? "español (natural de LATAM)" : "inglés"}.
 Audiencia: dueños de PYMEs y marketers.
@@ -52,26 +150,49 @@ Audiencia: dueños de PYMEs y marketers.
 Primero elige un TÍTULO SEO específico y atractivo para este tema (no genérico).
 Tu respuesta debe empezar EXACTAMENTE con la línea:
 TITLE: <el título>
-Luego una línea en blanco y después el artículo completo en Markdown (1.500–2.200 palabras, siguiendo todos los estándares de calidad).`,
+Luego una línea en blanco y después el artículo completo en Markdown, siguiendo todos los estándares de calidad.`,
       });
       const m = raw.match(/^\s*TITLE:\s*(.+?)\s*\n/i);
       title = m ? m[1].trim().replace(/^["']|["']$/g, "") : topic.slice(0, 70);
       markdown = raw.replace(/^\s*TITLE:\s*.+?\n/i, "").trim();
     } else {
-      title =
-        body.title ??
-        (lang === "es" ? `Guía 2026: ${keyword}` : `${keyword}: The 2026 Guide`);
+      // Sin título dado, lo elige el agente. El valor por defecto era
+      // "Guía 2026: <keyword>", que es exactamente el título contra el que
+      // compiten otros nueve iguales en la misma pantalla: promete "guía" y
+      // "2026", que es lo que promete todo el mundo. Un título genérico en
+      // posición 10 no se clica, y varios de los 17 artículos lo llevan.
+      title = body.title ?? (await tituloPara(keyword ?? topic ?? "", lang));
       markdown = await runClaude({
         model: "sonnet",
         system: WRITER_SYSTEM,
+        // El escritor busca en la web. Sin esto se le exigía que toda cifra
+        // llevara fuente enlazada y no se le daba con qué encontrarla, así que
+        // sus dos únicas salidas eran inventar el dato u omitirlo. Inventaba, y
+        // la compuerta lo bloqueaba después: 440 hallazgos en 17 artículos
+        // salieron de esta contradicción, no de cómo estaban redactadas las
+        // reglas. El corrector sí tenía búsqueda; el escritor no.
+        allowedTools: ["WebSearch", "WebFetch"],
         prompt: `Escribe el artículo completo siguiendo TODOS los estándares de calidad.
 Título del artículo (es el H1, no lo repitas): "${title}"
 Keyword principal a posicionar: "${keyword ?? title}"
 Idioma: ${lang === "es" ? "español (natural de LATAM, no traducido)" : "inglés"}.
 Audiencia: dueños de PYMEs y marketers que buscan resultados prácticos.
-Apunta a 1.500–2.200 palabras de contenido sustancioso y específico.`,
+La extensión la marca el tema, no una cuota. No hay mínimo de palabras.`,
       });
     }
+
+    // Comprobar antes de guardar, y corregir si hace falta.
+    //
+    // Las reglas ya van en el prompt, y eso reduce mucho los fallos pero no los
+    // elimina: un modelo que sabe que no puede usar rayas largas todavía deja
+    // alguna en un texto de dos mil palabras. Como el bloqueo se descubría al
+    // intentar publicar, el artículo nacía roto y el problema aparecía días
+    // después, cuando ya nadie recordaba de dónde salía.
+    //
+    // Una sola pasada correctiva, no un bucle: si tras corregir sigue
+    // bloqueado, es que hay una cifra sin fuente pública, y eso necesita una
+    // decisión que no le toca tomar a un agente.
+    markdown = await dejarPublicable(title, markdown);
 
     const excerpt =
       markdown

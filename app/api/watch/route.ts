@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { NextResponse } from "next/server";
 import { apiRoute } from "@/lib/google-auth-state";
-import { rivalTopics } from "@/lib/rival-topics";
+import { rivalTopics, phraseOf } from "@/lib/rival-topics";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -90,7 +90,14 @@ export const GET = apiRoute(async (req: Request) => {
       newCount: previous ? fresh.length : null,
       newPages: fresh
         .sort((a, b) => (b.lastmod || "").localeCompare(a.lastmod || ""))
-        .slice(0, 10),
+        .slice(0, 10)
+        // De qué va la pieza, no solo dónde está. La pantalla enseñaba la URL
+        // cruda: para saber si una nota interesa había que abrirla, y con
+        // doscientas piezas nuevas eso significa no mirar ninguna. El slug ya
+        // es, en la práctica, el titular que eligieron, así que se lee de ahí
+        // y no se inventa nada. Si el slug no da una frase (secciones, ids),
+        // queda null y la pantalla sigue enseñando la URL.
+        .map((p) => ({ ...p, title: phraseOf(p.url) })),
     };
   });
 

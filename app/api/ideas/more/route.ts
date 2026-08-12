@@ -98,10 +98,22 @@ Investiga en la web (competidores Jasper/HubSpot/Copy.ai/Enrich Labs y tendencia
       outline: Array.isArray(i.outline) ? i.outline.slice(0, 6) : [],
     })).filter((i: ArticleIdea) => i.title);
 
-    // 3) Append a la tanda de hoy (o crea una)
+    // 3) Append SIEMPRE a la tanda más reciente. Solo se crea una si no hay
+    //    ninguna.
+    //
+    //    Antes se comparaba con la fecha de hoy, y la fecha se calculaba en
+    //    UTC: a las 19:45 en Bogotá el servidor ya cree que es el día
+    //    siguiente, así que en vez de sumar a la tanda de hoy creaba otra
+    //    fechada mañana. La pantalla enseña la más reciente, o sea la nueva de
+    //    8 ideas, y las 10 de la corrida semanal quedaban escondidas en la
+    //    anterior. Se pedían ideas, aparecían menos, y ninguna de las buenas.
+    //
+    //    Arreglar la zona horaria no habría bastado: a las 23:50 el problema
+    //    vuelve con otra cara. Lo que hace falta es que las ideas nuevas caigan
+    //    donde el usuario mira, y eso es la tanda de arriba, sea de cuando sea.
     fs.mkdirSync(IDEAS_DIR, { recursive: true });
     let batch: IdeaBatch;
-    if (existing && existing.weekOf === today) {
+    if (existing) {
       batch = existing;
     } else {
       batch = {
@@ -109,7 +121,9 @@ Investiga en la web (competidores Jasper/HubSpot/Copy.ai/Enrich Labs y tendencia
         generatedAt: new Date().toISOString(),
         source: "more",
         summary: "Ideas adicionales generadas desde señales de clicks, striking-distance y research de competidores/industria.",
-        research: existing?.research ?? { competitors: [], trends: [] },
+        // Esta rama solo corre cuando NO existe ninguna tanda, así que no hay
+        // investigación previa que heredar.
+        research: { competitors: [], trends: [] },
         ideas: [],
       };
     }

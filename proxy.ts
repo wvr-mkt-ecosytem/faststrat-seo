@@ -5,8 +5,13 @@ import { NextRequest, NextResponse } from "next/server";
 // Si no están seteadas (ej. en local), no exige login.
 export function proxy(request: NextRequest) {
   // El health check de Render y el cron semanal pasan sin Basic Auth.
-  // (/api/weekly se protege solo con WEEKLY_SECRET).
-  const open = ["/api/health", "/api/weekly"];
+  // (/api/weekly y /api/watch/refresh se protegen solos con WEEKLY_SECRET;
+  // los llama el cron de GitHub Actions, que no tiene el login del dashboard).
+  //
+  // Exceptuar aquí NO es dejarlas abiertas: cada una comprueba el secreto o el
+  // login por su cuenta. Exceptuar sin esa comprobación dentro sería publicar
+  // un botón de "rastrea 27.000 URLs" para cualquiera que sepa la ruta.
+  const open = ["/api/health", "/api/weekly", "/api/watch/refresh"];
   if (open.includes(request.nextUrl.pathname)) return NextResponse.next();
 
   const user = process.env.DASHBOARD_USER;
@@ -45,5 +50,5 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   // Aplica a todo menos assets estáticos de Next y el health check.
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|api/health|api/weekly).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|api/health|api/weekly|api/watch/refresh).*)"],
 };

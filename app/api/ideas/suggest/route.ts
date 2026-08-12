@@ -56,8 +56,12 @@ export const POST = apiRoute(async (request: NextRequest) => {
     fs.mkdirSync(IDEAS_DIR, { recursive: true });
     const batches = getIdeaBatches();
     const today = new Date().toISOString().split("T")[0];
+    // Siempre a la tanda más reciente, nunca a una nueva por fecha. La fecha
+    // se calcula en UTC, así que a partir de las 7 de la tarde en Bogotá el
+    // servidor cree que es mañana y abría una tanda aparte: la idea sugerida
+    // desaparecía de la lista que el usuario está mirando.
     let batch: IdeaBatch;
-    if (batches[0] && batches[0].weekOf === today) {
+    if (batches[0]) {
       batch = batches[0];
     } else {
       batch = {

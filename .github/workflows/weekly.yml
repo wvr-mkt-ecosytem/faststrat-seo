@@ -31,3 +31,28 @@ jobs:
           done
           echo "✗ falló tras 3 intentos"
           exit 1
+
+      # La vigilancia de competencia dependía de que alguien corriera el script
+      # a mano. Sin una segunda instantánea no hay con qué comparar, así que la
+      # pantalla enseñaba "línea base" para siempre y "qué salió esta semana"
+      # nunca llegaba a existir. Va después de las ideas y con `if: always()`
+      # porque son independientes: que falle una no debe cancelar la otra.
+      - name: Rastrear competencia
+        if: always()
+        env:
+          APP_BASE_URL: ${{ secrets.APP_BASE_URL }}
+          WEEKLY_SECRET: ${{ secrets.WEEKLY_SECRET }}
+        run: |
+          for i in 1 2 3; do
+            echo "Rastreo, intento $i…"
+            if curl -fsS -X POST \
+              --max-time 800 \
+              -H "x-weekly-secret: $WEEKLY_SECRET" \
+              "$APP_BASE_URL/api/watch/refresh"; then
+              echo "✓ instantánea creada"
+              exit 0
+            fi
+            sleep 30
+          done
+          echo "✗ el rastreo falló tras 3 intentos"
+          exit 1

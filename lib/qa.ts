@@ -26,6 +26,13 @@ export interface Finding {
 const BANNED =
   /\b(streamlin\w*|leverag\w*|seamless\w*|game.?chang\w*|robust|unlock\w*|delve|elevate|harness|tapestry|testament to|in today'?s (?:fast.?paced|digital) world|it'?s worth noting|navigate the landscape)\b/gi;
 
+// Las mismas muletillas, en español. La lista de arriba es solo inglesa y el
+// sistema publica también en español para LATAM, así que sobre buena parte del
+// contenido real no filtraba nada: un artículo entero de relleno en español
+// pasaba limpio por una regla que existe precisamente para atraparlo.
+const BANNED_ES =
+  /\b(potenciar|revolucionar|sin fisuras|clave fundamental|pieza clave|el gigante tecnológico|en la era digital|en el mundo actual|en un mundo cada vez más|no es un secreto que|cabe destacar|es importante mencionar|a día de hoy|en definitiva|sin lugar a dudas)\b/gi;
+
 // El marcador que viaja. Se publicó uno dentro de una frase acabada.
 const PLACEHOLDER = /\[(?:VERIFICAR|VERIFY|TBD|TODO|source to verify|pendiente|placeholder)[^\]]*\]|\(source to verify\)|XX+%/gi;
 
@@ -37,8 +44,16 @@ const EM_DASH = /—/g;
 // Cada alternativa lleva su propio límite final. Sin él, /say/ casaba dentro
 // de "says" y degradaba a aviso la forma más común de citar una estadística
 // real ("Gartner says 63% of..."), y /si/ hacía lo mismo con "Si bien...".
+// Solo formas EXPLÍCITAS de plantear una hipótesis.
+//
+// Antes estaban "if", "say", "says" y "si" sueltas, y eso abría un agujero:
+// "Si haces esto, la conversión subió 63%" degradaba de BLOQUEO a aviso una
+// estadística sin fuente, y en español "si" aparece en cualquier frase. Bastaba
+// con meter un condicional para colar un dato inventado. Comprobado antes de
+// tocarlo: "Conversion rose 63%" bloqueaba y "If you do this, conversion rose
+// 63%" solo avisaba.
 const HYPOTHETICAL =
-  /\b(if|say|says|suppose|imagine|let'?s say|for example|e\.g\.|assume|hypothetical|pretend|pongamos|supongamos|por ejemplo|imagina|si)\b/i;
+  /\b(suppose|imagine|let'?s say|for example|e\.g\.|assume|hypothetical|pretend|pongamos|supongamos|por ejemplo|imagina|imaginemos)\b/i;
 
 /** Porcentajes y millares: la forma que toma una estadística. */
 const STAT = /\d+(?:[.,]\d+)?\s?%|\b\d{1,3}(?:,\d{3})+\b|\b\d{4,}\b/g;
@@ -177,7 +192,24 @@ export function quotesAreVerbatim(markdown: string, allowed: string[]): Finding[
 export interface HouseRules {
   /** Prohibir el em dash. Apagado: es decisión de manual de marca. */
   noEmDash?: boolean;
+  /**
+   * El dominio propio del cliente, sin protocolo. Ej: "faststrat.ai".
+   *
+   * Estaba quemado en cuatro sitios de este archivo mientras la cabecera y
+   * house-rules.ts presumían de ser agnósticos. Al replicar el sistema a otro
+   * cliente, las tres reglas de enlaces se invertían EN SILENCIO: cualquier
+   * enlace propio contaba como externo (no-external-links no saltaba nunca),
+   * ninguno contaba como interno (no-internal-link saltaba siempre) y la
+   * autocita circular no se detectaba jamás. Ningún error, ningún aviso:
+   * simplemente tres reglas dando lo contrario de lo que dicen.
+   */
+  dominio?: string;
+  /** Subdominios propios que no cuentan como cita. Ej: el de la app del CTA. */
+  dominiosPropios?: string[];
 }
+
+/** Escapa un host para meterlo en una expresión regular. */
+const escapar = (h: string) => h.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 export interface QaInput {
   title?: string;
@@ -198,11 +230,29 @@ export function runQa(input: QaInput): QaResult {
   const { markdown, title = "", metaDescription = "" } = input;
   const findings: Finding[] = [];
 
+  // El dominio del cliente. Por defecto faststrat.ai para no romper las
+  // llamadas que ya existen, pero ahora es un parámetro: sin él, replicar el
+  // sistema a otro cliente invertía las tres reglas de enlaces sin avisar.
+  const dominio = input.house?.dominio ?? "faststrat.ai";
+  const propios = [dominio, ...(input.house?.dominiosPropios ?? [`app.${dominio}`])];
+  const dom = escapar(dominio);
+  const esPropio = (host: string) =>
+    propios.some((d) => host.toLowerCase() === d.toLowerCase() || host.toLowerCase().endsWith("." + d.toLowerCase()));
+
   for (const m of markdown.matchAll(BANNED)) {
     findings.push({
       severity: "block",
       rule: "banned-phrase",
       detail: `"${m[0]}" is on the zero-tolerance list.`,
+      excerpt: excerptAround(markdown, m.index ?? 0),
+    });
+  }
+
+  for (const m of markdown.matchAll(BANNED_ES)) {
+    findings.push({
+      severity: "block",
+      rule: "banned-phrase",
+      detail: `"${m[0]}" es muletilla de relleno y está en la lista de tolerancia cero.`,
       excerpt: excerptAround(markdown, m.index ?? 0),
     });
   }
@@ -232,7 +282,7 @@ export function runQa(input: QaInput): QaResult {
 
   // Un artículo sin un solo enlace externo no es verificable. Es aviso y no
   // bloqueo porque hay piezas legítimas sin fuente externa, pero merece mirada.
-  if (!/https?:\/\/(?!(?:www\.)?faststrat)/i.test(markdown)) {
+  if (!new RegExp(`https?://(?!(?:www\\.)?${dom})`, "i").test(markdown)) {
     findings.push({
       severity: "warn",
       rule: "no-external-links",
@@ -285,7 +335,7 @@ export function runQa(input: QaInput): QaResult {
 
   // Todo artículo enlaza al menos una página propia de servicio o herramienta:
   // sin eso el contenido atrae tráfico y no lo lleva a ningún sitio.
-  if (!/\]\((?:\/|https?:\/\/(?:www\.)?faststrat\.ai)/i.test(markdown)) {
+  if (!new RegExp(`\\]\\((?:/|https?://(?:www\\.)?${dom})`, "i").test(markdown)) {
     findings.push({
       severity: "warn",
       rule: "no-internal-link",
@@ -300,8 +350,8 @@ export function runQa(input: QaInput): QaResult {
   // Que no haya fuentes externas ya lo dice la regla no-external-links.
   const external = [...markdown.matchAll(/https?:\/\/([^/\s)]+)/g)]
     .map((m) => m[1])
-    .filter((h) => !/^app\.faststrat\.ai$/i.test(h));
-  if (external.length && external.every((h) => /faststrat\.ai$/i.test(h))) {
+    .filter((h) => !(input.house?.dominiosPropios ?? [`app.${dominio}`]).some((d) => h.toLowerCase() === d.toLowerCase()));
+  if (external.length && external.every((h) => esPropio(h))) {
     findings.push({
       severity: "block",
       rule: "circular-self-citation",

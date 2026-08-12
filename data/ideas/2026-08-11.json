@@ -178,6 +178,134 @@
         "H2 4: Schema Markup for LATAM Local Businesses — Language, Currency, Service Area & Multi-Location Tips",
         "H2 5: How to Test, Monitor & Maintain Your Structured Data — Tools, Validators & a 30-Day Audit Checklist"
       ]
+    },
+    {
+      "title": "Vibe Marketing for Small Business: The 2026 AI-Powered Brand Strategy Guide",
+      "slug": "vibe-marketing-for-small-business-the-2026-ai-powered-brand-",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "vibe marketing small business 2026",
+      "intent": "informational / educational",
+      "rationale": "Tendencia de industria: 'vibe marketing' es el concepto más caliente de 2026 según HubSpot State of Marketing Report y múltiples publicaciones especializadas (averi.ai, gofractional, mean.ceo). Ningún competidor directo (Jasper, HubSpot, Copy.ai) tiene todavía un artículo de profundidad orientado exclusivamente a PYMEs. El volumen de búsqueda está creciendo rápidamente y FastStrat puede posicionarse como referencia temprana en este término antes de que se sature.",
+      "outline": [
+        "H2: What Is Vibe Marketing? Definition and Why It Exploded in 2026",
+        "H2: Why Vibe Marketing Outperforms Traditional Campaigns for Small Teams",
+        "H2: How to Define Your Brand Vibe in 5 Steps (Even Without a Marketing Department)",
+        "H2: The $90/Month Vibe Marketing Stack for SMBs: Claude + Zapier + Canva",
+        "H2: Vibe Marketing in Action: 3 Real Small Business Examples and What to Replicate"
+      ]
+    },
+    {
+      "title": "The Prompt Engineering Blueprint for Small Business Marketers: Keyword Research, Content & Ad Copy in 2026",
+      "slug": "the-prompt-engineering-blueprint-for-small-business-marketer",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "prompt engineering for small business marketing 2026",
+      "intent": "informational / how-to",
+      "rationale": "Striking-distance: query 'prompt engineering blueprint keyword research content strategy' aparece en pos 6.4 con 25 impresiones — FastStrat ya tiene señal de relevancia y un artículo dedicado puede subirlo a página 1. Ninguno de los artículos existentes cubre este tema. Jasper y Copy.ai publican sobre prompt engineering pero sin foco en PYMEs ni en el triángulo keyword research + content strategy + ad copy.",
+      "outline": [
+        "H2: Why Prompt Engineering Is the Most Underrated SMB Marketing Skill in 2026",
+        "H2: The 5-Element Prompt Framework That Gets Usable Output Every Time",
+        "H2: Prompt Templates for Keyword Research and Content Ideation (Claude & ChatGPT Examples)",
+        "H2: Prompts That Write High-Converting Ad Copy and Email Subject Lines",
+        "H2: How to Build a Reusable Prompt Library for Your Entire Content Strategy"
+      ]
+    },
+    {
+      "title": "AI Email Marketing Automation for Small Businesses in 2026: 7 Sequences That Drive Real Revenue",
+      "slug": "ai-email-marketing-automation-for-small-businesses-in-2026-7",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "AI email marketing automation small business 2026",
+      "intent": "informational / listicle",
+      "rationale": "Striking-distance: 'smb emails' aparece en pos 12.9 con 27 impresiones. Tendencia de industria confirmada por HubSpot 2026 State of Marketing Report: email sigue siendo el canal de mayor ROI para PYMEs y las lifecycle automations superan a las campañas de blast. Competidores (Jasper, Copy.ai) no tienen guías de secuencias automatizadas orientadas a SMBs. Alta intención comercial y evergreen.",
+      "outline": [
+        "H2: Why AI Email Automation Delivers the Highest ROI for SMBs in 2026 (Data-Backed)",
+        "H2: The 7 AI-Powered Email Sequences Every Small Business Needs to Set Up",
+        "H2: How to Build Behavioral Triggers Without a Big Marketing Team",
+        "H2: Best AI Email Automation Tools for SMBs: ActiveCampaign vs HubSpot vs Budget Alternatives",
+        "H2: Deliverability in 2026: How to Make Sure Your Automated Emails Actually Land in the Inbox"
+      ]
+    },
+    {
+      "title": "Brand Storytelling Playbook: 5 Lessons Small Businesses Can Steal from Nike, Apple & Patagonia",
+      "slug": "brand-storytelling-playbook-5-lessons-small-businesses-can-s",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "brand storytelling lessons for small business",
+      "intent": "informational / how-to",
+      "rationale": "Expande el tema ganador con más clicks y mayor volumen: 'nike storytelling' genera 3 clicks con 71 impresiones y aparece en striking-distance en pos 9.6. Ampliar de Nike a un playbook comparativo multi-marca (Nike + Apple + Patagonia) aumenta la cobertura semántica, atrae más long-tail queries sobre brand storytelling para negocios pequeños, y diferencia la pieza de contenidos similares de competidores.",
+      "outline": [
+        "H2: Why Big-Brand Storytelling Works — and How Small Businesses Can Steal the Blueprint",
+        "H2: Lesson 1 — Nike: Sell the Transformation, Not the Product",
+        "H2: Lesson 2 — Apple: Build a World, Not Just a Feature List",
+        "H2: Lesson 3 — Patagonia: Turn Your Brand Values Into a Growth Engine",
+        "H2: How to Write Your Own Small Business Brand Story Using These Frameworks (With AI)"
+      ]
+    },
+    {
+      "title": "How to Keep AI-Generated Content Human: An Authenticity Playbook for Small Business Marketers in 2026",
+      "slug": "how-to-keep-ai-generated-content-human-an-authenticity-playb",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "AI content authenticity small business 2026",
+      "intent": "informational / how-to",
+      "rationale": "Tendencia de industria: HubSpot 2026 State of Marketing Report revela que el 56% de los marketers admite que internet está inundada de contenido generado por IA y que los consumidores lo identifican cada vez mejor. Jasper aborda la escala pero ignora el problema de autenticidad. Copy.ai y Enrich Labs no tienen artículos sobre este ángulo. Hueco claro vs los cuatro competidores principales y alta relevancia para PYMEs que no quieren sonar robóticos.",
+      "outline": [
+        "H2: The Authenticity Crisis: Why 56% of Marketers Say AI Content Is Backfiring in 2026",
+        "H2: The 5 Dead Giveaways That Your Content Was Written by AI (And How to Fix Each One)",
+        "H2: How to Build a Brand Voice Guide That Your AI Tools Will Actually Follow",
+        "H2: The Human-in-the-Loop Editing Workflow for Small Business Teams",
+        "H2: Prompts and Tools That Produce Authentic-Sounding AI Content From the First Draft"
+      ]
+    },
+    {
+      "title": "Short-Form Video + AI: How Small Businesses Can Win the Highest-ROI Marketing Format in 2026",
+      "slug": "short-form-video-ai-how-small-businesses-can-win-the-highest",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "short form video AI marketing small business 2026",
+      "intent": "informational / how-to",
+      "rationale": "Tendencia de industria: HubSpot 2026 State of Marketing Report posiciona el short-form video como el formato de mayor ROI (49% de marketers lo citan), seguido de long-form video (29%). FastStrat no tiene ningún artículo sobre video marketing. Jasper y Copy.ai no cubren producción de video con IA para PYMEs con foco práctico. Gap de contenido evidente con demanda creciente y clara relevancia para el segmento PYME.",
+      "outline": [
+        "H2: Why Short-Form Video Is the #1 ROI Channel for Small Businesses in 2026 (HubSpot Data)",
+        "H2: AI Tools That Script, Edit and Publish Short Videos Without a Production Budget",
+        "H2: The 5-Step Workflow: From Idea to Posted Reel in Under 2 Hours Using AI",
+        "H2: Platform-by-Platform Guide: TikTok, Instagram Reels & YouTube Shorts for SMBs",
+        "H2: How to Repurpose One Video Idea Into a Full Multi-Platform Content Calendar"
+      ]
+    },
+    {
+      "title": "Google for Startups & SMBs: The Complete Guide to Free Google Benefits You Should Be Using in 2026",
+      "slug": "google-for-startups-smbs-the-complete-guide-to-free-google-b",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "Google for Startups benefits small business 2026",
+      "intent": "informational / listicle",
+      "rationale": "Striking-distance: 'google startups benefits filetype:pdf' aparece en pos 15.3 con 56 impresiones. Ninguno de los cuatro competidores principales (Jasper, HubSpot, Copy.ai, Enrich Labs) tiene una guía actualizada y de profundidad sobre Google for Startups + Google Business Profile + Google Ads credits + herramientas IA gratuitas para PYMEs. Hueco vs competidores claro y alta intención de búsqueda informacional con potencial de conversión.",
+      "outline": [
+        "H2: What Is Google for Startups — and Does Your Small Business Qualify?",
+        "H2: Google Business Profile: The Free Local SEO Tool Most SMBs Are Barely Using",
+        "H2: Google Ads Credits, Cloud Credits & Workspace for Startups: What's Actually Available in 2026",
+        "H2: Free AI Tools from Google for Small Businesses: Gemini, Search Console & NotebookLM",
+        "H2: Step-by-Step: How to Apply, Activate and Maximize Every Google Benefit This Year"
+      ]
+    },
+    {
+      "title": "AI Personalization at Scale for Small Businesses: Deliver 1-to-1 Marketing Without an Enterprise Budget in 2026",
+      "slug": "ai-personalization-at-scale-for-small-businesses-deliver-1-t",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "AI personalization at scale small business 2026",
+      "intent": "informational / how-to",
+      "rationale": "Tendencia de industria + hueco vs competidores: Jasper identifica la personalización a escala como su objetivo de marketing #1 en 2026 (57% de marketers quieren escalar contenido de calidad), pero su contenido apunta a equipos corporativos. FastStrat puede apropiarse del ángulo 'personalization at scale para PYMEs' con un enfoque práctico y de bajo presupuesto. HubSpot y Copy.ai no tienen artículos específicos de implementación práctica para SMBs en este subtema.",
+      "outline": [
+        "H2: What 'Personalization at Scale' Actually Means for a Small Business in 2026",
+        "H2: The 3 Personalization Layers Every SMB Should Implement: Email, Website and Ads",
+        "H2: AI Tools That Power SMB Personalization on a Tight Budget (Under $200/Month)",
+        "H2: How to Segment Your Audience Without a Data Science Team",
+        "H2: Measuring Personalization ROI: The Metrics That Prove It's Working"
+      ]
     }
   ]
 }

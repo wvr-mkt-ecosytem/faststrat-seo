@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { TrendingUp, TrendingDown, Minus, ExternalLink } from 'lucide-react'
+import { TrendingUp, TrendingDown, Minus, ExternalLink, Sparkles, PenLine, Loader2, AlertCircle } from 'lucide-react'
 import { SeoCharts } from '@/components/SeoCharts'
 import { BrandHeader } from '@/components/BrandHeader'
 
@@ -26,6 +26,23 @@ type Behaviour = {
   conversions: number
   verdict: string
   action: string
+}
+
+type Rec = {
+  kind: string
+  target: string
+  reason: string
+  evidence: string
+  suggestion: string
+  priority: string
+  cause?: string
+  sourceUrl?: string
+}
+
+type Analysis = {
+  recommendations?: Rec[]
+  limits?: string[]
+  error?: string
 }
 
 type Ga4Response = {
@@ -61,6 +78,26 @@ export default function SeoPage() {
   const [error, setError] = useState<string | null>(null)
   const [days, setDays] = useState(28)
   const [search, setSearch] = useState('')
+  const [verdicto, setVerdicto] = useState<string | null>(null)
+  const [analysis, setAnalysis] = useState<Analysis | null>(null)
+  const [analysing, setAnalysing] = useState(false)
+
+  // El analista vivía en una pantalla aparte llamada Tráfico que, desde que el
+  // Dashboard cruza GSC con GA4, mostraba exactamente los mismos datos con el
+  // mismo diagnóstico. Dos pantallas para una pregunta obligan a elegir cuál
+  // mirar y a mantener el mismo cálculo en dos sitios.
+  async function runAnalyst() {
+    setAnalysing(true)
+    setAnalysis(null)
+    try {
+      const r = await fetch(`/api/ga4/analyst?days=${days}`, { method: 'POST' })
+      setAnalysis(await r.json())
+    } catch (e) {
+      setAnalysis({ error: String(e) })
+    } finally {
+      setAnalysing(false)
+    }
+  }
 
   useEffect(() => {
     setLoading(true)
@@ -94,9 +131,12 @@ export default function SeoPage() {
   )
   const hayConducta = conducta.size > 0
 
-  const rows = (data?.rows ?? []).filter((r) =>
-    r.page.toLowerCase().includes(search.toLowerCase())
-  )
+  const rows = (data?.rows ?? [])
+    .filter((r) => r.page.toLowerCase().includes(search.toLowerCase()))
+    // El filtro por diagnóstico es lo único que Tráfico hacía y aquí no:
+    // cada veredicto es un arreglo distinto, y verlos mezclados obliga a
+    // reordenar la lista con la vista para trabajar sobre uno.
+    .filter((r) => !verdicto || conducta.get(toPath(r.page))?.verdict === verdicto)
 
   const totalClicks = rows.reduce((s, r) => s + r.clicks, 0)
   const totalImpressions = rows.reduce((s, r) => s + r.impressions, 0)
@@ -167,6 +207,99 @@ export default function SeoPage() {
 
         {/* Charts */}
         {!loading && !error && data && <SeoCharts rows={data.rows} days={days} />}
+
+        {/* El analista, junto a los números que cita. Estaba en una pantalla
+            aparte; separarlo del dato obligaba a recordar la cifra para
+            entender la recomendación. */}
+        {hayConducta && (
+          <section className="rounded-lg border border-maroon/15 bg-white/60 p-5 flex flex-col gap-3">
+            <div className="flex items-baseline gap-3 flex-wrap">
+              <h2 className="text-sm font-bold text-ink flex items-center gap-2">
+                <Sparkles size={15} className="text-maroon" /> Qué escribir, según estos datos
+              </h2>
+              <span className="text-[11px] text-sand">
+                Nuestros números salen solo de esta pantalla; para explicar la causa busca en la web y cita la fuente
+              </span>
+            </div>
+
+            <button
+              onClick={runAnalyst}
+              disabled={analysing}
+              className="self-start px-3 py-1.5 rounded-md bg-maroon text-cream text-sm font-medium hover:bg-maroon-hover disabled:opacity-50 flex items-center gap-1.5"
+            >
+              {analysing ? <Loader2 size={14} className="animate-spin" /> : <PenLine size={14} />}
+              {analysing ? 'Analizando…' : 'Analizar y recomendar'}
+            </button>
+
+            {analysis?.error && (
+              <p className="text-xs text-red-700 flex items-center gap-1">
+                <AlertCircle size={12} /> {analysis.error}
+              </p>
+            )}
+
+            {/* Lo que el análisis NO pudo mirar. Callarlo haría pasar una
+                lectura parcial por completa. */}
+            {!!analysis?.limits?.length && (
+              <ul className="flex flex-col gap-0.5">
+                {analysis.limits.map((l, i) => (
+                  <li key={i} className="text-[11px] text-amber-800 leading-relaxed">⚠ {l}</li>
+                ))}
+              </ul>
+            )}
+
+            {!!analysis?.recommendations?.length && (
+              <div className="flex flex-col gap-2.5">
+                {analysis.recommendations.map((r, i) => (
+                  <div key={i} className="border-t border-maroon/15 pt-2.5 first:border-0 first:pt-0">
+                    <div className="flex items-baseline gap-2 flex-wrap">
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-maroon/10 text-maroon">{r.priority}</span>
+                      <span className="text-sm text-ink font-medium">{r.target}</span>
+                    </div>
+                    <p className="text-[11px] text-sand leading-snug mt-0.5">{r.reason}</p>
+                    {r.cause && (
+                      <p className="text-[12px] text-ink/90 leading-snug mt-1">
+                        <span className="text-sand">Por qué: </span>{r.cause}
+                        {r.sourceUrl && (
+                          <a href={r.sourceUrl} target="_blank" rel="noopener noreferrer"
+                            className="ml-1 text-maroon underline decoration-dotted">fuente</a>
+                        )}
+                      </p>
+                    )}
+                    <p className="text-[12px] text-ink leading-snug mt-1">
+                      <span className="text-sand">Qué hacer: </span>{r.suggestion}
+                    </p>
+                    <p className="text-[11px] font-mono text-maroon mt-1">{r.evidence}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* Filtro por diagnóstico. Cada veredicto es un arreglo distinto, así
+            que poder aislar uno es lo que convierte la tabla en una lista de
+            tareas en vez de un informe. */}
+        {hayConducta && (
+          <div className="flex gap-1.5 flex-wrap">
+            {[null, ...Object.keys(VERDICT_STYLE)].map((v) => {
+              const n = v === null
+                ? (data?.rows ?? []).length
+                : (data?.rows ?? []).filter((r) => conducta.get(toPath(r.page))?.verdict === v).length
+              if (v !== null && n === 0) return null
+              return (
+                <button
+                  key={v ?? 'todas'}
+                  onClick={() => setVerdicto(v)}
+                  className={`text-xs px-2.5 py-1 rounded-md border transition-colors ${
+                    verdicto === v ? 'bg-maroon text-cream border-maroon' : 'bg-white/60 text-ink/70 border-maroon/15 hover:bg-maroon/8'
+                  }`}
+                >
+                  {v ?? 'Todas'} <span className="opacity-70">{n}</span>
+                </button>
+              )
+            })}
+          </div>
+        )}
 
         {/* Search */}
         <input

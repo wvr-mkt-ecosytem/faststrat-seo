@@ -275,32 +275,12 @@ export default function IdeasPage() {
             </h2>
             <p className="text-sm text-ink/80">{batch.summary}</p>
 
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="border border-maroon/15 bg-white/60 rounded-lg p-4">
-                <h3 className="font-semibold text-sm flex items-center gap-2 mb-2 text-maroon">
-                  <Users size={15} /> Competidores
-                </h3>
-                <ul className="space-y-2">
-                  {batch.research.competitors.map((c, i) => (
-                    <InsightItem key={`comp-${i}`} insight={c} kind="competidor"
-                      result={results[`insight:comp-${i}`]}
-                      onGenerate={() => generateFromInsight(`insight:comp-${i}`, c)} />
-                  ))}
-                </ul>
-              </div>
-              <div className="border border-maroon/15 bg-white/60 rounded-lg p-4">
-                <h3 className="font-semibold text-sm flex items-center gap-2 mb-2 text-maroon">
-                  <TrendingUp size={15} /> Tendencias
-                </h3>
-                <ul className="space-y-2">
-                  {batch.research.trends.map((t, i) => (
-                    <InsightItem key={`trend-${i}`} insight={t} kind="tendencia"
-                      result={results[`insight:trend-${i}`]}
-                      onGenerate={() => generateFromInsight(`insight:trend-${i}`, t)} />
-                  ))}
-                </ul>
-              </div>
-            </div>
+            {/* El bloque de Competidores y Tendencias vivía aquí y se ha
+                quitado: la pestaña Competencia ya cubre qué publican, y con
+                datos rastreados de sus sitemaps en vez de con el recuerdo del
+                modelo. Tener las dos cosas obligaba a leer dos versiones de lo
+                mismo y a decidir cuál creer. Esta pantalla se queda con lo que
+                sí es suyo: qué escribir. */}
 
             <div className="space-y-3">
               <h3 className="font-semibold text-sm flex items-center gap-2 text-ink">

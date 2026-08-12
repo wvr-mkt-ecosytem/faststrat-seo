@@ -98,7 +98,7 @@ const STOP = new Set(
 );
 
 /** El slug final de la URL, convertido en frase legible. */
-function phraseOf(url: string): string | null {
+export function phraseOf(url: string): string | null {
   let p: string;
   try {
     p = new URL(url).pathname;
