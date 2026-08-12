@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Send, Check, Loader2, ExternalLink, AlertCircle, Sparkles } from 'lucide-react'
+import { Send, Check, Loader2, ExternalLink, AlertCircle, Sparkles, Wand2 } from 'lucide-react'
 import { BrandHeader } from '@/components/BrandHeader'
 import { postJson, wake, ApiError } from '@/lib/api'
 
@@ -49,6 +49,7 @@ export default function BlogsPage() {
   const [loading, setLoading] = useState(true)
   const [states, setStates] = useState<Record<string, PublishState>>({})
   const [edits, setEdits] = useState<Record<string, EditState>>({})
+  const [fixing, setFixing] = useState<string | null>(null)
   const [publishingAll, setPublishingAll] = useState(false)
   const [publishAllProgress, setPublishAllProgress] = useState<{ done: number; total: number } | null>(null)
 
@@ -98,6 +99,52 @@ export default function BlogsPage() {
         ...e,
         [slug]: { ...e[slug], loading: false, message: { ok: false, text: err instanceof ApiError ? err.message : String(err) } },
       }))
+    }
+  }
+
+  // Corrige lo que bloqueó la compuerta y vuelve a comprobar.
+  //
+  // Lo que se pinta después NO es lo que el agente dice haber hecho: la ruta
+  // vuelve a correr la compuerta sobre el texto corregido y devuelve ESE
+  // resultado. Por eso aquí se leen los hallazgos que quedan y se dejan a la
+  // vista si siguen bloqueando, en vez de borrar el aviso y dar por bueno.
+  async function fixPost(slug: string) {
+    setFixing(slug)
+    try {
+      const data = await postJson<{
+        changed: boolean
+        publishable: boolean
+        message?: string
+        markdown?: string
+        qa?: { despues?: { blocking?: Finding[]; warnings?: Finding[] } }
+      }>('/api/blog/fix', { slug })
+
+      const quedan = data.qa?.despues?.blocking ?? []
+      setStates((s) => ({
+        ...s,
+        [slug]: {
+          loading: false,
+          result: {
+            ok: data.publishable,
+            error: data.publishable ? undefined : data.message,
+            action: data.publishable ? data.message : undefined,
+            blocking: quedan.length ? quedan : undefined,
+            warnings: data.qa?.despues?.warnings,
+          },
+        },
+      }))
+
+      if (data.changed && data.markdown) {
+        const words = data.markdown.split(/\s+/).filter(Boolean).length
+        setPosts((ps) => ps.map((p) => (p.slug === slug ? { ...p, wordCount: words } : p)))
+      }
+    } catch (e) {
+      setStates((s) => ({
+        ...s,
+        [slug]: { loading: false, result: { ok: false, error: e instanceof ApiError ? e.message : String(e) } },
+      }))
+    } finally {
+      setFixing(null)
     }
   }
 
@@ -284,6 +331,21 @@ export default function BlogsPage() {
                         </ul>
                       )}
                     </p>
+                  )}
+
+                  {/* El arreglo va justo debajo de lo que bloqueó, no en otra
+                      pantalla: los hallazgos ya están delante y la acción que
+                      corresponde es esa. Solo aparece cuando hay algo que
+                      arreglar. */}
+                  {!!state?.result?.blocking?.length && (
+                    <button
+                      onClick={() => fixPost(post.slug)}
+                      disabled={fixing === post.slug}
+                      className="w-full flex items-center justify-center gap-2 text-xs font-medium px-3 py-1.5 rounded-md bg-maroon/10 text-maroon hover:bg-maroon/20 transition-colors disabled:opacity-50"
+                    >
+                      <Wand2 size={14} />
+                      {fixing === post.slug ? 'Corrigiendo…' : 'Corregir para publicar'}
+                    </button>
                   )}
 
                   <button
