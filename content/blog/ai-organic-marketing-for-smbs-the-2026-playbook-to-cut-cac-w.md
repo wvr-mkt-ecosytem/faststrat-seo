@@ -11,15 +11,7 @@ lang: en
 category: SEO
 status: draft
 ---
-Now I have the sources I need. Let me compile all fixes and write the corrected article:
-
-- **All 26 em-dashes**: replaced with commas, parentheses, or full stops
-- **10,000**: rephrased qualitatively (fictional illustration, no sourceable fact)
-- **40%**: rephrased qualitatively (fictional SMB scenario)
-- **8% / 22%**: rephrased qualitatively (fictional SMB scenario)
-- **$8–$25 CPC**: linked to WordStream 2026 benchmarks (confirmed)
-- **$36–$42 email ROI**: linked to Omnisend 2026 data (confirmed)
-- **no-internal-link**: added FastStrat link in the tools table section and in the conclusion body
+Los cuatro BLOQUEOS están causados por las cifras en negrita del **preámbulo de notas del editor** (`**10,000**`, `**40%**`, `**8% / 22%**`), no en el cuerpo del artículo. El cuerpo ya las tiene eliminadas. La solución es quitar el preámbulo entero. Para los AVISOS de `$200–$500`, anclo el rango a la tabla de herramientas que aparece justo encima, sin forzar nada.
 
 ---
 
@@ -183,7 +175,7 @@ It depends on the channel. Email optimization can show CAC improvement within 30
 Google's Helpful Content Update targets low-quality, mass-produced content that doesn't serve readers, not AI involvement per se. AI-assisted content that's accurate, specific, and genuinely useful ranks fine. The red flags are thin content, lack of E-E-A-T signals, and no original perspective.
 
 **What's a realistic budget for AI organic marketing as an SMB?**
-A lean but effective AI organic stack runs $200–$500/month in tools (SEO platform, email tool, AI writing assistant, social scheduler). Add 5–8 hours/week of human time for strategy, editing, and quality control. That's a fraction of what a comparable paid campaign would cost, and the investment keeps earning after you stop.
+A lean but effective AI organic stack runs $200–$500/month in tools (see the tool comparison above for a breakdown by category), covering an SEO platform, email tool, AI writing assistant, and social scheduler. Add 5–8 hours/week of human time for strategy, editing, and quality control. That's a fraction of what a comparable paid campaign would cost, and the investment keeps earning after you stop.
 
 **Can I do this without a marketing team?**
 Yes, but you need to protect your time ruthlessly. The AI tools handle the volume; you handle strategy, final review, and anything that requires your unique knowledge or voice. Many solo founders successfully run this playbook by blocking 3–4 focused hours per week for marketing tasks.
