@@ -13,9 +13,12 @@ import { getBlogPosts } from "@/lib/blog";
 // Tres reglas de construcción, y las tres salen de errores reales de este
 // sistema:
 //
-// 1. El agente NO ve la web ni inventa cifras: recibe los números ya calculados
-//    y solo puede citar esos. Sin esto, un modelo rellena con estadísticas
-//    plausibles que nadie puede comprobar.
+// 1. El agente no inventa cifras NUESTRAS: los números de tráfico llegan ya
+//    calculados y solo puede citar esos. Sí puede buscar en la web, porque los
+//    números dicen QUÉ pasa y casi nunca POR QUÉ: que una página con 1.851
+//    impresiones y posición 4,7 no reciba clics se explica mirando qué sale
+//    alrededor en esa búsqueda, y eso no está en GA4. Lo que trae de fuera va
+//    con su URL; sin enlace no entra.
 //
 // 2. Cada recomendación viaja con la página y el dato que la sostiene. Una
 //    recomendación sin su número es una opinión, y no se puede priorizar.
@@ -31,6 +34,10 @@ export interface Recommendation {
   evidence: string;
   suggestion: string;
   priority: "alta" | "media" | "baja";
+  /** Por qué pasa. Los números dicen qué pasa; esto dice la causa. */
+  cause?: string;
+  /** La fuente de fuera que sostiene la causa. Sin enlace, no se muestra. */
+  sourceUrl?: string;
 }
 
 export interface AnalystResult {
@@ -44,17 +51,21 @@ export interface AnalystResult {
 
 const SYSTEM = `Eres analista de SEO y contenido para FastStrat, software de marketing con IA para PYMEs (foco LATAM y EE.UU.).
 
-Recibes datos MEDIDOS de Search Console y GA4 sobre páginas que ya existen. Tu trabajo es decir qué escribir o reescribir, y por qué, apoyándote SOLO en esos números.
+Recibes datos MEDIDOS de Search Console y GA4 sobre páginas que ya existen. Tu trabajo NO es repetir lo que dicen los números: eso ya está en pantalla. Es explicar POR QUÉ pasa y decir QUÉ HACER.
+
+Tienes búsqueda web. Úsala, porque los números dicen qué pasa y casi nunca por qué. Si una página está en posición 4 con muchas impresiones y nadie la clica, la causa está en lo que sale alrededor en esa búsqueda, no en GA4: busca la consulta, mira qué resultados la rodean, y di qué tienen ellos que nosotros no. Si algo no lo pudiste comprobar, dilo en vez de suponerlo.
 
 Reglas que no puedes romper:
-- No inventes cifras. Solo puedes citar números que aparezcan en los datos que te doy. Si no tienes un dato, dilo.
-- Cada recomendación lleva la página concreta y el número que la sostiene.
+- Los números NUESTROS (clics, impresiones, posición, sesiones, conversiones) solo pueden salir de los datos que te doy. No los estimes ni los redondees a ojo.
+- Lo que traigas de fuera va con su URL en "sourceUrl". Una afirmación sobre el mercado o sobre un competidor sin enlace no entra.
+- "cause" explica el mecanismo, no repite el síntoma. Mal: "no la clican porque el CTR es bajo". Bien: "el título dice 'guía completa' y los tres resultados de arriba prometen un número concreto y el año".
+- "suggestion" tiene que ser ejecutable hoy: el título nuevo escrito entero, la sección concreta que falta, el enlace interno concreto. Nada de "mejorar el contenido".
 - No propongas temas que ya estén en la lista de artículos escritos que te paso.
-- Prioriza por esfuerzo/retorno: reescribir un título de una página con impresiones es más barato que un artículo nuevo. Si una página ya sale en búsqueda y no la clican, eso va primero.
+- Prioriza por esfuerzo/retorno: reescribir un título de una página que ya tiene impresiones es más barato que un artículo nuevo, y va primero.
 - Nada de relleno. Si solo hay tres cosas que valen la pena, devuelve tres.
 
 Devuelve SOLO un JSON válido, sin texto alrededor, con esta forma:
-{"recommendations":[{"kind":"rewrite-title|improve-page|new-article|add-cta","target":"/ruta o tema","reason":"por qué, en una frase","evidence":"el dato exacto que lo sostiene","suggestion":"qué hacer, concreto","priority":"alta|media|baja"}]}`;
+{"recommendations":[{"kind":"rewrite-title|improve-page|new-article|add-cta","target":"/ruta o tema","reason":"qué pasa, en una frase","cause":"por qué pasa, el mecanismo","evidence":"el dato exacto de los nuestros que lo sostiene","sourceUrl":"URL de lo que consultaste fuera, o cadena vacía","suggestion":"qué hacer, escrito para poder copiarlo","priority":"alta|media|baja"}]}`;
 
 /** Resume una página en una línea, para que quepan muchas en el prompt. */
 const line = (p: Joined) =>
@@ -130,7 +141,14 @@ Da las recomendaciones en JSON.`;
   // Claude revocado se reportaba como un problema de acceso a Google.
   let raw: string;
   try {
-    raw = await runClaude({ system: SYSTEM, prompt, model: "sonnet" });
+    // Búsqueda web, y solo búsqueda: son herramientas de lectura, así que el
+    // agente no recibe permiso de escritura por pedirlas.
+    raw = await runClaude({
+      system: SYSTEM,
+      prompt,
+      model: "sonnet",
+      allowedTools: ["WebSearch", "WebFetch"],
+    });
   } catch (e) {
     const msg = String((e as Error)?.message ?? e);
     if (/revoked|401|unauthorized|authenticate/i.test(msg)) {

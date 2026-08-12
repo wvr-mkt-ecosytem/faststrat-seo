@@ -56,6 +56,8 @@ type Rec = {
   evidence: string
   suggestion: string
   priority: string
+  cause?: string
+  sourceUrl?: string
 }
 
 type Analysis = {
@@ -178,7 +180,7 @@ export default function TrafficPage() {
                   <Sparkles size={15} className="text-maroon" /> Qué escribir, según estos datos
                 </h2>
                 <span className="text-[11px] text-sand">
-                  El agente solo puede citar los números de esta pantalla, no busca en la web
+                  Nuestros números salen solo de esta pantalla; para explicar la causa busca en la web y cita la fuente
                 </span>
               </div>
 
@@ -218,11 +220,35 @@ export default function TrafficPage() {
                         <span className="text-[11px] text-sand">{KIND_LABEL[r.kind] ?? r.kind}</span>
                         <span className="text-sm text-ink font-medium">{r.target}</span>
                       </div>
-                      <p className="text-[12px] text-ink/80 leading-snug mt-0.5">{r.suggestion}</p>
-                      <p className="text-[11px] text-sand leading-snug">{r.reason}</p>
+                      {/* Qué pasa, por qué pasa, qué hacer. En ese orden y
+                          separados: la pantalla ya enseña los números, así que
+                          repetirlos no aportaba nada. Lo que faltaba era la
+                          causa, que es lo único que convierte un diagnóstico
+                          en una tarea. */}
+                      <p className="text-[11px] text-sand leading-snug mt-0.5">{r.reason}</p>
+                      {r.cause && (
+                        <p className="text-[12px] text-ink/90 leading-snug mt-1">
+                          <span className="text-sand">Por qué: </span>
+                          {r.cause}
+                          {r.sourceUrl && (
+                            <a
+                              href={r.sourceUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="ml-1 text-maroon underline decoration-dotted"
+                            >
+                              fuente
+                            </a>
+                          )}
+                        </p>
+                      )}
+                      <p className="text-[12px] text-ink leading-snug mt-1">
+                        <span className="text-sand">Qué hacer: </span>
+                        {r.suggestion}
+                      </p>
                       {/* El dato que la sostiene. Una recomendación sin su
                           número es una opinión y no se puede priorizar. */}
-                      <p className="text-[11px] font-mono text-maroon mt-0.5">{r.evidence}</p>
+                      <p className="text-[11px] font-mono text-maroon mt-1">{r.evidence}</p>
                     </div>
                   ))}
                 </div>

@@ -47,7 +47,13 @@ export async function runClaude({
       model,
       systemPrompt: system,
       allowedTools,
-      permissionMode: allowedTools.length > 0 ? "acceptEdits" : "default",
+      // Solo se sube el permiso si de verdad se pidió una herramienta que
+      // escribe. Antes bastaba con pedir CUALQUIER herramienta para acabar en
+      // "acceptEdits", así que dar búsqueda web —que solo lee— concedía de
+      // paso permiso de escritura sin que nadie lo pidiera.
+      permissionMode: allowedTools.some((t) => /^(Write|Edit|NotebookEdit|Bash)$/.test(t))
+        ? "acceptEdits"
+        : "default",
       env,
     },
   })) {
