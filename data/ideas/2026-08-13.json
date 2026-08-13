@@ -1,0 +1,334 @@
+{
+  "weekOf": "2026-08-12",
+  "generatedAt": "2026-08-12T18:50:45.483Z",
+  "source": "auto-weekly",
+  "summary": "Eight striking-distance GSC signals — led by 'landing page checklist' (519 impr, pos 13) and 'best WhatsApp BSP LATAM' (300 impr) — converge with the GEO/AEO wave, the SMB-agents adoption surge, and the DIY-vs-agency cost debate to define ten high-priority English posts for FastStrat.",
+  "research": {
+    "competitors": [
+      "Jasper published a dedicated 'GEO vs AEO vs SEO' guide on jasper.ai/blog/geo-aeo in 2026, claiming the generative optimization category early — FastStrat has no equivalent standalone GEO guide, leaving a direct content gap to contest.",
+      "HubSpot captured the top ranking for 'generative engine optimization small business' with a full playbook on blog.hubspot.com/marketing, and also published a comprehensive AI content marketing automation tools roundup — dominating both the GEO and the AI-tools-for-SMBs SERPs simultaneously.",
+      "AgentMarketCap.ai published 'The Agentic Marketing Stack 2026' in April 2026 comparing HubSpot, Jasper, and Copy.ai, directly competing for 'smb agent' (where FastStrat ranks pos 5.2) and AI platform market-share queries — with an angle FastStrat hasn't explicitly matched.",
+      "Copy.ai has pivoted hard to GTM workflow and sales automation content (connecting 2,000+ apps, CRM-triggered drafts), abandoning long-form LATAM-specific, WhatsApp-centric, and SMB cost-comparison content — a white space FastStrat can own."
+    ],
+    "trends": [
+      "GEO/AEO is cannibalizing traditional SEO traffic: Gartner's 2026 forecast of a 25% drop in Google search volume is pushing SMBs to optimize for ChatGPT, Perplexity, and Gemini via entity signals, FAQ schema, and NAP consistency — and every major competitor (Jasper, HubSpot, Writer) published GEO playbooks this year.",
+      "AI marketing agents are hitting SMB mainstream in 2026: 45% of marketing teams now run at least one agentic system (up from 15% in 2024, per Upwork's State of AI in SMBs), yet only 7% of SMBs have deployed production agents — a massive educational and tool-adoption gap FastStrat is positioned to fill.",
+      "WhatsApp is the default CRM channel for LATAM PYMEs: With Mexico's e-commerce growing 34% annually and WhatsApp penetration above 85% across LATAM, BSP-powered AI automation (broadcasts, chatbots, drip sequences) is replacing email as the primary customer engagement layer for small businesses in the region.",
+      "Social commerce and TikTok Shop are rewriting discovery for SMBs: US social commerce hit $100.99B in 2026 (up 48% YoY) and TikTok Shop reached $87B globally — competitiveness now requires 250+ content pieces per month, making AI content agents a survival tool rather than a nice-to-have for SMBs selling online.",
+      "The DIY AI stack vs. agency ROI gap is the #1 SMB budget decision in 2026: Agency retainers average $3,000–$7,000/month for meaningful coverage while a full AI stack runs $200–$500/month, creating an 80–90% cost difference that drives high-intent comparison searches and makes cost-breakdown content a direct conversion lever for platforms like FastStrat."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "WhatsApp Business API Pricing in Mexico: What SMBs Need to Know in 2025",
+      "slug": "whatsapp-business-api-pricing-in-mexico-what-smbs-need-to-kn",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "whatsapp business api pricing mexico",
+      "intent": "commercial investigation",
+      "rationale": "Decision-makers in Mexico researching WhatsApp Business API costs are prime prospects for FastStrat's AI marketing agents, which can automate and optimize WhatsApp campaigns at a fraction of traditional agency costs.",
+      "outline": [
+        "How WhatsApp Business API Pricing Works: Conversation-Based Model Explained",
+        "WhatsApp Business API Costs in Mexico: Breakdown by Conversation Category",
+        "Top BSPs (Business Solution Providers) Available in Mexico and Their Fees",
+        "Hidden Costs to Watch Out For: Setup, Hosting, and Per-Message Fees",
+        "How AI Agents Reduce Your WhatsApp API Spend While Boosting ROI"
+      ]
+    },
+    {
+      "title": "The SMB Marketer's Prompt Engineering Playbook: From Keyword Research to Full Content Briefs",
+      "slug": "the-smb-marketer-s-prompt-engineering-playbook-from-keyword-",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "prompt engineering for marketing SEO small business",
+      "intent": "informational / how-to",
+      "rationale": "Striking-distance: query 'prompt engineering blueprint keyword research content strategy' at pos 6.4 with 25 impressions — a dedicated page can push this to page 1. No direct competitor (Jasper, HubSpot, Enrich Labs, Copy.ai) has an SMB-specific end-to-end guide connecting prompt engineering → keyword clustering → content briefs → on-page SEO. Industry trend: in 2026 prompt engineering matured beyond blog writing into competitive positioning, attribution modeling, and campaign planning — making this a high-intent evergreen topic.",
+      "outline": [
+        "Why Generic AI Prompts Produce Generic Marketing (and What to Do Instead)",
+        "The 3-Layer Prompt Framework: Context, Constraint, and Chain-of-Thought",
+        "Prompt Templates for Keyword Research and Topic Cluster Building",
+        "From Keyword to Content Brief: A Step-by-Step AI Workflow",
+        "Prompts for On-Page SEO: Meta Tags, Headers, Internal Linking, and FAQs"
+      ]
+    },
+    {
+      "title": "7 Best AI Email Marketing Tools for Small Businesses in 2026 (Tested With Real ROI Data)",
+      "slug": "7-best-ai-email-marketing-tools-for-small-businesses-in-2026",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "best AI email marketing tools small businesses 2026",
+      "intent": "commercial investigation",
+      "rationale": "Striking-distance: 'smb emails' at pos 12.9 with 27 impressions — a focused listicle with AI angle can capture this and the broader keyword cluster. Email delivers the highest channel ROI in 2026 ($36–44 per $1 spent, eMarketer). Enrich Labs references this data but has no dedicated tool-comparison article for SMBs. Constant Contact, ZoomInfo, and Encharge publish tool lists but without an AI-first SMB lens. Clear gap for FastStrat to own this commercial-intent keyword.",
+      "outline": [
+        "Why Email Still Beats Social and Ads on ROI for SMBs in 2026",
+        "How We Evaluated: 6 Criteria Every SMB Should Care About",
+        "ActiveCampaign vs. MailerLite vs. Mailchimp: AI Features Head-to-Head",
+        "Best Free-to-Start Option for SMBs Under 500 Contacts",
+        "Best Tool for Advanced Automation Without a Developer",
+        "Which Platform Fits Your Growth Stage (0–500 / 500–5K / 5K+ Contacts)"
+      ]
+    },
+    {
+      "title": "Meta Ads in 2026: AI Tools vs. Agency — The Exact Cost Breakdown for SMBs",
+      "slug": "meta-ads-in-2026-ai-tools-vs-agency-the-exact-cost-breakdown",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "Meta ads AI tools vs agency cost small business 2026",
+      "intent": "commercial investigation / transactional",
+      "rationale": "Double striking-distance: 'average cost of meta ads agency vs diy ai tools' at pos 9.0 with 25 impr, plus 'comparing diy vs agency-led yelp marketing services' at pos 5.1 with 69 impr. The existing FastStrat article 'AI Tools vs. Marketing Agency in 2026' is generic; this one goes deep on Meta Ads specifically, the #1 paid channel for SMBs. Get-Ryze.ai has a Meta Ads pricing guide but without a DIY-AI vs. agency angle. FastStrat already surfaces for the query — a dedicated page converts the existing impression traffic.",
+      "outline": [
+        "What Meta Ads Agency Retainers Actually Cost in 2026 (Real-World Numbers)",
+        "The DIY AI Stack: Tools, Time Investment, and True Monthly Cost",
+        "Side-by-Side: Agency vs. AI Tools Across Four SMB Budget Tiers",
+        "When AI Tools Win — and the Specific Scenarios Where They Fall Short",
+        "The Hybrid Model: Agency Strategy Combined With AI Execution",
+        "Your 30-Day Action Plan to Transition from Agency to AI-Led Meta Ads"
+      ]
+    },
+    {
+      "title": "Best GEO Tools for Small Businesses in 2026: Get Cited by ChatGPT, Gemini, and Perplexity",
+      "slug": "best-geo-tools-for-small-businesses-in-2026-get-cited-by-cha",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "best GEO tools for small businesses 2026",
+      "intent": "commercial investigation",
+      "rationale": "Double striking-distance: 'best geo seo tools for small business 2026' at pos 12.5 with 34 impr, and 'google search central seo starter guide structured data local business 2026' at pos 8.7 with 79 impr. GEO is the hottest search trend of 2026 — half of all Google searches include an AI Overview. HubSpot and MarkSurge publish GEO concept guides but no tool-comparison listicle for SMBs exists. FastStrat's existing GEO article covers LATAM; this new piece targets the US/global market with a tools angle, completing the GEO content cluster.",
+      "outline": [
+        "Why Being 'Cited by AI' Is the New Page 1 Ranking",
+        "What GEO Tools Actually Do (Versus Traditional SEO Platforms)",
+        "Top 8 GEO Tools Compared: Schema, Entity Optimization, and Citation Tracking",
+        "Free vs. Paid: What a $0–$200/Month SMB Budget Can Realistically Achieve",
+        "Structured Data Quick-Start: Must-Have Schema Types for Local Businesses",
+        "How to Measure GEO Results: Impressions, Citation Rate, and AI Share of Voice"
+      ]
+    },
+    {
+      "title": "AI Social Media Automation for Small Businesses: A 90-Day Plan That Delivers Measurable ROI",
+      "slug": "ai-social-media-automation-for-small-businesses-a-90-day-pla",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "AI social media automation small business 2026",
+      "intent": "informational / how-to",
+      "rationale": "Competitor gap: Enrich Labs ranks for 'small business social media marketing 2026' with a generic guide — FastStrat has no equivalent article. Industry data makes the ROI case compelling: AI social automation delivers 3.8x ROI (McKinsey 2026), saves 50–70% of manual posting hours, and SMBs using these tools are 2.3x more likely to report YoY revenue growth. The '90-day plan with measurable ROI' angle is more specific and conversion-oriented than anything Enrich Labs, HubSpot, or Jasper currently publishes.",
+      "outline": [
+        "The SMB Social Media Trap: Why More Effort Rarely Means More Results",
+        "Days 1–30: Choosing Your AI Stack and Building a Content Pillar System",
+        "Days 31–60: Automating Scheduling, Repurposing, and Engagement Replies",
+        "Days 61–90: Measuring Revenue Attribution (Not Just Likes and Reach)",
+        "AI Social Media Tool Comparison: Which Platforms Deliver Real SMB ROI",
+        "Month 4 and Beyond: Scaling to 150 Posts per Month in Under 5 Hours"
+      ]
+    },
+    {
+      "title": "How AI Lead Generation Agents Replace Manual Prospecting for SMBs (Without Hiring a Sales Team)",
+      "slug": "how-ai-lead-generation-agents-replace-manual-prospecting-for",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "AI lead generation agent small business 2026",
+      "intent": "informational / commercial",
+      "rationale": "Striking-distance: 'smb agent' at pos 5.2 with 38 impr — this query shows commercial intent from SMB owners researching autonomous AI tools. The existing FastStrat article on 'AI Marketing Agents' covers general deployment; this piece focuses exclusively on lead generation, the highest-ROI AI use case for SMBs (91% positive ROI per US Chamber of Commerce 2026). Jasper and Copy.ai are content-centric and cannot own this topic. SalesForge and Monday.com publish lead-gen agent guides but lack FastStrat's SMB-first perspective and marketing-agent positioning.",
+      "outline": [
+        "Why SMBs Lose Leads While the Owner Sleeps (And How Agents Fix It)",
+        "What an AI Lead Generation Agent Actually Does: Step-by-Step Workflow",
+        "The Core Loop: Capture → Score → Nurture → Qualify → Human Hand-Off",
+        "Top AI Lead Gen Agents for SMBs in 2026 Compared by Use Case",
+        "Integration Map: Connecting Your Agent to CRM, Email, and Paid Ads",
+        "30-60-90 Day Expectations: What Real SMBs Report After Deployment"
+      ]
+    },
+    {
+      "title": "How to Build a Consistent AI Brand Voice Across Every Marketing Channel (2026 SMB Guide)",
+      "slug": "how-to-build-a-consistent-ai-brand-voice-across-every-market",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "AI brand voice consistency small business 2026",
+      "intent": "informational / how-to",
+      "rationale": "Expands on the winning 'nike storytelling' click topic (3 clicks, 71 impr, pos 9.6) into a broader, more actionable keyword cluster, while being clearly differentiated from the existing Nike storytelling article. HubSpot's 2026 State of Marketing names 'Brand POV' the #1 differentiation lever in AI-saturated markets. With 56% of marketers reporting internet flooded with AI content, brand voice consistency is the practical SMB answer — yet no competitor (Jasper, Enrich Labs, Copy.ai) has a dedicated SMB how-to on this topic. Captures longtail searches from SMB owners worried their AI output sounds generic.",
+      "outline": [
+        "Why AI-Generated Content Sounds the Same — and What That Costs Your Brand",
+        "Defining Your SMB Brand Voice: A 5-Attribute Framework You Can Build in One Afternoon",
+        "Creating Your Brand Voice Document (The File That Trains Every AI Tool You Use)",
+        "Prompting AI Consistently Across Blog, Email, Social, and Paid Ads",
+        "Auditing for Voice Drift: How to Spot and Fix Inconsistencies at Scale",
+        "Using Brand Voice Agents to Maintain Identity as You Scale Content Volume"
+      ]
+    },
+    {
+      "title": "E-E-A-T in 2026: How Small Businesses Can Outrank AI-Generated Content on Google",
+      "slug": "e-e-a-t-in-2026-how-small-businesses-can-outrank-ai-generate",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "E-E-A-T strategy small business outrank AI content 2026",
+      "intent": "informational / thought leadership",
+      "rationale": "Industry trend with strong search demand: Google's E-E-A-T signals are the primary ranking differentiator in 2026 — pages with strong E-E-A-T are cited 2.3x more in AI Overviews than higher-ranked pages with weak authority (Ingeniom 2026 study). HubSpot data shows 56% of marketers say the internet is flooded with AI content and 65% of consumers can now detect and ignore it. Jasper and Copy.ai cannot credibly write this article without contradicting their own product. FastStrat can position itself as the authority that uses AI expertly — quality over volume — while capturing searchers actively looking to beat AI-generated competition organically.",
+      "outline": [
+        "The AI Content Flood: What 2026 Data Says About Ranking Difficulty",
+        "What E-E-A-T Means Now That AI Generates Half the Web",
+        "7 Experience and Expertise Signals Google Uses to Separate Expert Pages from AI Filler",
+        "The SMB Advantage: Why Niche Authority Beats High-Volume Generalist Content",
+        "How to Inject Genuine Experience into AI-Assisted Content (Without Writing Everything Manually)",
+        "Building a Topical Authority Map That Positions Your SMB as the Go-To Source"
+      ]
+    },
+    {
+      "title": "The 2026 Landing Page Checklist: 27 Elements Every High-Converting Page Needs",
+      "slug": "the-2026-landing-page-checklist-27-elements-every-high-conve",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "landing page checklist 2026",
+      "intent": "Informational / tool — user wants a practical, printable checklist to audit or launch a landing page before running paid traffic",
+      "rationale": "This is the dataset's single strongest striking-distance opportunity: 519 impressions at pos 13.0, with a secondary 'checklist landing page' cluster (31 impr, pos 10.5) — a definitive, AI-era checklist can consolidate both signals and break into the top 10.",
+      "outline": [
+        "Why Most Landing Pages Leak Conversions (and How a Checklist Catches the Leaks)",
+        "Above the Fold: Headline, Hero Image, Subheadline, and Primary CTA Essentials",
+        "Copy and Messaging: Value Proposition, Benefits vs. Features, and Social Proof Placement",
+        "Trust Signals Checklist: Reviews, Security Badges, Guarantees, and Privacy Copy",
+        "Technical Must-Haves: Mobile Speed, Core Web Vitals, Structured Data, and A/B Test Setup"
+      ]
+    },
+    {
+      "title": "Best WhatsApp BSP for LATAM in 2026: 8 Platforms Ranked for SMB Marketing Automation",
+      "slug": "best-whatsapp-bsp-for-latam-in-2026-8-platforms-ranked-for-s",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "best WhatsApp BSP LATAM 2026",
+      "intent": "Commercial investigation — SMB owner or marketer evaluating WhatsApp API providers to launch automated campaigns in Mexico, Colombia, Brazil, or Argentina",
+      "rationale": "Top-volume untapped signal (300 impressions) in a LATAM-specific niche with no authoritative English guide from major competitors, perfectly aligned with FastStrat's PYMEs positioning and the trend of WhatsApp as the default LATAM CRM channel.",
+      "outline": [
+        "Why Your WhatsApp BSP Choice Is the Most Consequential Marketing Stack Decision for LATAM SMBs",
+        "How We Evaluated: Pricing, LATAM Coverage, AI Chatbot Depth, CRM Integration, and Support",
+        "Top 8 WhatsApp BSPs for LATAM Ranked: Infobip, YCloud, WATI, Manychat, Karix, and More",
+        "Head-to-Head Comparison Table: Cost per Conversation, AI Features, and LATAM-Specific Strengths",
+        "Which BSP Should You Choose? Decision Framework by Business Size, Country, and Use Case"
+      ]
+    },
+    {
+      "title": "Claude vs ChatGPT for Marketing in 2026: Which AI Actually Grows Your SMB?",
+      "slug": "claude-vs-chatgpt-for-marketing-in-2026-which-ai-actually-gr",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "claude vs chatgpt for marketing 2026",
+      "intent": "Commercial comparison — marketer or SMB owner deciding which AI model to use for content creation, ad copy, email campaigns, and marketing strategy",
+      "rationale": "High-volume untapped query (223 impressions) buried at position 37.8 with no focused FastStrat content — a data-driven head-to-head post built around real marketing use cases can rapidly climb and capture a decision-ready audience.",
+      "outline": [
+        "The Real Marketing Question: Raw Model Capability vs. Workflow Integration — Which Matters More?",
+        "Claude vs ChatGPT Head-to-Head: Blog Posts, Ad Copy, and Email Campaigns",
+        "Claude vs ChatGPT for SEO, Competitive Research, and Strategic Marketing Thinking",
+        "Pricing and API Costs: What Each Model Costs a Small Business Per Month at Real Usage Levels",
+        "Verdict: When to Use Claude, When to Use ChatGPT, and When the Smart Move Is Using Both"
+      ]
+    },
+    {
+      "title": "13 Best AI SEO Tools for Small Businesses in 2026 (GEO-Ready Picks Included)",
+      "slug": "13-best-ai-seo-tools-for-small-businesses-in-2026-geo-ready-",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "best AI SEO tools for small businesses 2026",
+      "intent": "Commercial investigation — small business owner seeking an affordable, actionable SEO platform covering keyword research, content optimization, and visibility in AI answer engines",
+      "rationale": "Three converging GSC signals — 'best AI SEO tools for small businesses 2026' (91 impr, pos 19.5), 'best seo tools for small businesses 2026' (59 impr, pos 9.0), and 'best geo seo tools for small business 2026' (34 impr, pos 12.5) — justify one definitive listicle that captures all three clusters.",
+      "outline": [
+        "Why Traditional SEO Tools Are Falling Short in the GEO Era (And What to Look for Instead)",
+        "How We Tested and Ranked These 13 Tools: Criteria, Scoring, and SMB-Specific Filters",
+        "The Full Ranked List: Semrush, Ahrefs, Surfer SEO, Frase, SE Ranking, and 8 More",
+        "GEO-Specific Picks: Which Platforms Help You Get Cited in ChatGPT, Perplexity, and Gemini",
+        "Best Stacks by Budget: Under $50/mo, $50–$150/mo, and $150+/mo for Growing SMBs"
+      ]
+    },
+    {
+      "title": "AI Tools vs. Marketing Agency in 2026: The Real Cost Breakdown Every SMB Needs to See",
+      "slug": "ai-tools-vs-marketing-agency-in-2026-the-real-cost-breakdown",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "AI marketing tools vs agency cost SMB 2026",
+      "intent": "Commercial / decision — SMB owner weighing whether to hire an agency or adopt AI marketing tools, evaluating total cost, time commitment, and ROI",
+      "rationale": "Multiple overlapping GSC signals ('comparing diy vs agency-led yelp marketing services' pos 5.1, 'average cost of meta ads agency vs diy ai tools' pos 9.0) plus the research-confirmed 80–90% cost gap make this a high-intent, high-conversion comparison piece that drives direct FastStrat signups.",
+      "outline": [
+        "The $3,500/Month Question: What Are SMBs Actually Getting From Marketing Agencies in 2026?",
+        "Full Cost Breakdown Table: Agency Retainer vs. DIY AI Stack vs. Managed AI Platform",
+        "Hidden Costs on Both Sides: Time, Learning Curve, and What the Monthly Fee Doesn't Cover",
+        "Real-World ROI: Case Studies Comparing Agency vs. AI Tools for SMBs Under $5M Revenue",
+        "The Hybrid Model: How to Combine AI Platforms and Agency Expertise Without Overpaying"
+      ]
+    },
+    {
+      "title": "The SMB Guide to AI Marketing Agents in 2026: Deploy and Manage Them Without a Dev Team",
+      "slug": "the-smb-guide-to-ai-marketing-agents-in-2026-deploy-and-mana",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "SMB AI marketing agents 2026",
+      "intent": "Informational / educational — small business owner or solo marketer who wants a plain-English implementation guide for AI agents with no coding required",
+      "rationale": "Combines 'smb agent' (38 impr, pos 5.2) and 'the startup/smb guide to integrating and managing ai agents' (56 impr) signals with research showing only 7% of SMBs run production agents — a massive education gap that FastStrat, as an SMB agent platform, is uniquely credible to fill.",
+      "outline": [
+        "What AI Marketing Agents Actually Are — and Why 93% of SMBs Haven't Deployed One Yet",
+        "The 5 Marketing Tasks Every SMB Should Automate First: Lead Follow-Up, Email, Content, Social, Reporting",
+        "Step-by-Step: Setting Up Your First AI Marketing Agent With Zero Code",
+        "Top Platforms Compared: FastStrat, Manychat, Make, and Zapier AI for SMB Agent Workflows",
+        "Measuring Agent ROI: Time Saved, Lead Velocity, and What 90-Day Success Looks Like"
+      ]
+    },
+    {
+      "title": "SEO for LATAM Local Business Directories in 2026: Google Business, Structured Data, and Beyond",
+      "slug": "seo-for-latam-local-business-directories-in-2026-google-busi",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "SEO LATAM local business directory 2026",
+      "intent": "Informational / how-to — LATAM small business owner trying to rank in local search, Google Maps, and regional directories like Páginas Amarillas or Mercado Libre",
+      "rationale": "'seo for latam local business directory' delivers 306 impressions at pos 7.4 — high volume directly matching FastStrat's core LATAM SMB audience — yet no competitor has published an English guide combining Google's 2026 structured data guidelines with region-specific directory tactics.",
+      "outline": [
+        "Why Local Directory SEO in LATAM Requires a Different Playbook Than the US",
+        "Google Business Profile in 2026: New Structured Data Fields and AI Overview Optimization for LATAM",
+        "Top Directories to Claim and Optimize by Country: Mexico, Colombia, Argentina, and Brazil",
+        "Schema Markup for Local Businesses: Step-by-Step Implementation Using Google's 2026 Starter Guide",
+        "Measuring Local SEO Success: Rankings, Map Pack Impressions, and AI Citation Metrics"
+      ]
+    },
+    {
+      "title": "GEO vs AEO vs SEO in 2026: A No-Jargon Playbook for LATAM Small Businesses",
+      "slug": "geo-vs-aeo-vs-seo-in-2026-a-no-jargon-playbook-for-latam-sma",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "GEO AEO SEO small business LATAM 2026",
+      "intent": "Informational / educational — LATAM SMB owner confused by emerging optimization terminology who needs a clear, actionable breakdown of what to prioritize on a limited budget",
+      "rationale": "GEO/AEO is the fastest-growing SEO content category in 2026 (Jasper, HubSpot, and Writer all published guides this year) but none have a LATAM-specific angle — combining this white-hot trend with FastStrat's regional differentiation creates a piece no direct competitor has produced.",
+      "outline": [
+        "Why Google Traffic Is Down 25% and What Every LATAM Business Owner Must Do Right Now",
+        "SEO vs AEO vs GEO: Plain-English Definitions With Real LATAM Business Examples",
+        "AEO Tactics for LATAM SMBs: Winning Google AI Overviews and Featured Snippets Today",
+        "GEO Tactics for LATAM SMBs: Getting Cited in ChatGPT, Perplexity, and Gemini Answers",
+        "Your 90-Day GEO + AEO + SEO Prioritized Action Plan for a LATAM Local Business"
+      ]
+    },
+    {
+      "title": "Jasper vs Copy.ai vs 5 Alternatives: Best AI Content Pipeline Tools for SMBs in 2026",
+      "slug": "jasper-vs-copy-ai-vs-5-alternatives-best-ai-content-pipeline",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "jasper copy.ai alternatives full content pipeline automation 2026",
+      "intent": "Commercial investigation — marketing manager or SMB owner who currently uses Jasper or Copy.ai and wants to know if a cheaper, more complete full-pipeline alternative exists",
+      "rationale": "'tools like jasper or copy.ai for full content pipeline automation' (27 impr, pos 9.6) combined with 'ai marketing platforms hubspot jasper copy.ai market share' (92 impr, pos 2.2) shows FastStrat already has authority on this topic — an alternatives listicle extends that authority while capturing bottom-of-funnel commercial intent.",
+      "outline": [
+        "Why 'Full Content Pipeline Automation' Is the New Standard — and Where Jasper and Copy.ai Fall Short",
+        "Jasper vs Copy.ai Head-to-Head in 2026: Workflows, SEO Features, Pricing, and SMB Fit",
+        "5 Best Alternatives for Complete Pipeline Automation: FastStrat, Writer, Writesonic, Rytr, and Surfer AI",
+        "Decision Matrix: Which Tool Wins by Use Case — Blog, Social, Email, Ad Copy, and WhatsApp",
+        "How to Build a $300/Month AI Content Pipeline That Replaces a $5,000/Month Agency Retainer"
+      ]
+    },
+    {
+      "title": "How to Tell Your Brand Story Like Nike Using AI: A Practical Guide for SMBs",
+      "slug": "how-to-tell-your-brand-story-like-nike-using-ai-a-practical-",
+      "lang": "en",
+      "priority": "baja",
+      "primaryKeyword": "brand storytelling AI small business 2026",
+      "intent": "Informational / inspirational — SMB owner who admires big-brand storytelling (Nike, Patagonia) and wants to replicate it with AI tools on a tight budget",
+      "rationale": "'nike storytelling' generates 71 impressions at pos 9.6 — just outside the top 10 — signaling an audience hungry for enterprise-grade narrative tactics at SMB scale, an aspiration gap FastStrat can bridge by connecting iconic brand frameworks to affordable AI workflows.",
+      "outline": [
+        "What Nike's Storytelling Strategy Actually Is — and Why the Framework Works on Any Budget",
+        "The 4-Part Brand Story Framework: Hero, Conflict, Transformation, and Call to Action for SMBs",
+        "Using AI Agents to Generate Brand Narratives at Scale: Tools, Prompts, and Repeatable Workflows",
+        "Real SMB Before-and-After Examples: Brand Stories Built With AI Across Different Industries",
+        "Distributing Your Brand Story Everywhere: Blog, WhatsApp Campaigns, Social Reels, and Email Sequences"
+      ]
+    }
+  ]
+}
