@@ -7,6 +7,16 @@ import { runClaude } from "@/lib/claude";
 import { slugify } from "@/lib/blog";
 import { persistChanges } from "@/lib/persist";
 import { getIdeaBatches, type ArticleIdea, type IdeaBatch } from "@/lib/ideas";
+import { leerMemoria, bloqueDeMemoria, descartarRepetidas } from "@/lib/idea-memory";
+
+// Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
+// llamada al agente y no devuelve nada: el navegador se queda esperando una
+// respuesta que ya no va a llegar y el botón gira para siempre. Ninguna de las
+// rutas que llaman al agente lo declaraba, y por eso los cuatro botones
+// (escribir, investigar, generar, escribir todos) fallaban a la vez.
+export const maxDuration = 800;
+export const dynamic = "force-dynamic";
+
 
 const IDEAS_DIR = path.join(process.cwd(), "data", "ideas");
 const NOISE = /"|http|daterange:|\bfast ?strat\b|\bstrat ?fast\b|faststrat|^\d+:/i;
@@ -59,15 +69,19 @@ export const POST = apiRoute(async (request: NextRequest) => {
     const batches = getIdeaBatches();
     const today = new Date().toISOString().split("T")[0];
     const existing: IdeaBatch | undefined = batches[0];
-    const existingTitles = (existing?.ideas ?? []).map((i) => i.title);
+    // La memoria COMPLETA, no solo la tanda de arriba.
+    //
+    // Antes solo se excluían los títulos de la última tanda, así que una idea
+    // propuesta hace tres semanas volvía a salir como nueva.
+    const memoria = leerMemoria();
 
     const signals =
       "TEMAS QUE YA GENERAN CLICKS (replicar/expandir):\n" +
       topClicks.map((r) => `- "${r.query}" (${r.clicks} clicks, ${r.impressions} impr)`).join("\n") +
       "\n\nSTRIKING-DISTANCE (potencial de subir a página 1):\n" +
       striking.map((r) => `- "${r.query}" (pos ${r.position.toFixed(1)}, ${r.impressions} impr)`).join("\n") +
-      "\n\nIDEAS YA EXISTENTES (NO repetir):\n" +
-      existingTitles.map((t) => `- ${t}`).join("\n");
+      "\n\n" +
+      bloqueDeMemoria(memoria);
 
     const raw = await runClaude({
       model: "sonnet",
@@ -127,10 +141,13 @@ Investiga en la web (competidores Jasper/HubSpot/Copy.ai/Enrich Labs y tendencia
         ideas: [],
       };
     }
+    // Descarte mecánico contra toda la memoria, antes del de slug.
+    const { nuevas: sinRepetir, descartadas } = descartarRepetidas(newIdeas, memoria);
+
     const seen = new Set(batch.ideas.map((i) => i.slug));
     const nuevas: ArticleIdea[] = [];
     let added = 0;
-    for (const idea of newIdeas) {
+    for (const idea of sinRepetir) {
       // Arriba, no abajo. Con push, las ideas nuevas caían al final de una
       // lista de dieciocho y la pantalla se veía idéntica: se pulsaba el botón,
       // se esperaban tres minutos y "seguían siendo las mismas". Lo que acabas
@@ -144,7 +161,15 @@ Investiga en la web (competidores Jasper/HubSpot/Copy.ai/Enrich Labs y tendencia
     fs.writeFileSync(outPath, JSON.stringify(batch, null, 2));
     await persistChanges(`more ideas: +${added}`, [outPath]);
 
-    return NextResponse.json({ ok: true, added, total: batch.ideas.length, weekOf: batch.weekOf });
+    return NextResponse.json({
+      ok: true,
+      added,
+      // Cuántas cayeron por repetidas: sin el número, "salen las mismas" no se
+      // puede diagnosticar ni desmentir.
+      descartadasPorRepetir: descartadas.length,
+      total: batch.ideas.length,
+      weekOf: batch.weekOf,
+    });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     return NextResponse.json({ error: msg }, { status: 500 });

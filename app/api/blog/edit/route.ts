@@ -5,6 +5,15 @@ import { getBlogPost, updateBlogMarkdown, renderHtml } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
 import { persistChanges } from "@/lib/persist";
 
+// Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
+// llamada al agente y no devuelve nada: el navegador se queda esperando una
+// respuesta que ya no va a llegar y el botón gira para siempre. Ninguna de las
+// rutas que llaman al agente lo declaraba, y por eso los cuatro botones
+// (escribir, investigar, generar, escribir todos) fallaban a la vez.
+export const maxDuration = 600;
+export const dynamic = "force-dynamic";
+
+
 const SEO_EDITOR_SYSTEM = `Eres un editor de SEO y contenido para FastStrat, una plataforma de agentes de IA de marketing para PYMEs (mercado LATAM y EEUU).
 
 Tu trabajo: reescribir el cuerpo de un artículo de blog (en Markdown) siguiendo la instrucción del usuario, manteniendo calidad SEO.

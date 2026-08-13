@@ -8,6 +8,16 @@ import { slugify } from "@/lib/blog";
 import { sendEmail } from "@/lib/email";
 import { persistChanges } from "@/lib/persist";
 import type { ArticleIdea, IdeaBatch } from "@/lib/ideas";
+import { leerMemoria, bloqueDeMemoria, descartarRepetidas } from "@/lib/idea-memory";
+
+// Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
+// llamada al agente y no devuelve nada: el navegador se queda esperando una
+// respuesta que ya no va a llegar y el botón gira para siempre. Ninguna de las
+// rutas que llaman al agente lo declaraba, y por eso los cuatro botones
+// (escribir, investigar, generar, escribir todos) fallaban a la vez.
+export const maxDuration = 800;
+export const dynamic = "force-dynamic";
+
 
 // POST /api/weekly  — corrida semanal autónoma.
 // Protegido con WEEKLY_SECRET (header x-weekly-secret).
@@ -91,7 +101,12 @@ export const POST = apiRoute(async (request: NextRequest) => {
         .map((r) => `- "${r.query}" — ${r.impressions} impr, pos ${r.position.toFixed(1)}`)
         .join("\n");
 
-    // 2) El agente arma la tanda
+    // 2) El agente arma la tanda, sabiendo qué ya existe.
+    //
+    // Antes esta ruta no leía NADA previo: ni tandas anteriores ni artículos
+    // escritos. Con las mismas señales de GSC cada semana devolvía las mismas
+    // diez ideas, y desde la pantalla eso se veía como "el botón no sirve".
+    const memoria = leerMemoria();
     const today = new Date().toISOString().split("T")[0];
     const raw = await runClaude({
       model: "sonnet",
@@ -99,7 +114,9 @@ export const POST = apiRoute(async (request: NextRequest) => {
       // WebSearch activo → el agente busca en la web de verdad, así competidores
       // y tendencias reflejan el estado actual, no la memoria del modelo.
       allowedTools: ["WebSearch", "WebFetch"],
-      prompt: `Hoy: ${today}.\n\nSeñales de GSC:\n${signalSummary}\n\nINSTRUCCIONES DE INVESTIGACIÓN:\n1. Busca en la web qué están publicando AHORA los competidores de FastStrat (plataformas de IA de marketing para PYMEs: Jasper, HubSpot, Copy.ai, Enrich Labs, etc.) — temas, títulos recientes, ángulos.\n2. Busca tendencias actuales 2026 en marketing/IA/PYMEs (GEO/AEO, agentes de IA, social commerce, etc.).\n3. Combina esos hallazgos REALES con las señales de GSC de arriba.\nDevuelve la tanda semanal (JSON estricto). Los arrays competitors y trends deben reflejar lo que encontraste en la web, citando lo concreto.`,
+      prompt: `Hoy: ${today}.\n\nSeñales de GSC:\n${signalSummary}\n\nINSTRUCCIONES DE INVESTIGACIÓN:\n1. Busca en la web qué están publicando AHORA los competidores de FastStrat (plataformas de IA de marketing para PYMEs: Jasper, HubSpot, Copy.ai, Enrich Labs, etc.) — temas, títulos recientes, ángulos.\n2. Busca tendencias actuales 2026 en marketing/IA/PYMEs (GEO/AEO, agentes de IA, social commerce, etc.).\n3. Combina esos hallazgos REALES con las señales de GSC de arriba.\nDevuelve la tanda semanal (JSON estricto). Los arrays competitors y trends deben reflejar lo que encontraste en la web, citando lo concreto.
+
+${bloqueDeMemoria(memoria)}`,
     });
     const match = raw.match(/\{[\s\S]*\}/);
     if (!match) throw new Error("El agente no devolvió JSON válido");
@@ -119,16 +136,28 @@ export const POST = apiRoute(async (request: NextRequest) => {
       outline: Array.isArray(i.outline) ? i.outline.slice(0, 6) : [],
     }));
 
+    // El descarte es mecánico, no una confianza.
+    //
+    // "No repitas los que te paso" ya está en el prompt y el agente repite
+    // igual. Se comprueba contra la memoria completa (todas las tandas más los
+    // artículos escritos) y se dice cuántas cayeron: "salieron las mismas" sin
+    // un número no se puede diagnosticar.
+    const { nuevas, descartadas } = descartarRepetidas(ideas, memoria);
+
     const batch: IdeaBatch = {
       weekOf: today,
       generatedAt: new Date().toISOString(),
       source: "auto-weekly",
-      summary: String(parsed.summary ?? "Tanda semanal automática."),
+      summary:
+        String(parsed.summary ?? "Tanda semanal automática.") +
+        (descartadas.length
+          ? ` (${descartadas.length} idea(s) descartada(s) por repetir algo ya propuesto o escrito.)`
+          : ""),
       research: {
         competitors: Array.isArray(parsed.research?.competitors) ? parsed.research.competitors : [],
         trends: Array.isArray(parsed.research?.trends) ? parsed.research.trends : [],
       },
-      ideas,
+      ideas: nuevas,
     };
 
     // 3) Guarda + persist al repo
@@ -164,8 +193,11 @@ export const POST = apiRoute(async (request: NextRequest) => {
 
     return NextResponse.json({
       ok: true,
+      // Cuántas se cayeron por repetidas. Sin este número, "salieron las
+      // mismas" es una queja que no se puede comprobar ni desmentir.
+      descartadasPorRepetir: descartadas.length,
       weekOf: today,
-      ideas: ideas.length,
+      ideas: nuevas.length,
       emailed: emailResult.ok,
       emailError: emailResult.error,
     });

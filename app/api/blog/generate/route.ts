@@ -7,6 +7,15 @@ import { REGLAS_DE_CASA } from "@/lib/house-rules";
 import { runQa } from "@/lib/qa";
 import { persistChanges } from "@/lib/persist";
 
+// Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
+// llamada al agente y no devuelve nada: el navegador se queda esperando una
+// respuesta que ya no va a llegar y el botón gira para siempre. Ninguna de las
+// rutas que llaman al agente lo declaraba, y por eso los cuatro botones
+// (escribir, investigar, generar, escribir todos) fallaban a la vez.
+export const maxDuration = 800;
+export const dynamic = "force-dynamic";
+
+
 const WRITER_SYSTEM = `Eres redactor SEO senior y estratega de contenido para FastStrat, una plataforma de agentes de IA de marketing para PYMEs (mercados LATAM y EEUU). Escribes artículos de blog de calidad publicable, del nivel de un especialista humano experimentado, no de IA genérica.
 
 OBJETIVO: que el artículo (a) rankee en Google, (b) sea genuinamente útil para un dueño de PYME o marketer, y (c) sea lo suficientemente claro y citable como para que ChatGPT/Perplexity lo referencien (GEO).

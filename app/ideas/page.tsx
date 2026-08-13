@@ -177,7 +177,7 @@ export default function IdeasPage() {
 
   const generateArticle = (q: Q) => generate(q.query, { keyword: q.query })
 
-  // Escribe TODOS los artículos de la tanda, uno por uno (secuencial).
+  // Escribe TODOS los artículos de la tanda, de dos en dos.
   const [writingAll, setWritingAll] = useState(false)
   const [writeAllProgress, setWriteAllProgress] = useState<{ done: number; total: number } | null>(null)
 
@@ -189,12 +189,32 @@ export default function IdeasPage() {
     setWritingAll(true)
     setWriteAllResumen(null)
     let done = 0
-    for (const idea of pending) {
-      setWriteAllProgress({ done, total: pending.length })
-      await generate(idea.slug, { keyword: idea.primaryKeyword, title: idea.title, lang: idea.lang })
-      done++
-      setWriteAllProgress({ done, total: pending.length })
+    // Dos a la vez, no de una en una.
+    //
+    // Escribir un artículo tarda entre dos y seis minutos y casi todo ese
+    // tiempo es espera, no cálculo nuestro: doce artículos en serie son más de
+    // una hora delante de una pantalla. De dos en dos se reduce a la mitad.
+    //
+    // Dos y no diez: cada uno es una llamada al agente con búsqueda web, y
+    // lanzarlas todas de golpe agota el límite de sesión antes y hace que
+    // fallen en bloque en vez de que fallen las últimas. Con dos, si el límite
+    // llega, lo que ya se escribió está guardado.
+    //
+    // Ojo con lo que esto NO arregla: el límite de sesión es el mismo, así que
+    // el paralelismo acorta el reloj, no aumenta cuántos artículos caben.
+    const EN_PARALELO = 2
+    const cola = [...pending]
+    const trabajador = async () => {
+      for (;;) {
+        const idea = cola.shift()
+        if (!idea) return
+        await generate(idea.slug, { keyword: idea.primaryKeyword, title: idea.title, lang: idea.lang })
+        done++
+        setWriteAllProgress({ done, total: pending.length })
+      }
     }
+    setWriteAllProgress({ done, total: pending.length })
+    await Promise.all(Array.from({ length: EN_PARALELO }, trabajador))
     setWritingAll(false)
     // El recuento real, no un "hecho" incondicional.
     //

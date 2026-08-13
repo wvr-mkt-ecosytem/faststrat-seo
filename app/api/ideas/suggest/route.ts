@@ -7,6 +7,15 @@ import { slugify } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
 import { persistChanges } from "@/lib/persist";
 
+// Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
+// llamada al agente y no devuelve nada: el navegador se queda esperando una
+// respuesta que ya no va a llegar y el botón gira para siempre. Ninguna de las
+// rutas que llaman al agente lo declaraba, y por eso los cuatro botones
+// (escribir, investigar, generar, escribir todos) fallaban a la vez.
+export const maxDuration = 300;
+export const dynamic = "force-dynamic";
+
+
 const IDEAS_DIR = path.join(process.cwd(), "data", "ideas");
 
 const SUGGEST_SYSTEM = `Eres estratega de contenido SEO para FastStrat (agentes de IA de marketing para PYMEs, LATAM y EEUU).

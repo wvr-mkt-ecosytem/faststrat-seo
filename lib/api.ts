@@ -25,16 +25,33 @@ export async function wake(): Promise<void> {
 export async function postJson<T = unknown>(
   url: string,
   body: unknown,
-  opts: { retriedOnWake?: boolean } = {}
+  opts: { retriedOnWake?: boolean; timeoutMs?: number } = {}
 ): Promise<T> {
+  // Un límite explícito, siempre.
+  //
+  // No había ninguno, así que un botón que llamaba al agente podía girar
+  // indefinidamente: si la plataforma cortaba la petición sin responder, el
+  // navegador seguía esperando una respuesta que ya no iba a llegar y no había
+  // forma de distinguir "está trabajando" de "se perdió". Trece minutos cubre
+  // el peor caso medido (cold start de ~50s en el plan free más una llamada al
+  // agente de hasta seis minutos) con margen.
+  const timeoutMs = opts.timeoutMs ?? 13 * 60 * 1000;
+
   let res: Response;
   try {
     res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
+      signal: AbortSignal.timeout(timeoutMs),
     });
-  } catch {
+  } catch (e) {
+    if ((e as Error)?.name === "TimeoutError") {
+      throw new ApiError(
+        `La operación pasó de ${Math.round(timeoutMs / 60000)} minutos sin responder y se dejó de esperar. ` +
+          "Puede que el trabajo se completara igualmente en el servidor: recarga la página antes de repetirlo.",
+      );
+    }
     throw new ApiError("No se pudo conectar con el servidor. Revisa tu conexión y reintenta.");
   }
 

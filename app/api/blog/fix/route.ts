@@ -6,6 +6,15 @@ import { runClaude } from "@/lib/claude";
 import { runQa, type Finding, type HouseRules } from "@/lib/qa";
 import { persistChanges } from "@/lib/persist";
 
+// Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
+// llamada al agente y no devuelve nada: el navegador se queda esperando una
+// respuesta que ya no va a llegar y el botón gira para siempre. Ninguna de las
+// rutas que llaman al agente lo declaraba, y por eso los cuatro botones
+// (escribir, investigar, generar, escribir todos) fallaban a la vez.
+export const maxDuration = 800;
+export const dynamic = "force-dynamic";
+
+
 // El corrector: coge lo que la compuerta bloqueó y lo arregla.
 //
 // Hasta ahora la compuerta decía "no publicas" y ahí acababa. Es correcto como

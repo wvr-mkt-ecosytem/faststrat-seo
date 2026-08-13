@@ -5,6 +5,15 @@ import { getBlogPosts, createBlogPost, slugify, renderHtml } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
 import { persistChanges } from "@/lib/persist";
 
+// Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
+// llamada al agente y no devuelve nada: el navegador se queda esperando una
+// respuesta que ya no va a llegar y el botón gira para siempre. Ninguna de las
+// rutas que llaman al agente lo declaraba, y por eso los cuatro botones
+// (escribir, investigar, generar, escribir todos) fallaban a la vez.
+export const maxDuration = 600;
+export const dynamic = "force-dynamic";
+
+
 const OPTIMIZER_SYSTEM = `Eres editor SEO senior para FastStrat (agentes de IA de marketing para PYMEs, LATAM/EEUU). Recibes:
 1. Un artículo existente (su markdown, título y URL).
 2. Queries reales por las que esa página YA aparece en Google pero ranquea fuera del top 5 (pos 5-20) — la palanca para subir a página 1.
