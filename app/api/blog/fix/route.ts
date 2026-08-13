@@ -73,7 +73,33 @@ Reglas que no puedes romper:
 - No añadas cifras nuevas que no estuvieran.
 - Devuelve el artículo entero, no un fragmento ni un diff.
 
-Devuelve ÚNICAMENTE el Markdown del cuerpo, sin explicaciones y sin envolverlo en bloques de código.`;
+Formato de salida, OBLIGATORIO: empieza tu respuesta con la línea exacta
+<<<ARTICULO>>>
+y a continuación el cuerpo en Markdown, hasta el final. Nada después. Si escribes cualquier explicación, plan o razonamiento, ponlo ANTES de esa línea; todo lo anterior se descarta.`;
+
+/**
+ * Saca el artículo de la respuesta del agente.
+ *
+ * Hace falta un marcador porque el agente a veces contesta con su plan antes
+ * del texto ("Ahora ya tengo las fuentes necesarias. Voy a corregir: 1. ..."),
+ * y eso se guardaba COMO CUERPO DEL ARTÍCULO. Dos posts acabaron con el
+ * razonamiento del modelo dentro, y uno de ellos con status: publish, o sea a
+ * un clic de salir así al sitio.
+ *
+ * Si el marcador no está, se devuelve null y no se guarda nada: es preferible
+ * un artículo sin corregir que uno con la libreta del agente pegada arriba.
+ */
+function extraerArticulo(raw: string): string | null {
+  const MARCA = "<<<ARTICULO>>>";
+  const i = raw.indexOf(MARCA);
+  if (i === -1) return null;
+  return raw
+    .slice(i + MARCA.length)
+    .trim()
+    .replace(/^```(?:markdown|md)?/i, "")
+    .replace(/```$/, "")
+    .trim();
+}
 
 const listar = (f: Finding[]) =>
   f.map((x) => `- [${x.rule}] ${x.detail}${x.excerpt ? `\n  en: "${x.excerpt}"` : ""}`).join("\n");
@@ -147,11 +173,17 @@ ${markdownBase}
 Devuelve el artículo entero corregido en Markdown.`,
   });
 
-  let limpio = nuevo
-    .trim()
-    .replace(/^```(?:markdown|md)?/i, "")
-    .replace(/```$/, "")
-    .trim();
+  const extraido = extraerArticulo(nuevo);
+  if (!extraido) {
+    return NextResponse.json({
+      changed: false,
+      publishable: false,
+      message:
+        "El agente no devolvió el artículo con el marcador de inicio, así que no se puede saber dónde acaba su explicación y dónde empieza el texto. No se guardó nada.",
+      qa: { antes, despues: antes },
+    });
+  }
+  let limpio = extraido;
 
   // El mismo barrido otra vez, ahora como red.
   //

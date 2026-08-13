@@ -13,8 +13,6 @@ lang: en
 category: Marketing Strategy
 status: publish
 ---
-Tengo lo que necesito. La SBA sí tiene un blog post con la guía del 7–8% y Gartner (2025 CMO Spend Survey) confirma que B2C supera a B2B, pero con cifras distintas a las del artículo (B2C ~13,9% vs B2B ~9,3%), así que esas cifras específicas no pueden enlazarse, hay que reformularlas cualitativamente.
-
 If you have ever stared at a spreadsheet wondering whether you are spending too much, or far too little, on marketing, you are not alone. It is the single most common question small business owners ask, and the answer hides behind a surprising amount of conflicting advice.
 
 Here is the short version, backed by the [U.S. Small Business Administration](https://www.sba.gov/blog/how-get-most-your-marketing-budget) (SBA): **most small businesses should spend between 7% and 8% of gross revenue on marketing**, assuming margins above 10–12%. But that headline number is only the starting point. The right figure depends on your stage, your margins, and how aggressively you want to grow.
