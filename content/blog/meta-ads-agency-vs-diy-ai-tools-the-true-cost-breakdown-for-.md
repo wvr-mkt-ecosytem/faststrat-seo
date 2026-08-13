@@ -24,7 +24,7 @@ Agency pricing hasn't gotten simpler, it's gotten more tiered. Most agencies tha
 
 **1. Flat monthly retainer:** Ranges from $1,200 to $3,500/month for SMBs spending $3,000–$15,000/month on ads. Typically includes strategy, creative direction, campaign setup, weekly reporting, and ongoing optimization. What it often does *not* include: ad creative production, copywriting, or landing page work, those get billed separately.
 
-**2. Percentage of ad spend:** The industry standard is **[10%–20% of monthly ad spend](https://www.stackmatix.com/blog/facebook-ads-agency-pricing)**, with a minimum retainer floor (usually $1,000–$1,500). If you're spending $10,000/month on ads, you're paying the agency $1,000–$2,000 on top of that. At $25,000/month ad spend, the math gets uncomfortable fast.
+**2. Percentage of ad spend:** The industry standard is **[10%–20% of monthly ad spend](https://superscale.ai/learn/meta-ads-management-cost/)**, with a minimum retainer floor (usually $1,000–$1,500). If you're spending $10,000/month on ads, you're paying the agency $1,000–$2,000 on top of that. At $25,000/month ad spend, the math gets uncomfortable fast.
 
 **3. Performance-based or hybrid:** Becoming more common in 2025–2026. An agency charges a lower base fee ($800–$1,500) plus a bonus tied to ROAS, CPL, or revenue milestones. Good in theory, harder to verify in practice without solid attribution.
 
@@ -126,13 +126,13 @@ This model uses AI to automate campaign monitoring, flag performance anomalies, 
 ## FAQ
 
 **What is the average cost of a Meta ads agency for small businesses?**
-Most SMBs pay [between $1,500 and $4,000/month](https://ppcbatman.com/blog/meta-ads-agency-cost/) for a Meta ads agency retainer, plus a one-time onboarding fee of $500–$2,000. Agencies that work on a percentage of spend model typically charge [10%–20% of monthly ad budget](https://www.stackmatix.com/blog/facebook-ads-agency-pricing) with a minimum floor.
+Flat monthly retainers in the US market run [$700 to $5,000+ per month](https://ppcbatman.com/blog/meta-ads-agency-cost/), plus a one-time [set-up fee of $500–$2,000](https://ppcbatman.com/blog/meta-ads-agency-cost/). Agencies that work on a percentage of spend model typically charge [10%–20% of monthly ad budget](https://superscale.ai/learn/meta-ads-management-cost/) with a minimum floor.
 
 **Are DIY AI tools good enough to replace a Meta ads agency?**
 For businesses spending under $7,000/month on ads, a well-configured DIY AI stack (tools like Madgicx, Revealbot, or AdCreative.ai) can match or outperform agency management, provided someone on your team dedicates 10–15 hours/month consistently and has baseline digital marketing knowledge.
 
 **What's the minimum ad spend where hiring a Meta ads agency makes sense?**
-Most experienced agencies recommend a minimum of [$5,000–$8,000/month in ad spend](https://www.get-ryze.ai/blog/meta-ads-management-cost-pricing-guide-2026) before their fee structure produces a positive ROI. Below that threshold, the management fee consumes too large a share of your total budget.
+The break-even point for professional management typically falls around [$8,000–$12,000 in monthly ad spend](https://www.get-ryze.ai/blog/meta-ads-management-cost-pricing-guide-2026) before an agency fee structure produces a positive ROI. Below that threshold, the management fee consumes too large a share of your total budget.
 
 **Can I switch from an agency to DIY tools without losing my data?**
 You can retain campaign history and pixel data in Meta Ads Manager, but campaign structures, custom naming conventions, and audience segments built by the agency may not transfer cleanly. Before ending any agency contract, export all reports, confirm pixel ownership is under your Business Manager, and request access to any shared audiences.

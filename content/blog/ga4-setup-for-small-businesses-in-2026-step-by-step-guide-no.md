@@ -11,8 +11,6 @@ lang: en
 category: SEO
 status: draft
 ---
-The GA4 360 price at $50,000/year is confirmed by multiple sources (Cardinal Path, EmberTribe, etc.). The 80% figure for destination-based conversions has no verifiable source, so per the rules I'll reformulate it qualitatively. Now I'll produce the full corrected article with all BLOQUEOS resolved and AVISOS addressed where possible.
-
 If your website is running without GA4 properly configured, you're making marketing decisions based on gut feeling, or worse, on bad data. The good news: a solid ga4 setup for small business takes less than two hours if you follow the right steps, and you don't need to pay an agency $500 to do it.
 
 **The short answer:** To set up GA4 for your small business, create a GA4 property in Google Analytics, install the Global Site Tag (gtag.js) directly on your website or via Google Tag Manager, configure at least one conversion event, and connect GA4 to Google Search Console. That's the core. Everything else is optimization layered on top.

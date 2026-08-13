@@ -15,14 +15,14 @@ status: publish
 ---
 If you have ever stared at a spreadsheet wondering whether you are spending too much, or far too little, on marketing, you are not alone. It is the single most common question small business owners ask, and the answer hides behind a surprising amount of conflicting advice.
 
-Here is the short version, backed by the [U.S. Small Business Administration](https://www.sba.gov/blog/how-get-most-your-marketing-budget) (SBA): **most small businesses should spend between 7% and 8% of gross revenue on marketing**, assuming margins above 10–12%. But that headline number is only the starting point. The right figure depends on your stage, your margins, and how aggressively you want to grow.
+Here is the short version, backed by the [U.S. Small Business Administration](https://www.sba.gov/blog/how-get-most-your-marketing-budget) (SBA): its budget guidance cites **average marketing spending of 7.9% of revenues**, which is why the "7 to 8 percent" rule of thumb gets repeated so often. But that headline number is only the starting point. The right figure depends on your stage, your margins, and how aggressively you want to grow.
 
 ## The SBA benchmark, explained
 
-The [SBA's widely cited guidance](https://www.sba.gov/blog/how-get-most-your-marketing-budget) recommends that businesses doing under $5 million in revenue allocate **7–8% of revenue** to marketing. That figure assumes:
+The [SBA's widely cited guidance](https://www.sba.gov/blog/how-get-most-your-marketing-budget) puts **average marketing spending at 7.9% of revenues**. Two things worth knowing about that number:
 
-- Net margins in the [10–12% range](https://www.sba.gov/blog/how-get-most-your-marketing-budget)
-- You are maintaining market position, not aggressively expanding
+- Advertising alone is a much smaller line: the average business spends just [1.08% of its revenues on advertising](https://www.sba.gov/blog/how-get-most-your-marketing-budget), and it swings hard by industry, with retailers near [4%](https://www.sba.gov/blog/how-get-most-your-marketing-budget) and restaurants at [1.93%](https://www.sba.gov/blog/how-get-most-your-marketing-budget)
+- It describes businesses maintaining market position, not aggressively expanding
 - "Marketing" includes both brand-building and direct response (ads, content, tools, agencies, events)
 
 If your margins are thinner, you scale down. If you are in a land-grab phase trying to capture share, you scale up considerably.
@@ -42,7 +42,7 @@ A brand-new business with no reputation has to spend proportionally more, becaus
 
 ## B2B vs. B2C changes the math
 
-Industry data consistently shows **B2C companies spend more on marketing than B2B** as a share of revenue, and by a substantial margin, according to [Gartner's 2025 CMO Spend Survey](https://www.gartner.com/en/newsroom/press-releases/2025-05-12-gartner-2025-cmo-spend-survey-reveals-marketing-budgets-have-flatlined-at-seven-percent-of-overall-company-revenue). The reason is simple: consumer purchases are higher-frequency and more impulse-driven, so paid demand generation pays off faster. B2B sales cycles are longer and lean more on content, SEO, and relationship-building, which can be more cost-efficient over time.
+Industry data consistently shows **B2C companies spend more on marketing than B2B** as a share of revenue. The same [SBA guidance](https://www.sba.gov/blog/how-get-most-your-marketing-budget) breaks it out: B2B product companies spend [6.3%](https://www.sba.gov/blog/how-get-most-your-marketing-budget) of revenue and B2B services companies [6.9%](https://www.sba.gov/blog/how-get-most-your-marketing-budget), while B2C product companies spend [9.6%](https://www.sba.gov/blog/how-get-most-your-marketing-budget) and B2C services companies [11.8%](https://www.sba.gov/blog/how-get-most-your-marketing-budget). The reason is simple: consumer purchases are higher-frequency and more impulse-driven, so paid demand generation pays off faster. B2B sales cycles are longer and lean more on content, SEO, and relationship-building, which can be more cost-efficient over time.
 
 ## Where the money should actually go
 
@@ -66,7 +66,7 @@ The biggest shift versus five years ago: AI tools have collapsed the cost of the
 ## Frequently asked questions
 
 **What percentage of revenue should a small business spend on marketing?**
-The [SBA recommends 7–8%](https://www.sba.gov/blog/how-get-most-your-marketing-budget) for businesses under $5M with healthy margins. Early-stage and high-growth businesses typically invest considerably more.
+The [SBA cites an average of 7.9% of revenues](https://www.sba.gov/blog/how-get-most-your-marketing-budget) across businesses, which is the benchmark most owners anchor to. Early-stage and high-growth businesses typically invest considerably more.
 
 **Is a lean marketing budget enough?**
 For a mature business defending its position, yes. For a business trying to grow, underspending usually starves demand generation and slows growth.
@@ -76,7 +76,7 @@ Almost always. With no brand equity or referral base, startups frequently invest
 
 ---
 
-**The bottom line:** start at the [7–8% SBA benchmark](https://www.sba.gov/blog/how-get-most-your-marketing-budget), adjust for your margins and growth ambitions, and allocate toward compounding assets like content and SEO. The businesses that win in 2026 are not the ones spending the most, they are the ones spending most efficiently, using AI tools to stretch every dollar.
+**The bottom line:** start at the [7.9% SBA-cited average](https://www.sba.gov/blog/how-get-most-your-marketing-budget), adjust for your margins and growth ambitions, and allocate toward compounding assets like content and SEO. The businesses that win in 2026 are not the ones spending the most, they are the ones spending most efficiently, using AI tools to stretch every dollar.
 
 ---
 

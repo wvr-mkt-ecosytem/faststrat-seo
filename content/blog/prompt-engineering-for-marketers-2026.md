@@ -12,7 +12,7 @@ category: AI Marketing
 status: publish
 ---
 
-Most marketers using AI are leaving 80% of its value on the table, not because the models are weak, but because the prompts are. "Write me a blog post about X" gets you generic mush. A well-engineered prompt gets you a research-backed, on-brand, search-optimized draft. This is the blueprint.
+The gap between a useless AI output and a publishable one is almost never the model, it's the prompt. "Write me a blog post about X" gets you generic mush. A well-engineered prompt gets you a research-backed, on-brand, search-optimized draft. This is the blueprint.
 
 ## Why prompt engineering matters for marketing specifically
 
@@ -41,7 +41,7 @@ This turns raw query data into a content plan, the exact workflow that separates
 > "Act as a content strategist. Create a brief for an article targeting '[keyword]'. Include: search intent, target word count based on the top 5 ranking pages, an H2/H3 outline, 5 questions to answer (from People Also Ask), internal linking suggestions, and the primary CTA. Match this brand voice: [paste 2–3 sentences of your copy]."
 
 ### Brand-consistent draft
-> "Write a [length] article from this brief [paste]. Voice: [describe]. Rules: short paragraphs, one idea each; no clichés ('in today's fast-paced world'); use 'you'; include one table and one FAQ section. Optimize naturally for '[keyword]' without keyword stuffing."
+> "Write a [length] article from this brief [paste]. Voice: [describe]. Rules: short paragraphs, one idea each; no clichés, no throat-clearing intro sentences; use 'you'; include one table and one FAQ section. Optimize naturally for '[keyword]' without keyword stuffing."
 
 ### Repurposing
 > "Turn this article [paste] into: 1 LinkedIn post, 3 tweets, 1 email subject + preview, and 5 short-form video hooks. Keep the core insight; adapt tone per channel."

@@ -12,7 +12,7 @@ category: Marketing Digital
 status: publish
 ---
 
-WhatsApp no es un canal más en Latinoamérica: es *el* canal. Con tasas de apertura por encima del 90% y penetración casi universal en México, Colombia y Argentina, dejarlo fuera de tu estrategia de marketing es regalarle clientes a la competencia. Pero entender cuánto cuesta realmente la WhatsApp Business Platform en 2026 sigue confundiendo a la mayoría de las PYMEs.
+WhatsApp no es un canal más en Latinoamérica: es *el* canal. Con una tasa de apertura del 98% en mensajes de WhatsApp Business ([Searchlab](https://searchlab.nl/en/statistics/whatsapp-business-statistics-2026)) y penetración casi universal en México, Colombia y Argentina, dejarlo fuera de tu estrategia de marketing es regalarle clientes a la competencia. Pero entender cuánto cuesta realmente la WhatsApp Business Platform en 2026 sigue confundiendo a la mayoría de las PYMEs.
 
 Vamos a desglosarlo con números reales.
 
