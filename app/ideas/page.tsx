@@ -29,6 +29,12 @@ type Batch = {
   ideas: Idea[]
 }
 
+type MemoriaResp = {
+  totales: { propuestas: number; titulosUnicos: number; escritos: number; keywords: number; tandas: number }
+  propuestas: { title: string; keyword: string; weekOf: string; source: string; escrita: boolean }[]
+  repetidas: { titulo: string; veces: number }[]
+}
+
 type Q = { query: string; clicks: number; impressions: number; ctr: number; position: number }
 
 const PRIORITY_STYLES: Record<string, string> = {
@@ -57,6 +63,23 @@ export default function IdeasPage() {
   const [oppError, setOppError] = useState<string | null>(null)
   const [loadError, setLoadError] = useState<string | null>(null)
   const [results, setResults] = useState<ResultMap>({})
+
+  // La memoria de ideas, visible.
+  //
+  // Vivía solo dentro del prompt: el sistema sabía qué se había propuesto ya y
+  // quien lo usaba no. Sin verla no se puede contestar la única pregunta que
+  // importa cuando salen repetidas: ¿el agente repitió, o el tema de verdad
+  // sigue sin cubrirse?
+  const [memoria, setMemoria] = useState<MemoriaResp | null>(null)
+  const [memoriaAbierta, setMemoriaAbierta] = useState(false)
+
+  useEffect(() => {
+    if (!memoriaAbierta || memoria) return
+    fetch('/api/ideas/memory')
+      .then((r) => r.json())
+      .then((d) => setMemoria(d.error ? null : d))
+      .catch(() => setMemoria(null))
+  }, [memoriaAbierta, memoria])
 
   useEffect(() => {
     wake() // despierta el free tier de Render para que las acciones no fallen
@@ -400,6 +423,79 @@ export default function IdeasPage() {
             </div>
           </section>
         )}
+
+        {/* La memoria: qué se ha propuesto ya y qué llegó a escribirse.
+            Plegada por defecto porque no es lo que se viene a hacer aquí, pero
+            a un clic porque es lo que contesta "¿por qué salen las mismas?" */}
+        <section className="pt-4 border-t border-maroon/15">
+          <button
+            onClick={() => setMemoriaAbierta((v) => !v)}
+            className="flex items-center gap-2 text-sm font-semibold text-ink hover:text-maroon transition-colors"
+          >
+            <Lightbulb size={15} className="text-maroon" />
+            Memoria de ideas
+            <span className="text-xs font-normal text-sand">
+              {memoriaAbierta ? 'ocultar' : 'todo lo que ya se propuso alguna vez'}
+            </span>
+          </button>
+
+          {memoriaAbierta && !memoria && <p className="text-sm text-sand mt-2">Cargando memoria…</p>}
+
+          {memoriaAbierta && memoria && (
+            <div className="mt-3 space-y-3">
+              <div className="flex gap-4 flex-wrap text-xs text-sand">
+                <span><b className="text-ink">{memoria.totales.titulosUnicos}</b> títulos únicos</span>
+                <span><b className="text-ink">{memoria.totales.escritos}</b> escritos</span>
+                <span><b className="text-ink">{memoria.totales.keywords}</b> keywords</span>
+                <span><b className="text-ink">{memoria.totales.tandas}</b> tandas</span>
+              </div>
+
+              {/* Lo que hay que vigilar: propuesto más de una vez y nunca
+                  escrito es una idea que nadie quiso, no una que falte. */}
+              {!!memoria.repetidas.length && (
+                <div className="rounded-md bg-amber-50 border border-amber-200 px-3 py-2">
+                  <p className="text-xs font-medium text-amber-900 mb-1">
+                    Propuestas más de una vez ({memoria.repetidas.length})
+                  </p>
+                  <ul className="flex flex-col gap-0.5">
+                    {memoria.repetidas.slice(0, 8).map((r) => (
+                      <li key={r.titulo} className="text-[11px] text-amber-800">
+                        {r.veces}× · {r.titulo}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <div className="max-h-80 overflow-y-auto rounded-md border border-maroon/15">
+                <table className="w-full text-[11px]">
+                  <thead className="sticky top-0 bg-maroon/5 text-maroon">
+                    <tr>
+                      <th className="text-left px-2 py-1.5 font-semibold">Título</th>
+                      <th className="text-left px-2 py-1.5 font-semibold">Keyword</th>
+                      <th className="text-left px-2 py-1.5 font-semibold">Tanda</th>
+                      <th className="text-left px-2 py-1.5 font-semibold">Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {memoria.propuestas.map((p, i) => (
+                      <tr key={i} className="border-t border-maroon/8">
+                        <td className="px-2 py-1 text-ink">{p.title}</td>
+                        <td className="px-2 py-1 text-sand">{p.keyword || '—'}</td>
+                        <td className="px-2 py-1 text-sand font-mono">{p.weekOf}</td>
+                        <td className="px-2 py-1">
+                          {p.escrita
+                            ? <span className="text-green-700">escrita</span>
+                            : <span className="text-sand">solo propuesta</span>}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </section>
 
         {/* === Oportunidades del Search Console === */}
         <section className="space-y-3 pt-4 border-t border-maroon/15">

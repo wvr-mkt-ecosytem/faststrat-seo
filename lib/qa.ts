@@ -53,7 +53,7 @@ const EM_DASH = /—/g;
 // tocarlo: "Conversion rose 63%" bloqueaba y "If you do this, conversion rose
 // 63%" solo avisaba.
 const HYPOTHETICAL =
-  /\b(suppose|imagine|let'?s say|for example|e\.g\.|assume|hypothetical|pretend|pongamos|supongamos|por ejemplo|imagina|imaginemos)\b/i;
+  /\b(suppose|imagine|let'?s say|for example|e\.g\.|assume|hypothetical|hypothetically|illustrative|illustration|scenario|worked example|pretend|calculated|calculation|break.?even|pongamos|supongamos|por ejemplo|imagina|imaginemos|ilustrativ\w*|escenario|calculad\w*|punto de equilibrio)\b/i;
 
 /** Porcentajes y millares: la forma que toma una estadística. */
 const STAT = /\d+(?:[.,]\d+)?\s?%|\b\d{1,3}(?:,\d{3})+\b|\b\d{4,}\b/g;
@@ -99,7 +99,13 @@ export function unsourcedFigures(markdown: string): Finding[] {
     // parámetro de un evento de GA4: ninguno afirma nada sobre el mundo, y
     // pedirles fuente convertía artículos técnicos en impublicables.
     const isSpec = (idx: number) =>
-      /^\s*(?:\+?\s*)?(words?|palabras|visits?|visitas|characters?|caracteres|px|depth|scroll|seconds?|segundos|minutes?|minutos|hours?|horas|days?|días|mb|kb|gb)\b/i.test(
+      // Se añadieron las unidades de CANTIDAD DE COSAS (mensajes, usuarios,
+      // contactos…). El primer artículo generado con las reglas nuevas salió
+      // bloqueado por "2.000 marketing + 1.500 utility messages", que son los
+      // tramos de una tabla de precios, no una afirmación sobre el mundo.
+      // Pedirle fuente a eso vuelve impublicable cualquier artículo de precios,
+      // que es justo el tipo de contenido con más intención de compra.
+      /^\s*(?:\+?\s*)?(words?|palabras|visits?|visitas|characters?|caracteres|px|depth|scroll|seconds?|segundos|minutes?|minutos|hours?|horas|days?|días|mb|kb|gb|messages?|mensajes?|conversations?|conversaciones|users?|usuarios?|contacts?|contactos|leads?|emails?|correos?|subscribers?|suscriptores?|customers?|clientes?|products?|productos?)\b/i.test(
         line.slice(idx),
       );
 
