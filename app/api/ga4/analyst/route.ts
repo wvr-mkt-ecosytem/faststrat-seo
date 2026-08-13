@@ -6,7 +6,7 @@ import { ga4Configured } from "@/lib/ga4";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 // El agente tarda: es una llamada al modelo sobre unas 50 páginas.
-export const maxDuration = 120;
+export const maxDuration = 800;
 
 // POST /api/ga4/analyst { days }
 //
