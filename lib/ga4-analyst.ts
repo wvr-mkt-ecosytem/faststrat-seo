@@ -53,6 +53,15 @@ export interface AnalystResult {
   totals: { clicks: number; sessions: number; conversions: number };
   counts: Record<string, number>;
   recommendations: Recommendation[];
+  /**
+   * El análisis escrito, en prosa.
+   *
+   * Las recomendaciones sueltas no son un análisis: son una lista. Falta lo
+   * que las une, que es qué está pasando en el sitio, por qué, y en qué orden
+   * conviene atacarlo. Eso no cabe en un campo de una tabla y es justo lo que
+   * hace que un informe se pueda leer y decidir sobre él.
+   */
+  report: string;
   /** Lo que el análisis NO pudo mirar, dicho en vez de omitido. */
   limits: string[];
 }
@@ -90,8 +99,34 @@ Reglas de forma para las acciones:
 - Para un arreglo técnico: di el cambio exacto (qué URL, qué directiva, dónde), no "revisar la indexación".
 - Para un título: escríbelo entero, contando los caracteres.
 
+QUÉ DEVOLVER
+
+Dos cosas: un informe escrito y la lista de acciones. El informe es lo que se lee; las acciones son lo que se ejecuta.
+
+El informe va en "report", en Markdown, en español, y tiene esta forma:
+
+## El panorama
+Los totales del periodo y qué significan. Si el volumen no es demanda real, se dice AQUÍ y no más abajo, porque cambia la lectura de todo lo demás.
+
+## Qué está funcionando y por qué
+Las páginas y consultas que rinden, con su número, y el mecanismo por el que funcionan. No basta con listarlas: di qué tienen en común, porque eso es lo que se puede repetir.
+
+## Qué no está funcionando y por qué
+Lo mismo al revés. Aquí van los hallazgos calculados que te paso, explicados, no repetidos. Si algo rankea alto y no recibe clics, la explicación no es "el CTR es bajo": eso es el síntoma con otras palabras.
+
+## Lo que yo haría, por orden de impacto
+Una lista corta y ordenada. Cada punto dice qué hacer y por qué va en ese lugar del orden. Lo barato con retorno alto va primero.
+
+Reglas del informe:
+- Escribe como un analista que le explica a un dueño de negocio, no como un panel de métricas. Frases completas.
+- Cada afirmación lleva su cifra al lado, y las cifras solo salen de los datos que te di.
+- Si algo no lo pudiste comprobar, dilo en esa misma frase.
+- Nada de recomendaciones genéricas de SEO. Si el consejo vale para cualquier sitio, sobra.
+- Extensión: la que pida el hallazgo. Un mes sin nada relevante son cinco líneas honestas, no dos páginas de relleno.
+
 Devuelve SOLO un JSON válido, sin texto alrededor, con esta forma:
-{"recommendations":[{"kind":"rewrite-title|improve-page|new-article|add-cta|consolidate|technical-fix","target":"/ruta o tema","reason":"qué pasa, en una frase","cause":"por qué pasa, el mecanismo","evidence":"el dato exacto de los nuestros que lo sostiene","sourceUrl":"URL de lo que consultaste fuera, o cadena vacía","suggestion":"qué hacer, escrito para poder copiarlo","priority":"alta|media|baja"}]}`;
+{"report":"## El panorama ... (el informe entero en Markdown, con saltos de línea escapados)",
+ "recommendations":[{"kind":"rewrite-title|improve-page|new-article|add-cta|consolidate|technical-fix","target":"/ruta o tema","reason":"qué pasa, en una frase","cause":"por qué pasa, el mecanismo","evidence":"el dato exacto de los nuestros que lo sostiene","sourceUrl":"URL de lo que consultaste fuera, o cadena vacía","suggestion":"qué hacer, escrito para poder copiarlo","priority":"alta|media|baja"}]}`;
 
 /** Resume una página en una línea, para que quepan muchas en el prompt. */
 const line = (p: Joined) =>
@@ -228,13 +263,16 @@ Da las recomendaciones en JSON.`;
   }
 
   let recommendations: Recommendation[] = [];
+  let report = "";
   try {
     const clean = raw
       .trim()
       .replace(/^```(?:json)?/i, "")
       .replace(/```$/, "")
       .trim();
-    recommendations = JSON.parse(clean).recommendations ?? [];
+    const parsed = JSON.parse(clean);
+    recommendations = parsed.recommendations ?? [];
+    report = typeof parsed.report === "string" ? parsed.report.trim() : "";
   } catch {
     // Devolver el análisis sin recomendaciones y decirlo es mejor que fingir
     // que no hubo respuesta: los números de arriba siguen siendo válidos.
@@ -257,5 +295,9 @@ Da las recomendaciones en JSON.`;
     );
   }
 
-  return { days, totals, counts, recommendations, limits };
+  if (!report) {
+    limits.push("El agente no devolvió el informe escrito, solo la lista de acciones.");
+  }
+
+  return { days, totals, counts, recommendations, limits, report };
 }

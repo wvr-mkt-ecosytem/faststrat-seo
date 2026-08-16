@@ -40,6 +40,8 @@ type Rec = {
 }
 
 type Analysis = {
+  /** El análisis escrito. Es lo que se lee; las acciones son lo que se ejecuta. */
+  report?: string
   recommendations?: Rec[]
   limits?: string[]
   error?: string
@@ -239,6 +241,17 @@ export default function SeoPage() {
 
             {/* Lo que el análisis NO pudo mirar. Callarlo haría pasar una
                 lectura parcial por completa. */}
+            {/* El informe, antes que la lista de acciones.
+                Una lista de recomendaciones sueltas no es un análisis: falta
+                lo que las une, que es qué pasa, por qué, y en qué orden
+                conviene atacarlo. Eso es lo que se lee y sobre lo que se
+                decide; las acciones de abajo son la ejecución. */}
+            {!!analysis?.report && (
+              <div className="text-[13px] text-ink leading-relaxed border border-maroon/15 bg-white/70 rounded-md px-4 py-3 whitespace-pre-wrap">
+                {analysis.report}
+              </div>
+            )}
+
             {!!analysis?.limits?.length && (
               <ul className="flex flex-col gap-0.5">
                 {analysis.limits.map((l, i) => (
