@@ -73,7 +73,7 @@ For a local retail shop, Ahrefs may be overkill. For a SaaS startup, an e-commer
 
 ### 4. Semrush: The Best for PPC + SEO Combined
 
-**Cost:** ~$139/month (Pro), ~$249/month (Guru). [See current plans at Semrush.](https://www.semrush.com/pricing/)  
+**Cost:** $139.95/month (Pro), $249.95/month (Guru) on monthly billing, [per this 2026 Semrush pricing breakdown](https://www.demandsage.com/semrush-pricing/). Annual billing cuts each by about 17%.  
 **Best for:** Businesses running both paid and organic campaigns, or agencies managing multiple clients
 
 Semrush's strength is breadth. Beyond SEO, it covers **PPC keyword research**, social media scheduling, content marketing tools, and local SEO. If you're running Google Ads alongside your organic strategy, Semrush is the only tool where both datasets live together.
@@ -86,7 +86,7 @@ Its **Topic Research** and **SEO Writing Assistant** tools are useful for conten
 
 ### 5. Surfer SEO: The Best for On-Page Content Optimization
 
-**Cost:** ~$89/month (Essential), ~$129/month (Scale). [See current plans at Surfer.](https://surferseo.com/pricing/)  
+**Cost:** Surfer renamed its tiers in 2026. Standard runs $99/month and Pro $182/month on annual billing ($119 and $219 month-to-month), [per this 2026 Surfer plan breakdown](https://aitoolradar.io/guides/surfer-seo). The variable that moves you up a tier is publishing volume: article credits and how many domains you track.  
 **Best for:** Businesses publishing content regularly and wanting to rank it faster
 
 Surfer works differently from the tools above. Rather than tracking rankings or researching backlinks, it analyzes the top 10 ranking pages for your target keyword and tells you exactly how to structure your article: word count, H2 topics, related terms, internal link density, even image count.
@@ -125,7 +125,7 @@ Neither replaces a full-featured platform for serious SEO work, but at under $30
 | SE Ranking | ~$103/mo | ✅ Solid | ✅ Strong | ✅ Medium DB | Budget all-in-one |
 | Ahrefs Lite | ~$129/mo | ✅ Excellent | ✅ Excellent | ✅ Best-in-class | Competitor & link research |
 | Semrush Pro | ~$139/mo | ✅ Excellent | ✅ Strong | ✅ Very strong | SEO + PPC combined |
-| Surfer SEO | ~$89/mo | ⚠️ Basic | ❌ | ❌ | Content optimization |
+| Surfer SEO | ~$99/mo | ⚠️ Basic | ❌ | ❌ | Content optimization |
 | Screaming Frog | ~$279/yr | ❌ | ✅ Best technical | ❌ | Technical audits |
 | Ubersuggest | ~$29/mo | ✅ Basic | ⚠️ Limited | ⚠️ Limited | Solo/early-stage |
 | Mangools KWFinder | ~$19.90/mo | ✅ Good | ❌ | ⚠️ Limited | KW research only |

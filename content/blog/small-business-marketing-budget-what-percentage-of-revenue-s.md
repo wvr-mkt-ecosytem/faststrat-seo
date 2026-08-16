@@ -13,13 +13,13 @@ status: draft
 ---
 Most small business owners set their marketing budget by gut feel, or just copy what a competitor seems to be doing. Both approaches tend to produce the same result: either chronic underspending that stalls growth, or erratic spending with no ROI to show for it. There's a better framework, and it starts with one number: your revenue.
 
-**The direct answer to the core question:** For most small businesses, the right marketing budget sits between **[5% and 12% of gross annual revenue](https://mercury.com/blog/how-much-should-a-small-business-spend-on-marketing)**. The U.S. Small Business Administration [recommends 7–8%](https://www.sba.gov/blogs/how-set-marketing-budget-fits-your-business-goals-and-provides-high-return-investment) for companies under $5M in revenue with net profit margins above 10%. If you're in a highly competitive consumer market or actively scaling, that range pushes to [10–15%](https://mercury.com/blog/how-much-should-a-small-business-spend-on-marketing). B2B businesses in stable niches can often operate effectively at [3–5%](https://mercury.com/blog/how-much-should-a-small-business-spend-on-marketing). Your specific number depends on your industry, growth stage, and competitive landscape, all of which this guide covers.
+**The direct answer to the core question:** For most small businesses, the right marketing budget sits between **[5% and 12% of gross annual revenue](https://mercury.com/blog/how-much-should-a-small-business-spend-on-marketing)**. The U.S. Small Business Administration [recommends 7–8%](https://boomcycle.com/blog/right-percentage-of-gross-revenue-to-invest-in-marketing/) for companies under $5M in revenue with net profit margins above 10%. If you're in a highly competitive consumer market or actively scaling, that range pushes to [10–15%](https://mercury.com/blog/how-much-should-a-small-business-spend-on-marketing). B2B businesses in stable niches can often operate effectively at [3–5%](https://mercury.com/blog/how-much-should-a-small-business-spend-on-marketing). Your specific number depends on your industry, growth stage, and competitive landscape, all of which this guide covers.
 
 ---
 
 ## Why "One Percentage" Doesn't Fit Every Business
 
-The [7–8% SBA guideline](https://www.sba.gov/blogs/how-set-marketing-budget-fits-your-business-goals-and-provides-high-return-investment) is a solid starting point, but it was designed for businesses in a steady-growth phase with healthy margins. It doesn't account for three variables that can shift your number significantly:
+The [7–8% SBA guideline](https://boomcycle.com/blog/right-percentage-of-gross-revenue-to-invest-in-marketing/) is a solid starting point, but it was designed for businesses in a steady-growth phase with healthy margins. It doesn't account for three variables that can shift your number significantly:
 
 **1. Growth stage.** A two-year-old local gym competing against three established chains needs a different budget than a 15-year-old accounting firm with a high client retention rate driven by referrals. Early-stage businesses often need to invest [12–20%](https://mercury.com/blog/how-much-should-a-small-business-spend-on-marketing) just to build enough awareness to get traction.
 
@@ -74,7 +74,9 @@ No matter how confident you are in your channels, reserve a slice, typically a t
 
 ## Where to Allocate Your Marketing Budget
 
-Once you have a total number, the channel mix matters as much as the total. Here's a realistic breakdown for a small business spending, say, $60,000/year on marketing (close to the [SBA's recommended range](https://www.sba.gov/blogs/how-set-marketing-budget-fits-your-business-goals-and-provides-high-return-investment) for a $750K revenue business):
+Once you have a total number, the channel mix matters as much as the total. The total itself is arithmetic rather than a benchmark: take the [7–8% of revenue guideline](https://boomcycle.com/blog/right-percentage-of-gross-revenue-to-invest-in-marketing/) and multiply it by your own top line.
+
+Run that on a business doing $750K a year and you land near $60,000 of annual marketing spend. Here's a realistic way to split it:
 
 - **Paid search and local ads (Google, Meta): $20,000–$25,000**, This tends to be the highest-ROI channel for businesses with clear, searchable services. Google Local Services Ads for home services, Google Search for professional services, Meta for B2C products.
 - **Content marketing and SEO: $10,000–$15,000**, A mix of blog content, on-page optimization, and potentially link building. Takes 6–12 months to produce results, but builds compounding organic traffic.
@@ -118,13 +120,13 @@ The businesses that scale consistently are the ones that measure marketing this 
 ## FAQ
 
 **What is a good marketing budget for a small business starting out?**
-New businesses (under 3 years old) should budget closer to [12–20% of projected revenue](https://mercury.com/blog/how-much-should-a-small-business-spend-on-marketing) during their early growth phase. The priority is building awareness and acquiring the first cohort of loyal customers, which requires heavier upfront investment. Once you have proven channels and a referral base, you can drop back toward the [7–8% range](https://www.sba.gov/blogs/how-set-marketing-budget-fits-your-business-goals-and-provides-high-return-investment).
+New businesses (under 3 years old) should budget closer to [12–20% of projected revenue](https://mercury.com/blog/how-much-should-a-small-business-spend-on-marketing) during their early growth phase. The priority is building awareness and acquiring the first cohort of loyal customers, which requires heavier upfront investment. Once you have proven channels and a referral base, you can drop back toward the [7–8% range](https://boomcycle.com/blog/right-percentage-of-gross-revenue-to-invest-in-marketing/).
 
 **Should I include salaries in my marketing budget?**
 It depends on your accounting method, but for small businesses, the cleaner approach is to **separate payroll from media and tool spend**. This lets you evaluate the actual cost of each channel without employee cost distorting the picture. If you're reporting to a board or investors, clarify which definition you're using.
 
-**What if I can't afford the [7–8% of revenue](https://www.sba.gov/blogs/how-set-marketing-budget-fits-your-business-goals-and-provides-high-return-investment) recommended for marketing?**
-Start with what you can sustain and be strategic about channel selection. $500/month focused entirely on one high-intent channel (like Google Search for a service business) will outperform $500/month spread thin across four platforms. Concentration beats diversification at low budget levels.
+**What if I can't afford the [7–8% of revenue](https://boomcycle.com/blog/right-percentage-of-gross-revenue-to-invest-in-marketing/) recommended for marketing?**
+Start with what you can sustain and be strategic about channel selection. Whatever you can afford, put all of it into one high-intent channel (like Google Search for a service business) rather than spreading it across four platforms. Every ad platform needs a minimum volume of conversions before its algorithm can optimize at all, so a budget split four ways buys you four accounts stuck permanently in learning mode. Concentration beats diversification at low budget levels.
 
 **How do marketing budgets differ for local vs. online-first businesses?**
 Local brick-and-mortar businesses often achieve strong results with lower total spend because their geographic targeting is narrow, you're not competing nationally. A local HVAC company spending $2,500/month on Google Local Services Ads in a mid-size market can dominate their area. Online-first businesses compete in a much broader, more expensive arena and typically need the higher end of the percentage range.
@@ -135,7 +137,7 @@ Local brick-and-mortar businesses often achieve strong results with lower total 
 
 The **small business marketing budget percentage of revenue** question has a clear answer, [5–12% for most businesses](https://mercury.com/blog/how-much-should-a-small-business-spend-on-marketing), adjusted for stage, industry, and growth goals, but the number only matters if it's backed by a channel strategy, proper tracking, and quarterly reviews.
 
-Start with the [SBA's 7–8% benchmark](https://www.sba.gov/blogs/how-set-marketing-budget-fits-your-business-goals-and-provides-high-return-investment), pressure-test it against your CAC math, and allocate across at least three channels. Review every 90 days. Cut what isn't converting; invest more in what is.
+Start with the [SBA's 7–8% benchmark](https://boomcycle.com/blog/right-percentage-of-gross-revenue-to-invest-in-marketing/), pressure-test it against your CAC math, and allocate across at least three channels. Review every 90 days. Cut what isn't converting; invest more in what is.
 
 If managing all of that manually sounds like a full-time job, it's worth knowing that tools like **FastStrat** are built specifically for this problem, AI marketing agents that help small businesses automate campaign management, track cross-channel attribution, and reallocate budget based on real-time performance data, without needing a full marketing team. The goal is the same whether you do it manually or with automation: make sure every dollar you spend has a measurable path back to revenue.
 

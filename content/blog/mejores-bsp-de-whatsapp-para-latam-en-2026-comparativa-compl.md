@@ -133,13 +133,15 @@ El precio es más alto que Wati o 360dialog, pero si tu negocio depende de conve
 
 El precio del BSP es solo la mitad del costo total. **Meta cobra por mensaje enviado** (desde julio de 2025 ya no factura por conversación, sino por cada plantilla entregada). Las tarifas varían por país y por categoría de mensaje:
 
-- **Mensajes de marketing** (campañas, promociones): los más caros, [aproximadamente entre $0.03 y $0.06 por mensaje en LATAM](https://formbeep.com/whatsapp-api-pricing/) dependiendo del país (México ~$0.03, Brasil ~$0.06)
-- **Mensajes de utilidad** (confirmaciones de pedido, actualizaciones de estado): [~$0.008–$0.012 por mensaje](https://formbeep.com/whatsapp-api-pricing/) según el país
-- **Mensajes de servicio** (el usuario escribe primero): tienen una **cuota gratuita de 1.000 mensajes/mes** por número de teléfono
+- **Mensajes de marketing** (campañas, promociones): los más caros. México $0.0305 y Brasil $0.0625 por mensaje entregado, según la transcripción del rate card que publica [EngageLab](https://www.engagelab.com/blog/whatsapp-business-api-pricing)
+- **Mensajes de utilidad** (confirmaciones de pedido, actualizaciones de estado): en la misma tabla, México $0.0085 y Brasil $0.0068 por mensaje
+- **Mensajes de servicio** (el usuario escribe primero): gratuitos, sin cuota mensual ni tope de volumen
 
-**Ejemplo concreto:** una PYME de e-commerce que envía 5.000 mensajes de marketing al mes puede pagar entre **USD $150 y $315/mes solo en tarifas de Meta** según el país ([ver tarifas por mercado](https://formbeep.com/whatsapp-api-pricing/)), sumado a la tarifa del BSP. Presupuesta ambas capas antes de comprometerte con cualquier plataforma.
+Meta ya no publica las tarifas por país en su documentación: las distribuye en rate cards descargables y en una calculadora interactiva, y las revisa cada trimestre. Cualquier tabla de terceros, incluida la de arriba, es una transcripción con fecha de caducidad. Descarga el rate card de tus mercados antes de presupuestar.
 
-> **Tip práctico:** diseña flujos que incentiven al usuario a escribir primero. Esas conversaciones de servicio son significativamente más baratas, o gratuitas dentro del límite mensual, comparado con los envíos salientes de marketing.
+**Ejemplo concreto, cálculo ilustrativo con las tarifas de arriba:** una PYME de e-commerce que envía 5.000 mensajes de marketing al mes paga a Meta 5.000 × $0.0305 = $152.50 si su lista está en México, y 5.000 × $0.0625 = $312.50 si está en Brasil. A eso se suma la tarifa del BSP. Presupuesta ambas capas antes de comprometerte con cualquier plataforma.
+
+> **Tip práctico:** diseña flujos que incentiven al usuario a escribir primero. Responder dentro de la ventana de 24 horas que abre el cliente no le cuesta nada a Meta, a cualquier volumen, mientras que cada plantilla de marketing saliente se cobra siempre.
 
 ---
 

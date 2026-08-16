@@ -13,7 +13,9 @@ status: draft
 ---
 WhatsApp Business API costs two things: Meta's per-message fee (from $0.0034 for a utility message in the US to $0.0625 for a marketing message reaching a number in Brazil), plus your BSP's markup, which runs $0.004–$0.005/message pay-as-you-go or €49/month flat.
 
-**The short version if you need one number:** a US business sending 1,000 marketing messages/month pays Meta $25 (at [the US rate of $0.0250](https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing)). The same volume to Brazil costs $62.50 to Meta, before paying your BSP a cent. Audience geography drives the bill more than any other variable.
+**The short version if you need one number:** Meta's marketing rate is $0.0250 per delivered message to a US number and $0.0625 to a Brazilian one, per [SetSmart's 2026 rate table](https://setsmart.io/blog/whatsapp-business-api-pricing).
+
+Run 1,000 marketing messages a month through those rates and the calculation gives $25 for a US list against $62.50 for a Brazilian one, before your BSP charges a cent. Audience geography drives the bill more than any other variable.
 
 ## How Meta's Per-Message Model Works
 
@@ -26,28 +28,36 @@ Four categories define every message:
 - **Authentication:** one-time passwords (OTPs). Priced similarly to utility in most markets, though Mexico is an exception (more below).
 - **Service:** replies to a customer who messaged you first, within the following 24 hours. **Free today; chargeable from October 1, 2026** (covered in the section below).
 
-Utility and authentication messages qualify for volume-tier discounts as monthly volume grows, per [Meta's developer documentation](https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing). Marketing messages have no volume discount at any tier.
+Utility and authentication messages qualify for volume-tier discounts as monthly volume grows, per [Meta's developer documentation](https://developers.facebook.com/docs/whatsapp/pricing/). Marketing messages have no volume discount at any tier.
+
+Meta no longer prints per-country rates on that documentation page. It publishes downloadable rate cards and an interactive calculator instead, which is why every table below is sourced to a third party that transcribed a rate card, not to Meta directly. Pull your own rate card before you commit a budget.
 
 ## What Meta Charges Per Message
 
-The table below uses rates cross-referenced from [Blueticks](https://blueticks.co/blog/whatsapp-business-api-pricing-2026) and [SetSmart](https://setsmart.io/blog/whatsapp-business-api-pricing), both citing Meta's 2026 rate cards. US utility and authentication rates are confirmed via [Twilio's pricing page](https://www.twilio.com/en-us/whatsapp/pricing), which passes through Meta's fees transparently.
+The table below uses rates transcribed from Meta's 2026 rate cards by [Blueticks](https://blueticks.co/blog/whatsapp-business-api-pricing-2026), [SetSmart](https://setsmart.io/blog/whatsapp-business-api-pricing) and [EngageLab](https://www.engagelab.com/blog/whatsapp-business-api-pricing). US utility and authentication rates are confirmed via [Twilio's pricing page](https://www.twilio.com/en-us/whatsapp/pricing), which passes through Meta's fees transparently.
 
 | Country | Marketing | Utility | Authentication |
 |---|---|---|---|
 | United States | $0.0250 | $0.0034 | $0.0034 |
-| Brazil | $0.0625 | ~$0.0068 | n/a |
-| Mexico | ~$0.030–$0.044 † | $0.0080 | $0.0207 |
-| United Kingdom | £0.0382 | n/a | n/a |
-| Germany | €0.1131 | n/a | n/a |
-| India | ~$0.010 | n/a | n/a |
+| Brazil | $0.0625 | $0.0068 | $0.0068 |
+| Mexico | $0.0305–$0.0436 † | $0.0080–$0.0085 † | $0.0085–$0.0207 † |
+| United Kingdom | £0.0382 | £0.0159 | £0.0159 |
+| Germany | €0.1131 | €0.0456 | €0.0456 |
+| India | ₹0.7846 | ₹0.115 | ₹0.115 |
 
-† Mexico's marketing rate appears between $0.0305 and $0.0436 across 2026 sources; January 2026 rate adjustments and volume tiers account for the spread. Check [Meta's pricing tool](https://whatsappbusiness.com/products/platform-pricing/) for your exact current rate before budgeting. n/a indicates rates not confirmed from a directly fetched source; use the same tool for those markets.
+† Mexico is the one market where the transcriptions disagree, so the row shows both ends instead of picking a winner.
+
+[EngageLab](https://www.engagelab.com/blog/whatsapp-business-api-pricing) publishes Mexico at $0.0305 marketing, with utility and authentication both at $0.0085 per message. It is also the source for the Brazil, UK, Germany and India rows above.
+
+[SetSmart](https://setsmart.io/blog/whatsapp-business-api-pricing) publishes the same market at $0.0436 marketing, $0.0080 utility and $0.0207 authentication. Quarterly rate revisions and volume tiers plausibly explain the gap, but neither transcription can be checked against Meta's own page, so budget from a rate card you downloaded yourself rather than from either number.
 
 Three things jump from this table:
 
 1. **Germany's marketing rate** (€0.1131, per [Blueticks](https://blueticks.co/blog/whatsapp-business-api-pricing-2026)) is roughly 4.5× the US rate. European market campaigns cost meaningfully more per message.
-2. **Mexico authentication** ($0.0207) costs more than Mexico utility ($0.0080), a detail that matters if your OTP flow runs through the same API.
-3. **US utility at $0.0034** makes automated transactional messages (order confirmations, shipping updates) nearly negligible cost, less than a third of a cent per message.
+
+2. **Mexico authentication** at $0.0207 costs more than Mexico utility at $0.0080 on [SetSmart's](https://setsmart.io/blog/whatsapp-business-api-pricing) transcription, a gap worth checking against your own rate card if your OTP flow runs through the same API.
+
+3. **US utility at $0.0034**, confirmed on [Twilio's pricing page](https://www.twilio.com/en-us/whatsapp/pricing), makes automated transactional messages (order confirmations, shipping updates) nearly negligible cost, less than a third of a cent per message.
 
 ## Three Free Windows That Cut Your Bill
 
@@ -65,17 +75,23 @@ A business that routes most outreach through click-to-WhatsApp ads can reduce it
 
 Meta doesn't offer direct API access to small businesses. You sign up through a Business Solution Provider, which adds its own cost on top of Meta's charges. Two pricing models dominate: per-message markup and monthly flat fee.
 
-| BSP | Their Fee | Meta Markup | Best for |
+| BSP | Their fee | Meta markup | Best for |
 |---|---|---|---|
-| [Twilio](https://www.twilio.com/en-us/whatsapp/pricing) | $0.005/msg | Passed through | Low volume, pay-as-you-go |
-| [Telnyx](https://telnyx.com/resources/whatsapp-business-api-cost) | $0.004/msg | Passed through | Low volume, pay-as-you-go |
-| [360dialog Regular](https://360dialog.com/pricing) | €49/month | Zero markup | 10,000+ msgs/month |
-| [360dialog Premium](https://360dialog.com/pricing) | €99/month | Zero markup | High volume + priority support |
-| WATI | $49–$299/month plan | Passed through | Teams needing a built-in inbox |
+| Twilio | $0.005/msg | Passed through | Low volume, pay-as-you-go |
+| Telnyx | $0.004/msg | Passed through | Low volume, pay-as-you-go |
+| 360dialog Regular | €49/month per number | No markup | Steady monthly volume |
+| 360dialog Premium | €99/month per number | No markup | High volume + priority support |
+| Wati | $49 / $99 / $299 per month | Passed through | Teams needing a built-in inbox |
 
-**The crossover math.** Twilio's $0.005/message markup equals 360dialog's €49/month at roughly 10,000 messages (€49 ÷ $0.005, from the cited rates above, at near-parity exchange rates). Below that, per-message billing costs less because you're not paying for capacity you don't use. Above it, a flat-fee platform with zero per-message markup wins.
+Where each row comes from: Twilio publishes a message handling fee of $0.005 on [its WhatsApp pricing page](https://www.twilio.com/en-us/whatsapp/pricing), charged on inbound and outbound alike.
 
-360dialog [explicitly states](https://360dialog.com/pricing) zero markup on Meta fees: your invoice shows Meta's rate passed through at cost, plus their platform fee. That transparency matters when marketing message rates vary as widely as they do.
+[Telnyx](https://telnyx.com/resources/whatsapp-business-api-cost) publishes $0.004 per message.
+
+[360dialog](https://360dialog.com/pricing) lists WhatsApp API Regular and Premium as monthly per-number plans and states no markup on Meta fees, so your invoice shows Meta's rate passed through at cost plus the platform fee.
+
+Wati's three plan tiers, topping out at $299 per month, come from [SetSmart's BSP comparison](https://setsmart.io/blog/whatsapp-business-api-pricing).
+
+**The crossover math.** Twilio's per-message markup equals 360dialog's monthly plan fee at roughly 10,000 messages, a calculation of €49 ÷ $0.005 at near-parity exchange rates. Below that, per-message billing costs less because you're not paying for capacity you don't use. Above it, a flat-fee platform with no per-message markup wins.
 
 ## What a Small Business Actually Pays Per Month
 
@@ -108,7 +124,7 @@ Today is August 12, 2026. In 50 days, **service messages stop being free.**
 Starting October 1, Meta charges for every message sent inside a customer service window (the replies your agents send after a customer contacts you). Per-market service rates, per [Patagon AI's analysis](https://www.patagon.ai/blog-posts/whatsapp-business-api-pricing) of Meta's published rate cards:
 
 - **Mexico:** $0.0085/message
-- **Brazil:** $0.0068/message
+- **Brazil:** $0.0068/message, per [Patagon AI](https://www.patagon.ai/blog-posts/whatsapp-business-api-pricing)
 - **Colombia:** $0.0008/message
 
 A support team handling 300 inbound conversations/month in Mexico, averaging 3 replies each, generates 900 service messages × $0.0085 = **$7.65/month** in new costs. Not a budget emergency on its own, but it's a real line item that didn't exist before, and it compounds with volume. Design your automated flows to resolve in fewer exchanges before October.

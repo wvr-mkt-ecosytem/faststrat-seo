@@ -20,7 +20,11 @@ Let's put real numbers on it.
 
 ## What an agency actually costs
 
-For a small business, a competent full-service marketing agency typically runs [**$3,000–$10,000 per month**](https://clicksgeek.com/marketing-agency-monthly-retainer-cost/) on retainer, with specialized agencies (paid media, SEO) often charging [**15–20% of ad spend**](https://www.swydo.com/blog/agency-pricing/) on top of that. A year with a mid-tier agency easily clears **$60,000–$100,000**.
+For a small business, a competent full-service marketing agency [typically runs](https://clicksgeek.com/marketing-agency-monthly-retainer-cost/) **$3,000–$10,000 per month** on retainer.
+
+Specialized agencies (paid media, SEO) [often charge](https://www.swydo.com/blog/agency-pricing/) **15–20% of ad spend** on top of that.
+
+None of that is a one-time cost, which is the part owners underestimate. The retainer repeats every month, so running that same range for a full year multiplies out to **$36,000–$120,000**, plus the percentage on whatever you push through the ad platforms. The number that decides your bill is not the rate you negotiated, it is how many months you keep paying it.
 
 What you get for it:
 - Strategy and a team of specialists
@@ -58,7 +62,9 @@ The DIY stack costs **dramatically less**. The question is whether that saving i
 
 ## A specific example: Meta ads
 
-Owners frequently search for "the average cost of a Meta ads agency vs. DIY." A specialist agency managing your Meta ads commonly charges [**a $1,000–$2,500/month management fee or 15–20% of ad spend**](https://www.get-ryze.ai/blog/meta-ads-management-cost-pricing-guide-2026). On a $5,000/month ad budget, that is $750–$1,000/month *just for management*, $9,000–$12,000 a year before a single ad runs.
+Owners frequently search for "the average cost of a Meta ads agency vs. DIY." For an account spending $5,000–$15,000/month, a specialist agency's [entry tier](https://www.get-ryze.ai/blog/meta-ads-management-cost-pricing-guide-2026) runs **$2,000–$3,500/month, or 20–25% of spend**.
+
+That fee is charged *just for management*, before a single ad runs, and it repeats: twelve months at the bottom of that tier is $24,000 on top of the ads themselves. It also scales with your budget rather than with the work, so the agency's cut grows in months when the account needs no new thinking at all.
 
 A DIY operator using an AI campaign tool to draft creative, write copy variants, and manage the campaign pays the tool fee (often under $200/month) and spends the saved management fee on actual ads. On modest budgets, DIY almost always wins on pure efficiency. Agencies pull ahead at larger spend, where expert optimization moves enough money to justify their cut.
 

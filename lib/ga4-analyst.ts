@@ -2,6 +2,7 @@ import { runClaude } from "@/lib/claude";
 import { pageStats, joinWithSearch, type Joined } from "@/lib/ga4";
 import { queryAnalytics } from "@/lib/gsc";
 import { getBlogPosts } from "@/lib/blog";
+import { diagnosticar } from "@/lib/seo-diagnostics";
 
 // El analista de GA4: convierte los números en qué escribir.
 //
@@ -28,7 +29,14 @@ import { getBlogPosts } from "@/lib/blog";
 //    mezclarlos hace que lo caro se elija por costumbre.
 
 export interface Recommendation {
-  kind: "rewrite-title" | "improve-page" | "new-article" | "add-cta";
+  /**
+   * Qué clase de acción es. `consolidate` y `technical-fix` se añadieron
+   * porque el análisis manual encontró que lo más rentable no era escribir
+   * nada: era fusionar URLs que competían entre sí y sacar de Google el
+   * entorno de desarrollo. Sin estos tipos, el agente empujaba todo hacia
+   * "escribe otro artículo", que es la acción más cara de la lista.
+   */
+  kind: "rewrite-title" | "improve-page" | "new-article" | "add-cta" | "consolidate" | "technical-fix";
   target: string;
   reason: string;
   evidence: string;
@@ -63,9 +71,27 @@ Reglas que no puedes romper:
 - No propongas temas que ya estén en la lista de artículos escritos que te paso.
 - Prioriza por esfuerzo/retorno: reescribir un título de una página que ya tiene impresiones es más barato que un artículo nuevo, y va primero.
 - Nada de relleno. Si solo hay tres cosas que valen la pena, devuelve tres.
+CÓMO ANALIZAR (el método, no una conclusión: los datos cambian cada corrida y el análisis tiene que cambiar con ellos)
+
+Antes de recomendar nada, haz este trabajo sobre los datos que te llegan HOY. Puede que esta semana la respuesta sea la contraria a la de la semana pasada; eso es lo esperable, no un error.
+
+1. Comprueba si las impresiones son demanda real. Mira el reparto humano/prompt que te doy. Si el grueso viene de consultas con forma de instrucción, el CTR medio del sitio no mide nada: en esas superficies la respuesta se sintetiza y nadie hace clic, así que rankear primero ahí no trae a nadie. Cuando sea el caso, dilo antes que cualquier recomendación de título y recalcula tu lectura sobre el volumen humano.
+
+2. Separa "no la ven" de "la ven y no la clican" de "entran y se van". Cada una es un arreglo distinto y confundirlas hace perder semanas. La posición y las impresiones dicen cuál es.
+
+3. Con los HALLAZGOS YA CALCULADOS que te paso: no los recalcules ni los presentes como tuyos, pero pronúnciate sobre CADA uno con su causa y su acción. Si uno no merece acción esta vez, dilo y explica por qué. Si la lista viene vacía, no te la inventes.
+
+4. Busca en la web lo que los números no pueden decir: qué resultados rodean a nuestra página en esa consulta y qué prometen ellos que nosotros no.
+
+5. Ordena por lo que más tráfico mueve con menos trabajo. Un título reescrito sobre una página que ya tiene impresiones rinde antes que un artículo nuevo.
+
+Reglas de forma para las acciones:
+- Para canibalización: di cuál URL sobrevive y cuáles se redirigen a ella, con las rutas escritas. Nunca "consolidar el contenido".
+- Para un arreglo técnico: di el cambio exacto (qué URL, qué directiva, dónde), no "revisar la indexación".
+- Para un título: escríbelo entero, contando los caracteres.
 
 Devuelve SOLO un JSON válido, sin texto alrededor, con esta forma:
-{"recommendations":[{"kind":"rewrite-title|improve-page|new-article|add-cta","target":"/ruta o tema","reason":"qué pasa, en una frase","cause":"por qué pasa, el mecanismo","evidence":"el dato exacto de los nuestros que lo sostiene","sourceUrl":"URL de lo que consultaste fuera, o cadena vacía","suggestion":"qué hacer, escrito para poder copiarlo","priority":"alta|media|baja"}]}`;
+{"recommendations":[{"kind":"rewrite-title|improve-page|new-article|add-cta|consolidate|technical-fix","target":"/ruta o tema","reason":"qué pasa, en una frase","cause":"por qué pasa, el mecanismo","evidence":"el dato exacto de los nuestros que lo sostiene","sourceUrl":"URL de lo que consultaste fuera, o cadena vacía","suggestion":"qué hacer, escrito para poder copiarlo","priority":"alta|media|baja"}]}`;
 
 /** Resume una página en una línea, para que quepan muchas en el prompt. */
 const line = (p: Joined) =>
@@ -77,7 +103,15 @@ export async function analyse(days = 28): Promise<AnalystResult> {
   // el resultado era cero páginas y el agente analizaba la nada y aun así
   // devolvía recomendaciones. Un fallo de red se leía como "no hay tráfico",
   // que es la conclusión contraria y la que peor decisión provoca.
-  const [ga, gscRes] = await Promise.all([pageStats(days), queryAnalytics("page", days)]);
+  const [ga, gscRes, queryRes] = await Promise.all([
+    pageStats(days),
+    queryAnalytics("page", days),
+    // Las consultas, además de las páginas. Sin ellas no se puede separar el
+    // volumen humano del que llega de superficies de IA, y ese reparto cambia
+    // la lectura de todo lo demás: con la mayoría de las impresiones viniendo
+    // de prompts, el CTR medio del sitio no significa nada.
+    queryAnalytics("query", days, 1000).catch(() => ({ rows: [] })),
+  ]);
 
   const gsc = (gscRes.rows ?? []).map((r) => ({
     page: r.page,
@@ -98,6 +132,30 @@ export async function analyse(days = 28): Promise<AnalystResult> {
   };
 
   const written = getBlogPosts().map((p) => p.title);
+
+  // Lo que se calcula, calculado antes de llamar al agente: canibalización,
+  // slugs truncados, entornos indexados, páginas que rankean sin clics y el
+  // reparto humano/prompt. Todo eso es determinista y estaba invisible; darle
+  // al agente los hallazgos ya hechos deja su criterio para el porqué.
+  const diag = diagnosticar(
+    gsc.map((g) => ({ page: g.page ?? "", clicks: g.clicks, impressions: g.impressions, position: g.position })),
+    (queryRes.rows ?? []).map((r) => ({
+      query: r.query ?? "",
+      clicks: r.clicks,
+      impressions: r.impressions,
+      position: r.position,
+    })),
+  );
+
+  // El texto de los hallazgos se arma aquí y no dentro de la plantilla: meter
+  // saltos de línea dentro de un template anidado es una fuente de errores de
+  // sintaxis sin ninguna ventaja.
+  const SALTO = "\n";
+  const hallazgosTexto = diag.hallazgos.length
+    ? diag.hallazgos
+        .map((h) => `- [${h.tipo}] ${h.detalle}` + SALTO + "  " + h.ejemplos.slice(0, 4).join(SALTO + "  "))
+        .join(SALTO)
+    : "- (ninguno esta vez)";
 
   // Se mandan los casos accionables, no las 500 filas: un prompt con todo
   // diluye la señal y cuesta más. Se ordena por impresiones dentro de cada
@@ -128,6 +186,14 @@ export async function analyse(days = 28): Promise<AnalystResult> {
   const prompt = `Periodo: últimos ${days} días.
 Totales del sitio: ${totals.clicks} clics desde búsqueda, ${totals.sessions} sesiones, ${totals.conversions} conversiones.
 Reparto por diagnóstico: ${JSON.stringify(counts)}
+
+DE DÓNDE VIENE EL VOLUMEN (esto cambia cómo se leen los demás números):
+- Consultas humanas: ${diag.volumen.humano.consultas}, con ${diag.volumen.humano.impresiones} impresiones y ${diag.volumen.humano.clics} clics. CTR real ${diag.volumen.ctrHumano}%.
+- Consultas con forma de prompt (superficies de IA, no personas buscando): ${diag.volumen.prompts.consultas}, con ${diag.volumen.prompts.impresiones} impresiones y ${diag.volumen.prompts.clics} clics.
+${diag.volumen.peores.map((x) => "  - " + x).join("\n")}
+
+HALLAZGOS YA CALCULADOS (no los recalcules, explícalos y di qué hacer):
+${hallazgosTexto}
 
 PÁGINAS (ruta | clics, impresiones, posición, sesiones, segundos medios, conversiones | diagnóstico):
 ${muestra.map(line).join("\n")}

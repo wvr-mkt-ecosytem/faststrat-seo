@@ -112,11 +112,18 @@ for (const archivo of archivos) {
       .filter((u) => !/^https?:\/\/([^/]*\.)?faststrat\.ai/i.test(u));
     if (!urls.length) continue;
 
-    // Se quitan los enlaces ANTES de buscar cifras. Si no, los números de la
-    // propia URL cuentan como afirmaciones: un slug acabado en "-06082020" se
-    // leía como la cifra "060820" y se reportaba que la página no la contiene,
-    // lo cual es cierto y completamente irrelevante.
-    const prosa = linea.replace(ENLACE, " ");
+    // Se quita la URL pero se CONSERVA el texto del enlace.
+    //
+    // La primera versión quitaba el enlace entero para que los números del
+    // slug no contaran como afirmaciones ("-06082020" se leía como la cifra
+    // "060820"). Pero eso abrió un agujero peor: una cifra escrita DENTRO del
+    // ancla, como [7-8% of revenues](url), se volvía invisible y el archivo
+    // reportaba "0 cifras comprobadas", un limpio falso. Dos artículos daban
+    // exactamente eso, y casi todas sus citas estaban escritas así.
+    //
+    // Enterrar el dato en el texto del enlace no puede ser la forma de esquivar
+    // la comprobación, que es justo lo que este script vino a impedir.
+    const prosa = linea.replace(ENLACE, (_m, texto) => ` ${texto} `);
     const cifras = [...new Set((prosa.match(CIFRA) || []).map((c) => c.trim()))]
       // Los años no son afirmaciones que verificar.
       .filter((c) => !/^\b(19|20)\d{2}$/.test(c.replace(/[$%\s]/g, "")))

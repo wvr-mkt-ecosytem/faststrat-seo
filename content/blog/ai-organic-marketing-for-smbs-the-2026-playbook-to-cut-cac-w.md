@@ -23,7 +23,7 @@ Paid ads are getting more expensive and less predictable. Google CPCs in competi
 
 ## Why Organic Has Become the Smarter CAC Play
 
-The math on paid has gotten hard to ignore. A modest Google Ads campaign for a local service SMB now typically runs $8–$25 per click in competitive niches (legal, HVAC, dental, software), [per 2026 WordStream benchmarks](https://www.wordstream.com/blog/2026-google-ads-benchmarks). If your conversion rate is 2–4%, you're paying $200–$600 per lead before you've even talked to them. Organic traffic, once established, delivers the same lead for $0 in marginal cost.
+The math on paid has gotten hard to ignore. In the most competitive local service niches, [2026 WordStream benchmarks](https://www.wordstream.com/blog/2026-google-ads-benchmarks) put the average Google Ads click at $8.33 for home improvement and $9.87 for attorneys and legal services. The cost that actually matters is per lead, and in those same categories it lands at $90.92 and $131.63 respectively, and dentists sit at $72.97 per lead. That is what you pay before anyone has answered the phone. Organic traffic, once established, delivers the same lead for $0 in marginal cost.
 
 The objection used to be speed: organic takes 6–18 months to build. **That's still partly true for SEO authority, but AI compresses almost every other part of the workflow.** You can now produce a month of optimized blog content in a few hours, schedule 30 days of social posts in an afternoon, and set up a full email nurture sequence in a day. The constraint shifts from "how do I make enough content" to "how do I make content that actually ranks and converts."
 

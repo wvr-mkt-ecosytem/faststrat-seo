@@ -24,7 +24,7 @@ Agency pricing hasn't gotten simpler, it's gotten more tiered. Most agencies tha
 
 **1. Flat monthly retainer:** Ranges from $1,200 to $3,500/month for SMBs spending $3,000–$15,000/month on ads. Typically includes strategy, creative direction, campaign setup, weekly reporting, and ongoing optimization. What it often does *not* include: ad creative production, copywriting, or landing page work, those get billed separately.
 
-**2. Percentage of ad spend:** The industry standard is **[10%–20% of monthly ad spend](https://superscale.ai/learn/meta-ads-management-cost/)**, with a minimum retainer floor (usually $1,000–$1,500). If you're spending $10,000/month on ads, you're paying the agency $1,000–$2,000 on top of that. At $25,000/month ad spend, the math gets uncomfortable fast.
+**2. Percentage of ad spend:** The [industry standard](https://superscale.ai/learn/meta-ads-management-cost/) is **10%–20% of monthly ad spend**, and the [published tiers](https://superscale.ai/learn/meta-ads-management-cost/) run from $1,000 in spend for a $100–$200 fee, up to $20,000 in spend for a $2,000–$4,000 fee. Underneath the percentage sits a flat minimum, and at small budgets [that minimum can exceed the ad budget itself](https://superscale.ai/learn/meta-ads-management-cost/). The math gets uncomfortable fast at the top of the range, because the fee tracks your budget rather than the difficulty of running the account.
 
 **3. Performance-based or hybrid:** Becoming more common in 2025–2026. An agency charges a lower base fee ($800–$1,500) plus a bonus tied to ROAS, CPL, or revenue milestones. Good in theory, harder to verify in practice without solid attribution.
 

@@ -14,19 +14,19 @@ Si tu PYME usa WhatsApp para vender o atender clientes en México, elegir mal el
 
 ---
 
-**Respuesta directa:** En México en 2026, el costo de WhatsApp Business API tiene dos capas: la tarifa de Meta por conversación (que varía entre ~$0.00 y ~$0.055 USD según el tipo) y el margen del proveedor de servicios de negocio (BSP) como Twilio, que agrega entre $0.005 y $0.008 USD por mensaje enviado más sus tarifas de plataforma. Una PYME que envía 5,000 conversaciones de marketing al mes puede esperar pagar entre $280 y $420 USD mensuales en costos combinados, sin contar automatización.
+**Respuesta directa:** En México en 2026, el costo de WhatsApp Business API tiene dos capas: la tarifa de Meta por mensaje entregado (gratuita para los mensajes de servicio y hasta unos $0.04 USD para una plantilla de marketing) y el margen del proveedor de servicios de negocio (BSP) como Twilio, que agrega su propia tarifa por mensaje más el costo de plataforma. Cuál de las dos capas manda depende de una sola variable: qué proporción de tu volumen es marketing saliente, porque es la única categoría que Meta cobra siempre y la única sin descuentos por volumen.
 
 ---
 
 ## El modelo de precios de WhatsApp Business API: cómo funciona en 2026
 
-WhatsApp Business Platform no es una app, es una API que accedes a través de un **Business Solution Provider (BSP)** autorizado por Meta. No pagas por número de mensajes individuales, sino por **conversaciones de 24 horas**, y el precio depende de quién inició el contacto y el propósito del mensaje.
+WhatsApp Business Platform no es una app, es una API que accedes a través de un **Business Solution Provider (BSP)** autorizado por Meta. Desde el 1 de julio de 2025 pagas por **cada plantilla entregada**, no por conversación, y el precio depende de la categoría del mensaje y del código de país de quien lo recibe.
 
-Meta actualiza sus tarifas periódicamente. Los cambios más importantes que entraron en vigor durante 2024 y se mantienen en 2026:
+Meta actualiza sus tarifas cada trimestre. Lo que conviene tener claro en 2026:
 
-- **Las conversaciones de servicio (usuario que escribe primero) son gratuitas**, un cambio significativo que Meta implementó para incentivar el uso de canales de atención.
-- Las conversaciones de **marketing, utilidad y autenticación** siguen siendo de pago.
-- Cada número de WABA (WhatsApp Business Account) tiene **1,000 conversaciones gratuitas al mes** del tipo servicio.
+- **Los mensajes de servicio (la respuesta a un usuario que escribió primero) son gratuitos**, sin tope de volumen y sin cuota mensual.
+- Las plantillas de **marketing, utilidad y autenticación** se cobran una por una, cada vez que se entregan.
+- Las plantillas de utilidad y autenticación enviadas dentro de una ventana de atención abierta tampoco se cobran; las de marketing se cobran siempre.
 
 Este modelo favorece a las PYMEs que reciben muchas consultas inbound pero penaliza a quienes dependen del envío masivo de campañas outbound, que es exactamente donde hay que hacer los cálculos bien.
 
@@ -38,12 +38,16 @@ Los precios de Meta son en USD y se aplican según el país del número receptor
 
 | Tipo de conversación | ¿Quién inicia? | Costo aprox. por conversación (USD) |
 |---|---|---|
-| **Servicio** | Usuario | **$0.00 (gratuita)** |
-| **Utilidad** | Empresa | ~$0.014 – $0.018 |
-| **Autenticación** | Empresa | ~$0.014 – $0.018 |
-| **Marketing** | Empresa | ~$0.048 – $0.058 |
+| **Servicio** | Usuario | **$0.00 (gratuito)** |
+| **Utilidad** | Empresa | $0.0080 – $0.0085 |
+| **Autenticación** | Empresa | $0.0085 – $0.0207 |
+| **Marketing** | Empresa | $0.0305 – $0.0436 |
 
-*Nota: los rangos de la tabla son ilustrativos y sirven para hacer cuentas, no sustituyen al tarifario. Desde el 1 de julio de 2025 Meta factura por mensaje entregado y no por conversación, y publica el rate card oficial por país en [Pricing on the WhatsApp Business Platform](https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing) y en la [calculadora de precios de WhatsApp Business](https://whatsappbusiness.com/es-la/products/platform-pricing/). Consúltalos antes de presupuestar.*
+Los rangos salen de dos transcripciones del rate card de Meta que no coinciden entre sí: [EngageLab](https://www.engagelab.com/blog/whatsapp-business-api-pricing) publica México en $0.0305 de marketing con utilidad y autenticación en $0.0085 por mensaje.
+
+[SetSmart](https://setsmart.io/blog/whatsapp-business-api-pricing) publica el mismo mercado en $0.0436 de marketing, $0.0080 de utilidad y $0.0207 de autenticación.
+
+*Nota: desde el 1 de julio de 2025 Meta factura por mensaje entregado y no por conversación, y dejó de imprimir las tarifas por país en su documentación. Las reparte en rate cards descargables y en una calculadora interactiva que revisa cada trimestre, así que ninguna tabla de terceros, incluida esta, sustituye al tarifario. Consulta la [documentación de precios de Meta](https://developers.facebook.com/docs/whatsapp/pricing/) y la [calculadora de precios de WhatsApp Business](https://whatsappbusiness.com/es-la/products/platform-pricing/) antes de presupuestar.*
 
 Los mensajes de **utilidad** son notificaciones funcionales: confirmación de pedido, actualización de envío, recordatorio de cita. Los de **autenticación** son OTPs y verificaciones. Los de **marketing** son cualquier mensaje promocional, oferta o conversación iniciada por la empresa sin ser notificación directa de una transacción.
 
@@ -59,18 +63,18 @@ El modelo de costos de Twilio para WhatsApp tiene tres componentes:
 
 1. **Tarifa de conversación de Meta** (la tabla de arriba, Twilio la pasa al cliente).
 2. **Tarifa por mensaje de Twilio:** $0.005 USD por mensaje, según su [página oficial de precios de WhatsApp](https://www.twilio.com/en-us/whatsapp/pricing). Esto es adicional a la tarifa de Meta.
-3. **Costo de número de teléfono:** entre $1.15 y $2.00 USD/mes por número local.
+3. **La misma tarifa en los mensajes entrantes:** Twilio aplica su fee de manejo tanto a lo que envías como a lo que recibes, así que cada respuesta del cliente también suma. Es la variable que más se subestima en las cuentas: un flujo conversacional con muchos idas y vueltas multiplica esta capa, aunque Meta no cobre nada por esos mensajes dentro de la ventana de 24 horas.
 
 ### Ejemplo de costo real con Twilio en México
 
-Imagina que envías 3,000 conversaciones de marketing en un mes, con un promedio de 2 mensajes enviados por conversación:
+Imagina que envías 3,000 plantillas de marketing en un mes, que 3,000 clientes te responden y que cada respuesta genera un mensaje entrante:
 
-- Costo Meta (marketing), escenario ilustrativo: 3,000 × $0.053 = **$159 USD**
-- Costo Twilio por mensajes enviados, mismo escenario ilustrativo: 6,000 × $0.005 = **$30 USD**
-- Número de teléfono: **~$1.50 USD**
-- **Total estimado: ~$190.50 USD/mes**
+- Costo Meta (marketing), escenario ilustrativo: 3,000 × $0.0436 = **$130.80 USD**
+- Costo Twilio por mensajes salientes, mismo escenario ilustrativo: 3,000 × $0.005 = **$15 USD**
+- Costo Twilio por mensajes entrantes, mismo escenario ilustrativo: 3,000 × $0.005 = **$15 USD**
+- **Total calculado del escenario: $160.80 USD/mes**
 
-Si a eso le sumas el costo de tu plataforma de chatbot o CRM de WhatsApp (que suele ir de $49 a $299/mes), el costo real se puede ir fácilmente a los $250–$500 USD mensuales para una PYME con volumen moderado.
+Si a eso le sumas el costo de tu plataforma de chatbot o CRM de WhatsApp, el costo real se puede ir fácilmente al doble para una PYME con volumen moderado. Los planes de Wati, por ejemplo, llegan hasta $299 al mes según la [comparativa de BSPs de SetSmart](https://setsmart.io/blog/whatsapp-business-api-pricing).
 
 ---
 
@@ -94,16 +98,16 @@ Twilio no es el único camino. Aquí una comparativa honesta de los proveedores 
 
 ## Casos de uso y costos reales para PYMEs mexicanas
 
-Para que los números tengan contexto, aquí tres escenarios ilustrativos. Los volúmenes son supuestos, no datos de clientes reales, y las tarifas unitarias salen del [rate card oficial de Meta](https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing):
+Para que los números tengan contexto, aquí tres escenarios ilustrativos. Los volúmenes son supuestos, no datos de clientes reales, y las tarifas unitarias salen de la tabla de arriba, con la [documentación de precios de Meta](https://developers.facebook.com/docs/whatsapp/pricing/) como referencia del modelo de cobro:
 
 ### Tienda en línea (e-commerce)
-Supongamos una tienda de ropa en Guadalajara que recibe ~800 mensajes de clientes al mes (servicio, gratuitos) y envía 2,000 notificaciones de confirmación de pedido (utilidad). Costo calculado del ejemplo ilustrativo: 2,000 × $0.016 = **$32 USD/mes en tarifas de Meta**. Con Twilio añaden ~$12 en fees de mensajes. Total: ~$45 USD/mes. Muy manejable.
+Supongamos una tienda de ropa en Guadalajara que recibe ~800 mensajes de clientes al mes (servicio, gratuitos) y envía 2,000 notificaciones de confirmación de pedido (utilidad). Costo calculado del ejemplo ilustrativo: 2,000 × $0.0085 = **$17 USD/mes en tarifas de Meta**. Con Twilio se añaden 2,000 × $0.005 = $10 en fees de mensajes. Total: ~$27 USD/mes. Muy manejable.
 
 ### Clínica o consultorio médico
-Supongamos 1,500 recordatorios de cita (utilidad) y 500 mensajes de seguimiento post-consulta que Meta podría clasificar como marketing. Costo calculado del escenario ilustrativo: (1,500 × $0.016) + (500 × $0.053) = $24 + $26.50 = **$50.50 USD/mes en Meta**. El clasificar bien los templates puede ahorrarles entre $20–$40 al mes.
+Supongamos 1,500 recordatorios de cita (utilidad) y 500 mensajes de seguimiento post-consulta que Meta podría clasificar como marketing. Costo calculado del escenario ilustrativo: (1,500 × $0.0085) + (500 × $0.0436) = $12.75 + $21.80 = **$34.55 USD/mes en Meta**. Reclasificar esos 500 mensajes como utilidad bajaría la segunda mitad de $21.80 a $4.25 en el mismo cálculo.
 
 ### Agencia inmobiliaria con campañas activas
-Supongamos 8,000 conversaciones de marketing al mes para seguimiento de leads. Costo Meta calculado en este escenario ilustrativo: 8,000 × $0.053 = **$424 USD/mes**. Con Twilio (2 mensajes promedio por conversación, ejemplo ilustrativo): 16,000 × $0.005 = $80 adicionales. Total: ~$504 USD/mes. En este volumen, comparar BSPs con modelo de suscripción (como 360dialog) puede ser más rentable.
+Supongamos 8,000 plantillas de marketing al mes para seguimiento de leads. Costo Meta calculado en este escenario ilustrativo: 8,000 × $0.0436 = **$348.80 USD/mes**. Con Twilio: 8,000 × $0.005 = $40 adicionales. Total: ~$388.80 USD/mes. En este volumen, comparar BSPs con modelo de suscripción (como 360dialog) puede ser más rentable.
 
 ---
 
@@ -111,7 +115,7 @@ Supongamos 8,000 conversaciones de marketing al mes para seguimiento de leads. C
 
 Reducir el costo no significa mandar menos mensajes, significa mandar los mensajes correctos por el canal correcto:
 
-**1. Clasifica bien tus templates desde el inicio.** Un mensaje de "tu pedido está en camino" correctamente registrado como utilidad vs. marketing puede ser la diferencia entre $0.016 y $0.053 por conversación. Antes de crear cualquier template, lee las guías de clasificación de Meta.
+**1. Clasifica bien tus templates desde el inicio.** Un mensaje de "tu pedido está en camino" correctamente registrado como utilidad vs. marketing puede ser la diferencia entre $0.0085 y $0.0436 por mensaje entregado, con los rangos de la tabla de arriba. Antes de crear cualquier template, lee las guías de clasificación de Meta.
 
 **2. Activa el opt-in correcto para capitalizar conversaciones de servicio.** Si entrenas a tus clientes a escribirte primero (con CTAs claros en Instagram, tu sitio o empaque), esas conversaciones son gratuitas. Muchas PYMEs pagan por iniciar conversaciones que el cliente hubiera iniciado solo con un poco de fricción menos.
 
@@ -126,7 +130,7 @@ Reducir el costo no significa mandar menos mensajes, significa mandar los mensaj
 ## Preguntas frecuentes (FAQ)
 
 **¿Cuánto cuesta WhatsApp Business API en México en 2026?**
-El costo tiene dos partes: las tarifas de Meta por conversación (entre $0.00 para servicio y ~$0.055 USD para marketing) más la tarifa del proveedor (BSP) que varía entre $0.004–$0.008/mensaje enviado o una suscripción mensual. Calculado sobre un escenario ilustrativo de una PYME con 2,000–5,000 conversaciones mensuales, el rango sale entre $50 y $350 USD/mes en costos de plataforma, sin contar herramientas de automatización.
+El costo tiene dos partes: las tarifas de Meta por mensaje entregado (gratuito para servicio, entre $0.0080 y $0.0207 para utilidad y autenticación, entre $0.0305 y $0.0436 para marketing según las transcripciones citadas arriba) más la tarifa del BSP, que es por mensaje o por suscripción mensual. Calculado sobre un escenario ilustrativo de una PYME que envía 2,000 plantillas de utilidad y 3,000 de marketing al mes, la capa de Meta sale entre $108 y $148 USD/mes.
 
 **¿Twilio es el mejor BSP para una empresa en México?**
 Depende del contexto. Twilio es excelente si tienes un equipo técnico que quiere control total sobre la integración. Si no tienes desarrolladores propios o prefieres una solución más plug-and-play, BSPs como 360dialog, Bird o soluciones locales con soporte en español pueden ser más prácticos y no necesariamente más caros a volúmenes medios.
@@ -141,7 +145,7 @@ Sí, siempre que tengas el **opt-in documentado** de cada contacto (que aceptaro
 
 ## Conclusión: elige el proveedor con los ojos abiertos
 
-En 2026, WhatsApp Business API en México sigue siendo uno de los canales con mejor economía para PYMEs por una razón que sí puedes comprobar en la documentación de Meta: cuando el cliente escribe primero se abre una ventana de atención de 24 horas en la que responder no cuesta nada, porque los mensajes que no son plantilla son gratuitos dentro de esa ventana ([documentación oficial de precios de Meta](https://developers.facebook.com/documentation/business-messaging/whatsapp/pricing)). Ningún canal de email te da eso. Pero ese potencial se erosiona rápido si pagas de más por el proveedor equivocado o clasificas mal tus conversaciones.
+En 2026, WhatsApp Business API en México sigue siendo uno de los canales con mejor economía para PYMEs por una razón que sí puedes comprobar en la documentación de Meta: cuando el cliente escribe primero se abre una ventana de atención de 24 horas en la que responder no cuesta nada, porque los mensajes que no son plantilla son gratuitos dentro de esa ventana ([documentación oficial de precios de Meta](https://developers.facebook.com/docs/whatsapp/pricing/)). Ningún canal de email te da eso. Pero ese potencial se erosiona rápido si pagas de más por el proveedor equivocado o clasificas mal tus conversaciones.
 
 **El resumen práctico:** si estás comenzando o tienes menos de 5,000 conversaciones/mes, Twilio es una opción sólida por su facilidad técnica, pero compara con 360dialog o Gupshup antes de comprometerte. Si ya pasas las 10,000 conversaciones, negocia tarifas directamente. Y siempre, siempre clasifica bien tus templates.
 
