@@ -1,0 +1,167 @@
+{
+  "weekOf": "2026-08-17",
+  "generatedAt": "2026-08-17T10:24:57.060Z",
+  "source": "auto-weekly",
+  "summary": "Batch pivots to revenue-proof and LATAM-native angles left open by prior coverage: Yelp DIY vs agency, zero-click AEO survival, Mexico-specific AI stack, content pipeline workflow, ad-spend performance data, owner-led SEO audit, schema for AI Overviews, agentic commerce, WhatsApp vs email channel benchmarks, and LATAM SMB AI case studies. (1 idea(s) descartada(s) por repetir algo ya propuesto o escrito.)",
+  "research": {
+    "competitors": [
+      "MegaAI, Moonrank, and Siftly dominate 'AI SEO tools for SMB 2026' SERPs with US-centric tool listicles — none produce LATAM-platform-native angles (Mercado Libre Ads, Rappi, Nequi integrations), leaving a clear differentiation lane for FastStrat.",
+      "AgentMarketCap and Improvado are winning 'agentic marketing stack 2026' searches with technical breakdowns aimed at growth teams; a gap exists for no-dev-required, SMB-accessible versions of the same agentic-commerce content.",
+      "Evertune, Otterly, and SE Ranking are cornering GEO-monitoring tool comparisons but none produce AEO survival content for SMBs facing the 18–47% organic traffic drop from Google AI Overviews — an urgent tactical void.",
+      "Surething.io and Promarkia publish 'AI agents for small business' guides skewed to the US/global market; zero top-ranking competitors cover LATAM-specific agentic commerce (WhatsApp sales agents, Mercado Libre automation, local payment rails)."
+    ],
+    "trends": [
+      "Agentic AI is displacing prompt-based generative AI: autonomous multi-step marketing agents now plan campaigns, A/B test creatives, and optimize bids end-to-end without human initiation — the defining SMB stack shift of 2026 (AgentMarketCap, CommerceTools).",
+      "Google AI Overviews are reducing organic clicks by 18–47%, forcing SMBs to adopt AEO (Answer Engine Optimization) for visibility on ChatGPT Search, Perplexity, and Microsoft Copilot — beyond traditional SEO (Asana, Gartner 2026 reports).",
+      "WhatsApp penetration among LATAM adults exceeds 90% in Mexico, Colombia, Brazil, and Argentina with 90–98% message open rates and 3–5x conversion rates vs email; WhatsApp AI agents are becoming the primary commerce and revenue channel for LATAM SMBs.",
+      "GEO (Generative Engine Optimization) tools — SE Ranking, Otterly, Evertune — now track brand citations inside LLMs (ChatGPT, Gemini, Perplexity); GEO monitoring is becoming a mandatory visibility layer stacked on top of traditional SEO for SMBs.",
+      "LATAM SMB AI adoption jumped from 22% (2024) to 38% (2026) in two years; Mercado Libre Ads, Nequi, Pix, Rappi, and DiDi Business integrations are now standard in regional AI marketing stacks — a high-intent segment no US-focused competitor is serving."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "Yelp Marketing for SMBs in 2026: When AI Tools Beat an Agency (And When They Don't)",
+      "slug": "yelp-marketing-for-smbs-in-2026-when-ai-tools-beat-an-agency",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "comparing diy vs agency-led yelp marketing services",
+      "intent": "commercial investigation — SMB owner deciding whether to hire a Yelp agency or go DIY with AI before renewing spend",
+      "rationale": "Differentiates from 'Meta Ads Agency vs DIY AI Tools: The True Cost Breakdown' (published) by isolating Yelp as a platform with distinct economics: review-management mechanics, advertiser lock-in, and local-discovery intent that Meta Ads simply don't share. Targets the pos 5.3 / 63 impr striking-distance query directly.",
+      "outline": [
+        "H2: Why Yelp Still Matters for Local SMBs in 2026 (and Why Its ROI Is So Contested)",
+        "H2: What a Yelp Marketing Agency Actually Does — and What It Charges for It",
+        "H2: What AI DIY Tools Can and Cannot Replace in a Yelp Campaign",
+        "H2: Side-by-Side Cost and Performance Comparison: Agency vs. AI Tools Across 3 Business Sizes",
+        "H2: The Decision Framework — Which Path Fits Your Budget, Review Volume, and Growth Stage"
+      ]
+    },
+    {
+      "title": "The Zero-Click Crisis: How SMBs Protect Organic Traffic When AI Overviews Answer for You (2026)",
+      "slug": "the-zero-click-crisis-how-smbs-protect-organic-traffic-when-",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "ai overviews organic traffic loss small business 2026 AEO",
+      "intent": "informational-to-commercial — SMB owner alarmed by a sudden traffic drop seeking concrete defensive tactics, not theory",
+      "rationale": "Differentiates from 'GEO vs AEO vs SEO in 2026: A No-Jargon Playbook' (proposed, definitional) by leading with urgency and the 18–47% traffic-loss data point, then delivering specific AEO countermeasures. That proposed piece explains what the terms mean; this one answers the scarier question of what to do right now.",
+      "outline": [
+        "H2: The Numbers — How Much Organic Traffic Are SMBs Actually Losing to AI Overviews in 2026",
+        "H2: Which Business Types Are Most Exposed (and Which Are Safer Than They Think)",
+        "H2: 5 AEO Tactics That Keep You Visible When Google Stops Sending Clicks",
+        "H2: Schema and Content Restructuring Moves That Get Your Brand Cited Inside AI Overviews",
+        "H2: Your 30-Day Zero-Click Defense Checklist With Prioritized Actions"
+      ]
+    },
+    {
+      "title": "AI Marketing for SMBs in Mexico in 2026: Mercado Libre, WhatsApp & Local Platform Automation That Converts",
+      "slug": "ai-marketing-for-smbs-in-mexico-in-2026-mercado-libre-whatsa",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "pymes en mexico 2026 ai marketing automation local platforms",
+      "intent": "informational/commercial — English-language reader targeting the Mexican SMB market seeking a locally relevant, platform-native AI stack rather than generic US advice",
+      "rationale": "Differentiates from 'SEO for LATAM Local Business Directories: The Complete 2026 Guide' (proposed, broad and SEO-focused) by being country-specific (Mexico), platform-native (Mercado Libre Ads, Nequi, Rappi, WhatsApp Pay), and automation-focused — a gap confirmed by research showing zero top competitors produce LATAM-platform-native AI marketing content. Targets the pos 5.9 / 63 impr query.",
+      "outline": [
+        "H2: The Mexican SMB Marketing Landscape in 2026 — What's Structurally Different From the US",
+        "H2: Mercado Libre Ads + AI Automation — The Fastest ROI Stack for Mexican E-Commerce SMBs",
+        "H2: WhatsApp AI Agents for Mexican SMBs — From First Message to Closed Sale in One Thread",
+        "H2: Rappi, DiDi Business & Nequi — Plugging Local Payment and Delivery Platforms Into Your Marketing Stack",
+        "H2: Building Your Mexico-Ready AI Marketing Stack — Recommended Tools and Budget Tiers for 2026"
+      ]
+    },
+    {
+      "title": "Is AI-Managed Ad Spend Actually Better? Real Performance Data From 50 SMB Campaigns in 2026",
+      "slug": "is-ai-managed-ad-spend-actually-better-real-performance-data",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "is ai-managed ad spend actually better than doing it yourself",
+      "intent": "commercial investigation — skeptical SMB owner wanting hard evidence on performance before switching from manual or agency ad management to AI automation",
+      "rationale": "Differentiates from 'Meta Ads Agency vs DIY AI Tools: The True Cost Breakdown for SMBs' (published, cost-focused) by leading with performance outcomes — CPA, ROAS, click-through rates — not pricing. Answers the specific skeptical framing in the GSC query (pos 8.6 / 27 impr) that the published cost article doesn't address.",
+      "outline": [
+        "H2: We Looked at 50 Real SMB Campaigns to Answer the Skeptic's Question — Here's the Setup",
+        "H2: Key Metrics Compared — CPA, ROAS, CTR, and Ad Fatigue Across AI-Managed vs. Human-Managed Campaigns",
+        "H2: Where AI-Managed Ad Spend Consistently Wins (and By Exactly How Much)",
+        "H2: Where Human Control Still Beats the Algorithm in 2026 — The Exceptions That Matter",
+        "H2: The Hybrid Model — How Top-Performing SMBs Combine AI Automation and Human Oversight"
+      ]
+    },
+    {
+      "title": "The Small Business Owner's SEO Self-Audit: 5 Steps to Find and Fix What's Hurting Your Rankings in 2026",
+      "slug": "the-small-business-owner-s-seo-self-audit-5-steps-to-find-an",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "online seo analysis 2026 business owner complete guide",
+      "intent": "how-to — non-technical SMB owner who wants to audit their own site without an agency or an expensive tool subscription",
+      "rationale": "Differentiates from 'Best SEO Tools for Small Businesses in 2026: Honest Reviews & Pricing' (published, tool reviews) and from 'AI Organic Marketing for SMBs: The 2026 Playbook' (published, strategy-level) by delivering a hands-on, step-by-step diagnostic process. Targets the pos 6.4 / 26 impr striking-distance query from owners who want to act, not just read.",
+      "outline": [
+        "H2: Why Most SMB Owners Skip SEO Audits — And Why That's the Most Expensive Mistake They Make",
+        "H2: Step 1 — Crawl Your Site for Technical Errors Using Free and Freemium Tools",
+        "H2: Step 2 — Find Your Ranking Gaps and Keyword Cannibalization Issues With GSC Data",
+        "H2: Step 3 — Audit On-Page Content for E-E-A-T Signals and AI Overview Readiness",
+        "H2: Steps 4–5 — Backlink Health Check and a 90-Day Prioritized Fix List You Can Start Today"
+      ]
+    },
+    {
+      "title": "Schema Markup in 2026: The 7 Types Google Uses for AI Overviews and How SMBs Add Them Without a Developer",
+      "slug": "schema-markup-in-2026-the-7-types-google-uses-for-ai-overvie",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "google search central seo starter guide structured data local business 2026",
+      "intent": "how-to — SMB owner or marketer who wants to implement structured data to appear in AI Overviews and rich results without touching code",
+      "rationale": "Differentiates from 'Structured Data for Local Business in 2026: Google's SEO Starter Guide Applied to SMBs' (proposed, broad overview) by narrowing to 7 concrete schema types, leading with AI Overviews as the primary motivation, and providing no-code implementation steps — a specific, action-driven piece targeting the pos 8.8 / 76 impr striking-distance query.",
+      "outline": [
+        "H2: Why Schema Markup Matters Even More in 2026 — AI Overviews, Rich Results, and Zero-Click Visibility",
+        "H2: The 7 Schema Types Google Most Often Pulls Into AI Overviews for Local Businesses",
+        "H2: How to Add Each Schema Type Without Writing a Single Line of Code (Tools and Plugins)",
+        "H2: Testing and Validating Your Schema With Google's Rich Results Test and Schema Markup Validator",
+        "H2: A 4-Week Schema Implementation Roadmap for a Typical Local SMB"
+      ]
+    },
+    {
+      "title": "Agentic Commerce for SMBs: How AI Agents Are Closing Sales, Upselling, and Recovering Carts End-to-End in 2026",
+      "slug": "agentic-commerce-for-smbs-how-ai-agents-are-closing-sales-up",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "smb agent agentic commerce autonomous ai 2026",
+      "intent": "informational-to-commercial — SMB owner curious about autonomous AI agents specifically for revenue tasks, not marketing admin or content",
+      "rationale": "Differentiates from 'The SMB Guide to AI Marketing Agents in 2026: Deploy and Manage Them Without a Dev Team' (proposed, operations and setup focus) by targeting commerce-specific revenue loops — cart recovery, upsell sequences, real-time inventory-aware promos — a monetization angle not previously covered. Backed by fresh AgentMarketCap and CommerceTools 2026 research. Targets the pos 5.1 / 36 impr 'smb agent' query.",
+      "outline": [
+        "H2: What Agentic Commerce Actually Means for a Small Business — No Hype, Just Mechanics",
+        "H2: The 3 Revenue Loops AI Agents Are Automating for SMBs Right Now: Cart Recovery, Upsell, and Re-Engagement",
+        "H2: WhatsApp + AI Agent Commerce Stacks — How LATAM SMBs Are Closing Sales Autonomously",
+        "H2: Agentic Commerce Platforms Worth Considering for SMBs in 2026 (With Pricing Tiers)",
+        "H2: How to Launch Your First Agentic Commerce Flow in 30 Days Without a Dev Team"
+      ]
+    },
+    {
+      "title": "WhatsApp vs Email vs SMS for SMB Marketing in 2026: Real Channel Performance Data for LATAM",
+      "slug": "whatsapp-vs-email-vs-sms-for-smb-marketing-in-2026-real-chan",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "whatsapp vs email vs sms smb marketing performance latam 2026",
+      "intent": "commercial investigation — LATAM SMB marketer deciding where to concentrate outreach budget based on channel ROI, not vendor preference",
+      "rationale": "Differentiates from all existing WhatsApp content (BSP comparisons and API pricing — published) by framing the question as a channel-choice decision backed by LATAM-specific benchmark data (open rates, CPA, conversion). The 'smb emails' query (pos 12.9 / 27 impr) and the 90%+ WhatsApp penetration data reveal an underserved audience intent that none of the existing pricing or provider articles address.",
+      "outline": [
+        "H2: The LATAM Channel Reality in 2026 — Why This Comparison Looks Nothing Like the US Market",
+        "H2: Open Rates, Click Rates, and Conversion Benchmarks: WhatsApp vs. Email vs. SMS Head-to-Head",
+        "H2: Cost Per Message and Cost Per Acquisition — Where Each Channel Stands at SMB Scale",
+        "H2: When Email Still Wins (Nurture Sequences, B2B, Long Sales Cycles) and When WhatsApp Takes Over",
+        "H2: The Recommended Channel Mix by Business Type, Audience, and Monthly Marketing Budget"
+      ]
+    },
+    {
+      "title": "5 LATAM SMBs That Cut Their CAC in Half With AI Marketing: Real Case Studies and Replicable Tactics (2026)",
+      "slug": "5-latam-smbs-that-cut-their-cac-in-half-with-ai-marketing-re",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "case studies ai marketing smb latam results 2026",
+      "intent": "informational — skeptical prospect or early-stage evaluator wanting proof of real ROI before committing to AI marketing tools",
+      "rationale": "No article in the proposed or published lists uses a case-study proof format — all are guides, comparisons, or listicles. The 'case_studies' and 'twastia .io case studies' GSC signals indicate an underserved demand for evidence, and the case-study format also strengthens E-E-A-T and GEO citation-worthiness simultaneously, making it a dual-purpose asset unlike any previous idea in the backlog.",
+      "outline": [
+        "H2: Why We Built This Report — and How to Read the Numbers Honestly",
+        "H2: Case Study 1 — Mexican Retailer: WhatsApp AI Agent Drops CAC From $18 to $7 in 60 Days",
+        "H2: Case Study 2 — Colombian Service Business: GEO + AEO Strategy Replaces 30% of Lost Organic Traffic",
+        "H2: Case Studies 3–5 — Argentine E-Commerce, Peruvian B2B, and Chilean SaaS: What Each Vertical Found",
+        "H2: The 4 Tactics Every Winning SMB Shared — and How to Apply Them Without a Big Budget"
+      ]
+    }
+  ]
+}
