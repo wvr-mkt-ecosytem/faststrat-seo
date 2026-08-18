@@ -38,7 +38,13 @@ export const dynamic = "force-dynamic";
 // para callar la regla, y por eso la segunda pasada comprueba el resultado y
 // no la intención.
 
-const HOUSE: HouseRules = { noEmDash: true };
+// Las reglas de casa, en un solo sitio.
+//
+// `urlProducto` obliga al enlace al producto: el primer artículo que generó el
+// sistema llegó a WordPress sin él, porque los 109 posts vivos lo tenían por un
+// script y el escritor nunca lo añadía. Con 1.784 sesiones y cero conversiones,
+// un artículo que atrae y no ofrece a dónde ir es esa cifra repetida.
+const HOUSE: HouseRules = { noEmDash: true, urlProducto: "app.faststrat.ai" };
 
 /**
  * Sustituye las rayas largas. Determinista y sin criterio: por eso no se le

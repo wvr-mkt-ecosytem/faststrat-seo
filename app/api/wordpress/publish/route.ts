@@ -9,7 +9,13 @@ import { generateCover } from "@/lib/cover";
 
 // Reglas de casa de FastStrat. El em dash queda prohibido por decisión de
 // marca; el resto de comprobaciones no dependen de esto.
-const HOUSE = { noEmDash: true } as const;
+// Las reglas de casa, en un solo sitio.
+//
+// `urlProducto` obliga al enlace al producto: el primer artículo que generó el
+// sistema llegó a WordPress sin él, porque los 109 posts vivos lo tenían por un
+// script y el escritor nunca lo añadía. Con 1.784 sesiones y cero conversiones,
+// un artículo que atrae y no ofrece a dónde ir es esa cifra repetida.
+const HOUSE = { noEmDash: true, urlProducto: "app.faststrat.ai" } as const;
 
 const EYEBROW: Record<string, string> = { en: "2026 Guide", es: "Guía 2026" };
 

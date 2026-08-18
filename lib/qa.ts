@@ -212,6 +212,16 @@ export interface HouseRules {
   dominio?: string;
   /** Subdominios propios que no cuentan como cita. Ej: el de la app del CTA. */
   dominiosPropios?: string[];
+  /**
+   * Exigir un enlace al producto. Apagado por defecto: es decisión de cada
+   * cliente si su contenido tiene que llevar a algún sitio.
+   *
+   * Encendido para FastStrat porque el primer artículo que generó el sistema
+   * llegó a WordPress SIN él: los 109 posts vivos lo tenían por un script, y el
+   * escritor nunca lo añadía. Con 1.784 sesiones y cero conversiones, un
+   * artículo que atrae y no ofrece el paso siguiente es esa cifra repetida.
+   */
+  urlProducto?: string;
 }
 
 /** Escapa un host para meterlo en una expresión regular. */
@@ -362,6 +372,17 @@ export function runQa(input: QaInput): QaResult {
       severity: "block",
       rule: "circular-self-citation",
       detail: "Every link points at our own site. A figure whose only source is us is not sourced.",
+    });
+  }
+
+  // El enlace al producto. Bloquea, no avisa: un aviso que aparece siempre se
+  // lee como decoración, y esta es la única ruta de conversión que tiene el
+  // artículo.
+  if (input.house?.urlProducto && !markdown.includes(input.house.urlProducto)) {
+    findings.push({
+      severity: "block",
+      rule: "no-cta",
+      detail: `Falta el enlace al producto (${input.house.urlProducto}). El artículo atrae tráfico y no le ofrece a dónde ir.`,
     });
   }
 

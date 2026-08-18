@@ -148,3 +148,13 @@ Your customer's country calling code sets the rate. A US-based business messagin
 **What to do this week:** Pull your last 30 days of outbound message volume and split it by category: marketing, utility, authentication, service. If your current platform doesn't break this out, that's the first thing to fix: you can't optimize what you can't see. Then run your marketing volume through the country rates in the table. That single calculation tells you whether geography is the main cost driver (it usually is) and whether your BSP model makes sense at your actual volume.
 
 If you want message routing, template approvals, and WhatsApp Business API cost tracking handled automatically, without managing BSP contracts and developer documentation yourself, see how [FastStrat's WhatsApp automation agents](https://faststrat.ai/agents/whatsapp) work for small businesses.
+
+---
+
+You now know what to do. The hard part is doing it every week, without a marketing team, while you run the business.
+
+That is the job FastStrat does: it plans the content, writes it, publishes it, and tells you what actually moved. One place, no stack to assemble.
+
+**[Start free at app.faststrat.ai →](https://app.faststrat.ai)**
+
+Set it up in minutes. Keep what works.

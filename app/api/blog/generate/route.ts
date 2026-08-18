@@ -46,7 +46,7 @@ FORMATO DE SALIDA: devuelve ÚNICAMENTE el cuerpo del artículo en Markdown. Sin
  * después, uno que no se guardó se pierde entero.
  */
 async function dejarPublicable(title: string, markdown: string): Promise<string> {
-  const qa = runQa({ title, markdown, house: { noEmDash: true } });
+  const qa = runQa({ title, markdown, house: { noEmDash: true, urlProducto: "app.faststrat.ai" } });
   if (qa.ok) return markdown;
 
   let texto = markdown;
@@ -73,7 +73,7 @@ ${texto}
     });
     const limpio = corregido.trim().replace(/^```(?:markdown|md)?/i, "").replace(/```$/, "").trim();
     // Solo se acepta si mejora. Un "arreglo" que empeora se descarta.
-    if (limpio && runQa({ title, markdown: limpio, house: { noEmDash: true } }).blocking.length < qa.blocking.length) {
+    if (limpio && runQa({ title, markdown: limpio, house: { noEmDash: true, urlProducto: "app.faststrat.ai" } }).blocking.length < qa.blocking.length) {
       texto = limpio;
     }
   } catch {
@@ -88,6 +88,53 @@ ${texto}
     .replace(/\s+—\s+/g, ", ")
     .replace(/—/g, ", ");
 }
+
+/**
+ * El cierre que lleva al producto.
+ *
+ * Los 109 posts vivos lo tienen porque se les añadió con un script, pero el
+ * escritor no lo ponía: cada artículo nuevo nacía sin ninguna ruta a
+ * app.faststrat.ai. Se detectó publicando el primer artículo generado, que
+ * llegó a WordPress con un enlace a una página de contenido y ninguno al
+ * producto.
+ *
+ * Importa más de lo que parece: el sistema mide 1.784 sesiones y CERO
+ * conversiones. Un artículo que atrae y no ofrece el paso siguiente es
+ * exactamente esa cifra, repetida.
+ *
+ * El texto es el mismo que llevan los publicados, para que el lector encuentre
+ * el mismo cierre venga del artículo que venga.
+ */
+const CTA = {
+  en: `
+
+---
+
+You now know what to do. The hard part is doing it every week, without a marketing team, while you run the business.
+
+That is the job FastStrat does: it plans the content, writes it, publishes it, and tells you what actually moved. One place, no stack to assemble.
+
+**[Start free at app.faststrat.ai →](https://app.faststrat.ai)**
+
+Set it up in minutes. Keep what works.
+`,
+  es: `
+
+---
+
+Ya sabes qué hacer. Lo difícil es hacerlo cada semana, sin equipo de marketing y mientras sacas adelante el negocio.
+
+De eso se encarga FastStrat: planea el contenido, lo escribe, lo publica y te dice qué funcionó de verdad. En un solo sitio, sin herramientas que ensamblar.
+
+**[Empieza gratis en app.faststrat.ai →](https://app.faststrat.ai)**
+
+Se configura en minutos. Te quedas con lo que funcione.
+`,
+};
+
+/** Añade el cierre si no está ya. Idempotente: el corrector puede haberlo dejado. */
+const conCta = (markdown: string, lang: string) =>
+  markdown.includes("app.faststrat.ai") ? markdown : markdown.trimEnd() + CTA[lang === "es" ? "es" : "en"];
 
 /**
  * Un título que compita en la SERP, no uno que rellene el hueco.
@@ -201,6 +248,11 @@ La extensión la marca el tema, no una cuota. No hay mínimo de palabras.`,
     // Una sola pasada correctiva, no un bucle: si tras corregir sigue
     // bloqueado, es que hay una cifra sin fuente pública, y eso necesita una
     // decisión que no le toca tomar a un agente.
+    // El CTA va ANTES de la compuerta, para que la regla `no-cta` lo vea y para
+    // que el corrector trabaje sobre el artículo completo. No dispara la regla
+    // de autocita circular porque app.faststrat.ai está excluido de esa
+    // comprobación: un "empieza gratis" no cita nada.
+    markdown = conCta(markdown, lang);
     markdown = await dejarPublicable(title, markdown);
 
     const excerpt =

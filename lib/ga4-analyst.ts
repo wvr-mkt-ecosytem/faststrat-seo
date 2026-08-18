@@ -124,9 +124,19 @@ Reglas del informe:
 - Nada de recomendaciones genéricas de SEO. Si el consejo vale para cualquier sitio, sobra.
 - Extensión: la que pida el hallazgo. Un mes sin nada relevante son cinco líneas honestas, no dos páginas de relleno.
 
-Devuelve SOLO un JSON válido, sin texto alrededor, con esta forma:
-{"report":"## El panorama ... (el informe entero en Markdown, con saltos de línea escapados)",
- "recommendations":[{"kind":"rewrite-title|improve-page|new-article|add-cta|consolidate|technical-fix","target":"/ruta o tema","reason":"qué pasa, en una frase","cause":"por qué pasa, el mecanismo","evidence":"el dato exacto de los nuestros que lo sostiene","sourceUrl":"URL de lo que consultaste fuera, o cadena vacía","suggestion":"qué hacer, escrito para poder copiarlo","priority":"alta|media|baja"}]}`;
+FORMATO DE LA RESPUESTA
+
+El informe NO va dentro del JSON. Un documento Markdown con saltos de línea y comillas metido en un campo de texto se rompe al escaparlo, y entonces se pierden las dos cosas: el informe y las acciones.
+
+Responde con estas dos partes, en este orden y con estos marcadores exactos:
+
+<<<INFORME>>>
+(aquí el informe en Markdown, tal cual, sin escapar nada)
+
+<<<ACCIONES>>>
+{"recommendations":[{"kind":"rewrite-title|improve-page|new-article|add-cta|consolidate|technical-fix","target":"/ruta o tema","reason":"qué pasa, en una frase","cause":"por qué pasa, el mecanismo","evidence":"el dato exacto de los nuestros que lo sostiene","sourceUrl":"URL de lo que consultaste fuera, o cadena vacía","suggestion":"qué hacer, escrito para poder copiarlo","priority":"alta|media|baja"}]}
+
+Ese JSON sí tiene que ser válido y no puede llevar nada alrededor`;
 
 /** Resume una página en una línea, para que quepan muchas en el prompt. */
 const line = (p: Joined) =>
@@ -270,9 +280,22 @@ Da las recomendaciones en JSON.`;
       .replace(/^```(?:json)?/i, "")
       .replace(/```$/, "")
       .trim();
-    const parsed = JSON.parse(clean);
-    recommendations = parsed.recommendations ?? [];
-    report = typeof parsed.report === "string" ? parsed.report.trim() : "";
+    // El informe y el JSON se leen por separado, cada uno de su marcador.
+    //
+    // Antes el informe iba DENTRO del JSON, en un campo de texto, y una corrida
+    // real de 9,8 minutos se perdió entera: el modelo no consiguió escapar un
+    // documento Markdown de cuatro secciones dentro de una cadena, el JSON.parse
+    // falló y se perdieron las dos cosas a la vez, el informe y las acciones.
+    // Separarlos hace que un fallo al escribir el informe ya no se lleve por
+    // delante las recomendaciones.
+    const iInf = raw.indexOf("<<<INFORME>>>");
+    const iAcc = raw.indexOf("<<<ACCIONES>>>");
+    if (iInf !== -1) {
+      report = raw.slice(iInf + "<<<INFORME>>>".length, iAcc === -1 ? undefined : iAcc).trim();
+    }
+    const bloque = iAcc !== -1 ? raw.slice(iAcc + "<<<ACCIONES>>>".length) : raw;
+    const m = bloque.match(/\{[\s\S]*\}/);
+    recommendations = m ? JSON.parse(m[0]).recommendations ?? [] : [];
   } catch {
     // Devolver el análisis sin recomendaciones y decirlo es mejor que fingir
     // que no hubo respuesta: los números de arriba siguen siendo válidos.
