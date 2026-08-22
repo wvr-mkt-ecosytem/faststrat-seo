@@ -39,6 +39,24 @@ type Rec = {
   sourceUrl?: string
 }
 
+type Medida = { texto: string; caracteres: number; enSerp: number; seCorta: boolean }
+
+type TituloEstado = {
+  cargando: boolean
+  propuesto: string
+  error?: string
+  datos?: {
+    actual?: Medida
+    propuesto?: Medida | null
+    sufijo?: string
+    limiteSerp?: number
+    applied?: boolean
+    slugIntacto?: boolean
+    tituloEnVivo?: string | null
+    link?: string
+  }
+}
+
 type Analysis = {
   /** El análisis escrito. Es lo que se lee; las acciones son lo que se ejecuta. */
   report?: string
@@ -83,6 +101,47 @@ export default function SeoPage() {
   const [verdicto, setVerdicto] = useState<string | null>(null)
   const [analysis, setAnalysis] = useState<Analysis | null>(null)
   const [analysing, setAnalysing] = useState(false)
+
+  // Aplicar un título desde la recomendación.
+  //
+  // Directo, pero NUNCA sin ver antes qué cambia. Cambiar el título de una
+  // página que rankea tarda semanas en reevaluarse y no tiene deshacer, así
+  // que la ruta solo escribe cuando se le pide explícitamente y aquí se enseña
+  // el actual, el propuesto y cuántos caracteres ocupan en el resultado de
+  // búsqueda, incluido el sufijo que añade el sitio.
+  const [titulo, setTitulo] = useState<Record<string, TituloEstado>>({})
+
+  async function verTitulo(clave: string, path: string, propuesto: string) {
+    setTitulo((t) => ({ ...t, [clave]: { cargando: true, propuesto } }))
+    try {
+      const r = await fetch('/api/wordpress/title', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path, title: propuesto }),
+      })
+      const d = await r.json()
+      setTitulo((t) => ({ ...t, [clave]: { cargando: false, propuesto, datos: d, error: d.error } }))
+    } catch (e) {
+      setTitulo((t) => ({ ...t, [clave]: { cargando: false, propuesto, error: String(e) } }))
+    }
+  }
+
+  async function aplicarTitulo(clave: string, path: string) {
+    const est = titulo[clave]
+    if (!est?.propuesto?.trim()) return
+    setTitulo((t) => ({ ...t, [clave]: { ...est, cargando: true } }))
+    try {
+      const r = await fetch('/api/wordpress/title', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path, title: est.propuesto, apply: true }),
+      })
+      const d = await r.json()
+      setTitulo((t) => ({ ...t, [clave]: { cargando: false, propuesto: est.propuesto, datos: d, error: d.error } }))
+    } catch (e) {
+      setTitulo((t) => ({ ...t, [clave]: { cargando: false, propuesto: est.propuesto, error: String(e) } }))
+    }
+  }
 
   // El analista vivía en una pantalla aparte llamada Tráfico que, desde que el
   // Dashboard cruza GSC con GA4, mostraba exactamente los mismos datos con el
@@ -282,6 +341,98 @@ export default function SeoPage() {
                       <span className="text-sand">Qué hacer: </span>{r.suggestion}
                     </p>
                     <p className="text-[11px] font-mono text-maroon mt-1">{r.evidence}</p>
+
+                    {/* Solo para los títulos. Es la única acción que se puede
+                        aplicar directo sin riesgo: no toca el cuerpo, no rompe
+                        enlaces y no cambia el slug. Aun así, primero se ve. */}
+                    {r.kind === 'rewrite-title' && r.target.startsWith('/') && (() => {
+                      const clave = `t${i}`
+                      const est = titulo[clave]
+                      const d = est?.datos
+                      return (
+                        <div className="mt-2 border-t border-maroon/10 pt-2">
+                          {!est && (
+                            <button
+                              onClick={() => verTitulo(clave, r.target, r.suggestion.slice(0, 120))}
+                              className="text-[11px] font-medium px-2.5 py-1 rounded bg-maroon/10 text-maroon hover:bg-maroon/20"
+                            >
+                              Ver y aplicar título
+                            </button>
+                          )}
+
+                          {est?.cargando && (
+                            <p className="text-[11px] text-sand flex items-center gap-1">
+                              <Loader2 size={11} className="animate-spin" /> Leyendo la página…
+                            </p>
+                          )}
+
+                          {est?.error && (
+                            <p className="text-[11px] text-red-700">{est.error}</p>
+                          )}
+
+                          {d && !est?.cargando && !est?.error && (
+                            <div className="flex flex-col gap-1.5">
+                              {/* El actual y el propuesto, con los caracteres que
+                                  ocupan en el resultado de búsqueda incluyendo el
+                                  sufijo del sitio. Contar solo el título del post
+                                  decía que 58 estaba bien cuando salía cortado. */}
+                              <div className="text-[11px]">
+                                <span className="text-sand">Ahora ({d.actual?.enSerp}): </span>
+                                <span className={d.actual?.seCorta ? 'text-red-700' : 'text-ink'}>
+                                  {d.actual?.texto}{d.sufijo}
+                                </span>
+                              </div>
+
+                              <textarea
+                                value={est.propuesto}
+                                onChange={(e) =>
+                                  setTitulo((t) => ({ ...t, [clave]: { ...est, propuesto: e.target.value, datos: undefined } }))
+                                }
+                                rows={2}
+                                className="w-full text-[12px] border border-maroon/20 rounded px-2 py-1 bg-white/70"
+                              />
+
+                              {d.propuesto && (
+                                <div className="text-[11px]">
+                                  <span className="text-sand">Quedaría ({d.propuesto.enSerp}): </span>
+                                  <span className={d.propuesto.seCorta ? 'text-red-700' : 'text-green-700'}>
+                                    {d.propuesto.texto}{d.sufijo}
+                                  </span>
+                                  {d.propuesto.seCorta && (
+                                    <span className="text-red-700"> · se corta, Google muestra {d.limiteSerp}</span>
+                                  )}
+                                </div>
+                              )}
+
+                              {d.applied ? (
+                                <p className="text-[11px] text-green-700">
+                                  Aplicado. En vivo: &ldquo;{d.tituloEnVivo}&rdquo;
+                                  {d.slugIntacto && ' · el slug no cambió, no hacen falta redirecciones'}
+                                  {d.link && (
+                                    <a href={d.link} target="_blank" rel="noopener noreferrer" className="ml-1 underline">ver</a>
+                                  )}
+                                </p>
+                              ) : (
+                                <div className="flex gap-1.5">
+                                  <button
+                                    onClick={() => verTitulo(clave, r.target, est.propuesto)}
+                                    className="text-[11px] px-2 py-1 rounded border border-maroon/20 text-maroon hover:bg-maroon/8"
+                                  >
+                                    Recalcular
+                                  </button>
+                                  <button
+                                    onClick={() => aplicarTitulo(clave, r.target)}
+                                    className="text-[11px] font-medium px-2.5 py-1 rounded bg-maroon text-cream hover:bg-maroon-hover"
+                                  >
+                                    Aplicar en el sitio
+                                  </button>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )
+                    })()}
                   </div>
                 ))}
               </div>
