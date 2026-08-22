@@ -45,6 +45,25 @@ export const POST = apiRoute(async (request: NextRequest) => {
     );
   }
 
+  // Se comprueba la FORMA, no solo que haya algo.
+  //
+  // Con una lista de cadenas en vez de objetos, `q.query` quedaba en undefined,
+  // se colaba en las keywords del frontmatter y gray-matter reventaba con
+  // "unacceptable kind of an object to dump [object Undefined]": un error que no
+  // nombra ni el campo ni la causa, después de gastar 1,4 minutos de agente.
+  // La pantalla de Reportes manda `p.strikingDistance`, que puede llegar vacío,
+  // así que no era solo un problema de pruebas.
+  const validas = queries.filter((q) => q && typeof q.query === "string" && q.query.trim());
+  if (!validas.length) {
+    return NextResponse.json(
+      {
+        error:
+          "Cada elemento de 'queries' tiene que ser un objeto con 'query' (texto), y opcionalmente 'position' e 'impressions'. Llegó una lista sin ninguna consulta válida.",
+      },
+      { status: 400 },
+    );
+  }
+
   try {
     const slug = urlPath.replace(/^\/|\/$/g, "");
 
@@ -55,14 +74,14 @@ export const POST = apiRoute(async (request: NextRequest) => {
       ? `Markdown actual:\n---\n${local.markdown}\n---`
       : `(No tenemos el markdown local. Escribe una versión SEO-optimizada desde cero para la URL "${urlPath}".)`;
 
-    const queryList = queries
-      .map((q) => `- "${q.query}" (pos ${q.position}, ${q.impressions} impr)`)
+    const queryList = validas
+      .map((q) => `- "${q.query}"` + (q.position != null ? ` (pos ${q.position}, ${q.impressions ?? "?"} impr)` : ""))
       .join("\n");
 
     const title = local?.title ?? slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
     const lang = local?.lang ?? "en";
     const category = local?.category ?? "SEO";
-    const keywords = [...(local?.keywords ?? []), ...queries.map((q) => q.query)];
+    const keywords = [...(local?.keywords ?? []), ...validas.map((q) => q.query)];
 
     const newMarkdown = await runClaude({
       model: "sonnet",

@@ -213,3 +213,152 @@ export function joinWithSearch(
     })
     .sort((x, y) => y.clicks - x.clicks);
 }
+
+// ---------------------------------------------------------------------------
+// De dónde llega la gente y qué hace: las dimensiones que faltaban.
+//
+// Hasta aquí GA4 solo se consultaba por página, así que el sistema sabía qué
+// contenido atrae y no sabía nada de por dónde entra ni dónde se pierde. Con
+// 1.784 sesiones y CERO conversiones, esa segunda mitad es la que importa: el
+// contenido ya demostró que trae gente; lo que no está demostrado es qué pasa
+// entre leer y convertir.
+
+const num = (v?: string | null) => {
+  const n = Number(v ?? 0);
+  return Number.isFinite(n) ? n : 0;
+};
+
+export interface Fuente {
+  fuente: string;
+  medio: string;
+  sessions: number;
+  users: number;
+  engagementRate: number;
+  conversions: number;
+  /** Segundos medios. Un canal que trae gente que se va no es tráfico útil. */
+  avgEngagement: number;
+}
+
+/**
+ * Por dónde entra la gente.
+ *
+ * Search Console solo ve Google. Esto ve todo lo demás: directo, referral,
+ * social y, lo que más interesa aquí, los asistentes de IA, que llegan como
+ * referral de chatgpt.com, claude.ai o perplexity.ai. Es la única forma de
+ * saber si ser citado por un LLM produce visitas de verdad, cosa que Search
+ * Console no puede responder ni confirmando ni desmintiendo.
+ */
+export async function trafficSources(days = 28): Promise<Fuente[]> {
+  const res = await dataApi().properties.runReport({
+    property: `properties/${PROPERTY_ID}`,
+    requestBody: {
+      dateRanges: [{ startDate: `${days}daysAgo`, endDate: "today" }],
+      dimensions: [{ name: "sessionSource" }, { name: "sessionMedium" }],
+      metrics: [
+        { name: "sessions" },
+        { name: "totalUsers" },
+        { name: "engagementRate" },
+        { name: "conversions" },
+        { name: "userEngagementDuration" },
+      ],
+      limit: "100",
+      orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
+    },
+  });
+
+  return (res.data.rows ?? []).map((r) => {
+    const sessions = num(r.metricValues?.[0]?.value);
+    return {
+      fuente: r.dimensionValues?.[0]?.value ?? "(sin fuente)",
+      medio: r.dimensionValues?.[1]?.value ?? "(sin medio)",
+      sessions,
+      users: num(r.metricValues?.[1]?.value),
+      engagementRate: num(r.metricValues?.[2]?.value),
+      conversions: num(r.metricValues?.[3]?.value),
+      avgEngagement: sessions ? Math.round(num(r.metricValues?.[4]?.value) / sessions) : 0,
+    };
+  });
+}
+
+/** Referrals que son asistentes de IA. Es la respuesta a "¿me citan los LLMs?". */
+export const ES_ASISTENTE_IA =
+  /(chatgpt|openai|claude\.ai|anthropic|perplexity|copilot\.microsoft|gemini\.google|bard\.google|you\.com|phind)/i;
+
+export interface Dispositivo {
+  dispositivo: string;
+  sessions: number;
+  engagementRate: number;
+  conversions: number;
+  avgEngagement: number;
+}
+
+/**
+ * Móvil contra escritorio.
+ *
+ * Importa porque el reparto suele estar desequilibrado en las dos direcciones:
+ * el tráfico sintético de superficies de IA es casi todo de escritorio, así que
+ * un CTR bajo en escritorio y alto en móvil es otra señal de que el volumen no
+ * es humano. Y si el móvil convierte peor con tráfico real, es un problema de
+ * la página, no del contenido.
+ */
+export async function deviceBreakdown(days = 28): Promise<Dispositivo[]> {
+  const res = await dataApi().properties.runReport({
+    property: `properties/${PROPERTY_ID}`,
+    requestBody: {
+      dateRanges: [{ startDate: `${days}daysAgo`, endDate: "today" }],
+      dimensions: [{ name: "deviceCategory" }],
+      metrics: [
+        { name: "sessions" },
+        { name: "engagementRate" },
+        { name: "conversions" },
+        { name: "userEngagementDuration" },
+      ],
+      orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
+    },
+  });
+
+  return (res.data.rows ?? []).map((r) => {
+    const sessions = num(r.metricValues?.[0]?.value);
+    return {
+      dispositivo: r.dimensionValues?.[0]?.value ?? "?",
+      sessions,
+      engagementRate: num(r.metricValues?.[1]?.value),
+      conversions: num(r.metricValues?.[2]?.value),
+      avgEngagement: sessions ? Math.round(num(r.metricValues?.[3]?.value) / sessions) : 0,
+    };
+  });
+}
+
+export interface Evento {
+  evento: string;
+  cuenta: number;
+  usuarios: number;
+}
+
+/**
+ * Qué eventos ocurren, para poder ver dónde se corta el embudo.
+ *
+ * Un cero en conversiones tiene dos lecturas opuestas: que nadie llega al final
+ * o que el final no se está midiendo. Sin la lista de eventos no se pueden
+ * distinguir, y son problemas distintos: uno se arregla con contenido y el otro
+ * con Tag Manager. Si hay clics en el CTA y ninguna conversión, el problema
+ * está después del clic; si no hay ni clics, está antes.
+ */
+export async function eventos(days = 28): Promise<Evento[]> {
+  const res = await dataApi().properties.runReport({
+    property: `properties/${PROPERTY_ID}`,
+    requestBody: {
+      dateRanges: [{ startDate: `${days}daysAgo`, endDate: "today" }],
+      dimensions: [{ name: "eventName" }],
+      metrics: [{ name: "eventCount" }, { name: "totalUsers" }],
+      limit: "50",
+      orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
+    },
+  });
+
+  return (res.data.rows ?? []).map((r) => ({
+    evento: r.dimensionValues?.[0]?.value ?? "?",
+    cuenta: num(r.metricValues?.[0]?.value),
+    usuarios: num(r.metricValues?.[1]?.value),
+  }));
+}

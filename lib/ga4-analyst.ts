@@ -1,5 +1,5 @@
 import { runClaude } from "@/lib/claude";
-import { pageStats, joinWithSearch, type Joined } from "@/lib/ga4";
+import { pageStats, joinWithSearch, trafficSources, deviceBreakdown, eventos, ES_ASISTENTE_IA, type Joined } from "@/lib/ga4";
 import { queryAnalytics } from "@/lib/gsc";
 import { getBlogPosts } from "@/lib/blog";
 import { diagnosticar } from "@/lib/seo-diagnostics";
@@ -92,7 +92,14 @@ Antes de recomendar nada, haz este trabajo sobre los datos que te llegan HOY. Pu
 
 4. Busca en la web lo que los números no pueden decir: qué resultados rodean a nuestra página en esa consulta y qué prometen ellos que nosotros no.
 
-5. Ordena por lo que más tráfico mueve con menos trabajo. Un título reescrito sobre una página que ya tiene impresiones rinde antes que un artículo nuevo.
+5. Mira de dónde llega la gente, no solo qué contenido atrae. Search Console se acaba en el clic desde Google; GA4 ve todo lo demás. Tres preguntas que solo se responden ahí:
+   - ¿Qué canal trae gente que se QUEDA? Un canal con muchas sesiones y pocos segundos no es tráfico, es ruido. Compara segundos medios entre canales antes de recomendar invertir en ninguno.
+   - ¿Llega alguien desde asistentes de IA? Si rankeas en consultas con forma de prompt pero no hay sesiones desde chatgpt.com, claude.ai o perplexity.ai, entonces te están usando como fuente sin mandarte a nadie. Eso es una decisión de negocio, no un problema técnico, y hay que nombrarla.
+   - ¿Dónde se corta el embudo? Con cero conversiones, mira la lista de eventos: si hay clics en el CTA y ninguna conversión, el problema está DESPUÉS del clic (la app, el registro); si no hay ni clics, está antes (el contenido no pide nada). Son arreglos opuestos y confundirlos cuesta semanas.
+
+6. Compara móvil contra escritorio. Un desequilibrio fuerte suele decir más de lo que parece: el tráfico de superficies de IA es casi todo de escritorio, así que mucha impresión en escritorio con permanencia baja y móvil con permanencia alta es otra confirmación de que el volumen no es humano.
+
+7. Ordena por lo que más tráfico mueve con menos trabajo. Un título reescrito sobre una página que ya tiene impresiones rinde antes que un artículo nuevo.
 
 Reglas de forma para las acciones:
 - Para canibalización: di cuál URL sobrevive y cuáles se redirigen a ella, con las rutas escritas. Nunca "consolidar el contenido".
@@ -148,7 +155,7 @@ export async function analyse(days = 28): Promise<AnalystResult> {
   // el resultado era cero páginas y el agente analizaba la nada y aun así
   // devolvía recomendaciones. Un fallo de red se leía como "no hay tráfico",
   // que es la conclusión contraria y la que peor decisión provoca.
-  const [ga, gscRes, queryRes] = await Promise.all([
+  const [ga, gscRes, queryRes, fuentes, dispositivos, listaEventos] = await Promise.all([
     pageStats(days),
     queryAnalytics("page", days),
     // Las consultas, además de las páginas. Sin ellas no se puede separar el
@@ -156,6 +163,12 @@ export async function analyse(days = 28): Promise<AnalystResult> {
     // la lectura de todo lo demás: con la mayoría de las impresiones viniendo
     // de prompts, el CTR medio del sitio no significa nada.
     queryAnalytics("query", days, 1000).catch(() => ({ rows: [] })),
+    // Las tres dimensiones que faltaban. Con catch porque son un extra: si
+    // fallan, el análisis pierde profundidad pero no se cae entero, y el fallo
+    // se dice en los límites en vez de callarse.
+    trafficSources(days).catch(() => []),
+    deviceBreakdown(days).catch(() => []),
+    eventos(days).catch(() => []),
   ]);
 
   const gsc = (gscRes.rows ?? []).map((r) => ({
@@ -202,6 +215,51 @@ export async function analyse(days = 28): Promise<AnalystResult> {
         .join(SALTO)
     : "- (ninguno esta vez)";
 
+  // De dónde llega la gente y dónde se pierde.
+  //
+  // Hasta aquí GA4 solo se consultaba por página, así que el sistema sabía qué
+  // contenido atrae y nada de por dónde entra ni dónde se corta el embudo. Con
+  // sesiones y CERO conversiones, esa segunda mitad es la que falta: el
+  // contenido ya demostró que trae gente; lo que no está demostrado es qué pasa
+  // entre leer y convertir.
+  const totalSes = fuentes.reduce((a, f) => a + f.sessions, 0);
+  const pct = (n: number) => (totalSes ? Math.round((n / totalSes) * 1000) / 10 : 0);
+  const ia = fuentes.filter((f) => ES_ASISTENTE_IA.test(f.fuente));
+
+  const bloqueFuentes = fuentes.length
+    ? fuentes
+        .slice(0, 12)
+        .map(
+          (f) =>
+            `  ${f.fuente} / ${f.medio}: ${f.sessions} ses (${pct(f.sessions)}%), ${f.avgEngagement}s, ${f.conversions} conv`,
+        )
+        .join(SALTO)
+    : "  (GA4 no devolvió fuentes)";
+
+  // La única respuesta posible a "¿me citan los LLMs?". Search Console solo ve
+  // Google y no puede confirmarlo ni desmentirlo; esto no dice si te citan,
+  // pero sí si esa cita trae visitas, que es lo que se puede decidir.
+  const bloqueIA = ia.length
+    ? ia.map((f) => `  ${f.fuente}: ${f.sessions} sesiones, ${f.avgEngagement}s, ${f.conversions} conv`).join(SALTO)
+    : "  NINGUNA sesión desde un asistente de IA. Que rankees en consultas con forma de prompt no significa que esas citas traigan gente: aquí se vería, y no se ve.";
+
+  const bloqueDisp = dispositivos.length
+    ? dispositivos
+        .map(
+          (d) =>
+            `  ${d.dispositivo}: ${d.sessions} ses, ${Math.round(d.engagementRate * 100)}% con interacción, ${d.avgEngagement}s, ${d.conversions} conv`,
+        )
+        .join(SALTO)
+    : "  (sin datos)";
+
+  // Un cero en conversiones tiene dos lecturas opuestas: que nadie llega al
+  // final, o que el final no se mide. Sin la lista de eventos no se distinguen,
+  // y son problemas distintos: uno se arregla con contenido y el otro con Tag
+  // Manager.
+  const bloqueEventos = listaEventos.length
+    ? listaEventos.slice(0, 15).map((e) => `  ${e.evento}: ${e.cuenta} veces, ${e.usuarios} usuarios`).join(SALTO)
+    : "  (sin datos)";
+
   // Se mandan los casos accionables, no las 500 filas: un prompt con todo
   // diluye la señal y cuesta más. Se ordena por impresiones dentro de cada
   // grupo porque la impresión es la demanda ya demostrada.
@@ -236,6 +294,18 @@ DE DÓNDE VIENE EL VOLUMEN (esto cambia cómo se leen los demás números):
 - Consultas humanas: ${diag.volumen.humano.consultas}, con ${diag.volumen.humano.impresiones} impresiones y ${diag.volumen.humano.clics} clics. CTR real ${diag.volumen.ctrHumano}%.
 - Consultas con forma de prompt (superficies de IA, no personas buscando): ${diag.volumen.prompts.consultas}, con ${diag.volumen.prompts.impresiones} impresiones y ${diag.volumen.prompts.clics} clics.
 ${diag.volumen.peores.map((x) => "  - " + x).join("\n")}
+
+DE DÓNDE LLEGA LA GENTE (GA4, ${totalSes} sesiones):
+${bloqueFuentes}
+
+ASISTENTES DE IA COMO ORIGEN:
+${bloqueIA}
+
+POR DISPOSITIVO:
+${bloqueDisp}
+
+EVENTOS REGISTRADOS (para ver dónde se corta el embudo):
+${bloqueEventos}
 
 HALLAZGOS YA CALCULADOS (no los recalcules, explícalos y di qué hacer):
 ${hallazgosTexto}
