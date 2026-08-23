@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import { BrandHeader } from '@/components/BrandHeader'
 import { Progreso } from '@/components/Progreso'
+import { useTareas } from '@/components/Tareas'
 import { postJson, wake, ApiError } from '@/lib/api'
 
 type Idea = {
@@ -54,6 +55,7 @@ type ResultMap = Record<string, {
 }>
 
 export default function IdeasPage() {
+  const { lanzar } = useTareas()
   const [batches, setBatches] = useState<Batch[]>([])
   const [loading, setLoading] = useState(true)
   const [selected, setSelected] = useState(0)
@@ -187,17 +189,40 @@ export default function IdeasPage() {
   const batch = batches[selected]
 
   // Genérico: escribe un artículo. `key` identifica la fila (query o slug de idea).
+  // La escritura se delega al gestor de tareas, que vive en el layout raíz.
+  //
+  // Así sobrevive a cambiar de pestaña: puedes lanzar un artículo, irte a
+  // Reportes a leer el análisis, y volver. Antes el estado moría con la página
+  // y una corrida de 15,7 minutos se quedaba huérfana, terminando en el
+  // servidor sin que nadie se enterara.
   async function generate(key: string, payload: { keyword?: string; topic?: string; title?: string; lang?: string; category?: string }) {
     setResults((s) => ({ ...s, [key]: { kind: 'gen', loading: true } }))
-    try {
-      const d = await postJson<{ ok?: boolean; error?: string; title?: string; slug?: string; preview?: string; wordCount?: number }>('/api/blog/generate', payload)
-      setResults((s) => ({ ...s, [key]: d.ok
-        ? { kind: 'gen', loading: false, ok: true, gen: { title: d.title!, slug: d.slug!, preview: d.preview!, wordCount: d.wordCount! } }
-        : { kind: 'gen', loading: false, ok: false, error: d.error } }))
-    } catch (e) {
-      setResults((s) => ({ ...s, [key]: { kind: 'gen', loading: false, ok: false, error: e instanceof ApiError ? e.message : String(e) } }))
-    }
+    await lanzar(
+      {
+        etiqueta: `Escribiendo: ${(payload.title ?? payload.keyword ?? '').slice(0, 40)}`,
+        estimadoSeg: 900,
+        detalle: 'Tres pasos: elegir el título, escribir y corregirse. Puedes cambiar de pestaña.',
+        enlace: '/blogs',
+      },
+      async () => {
+        try {
+          const d = await postJson<{ ok?: boolean; error?: string; title?: string; slug?: string; preview?: string; wordCount?: number }>('/api/blog/generate', payload)
+          setResults((s) => ({ ...s, [key]: d.ok
+            ? { kind: 'gen', loading: false, ok: true, gen: { title: d.title!, slug: d.slug!, preview: d.preview!, wordCount: d.wordCount! } }
+            : { kind: 'gen', loading: false, ok: false, error: d.error } }))
+          return d.ok
+            ? { ok: true, resultado: `${d.wordCount} palabras. Está en Blogs como borrador.`, enlace: '/blogs' }
+            : { ok: false, resultado: d.error ?? 'Error desconocido' }
+        } catch (e) {
+          const msg = e instanceof ApiError ? e.message : String(e)
+          setResults((s) => ({ ...s, [key]: { kind: 'gen', loading: false, ok: false, error: msg } }))
+          return { ok: false, resultado: msg }
+        }
+      },
+    )
   }
+
+
 
   const generateArticle = (q: Q) => generate(q.query, { keyword: q.query })
 

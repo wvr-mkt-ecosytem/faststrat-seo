@@ -32,10 +32,14 @@ export async function postJson<T = unknown>(
   // No había ninguno, así que un botón que llamaba al agente podía girar
   // indefinidamente: si la plataforma cortaba la petición sin responder, el
   // navegador seguía esperando una respuesta que ya no iba a llegar y no había
-  // forma de distinguir "está trabajando" de "se perdió". Trece minutos cubre
-  // el peor caso medido (cold start de ~50s en el plan free más una llamada al
-  // agente de hasta seis minutos) con margen.
-  const timeoutMs = opts.timeoutMs ?? 13 * 60 * 1000;
+  // forma de distinguir "está trabajando" de "se perdió".
+  //
+  // Veinticinco minutos, no trece. Trece salió de una estimación hecha ANTES de
+  // medir. Con el escritor cronometrado en 15,7 minutos, aquel límite cortaba
+  // antes de que el trabajo acabara: el cliente decía que se rendía mientras el
+  // artículo se escribía igualmente y aparecía en Blogs sin que nada lo
+  // avisara. Es el peor síntoma posible, contar que algo falló cuando funcionó.
+  const timeoutMs = opts.timeoutMs ?? 25 * 60 * 1000;
 
   let res: Response;
   try {
