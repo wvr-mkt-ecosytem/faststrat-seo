@@ -7,6 +7,7 @@ import {
   TrendingUp, TrendingDown, Minus, Sparkles, ChevronDown, ChevronRight, PenLine,
 } from 'lucide-react'
 import { BrandHeader } from '@/components/BrandHeader'
+import { Progreso } from '@/components/Progreso'
 import { postJson, wake, ApiError } from '@/lib/api'
 
 type Q = { query: string; clicks: number; impressions: number; ctr: number; position: number }
@@ -657,7 +658,15 @@ function AnalisisSemanal() {
         <p className="text-[12px] text-amber-800 bg-amber-50 border border-amber-200 rounded px-3 py-2">{aviso}</p>
       )}
 
-      {cargando && <p className="text-sm text-sand">Cargando informes…</p>}
+      {generando && (
+        <Progreso
+          etiqueta="Analizando Search Console y GA4"
+          estimadoSeg={530}
+          detalle="Cruza las dos fuentes, calcula canibalización y consultas de IA, y busca en la web qué prometen los que te ganan el clic."
+        />
+      )}
+
+      {cargando && !generando && <p className="text-sm text-sand">Cargando informes…</p>}
 
       {!cargando && !actual && !generando && (
         <p className="text-sm text-sand">

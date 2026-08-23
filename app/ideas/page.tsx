@@ -7,6 +7,7 @@ import {
   Check, AlertCircle, ExternalLink, RefreshCw, Plus,
 } from 'lucide-react'
 import { BrandHeader } from '@/components/BrandHeader'
+import { Progreso } from '@/components/Progreso'
 import { postJson, wake, ApiError } from '@/lib/api'
 
 type Idea = {
@@ -320,6 +321,16 @@ export default function IdeasPage() {
       </BrandHeader>
 
       <div className="p-6 max-w-4xl space-y-8">
+        {(moreLoading || refreshing) && (
+          <div className="rounded-md border border-maroon/15 bg-white/60 px-4 py-3">
+            <Progreso
+              etiqueta={moreLoading ? 'Buscando ideas nuevas' : 'Regenerando la investigación de la semana'}
+              estimadoSeg={moreLoading ? 180 : 240}
+              detalle="El agente busca en la web y compara con todo lo que ya se propuso alguna vez."
+            />
+          </div>
+        )}
+
         {refreshMsg && (
           <p className={`text-sm ${refreshMsg.startsWith('✓') ? 'text-green-700' : 'text-red-600'}`}>{refreshMsg}</p>
         )}
@@ -595,11 +606,15 @@ export default function IdeasPage() {
 
 function ResultPanel({ result: r }: { result: ResultMap[string] }) {
   if (r.loading) {
-    return (
-      <div className="flex items-center gap-2 text-xs text-sand">
-        <Loader2 size={13} className="animate-spin" />
-        {r.kind === 'gen' ? 'El agente está escribiendo el artículo…' : 'El agente está armando la idea…'}
-      </div>
+    // Los tiempos salen de corridas medidas, no de un número redondo.
+    return r.kind === 'gen' ? (
+      <Progreso
+        etiqueta="Escribiendo el artículo"
+        estimadoSeg={480}
+        detalle="Son tres pasos encadenados: elegir el título, escribir, y corregirse si la compuerta lo bloquea."
+      />
+    ) : (
+      <Progreso etiqueta="Armando la idea" estimadoSeg={30} detalle="Busca en la web y propone título y guion." />
     )
   }
   if (r.error) {

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Send, Check, Loader2, ExternalLink, AlertCircle, Sparkles, Wand2 } from 'lucide-react'
 import { BrandHeader } from '@/components/BrandHeader'
+import { Progreso } from '@/components/Progreso'
 import { postJson, wake, ApiError } from '@/lib/api'
 
 type Post = {
@@ -374,6 +375,16 @@ export default function BlogsPage() {
                       <Wand2 size={14} />
                       {fixing === post.slug ? 'Corrigiendo…' : 'Corregir para publicar'}
                     </button>
+                  )}
+
+                  {fixing === post.slug && (
+                    <div className="px-1">
+                      <Progreso
+                        etiqueta="Buscando fuentes y corrigiendo"
+                        estimadoSeg={200}
+                        detalle="Busca en la web la fuente de cada cifra. Si no existe, quita el dato en vez de inventar un enlace."
+                      />
+                    </div>
                   )}
 
                   <button
