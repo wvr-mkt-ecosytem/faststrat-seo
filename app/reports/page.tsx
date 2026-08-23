@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import {
   Loader2, Check, AlertCircle, ExternalLink,
-  TrendingUp, TrendingDown, Minus, Sparkles, ChevronDown, ChevronRight,
+  TrendingUp, TrendingDown, Minus, Sparkles, ChevronDown, ChevronRight, PenLine,
 } from 'lucide-react'
 import { BrandHeader } from '@/components/BrandHeader'
 import { postJson, wake, ApiError } from '@/lib/api'
@@ -85,6 +85,12 @@ export default function ReportsPage() {
       </BrandHeader>
 
       <div className="p-6 space-y-6 max-w-5xl">
+        {/* El análisis del agente, con su historial semanal.
+            Estaba en el Dashboard, que es donde se miran los números de un
+            vistazo. Un informe escrito se lee, no se ojea, y la pestaña que se
+            llama Reportes es donde uno lo busca. */}
+        <AnalisisSemanal />
+
         {loading && <p className="text-sm text-sand">Cargando reporte…</p>}
         {pagesData?.error && (
           <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded px-4 py-3">Error: {pagesData.error}</div>
@@ -478,5 +484,314 @@ function CrossLink() {
         <Link href="/ideas" className="text-maroon underline font-medium">Ideas</Link>, junto con la tanda semanal que arma el agente.
       </p>
     </div>
+  )
+}
+
+type Rec = {
+  kind: string
+  target: string
+  reason: string
+  evidence: string
+  suggestion: string
+  priority: string
+  cause?: string
+  sourceUrl?: string
+}
+
+type Informe = {
+  generadoEn: string
+  days: number
+  report?: string
+  recommendations?: Rec[]
+  limits?: string[]
+  totals?: { clicks: number; sessions: number; conversions: number }
+}
+
+/**
+ * El análisis semanal, igual que las tandas de ideas: se genera solo cada lunes
+ * y se consulta cuando quieras.
+ *
+ * Antes vivía solo en memoria: recargar la página lo perdía y recuperarlo
+ * costaba nueve minutos de agente. Y sin histórico no se puede responder "¿esto
+ * mejoró?", que es la única pregunta que importa después de actuar: un informe
+ * describe un momento, dos describen una dirección.
+ */
+type Medida = { texto: string; caracteres: number; enSerp: number; seCorta: boolean }
+
+type TituloEstado = {
+  cargando: boolean
+  propuesto: string
+  error?: string
+  datos?: {
+    actual?: Medida
+    propuesto?: Medida | null
+    sufijo?: string
+    limiteSerp?: number
+    applied?: boolean
+    slugIntacto?: boolean
+    tituloEnVivo?: string | null
+    link?: string
+  }
+}
+
+function AnalisisSemanal() {
+  const [lista, setLista] = useState<{ generadoEn: string; days: number; recomendaciones: number }[]>([])
+  const [actual, setActual] = useState<Informe | null>(null)
+  const [cargando, setCargando] = useState(true)
+  const [generando, setGenerando] = useState(false)
+  const [aviso, setAviso] = useState<string | null>(null)
+
+  // Aplicar un título desde su recomendación.
+  //
+  // Directo, pero nunca sin ver antes qué cambia: cambiar el título de una
+  // página que rankea tarda semanas en reevaluarse y no tiene deshacer. La ruta
+  // solo escribe con `apply: true`, así que el primer clic es siempre una
+  // consulta.
+  const [titulo, setTitulo] = useState<Record<string, TituloEstado>>({})
+
+  async function pedirTitulo(clave: string, path: string, propuesto: string, aplicar = false) {
+    setTitulo((t) => ({ ...t, [clave]: { ...(t[clave] ?? { propuesto }), cargando: true, propuesto } }))
+    try {
+      const r = await fetch('/api/wordpress/title', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ path, title: propuesto, ...(aplicar ? { apply: true } : {}) }),
+      })
+      const d = await r.json()
+      setTitulo((t) => ({ ...t, [clave]: { cargando: false, propuesto, datos: d, error: d.error } }))
+    } catch (e) {
+      setTitulo((t) => ({ ...t, [clave]: { cargando: false, propuesto, error: String(e) } }))
+    }
+  }
+
+  const cargar = () => {
+    setCargando(true)
+    fetch('/api/ga4/analyst')
+      .then((r) => r.json())
+      .then((d) => {
+        setLista(d.informes ?? [])
+        setActual(d.ultimo ?? null)
+      })
+      .catch((e) => setAviso(String(e)))
+      .finally(() => setCargando(false))
+  }
+
+  useEffect(cargar, [])
+
+  async function generar() {
+    setGenerando(true)
+    setAviso(null)
+    try {
+      const r = await fetch('/api/ga4/analyst', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ days: 28 }),
+      })
+      const d = await r.json()
+      if (d.error) setAviso(d.error)
+      else {
+        setActual(d)
+        cargar()
+      }
+    } catch (e) {
+      setAviso(String(e))
+    } finally {
+      setGenerando(false)
+    }
+  }
+
+  const fecha = (iso: string) => iso.slice(0, 10)
+
+  return (
+    <section className="rounded-lg border border-maroon/15 bg-white/60 p-5 flex flex-col gap-3">
+      <div className="flex items-start justify-between gap-3 flex-wrap">
+        <div>
+          <h2 className="text-sm font-bold text-ink flex items-center gap-2">
+            <Sparkles size={15} className="text-maroon" /> Análisis semanal
+          </h2>
+          <p className="text-[11px] text-sand mt-0.5">
+            Se genera solo cada lunes. Cruza Search Console con GA4 y busca en la web por qué pasa lo que pasa.
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          {lista.length > 1 && (
+            <select
+              value={actual?.generadoEn ?? ''}
+              onChange={(e) => {
+                const el = lista.find((x) => x.generadoEn === e.target.value)
+                if (!el) return
+                setCargando(true)
+                fetch('/api/ga4/analyst')
+                  .then((r) => r.json())
+                  .then((d) => {
+                    // El GET devuelve el último completo; para uno antiguo se
+                    // pide su fecha. Mientras solo haya uno completo, se avisa.
+                    setActual(d.ultimo?.generadoEn === el.generadoEn ? d.ultimo : null)
+                    if (d.ultimo?.generadoEn !== el.generadoEn) {
+                      setAviso('Ese informe está guardado pero solo se sirve el más reciente completo.')
+                    }
+                  })
+                  .finally(() => setCargando(false))
+              }}
+              className="text-xs border border-maroon/20 rounded px-2 py-1 bg-white"
+            >
+              {lista.map((x) => (
+                <option key={x.generadoEn} value={x.generadoEn}>
+                  {fecha(x.generadoEn)} · {x.recomendaciones} acciones
+                </option>
+              ))}
+            </select>
+          )}
+          <button
+            onClick={generar}
+            disabled={generando}
+            className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-md bg-maroon text-cream hover:bg-maroon-hover disabled:opacity-50"
+          >
+            {generando ? <Loader2 size={13} className="animate-spin" /> : <PenLine size={13} />}
+            {generando ? 'Analizando… (unos 9 min)' : 'Analizar ahora'}
+          </button>
+        </div>
+      </div>
+
+      {aviso && (
+        <p className="text-[12px] text-amber-800 bg-amber-50 border border-amber-200 rounded px-3 py-2">{aviso}</p>
+      )}
+
+      {cargando && <p className="text-sm text-sand">Cargando informes…</p>}
+
+      {!cargando && !actual && !generando && (
+        <p className="text-sm text-sand">
+          Todavía no hay ningún análisis. El del lunes aparecerá aquí, o púlsalo ahora.
+        </p>
+      )}
+
+      {actual?.report && (
+        <div className="text-[13px] text-ink leading-relaxed whitespace-pre-wrap border-t border-maroon/10 pt-3">
+          {actual.report}
+        </div>
+      )}
+
+      {!!actual?.limits?.length && (
+        <ul className="flex flex-col gap-0.5">
+          {actual.limits.map((l, i) => (
+            <li key={i} className="text-[11px] text-amber-800 leading-relaxed">⚠ {l}</li>
+          ))}
+        </ul>
+      )}
+
+      {!!actual?.recommendations?.length && (
+        <div className="flex flex-col gap-2.5 border-t border-maroon/10 pt-3">
+          {actual.recommendations.map((r, i) => (
+            <div key={i} className="border-t border-maroon/10 pt-2.5 first:border-0 first:pt-0">
+              <div className="flex items-baseline gap-2 flex-wrap">
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-maroon/10 text-maroon">{r.priority}</span>
+                <span className="text-[11px] text-sand">{r.kind}</span>
+                <span className="text-sm text-ink font-medium">{r.target}</span>
+              </div>
+              <p className="text-[11px] text-sand leading-snug mt-0.5">{r.reason}</p>
+              {r.cause && (
+                <p className="text-[12px] text-ink/90 leading-snug mt-1">
+                  <span className="text-sand">Por qué: </span>{r.cause}
+                  {r.sourceUrl && (
+                    <a href={r.sourceUrl} target="_blank" rel="noopener noreferrer" className="ml-1 text-maroon underline decoration-dotted">fuente</a>
+                  )}
+                </p>
+              )}
+              <p className="text-[12px] text-ink leading-snug mt-1">
+                <span className="text-sand">Qué hacer: </span>{r.suggestion}
+              </p>
+              <p className="text-[11px] font-mono text-maroon mt-1">{r.evidence}</p>
+
+              {/* Solo los títulos se aplican desde aquí: es la única acción
+                  reversible con un clic. No toca el cuerpo, no rompe enlaces y
+                  no cambia el slug, cosa que la respuesta confirma. */}
+              {r.kind === 'rewrite-title' && r.target.startsWith('/') && (() => {
+                const clave = `t${i}`
+                const est = titulo[clave]
+                const d = est?.datos
+                return (
+                  <div className="mt-2 border-t border-maroon/10 pt-2">
+                    {!est && (
+                      <button
+                        onClick={() => pedirTitulo(clave, r.target, r.suggestion.slice(0, 120))}
+                        className="text-[11px] font-medium px-2.5 py-1 rounded bg-maroon/10 text-maroon hover:bg-maroon/20"
+                      >
+                        Ver y aplicar título
+                      </button>
+                    )}
+
+                    {est?.cargando && (
+                      <p className="text-[11px] text-sand flex items-center gap-1">
+                        <Loader2 size={11} className="animate-spin" /> Leyendo la página…
+                      </p>
+                    )}
+
+                    {est?.error && <p className="text-[11px] text-red-700">{est.error}</p>}
+
+                    {d && !est?.cargando && !est?.error && (
+                      <div className="flex flex-col gap-1.5">
+                        {/* Los caracteres son los del RESULTADO DE BÚSQUEDA,
+                            con el sufijo que añade el sitio. Contar solo el
+                            título decía que 58 estaba bien y salía cortado. */}
+                        <div className="text-[11px]">
+                          <span className="text-sand">Ahora ({d.actual?.enSerp}): </span>
+                          <span className={d.actual?.seCorta ? 'text-red-700' : 'text-ink'}>
+                            {d.actual?.texto}{d.sufijo}
+                          </span>
+                        </div>
+
+                        <textarea
+                          value={est.propuesto}
+                          onChange={(e) =>
+                            setTitulo((t) => ({ ...t, [clave]: { ...est, propuesto: e.target.value, datos: undefined } }))
+                          }
+                          rows={2}
+                          className="w-full text-[12px] border border-maroon/20 rounded px-2 py-1 bg-white/70"
+                        />
+
+                        {d.propuesto && (
+                          <div className="text-[11px]">
+                            <span className="text-sand">Quedaría ({d.propuesto.enSerp}): </span>
+                            <span className={d.propuesto.seCorta ? 'text-red-700' : 'text-green-700'}>
+                              {d.propuesto.texto}{d.sufijo}
+                            </span>
+                            {d.propuesto.seCorta && <span className="text-red-700"> · se corta en {d.limiteSerp}</span>}
+                          </div>
+                        )}
+
+                        {d.applied ? (
+                          <p className="text-[11px] text-green-700">
+                            Aplicado. En vivo: &ldquo;{d.tituloEnVivo}&rdquo;
+                            {d.slugIntacto && ' · el slug no cambió, no hacen falta redirecciones'}
+                            {d.link && (
+                              <a href={d.link} target="_blank" rel="noopener noreferrer" className="ml-1 underline">ver</a>
+                            )}
+                          </p>
+                        ) : (
+                          <div className="flex gap-1.5">
+                            <button
+                              onClick={() => pedirTitulo(clave, r.target, est.propuesto)}
+                              className="text-[11px] px-2 py-1 rounded border border-maroon/20 text-maroon hover:bg-maroon/8"
+                            >
+                              Recalcular
+                            </button>
+                            <button
+                              onClick={() => pedirTitulo(clave, r.target, est.propuesto, true)}
+                              className="text-[11px] font-medium px-2.5 py-1 rounded bg-maroon text-cream hover:bg-maroon-hover"
+                            >
+                              Aplicar en el sitio
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )
+              })()}
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
   )
 }

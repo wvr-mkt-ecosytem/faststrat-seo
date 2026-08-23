@@ -11,7 +11,7 @@ export function proxy(request: NextRequest) {
   // Exceptuar aquí NO es dejarlas abiertas: cada una comprueba el secreto o el
   // login por su cuenta. Exceptuar sin esa comprobación dentro sería publicar
   // un botón de "rastrea 27.000 URLs" para cualquiera que sepa la ruta.
-  const open = ["/api/health", "/api/weekly"];
+  const open = ["/api/health", "/api/weekly", "/api/ga4/analyst"];
   if (open.includes(request.nextUrl.pathname)) return NextResponse.next();
 
   const user = process.env.DASHBOARD_USER;
@@ -50,5 +50,5 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   // Aplica a todo menos assets estáticos de Next y el health check.
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|api/health|api/weekly).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|api/health|api/weekly|api/ga4/analyst).*)"],
 };

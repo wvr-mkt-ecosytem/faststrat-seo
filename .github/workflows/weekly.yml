@@ -31,3 +31,26 @@ jobs:
           done
           echo "✗ falló tras 3 intentos"
           exit 1
+
+      # El análisis semanal, igual que la tanda de ideas.
+      #
+      # Va con `if: always()` porque son independientes: que falle la generación
+      # de ideas no debe dejarte sin análisis, ni al revés. Y con --max-time
+      # alto porque el agente abre páginas de la competencia: una corrida real
+      # tardó 8,8 minutos.
+      - name: Análisis semanal de SEO
+        if: always()
+        env:
+          APP_BASE_URL: ${{ secrets.APP_BASE_URL }}
+          WEEKLY_SECRET: ${{ secrets.WEEKLY_SECRET }}
+        run: |
+          for i in 1 2 3; do
+            echo "Análisis, intento $i…"
+            if curl -fsS -X POST               --max-time 900               -H "x-weekly-secret: $WEEKLY_SECRET"               -H "Content-Type: application/json"               -d '{"days":28}'               "$APP_BASE_URL/api/ga4/analyst"; then
+              echo "✓ análisis guardado"
+              exit 0
+            fi
+            sleep 30
+          done
+          echo "✗ el análisis falló tras 3 intentos"
+          exit 1

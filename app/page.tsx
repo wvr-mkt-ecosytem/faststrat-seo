@@ -28,42 +28,7 @@ type Behaviour = {
   action: string
 }
 
-type Rec = {
-  kind: string
-  target: string
-  reason: string
-  evidence: string
-  suggestion: string
-  priority: string
-  cause?: string
-  sourceUrl?: string
-}
 
-type Medida = { texto: string; caracteres: number; enSerp: number; seCorta: boolean }
-
-type TituloEstado = {
-  cargando: boolean
-  propuesto: string
-  error?: string
-  datos?: {
-    actual?: Medida
-    propuesto?: Medida | null
-    sufijo?: string
-    limiteSerp?: number
-    applied?: boolean
-    slugIntacto?: boolean
-    tituloEnVivo?: string | null
-    link?: string
-  }
-}
-
-type Analysis = {
-  /** El análisis escrito. Es lo que se lee; las acciones son lo que se ejecuta. */
-  report?: string
-  recommendations?: Rec[]
-  limits?: string[]
-  error?: string
-}
 
 type Ga4Response = {
   connected: boolean
@@ -99,66 +64,8 @@ export default function SeoPage() {
   const [days, setDays] = useState(28)
   const [search, setSearch] = useState('')
   const [verdicto, setVerdicto] = useState<string | null>(null)
-  const [analysis, setAnalysis] = useState<Analysis | null>(null)
-  const [analysing, setAnalysing] = useState(false)
 
-  // Aplicar un título desde la recomendación.
-  //
-  // Directo, pero NUNCA sin ver antes qué cambia. Cambiar el título de una
-  // página que rankea tarda semanas en reevaluarse y no tiene deshacer, así
-  // que la ruta solo escribe cuando se le pide explícitamente y aquí se enseña
-  // el actual, el propuesto y cuántos caracteres ocupan en el resultado de
-  // búsqueda, incluido el sufijo que añade el sitio.
-  const [titulo, setTitulo] = useState<Record<string, TituloEstado>>({})
 
-  async function verTitulo(clave: string, path: string, propuesto: string) {
-    setTitulo((t) => ({ ...t, [clave]: { cargando: true, propuesto } }))
-    try {
-      const r = await fetch('/api/wordpress/title', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ path, title: propuesto }),
-      })
-      const d = await r.json()
-      setTitulo((t) => ({ ...t, [clave]: { cargando: false, propuesto, datos: d, error: d.error } }))
-    } catch (e) {
-      setTitulo((t) => ({ ...t, [clave]: { cargando: false, propuesto, error: String(e) } }))
-    }
-  }
-
-  async function aplicarTitulo(clave: string, path: string) {
-    const est = titulo[clave]
-    if (!est?.propuesto?.trim()) return
-    setTitulo((t) => ({ ...t, [clave]: { ...est, cargando: true } }))
-    try {
-      const r = await fetch('/api/wordpress/title', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ path, title: est.propuesto, apply: true }),
-      })
-      const d = await r.json()
-      setTitulo((t) => ({ ...t, [clave]: { cargando: false, propuesto: est.propuesto, datos: d, error: d.error } }))
-    } catch (e) {
-      setTitulo((t) => ({ ...t, [clave]: { cargando: false, propuesto: est.propuesto, error: String(e) } }))
-    }
-  }
-
-  // El analista vivía en una pantalla aparte llamada Tráfico que, desde que el
-  // Dashboard cruza GSC con GA4, mostraba exactamente los mismos datos con el
-  // mismo diagnóstico. Dos pantallas para una pregunta obligan a elegir cuál
-  // mirar y a mantener el mismo cálculo en dos sitios.
-  async function runAnalyst() {
-    setAnalysing(true)
-    setAnalysis(null)
-    try {
-      const r = await fetch(`/api/ga4/analyst?days=${days}`, { method: 'POST' })
-      setAnalysis(await r.json())
-    } catch (e) {
-      setAnalysis({ error: String(e) })
-    } finally {
-      setAnalysing(false)
-    }
-  }
 
   useEffect(() => {
     setLoading(true)
@@ -269,175 +176,22 @@ export default function SeoPage() {
         {/* Charts */}
         {!loading && !error && data && <SeoCharts rows={data.rows} days={days} />}
 
-        {/* El analista, junto a los números que cita. Estaba en una pantalla
-            aparte; separarlo del dato obligaba a recordar la cifra para
-            entender la recomendación. */}
+        {/* El análisis se mudó a Reportes.
+            Aquí estaba junto a los números que cita, que era una buena razón,
+            pero un informe escrito se lee y esta pantalla se ojea. Y tenerlo en
+            dos sitios obligaría a mantener el mismo bloque por duplicado, que
+            es como acabaron Dashboard y Tráfico. */}
         {hayConducta && (
-          <section className="rounded-lg border border-maroon/15 bg-white/60 p-5 flex flex-col gap-3">
-            <div className="flex items-baseline gap-3 flex-wrap">
-              <h2 className="text-sm font-bold text-ink flex items-center gap-2">
-                <Sparkles size={15} className="text-maroon" /> Qué escribir, según estos datos
-              </h2>
-              <span className="text-[11px] text-sand">
-                Nuestros números salen solo de esta pantalla; para explicar la causa busca en la web y cita la fuente
-              </span>
-            </div>
-
-            <button
-              onClick={runAnalyst}
-              disabled={analysing}
-              className="self-start px-3 py-1.5 rounded-md bg-maroon text-cream text-sm font-medium hover:bg-maroon-hover disabled:opacity-50 flex items-center gap-1.5"
-            >
-              {analysing ? <Loader2 size={14} className="animate-spin" /> : <PenLine size={14} />}
-              {analysing ? 'Analizando…' : 'Analizar y recomendar'}
-            </button>
-
-            {analysis?.error && (
-              <p className="text-xs text-red-700 flex items-center gap-1">
-                <AlertCircle size={12} /> {analysis.error}
-              </p>
-            )}
-
-            {/* Lo que el análisis NO pudo mirar. Callarlo haría pasar una
-                lectura parcial por completa. */}
-            {/* El informe, antes que la lista de acciones.
-                Una lista de recomendaciones sueltas no es un análisis: falta
-                lo que las une, que es qué pasa, por qué, y en qué orden
-                conviene atacarlo. Eso es lo que se lee y sobre lo que se
-                decide; las acciones de abajo son la ejecución. */}
-            {!!analysis?.report && (
-              <div className="text-[13px] text-ink leading-relaxed border border-maroon/15 bg-white/70 rounded-md px-4 py-3 whitespace-pre-wrap">
-                {analysis.report}
-              </div>
-            )}
-
-            {!!analysis?.limits?.length && (
-              <ul className="flex flex-col gap-0.5">
-                {analysis.limits.map((l, i) => (
-                  <li key={i} className="text-[11px] text-amber-800 leading-relaxed">⚠ {l}</li>
-                ))}
-              </ul>
-            )}
-
-            {!!analysis?.recommendations?.length && (
-              <div className="flex flex-col gap-2.5">
-                {analysis.recommendations.map((r, i) => (
-                  <div key={i} className="border-t border-maroon/15 pt-2.5 first:border-0 first:pt-0">
-                    <div className="flex items-baseline gap-2 flex-wrap">
-                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-maroon/10 text-maroon">{r.priority}</span>
-                      <span className="text-sm text-ink font-medium">{r.target}</span>
-                    </div>
-                    <p className="text-[11px] text-sand leading-snug mt-0.5">{r.reason}</p>
-                    {r.cause && (
-                      <p className="text-[12px] text-ink/90 leading-snug mt-1">
-                        <span className="text-sand">Por qué: </span>{r.cause}
-                        {r.sourceUrl && (
-                          <a href={r.sourceUrl} target="_blank" rel="noopener noreferrer"
-                            className="ml-1 text-maroon underline decoration-dotted">fuente</a>
-                        )}
-                      </p>
-                    )}
-                    <p className="text-[12px] text-ink leading-snug mt-1">
-                      <span className="text-sand">Qué hacer: </span>{r.suggestion}
-                    </p>
-                    <p className="text-[11px] font-mono text-maroon mt-1">{r.evidence}</p>
-
-                    {/* Solo para los títulos. Es la única acción que se puede
-                        aplicar directo sin riesgo: no toca el cuerpo, no rompe
-                        enlaces y no cambia el slug. Aun así, primero se ve. */}
-                    {r.kind === 'rewrite-title' && r.target.startsWith('/') && (() => {
-                      const clave = `t${i}`
-                      const est = titulo[clave]
-                      const d = est?.datos
-                      return (
-                        <div className="mt-2 border-t border-maroon/10 pt-2">
-                          {!est && (
-                            <button
-                              onClick={() => verTitulo(clave, r.target, r.suggestion.slice(0, 120))}
-                              className="text-[11px] font-medium px-2.5 py-1 rounded bg-maroon/10 text-maroon hover:bg-maroon/20"
-                            >
-                              Ver y aplicar título
-                            </button>
-                          )}
-
-                          {est?.cargando && (
-                            <p className="text-[11px] text-sand flex items-center gap-1">
-                              <Loader2 size={11} className="animate-spin" /> Leyendo la página…
-                            </p>
-                          )}
-
-                          {est?.error && (
-                            <p className="text-[11px] text-red-700">{est.error}</p>
-                          )}
-
-                          {d && !est?.cargando && !est?.error && (
-                            <div className="flex flex-col gap-1.5">
-                              {/* El actual y el propuesto, con los caracteres que
-                                  ocupan en el resultado de búsqueda incluyendo el
-                                  sufijo del sitio. Contar solo el título del post
-                                  decía que 58 estaba bien cuando salía cortado. */}
-                              <div className="text-[11px]">
-                                <span className="text-sand">Ahora ({d.actual?.enSerp}): </span>
-                                <span className={d.actual?.seCorta ? 'text-red-700' : 'text-ink'}>
-                                  {d.actual?.texto}{d.sufijo}
-                                </span>
-                              </div>
-
-                              <textarea
-                                value={est.propuesto}
-                                onChange={(e) =>
-                                  setTitulo((t) => ({ ...t, [clave]: { ...est, propuesto: e.target.value, datos: undefined } }))
-                                }
-                                rows={2}
-                                className="w-full text-[12px] border border-maroon/20 rounded px-2 py-1 bg-white/70"
-                              />
-
-                              {d.propuesto && (
-                                <div className="text-[11px]">
-                                  <span className="text-sand">Quedaría ({d.propuesto.enSerp}): </span>
-                                  <span className={d.propuesto.seCorta ? 'text-red-700' : 'text-green-700'}>
-                                    {d.propuesto.texto}{d.sufijo}
-                                  </span>
-                                  {d.propuesto.seCorta && (
-                                    <span className="text-red-700"> · se corta, Google muestra {d.limiteSerp}</span>
-                                  )}
-                                </div>
-                              )}
-
-                              {d.applied ? (
-                                <p className="text-[11px] text-green-700">
-                                  Aplicado. En vivo: &ldquo;{d.tituloEnVivo}&rdquo;
-                                  {d.slugIntacto && ' · el slug no cambió, no hacen falta redirecciones'}
-                                  {d.link && (
-                                    <a href={d.link} target="_blank" rel="noopener noreferrer" className="ml-1 underline">ver</a>
-                                  )}
-                                </p>
-                              ) : (
-                                <div className="flex gap-1.5">
-                                  <button
-                                    onClick={() => verTitulo(clave, r.target, est.propuesto)}
-                                    className="text-[11px] px-2 py-1 rounded border border-maroon/20 text-maroon hover:bg-maroon/8"
-                                  >
-                                    Recalcular
-                                  </button>
-                                  <button
-                                    onClick={() => aplicarTitulo(clave, r.target)}
-                                    className="text-[11px] font-medium px-2.5 py-1 rounded bg-maroon text-cream hover:bg-maroon-hover"
-                                  >
-                                    Aplicar en el sitio
-                                  </button>
-                                </div>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      )
-                    })()}
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
+          <a
+            href="/reports"
+            className="flex items-center gap-2 text-sm rounded-lg border border-maroon/15 bg-white/60 px-4 py-3 hover:bg-maroon/5 transition-colors"
+          >
+            <Sparkles size={15} className="text-maroon shrink-0" />
+            <span className="text-ink">
+              <b>El análisis semanal está en Reportes.</b>
+              <span className="text-sand"> Cruza estos números con GA4 y explica por qué pasa lo que pasa.</span>
+            </span>
+          </a>
         )}
 
         {/* Filtro por diagnóstico. Cada veredicto es un arreglo distinto, así
