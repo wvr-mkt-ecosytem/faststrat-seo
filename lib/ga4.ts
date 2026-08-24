@@ -34,6 +34,26 @@ export const ga4Configured = () =>
 
 const dataApi = () => google.analyticsdata({ version: "v1beta", auth: auth() });
 
+/**
+ * El dominio de producción. Todo lo que se consulta se limita a él.
+ *
+ * Hace falta porque la propiedad de GA4 mide TAMBIÉN localhost y
+ * dev.faststrat.ai, y eso contamina justo el dato que más importa: de 23
+ * eventos `purchase` en 90 días, 18 venían de entornos de desarrollo. Un
+ * informe que los cuenta dice que hay ventas donde hay pruebas.
+ *
+ * Lo correcto sería un filtro de datos en GA4, pero su API de administración no
+ * expone ni los filtros ni la definición de tráfico interno (comprobado en
+ * v1beta y v1alpha). Así que se filtra en cada consulta: no cambia lo que GA4
+ * guarda, pero sí lo que este sistema cuenta.
+ */
+const HOST_PRODUCCION = process.env.SITE_HOST || "faststrat.ai";
+
+/** Filtro reutilizable: solo producción, nunca localhost ni dev. */
+const soloProduccion = () => ({
+  filter: { fieldName: "hostName", stringFilter: { value: HOST_PRODUCCION } },
+});
+
 export interface PageStats {
   path: string;
   sessions: number;
@@ -52,6 +72,9 @@ export async function pageStats(days = 28): Promise<PageStats[]> {
     requestBody: {
       dateRanges: [{ startDate: `${days}daysAgo`, endDate: "today" }],
       dimensions: [{ name: "pagePath" }],
+      // Sin esto, las páginas de dev y localhost aparecían mezcladas con las
+      // reales y sus sesiones se sumaban al total del sitio.
+      dimensionFilter: soloProduccion(),
       metrics: [
         { name: "sessions" },
         { name: "totalUsers" },
@@ -254,6 +277,7 @@ export async function trafficSources(days = 28): Promise<Fuente[]> {
     requestBody: {
       dateRanges: [{ startDate: `${days}daysAgo`, endDate: "today" }],
       dimensions: [{ name: "sessionSource" }, { name: "sessionMedium" }],
+      dimensionFilter: soloProduccion(),
       metrics: [
         { name: "sessions" },
         { name: "totalUsers" },
@@ -307,6 +331,7 @@ export async function deviceBreakdown(days = 28): Promise<Dispositivo[]> {
     requestBody: {
       dateRanges: [{ startDate: `${days}daysAgo`, endDate: "today" }],
       dimensions: [{ name: "deviceCategory" }],
+      dimensionFilter: soloProduccion(),
       metrics: [
         { name: "sessions" },
         { name: "engagementRate" },
@@ -350,6 +375,7 @@ export async function eventos(days = 28): Promise<Evento[]> {
     requestBody: {
       dateRanges: [{ startDate: `${days}daysAgo`, endDate: "today" }],
       dimensions: [{ name: "eventName" }],
+      dimensionFilter: soloProduccion(),
       metrics: [{ name: "eventCount" }, { name: "totalUsers" }],
       limit: "50",
       orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
