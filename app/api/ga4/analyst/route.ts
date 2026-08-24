@@ -83,15 +83,37 @@ export const POST = apiRoute(async (request: NextRequest) => {
 //
 // Separado del POST a propósito: mirar lo que ya se analizó no debería costar
 // nueve minutos ni consumir cupo.
-export const GET = apiRoute(async () => {
+export const GET = apiRoute(async (request: NextRequest) => {
   const informes = listarInformes(20);
+
+  // El listado va ligero y el informe completo se pide aparte.
+  //
+  // Cada informe pesa unos 23 KB entre el texto y las recomendaciones. Mandar
+  // veinte enteros para pintar un desplegable son cerca de medio mega en cada
+  // carga de la página, casi todo para no mostrarse.
+  const indice = informes.map((i) => ({
+    generadoEn: i.generadoEn,
+    days: i.days,
+    totals: i.totals,
+    recomendaciones: i.recommendations?.length ?? 0,
+  }));
+
+  // `?informe=<generadoEn>` devuelve ESE, no solo el último.
+  //
+  // Antes solo se servía el más reciente completo, y la pantalla avisaba de que
+  // los anteriores estaban guardados pero no se podían abrir. Con un solo
+  // informe no se notaba; en cuanto hubiera dos, elegir la semana pasada dejaba
+  // la pantalla en blanco. El histórico es justo lo que hace útil el análisis:
+  // un informe describe un momento, dos describen una dirección.
+  const pedido = request.nextUrl.searchParams.get("informe");
+  const elegido = pedido ? informes.find((i) => i.generadoEn === pedido) : informes[0];
+
   return NextResponse.json({
-    informes: informes.map((i) => ({
-      generadoEn: i.generadoEn,
-      days: i.days,
-      totals: i.totals,
-      recomendaciones: i.recommendations?.length ?? 0,
-    })),
-    ultimo: informes[0] ?? null,
+    informes: indice,
+    ultimo: elegido ?? null,
+    // Se dice cuando se pidió uno que no está, en vez de devolver el último
+    // como si fuera el pedido: mirar los datos de otra semana creyendo que son
+    // los de esta es peor que no ver nada.
+    noEncontrado: pedido && !elegido ? pedido : undefined,
   });
 });

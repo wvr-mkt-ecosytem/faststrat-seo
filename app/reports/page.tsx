@@ -623,14 +623,16 @@ function AnalisisSemanal() {
                 const el = lista.find((x) => x.generadoEn === e.target.value)
                 if (!el) return
                 setCargando(true)
-                fetch('/api/ga4/analyst')
+                setAviso(null)
+                // Se pide ESE informe por su fecha. Antes se pedía el último y
+                // se avisaba de que los anteriores no se podían abrir; ahora se
+                // abren, que es lo que hace útil tener histórico.
+                fetch(`/api/ga4/analyst?informe=${encodeURIComponent(el.generadoEn)}`)
                   .then((r) => r.json())
                   .then((d) => {
-                    // El GET devuelve el último completo; para uno antiguo se
-                    // pide su fecha. Mientras solo haya uno completo, se avisa.
-                    setActual(d.ultimo?.generadoEn === el.generadoEn ? d.ultimo : null)
-                    if (d.ultimo?.generadoEn !== el.generadoEn) {
-                      setAviso('Ese informe está guardado pero solo se sirve el más reciente completo.')
+                    setActual(d.ultimo ?? null)
+                    if (d.noEncontrado) {
+                      setAviso('Ese informe ya no está guardado. Puede haberse perdido al reiniciarse el servicio.')
                     }
                   })
                   .finally(() => setCargando(false))
