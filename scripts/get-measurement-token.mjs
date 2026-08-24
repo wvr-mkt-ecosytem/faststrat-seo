@@ -31,11 +31,30 @@ const CLIENT_ID = env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = env.GOOGLE_CLIENT_SECRET;
 const REDIRECT_URI = "http://localhost:9876/oauth2callback";
 
+// Los permisos van por SCOPE, y un refresh token los lleva grabados: no se
+// pueden ampliar después. Cambiar esta lista obliga a volver a autorizar, y por
+// eso conviene pedir de una vez lo que hará falta.
+//
+// Por qué se añadió analytics.edit, después de haber defendido lo contrario:
+// la propiedad tenía marcados como conversión `purchase`, `qualify_lead` y
+// `close_convert_lead`, que son los ejemplos que GA4 sugiere por defecto y que
+// este sitio NO dispara nunca. Los que sí ocurren (`form_start`, `view_plans`,
+// `login`) no contaban. El resultado era "cero conversiones" en todos los
+// informes, leído durante semanas como un problema de negocio cuando era un
+// desajuste de configuración.
+//
+// Arreglar eso desde fuera obliga a entrar al panel cada vez. Con permiso de
+// edición, el sistema puede marcar los eventos correctos, crear las dimensiones
+// que necesita y filtrar el tráfico de bots en el origen, en vez de solo
+// avisar de que están mal.
+//
+// Tag Manager se queda en SOLO LECTURA a propósito. Un token que puede editar
+// el contenedor puede tumbar la analítica del sitio entero con un despliegue
+// mal hecho, y eso no compensa: las etiquetas se tocan pocas veces y a mano.
 const SCOPES = [
-  // Solo lectura: esto audita la medición, no la cambia. Un token que puede
-  // editar el contenedor es un token que puede romper la analítica del sitio.
   "https://www.googleapis.com/auth/tagmanager.readonly",
   "https://www.googleapis.com/auth/analytics.readonly",
+  "https://www.googleapis.com/auth/analytics.edit",
 ];
 
 const authUrl =

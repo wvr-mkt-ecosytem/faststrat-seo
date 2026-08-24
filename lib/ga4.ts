@@ -362,3 +362,55 @@ export async function eventos(days = 28): Promise<Evento[]> {
     usuarios: num(r.metricValues?.[1]?.value),
   }));
 }
+
+export interface PasoAlProducto {
+  /** La página del blog desde la que se pulsó. */
+  origen: string;
+  vistas: number;
+}
+
+/**
+ * Quién pasa del contenido al producto, y desde qué artículo.
+ *
+ * Es la única medida que responde "¿convierte el contenido?", y hasta ahora no
+ * existía. El CTA se añadió a 109 artículos y no había forma de saber si se
+ * pulsaba.
+ *
+ * No se puede medir como clic saliente: app.faststrat.ai está en la MISMA
+ * propiedad de GA4 que el blog, así que ir de uno a otro es navegación interna
+ * y el evento `click` no se dispara. Por eso se mira desde el otro lado: qué
+ * referente traen las visitas que aterrizan en la app.
+ *
+ * El primer resultado, sobre 90 días: 121 vistas llegaron desde la HOME y
+ * CERO desde un artículo. El dato es fiable justamente porque los referentes
+ * del sitio sí se registran: si un artículo hubiera generado clics, aparecería
+ * igual que aparece la home.
+ */
+export async function pasoAlProducto(days = 90, dominioApp = "app.faststrat.ai"): Promise<PasoAlProducto[]> {
+  const res = await dataApi().properties.runReport({
+    property: `properties/${PROPERTY_ID}`,
+    requestBody: {
+      dateRanges: [{ startDate: `${days}daysAgo`, endDate: "today" }],
+      dimensions: [{ name: "pageReferrer" }],
+      metrics: [{ name: "screenPageViews" }],
+      dimensionFilter: {
+        andGroup: {
+          expressions: [
+            { filter: { fieldName: "hostName", stringFilter: { value: dominioApp } } },
+            // Solo los que vienen del sitio de contenido. El resto del ruido
+            // (correos desechables, redes) no dice nada sobre si el contenido
+            // convierte.
+            { filter: { fieldName: "pageReferrer", stringFilter: { matchType: "CONTAINS", value: "//faststrat.ai" } } },
+          ],
+        },
+      },
+      limit: "50",
+      orderBys: [{ metric: { metricName: "screenPageViews" }, desc: true }],
+    },
+  });
+
+  return (res.data.rows ?? []).map((r) => ({
+    origen: r.dimensionValues?.[0]?.value ?? "",
+    vistas: num(r.metricValues?.[0]?.value),
+  }));
+}
