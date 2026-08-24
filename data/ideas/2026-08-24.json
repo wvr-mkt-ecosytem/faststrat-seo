@@ -1,0 +1,167 @@
+{
+  "weekOf": "2026-08-24",
+  "generatedAt": "2026-08-24T10:32:01.044Z",
+  "source": "auto-weekly",
+  "summary": "10 fresh-angle ideas built on GSC striking-distance signals (audit scorecard, structured data, GEO tools, Mexico PYMEs, Claude vs ChatGPT) and live 2026 research — each explicitly differentiated from the 60+ titles already proposed or published. (1 idea(s) descartada(s) por repetir algo ya propuesto o escrito.)",
+  "research": {
+    "competitors": [
+      "Jasper just published 'State of AI in Marketing 2026' (1,400-marketer survey, 95% increasing AI spend) with zero SMB-specific breakdowns — the data exists but no competitor has translated it into small-business action steps, creating a clear commentary gap.",
+      "Yotpo, Ahrefs, SE Ranking, and behindrankings.com all rank for 'best GEO tools 2026' with 10-15 tool roundups, but none compare Otterly.AI vs Peec AI vs Brand Radar head-to-head at SMB pricing tiers — the buying-decision layer is entirely absent.",
+      "HubSpot, Copy.ai, and Jasper's agentic-marketing blog content targets enterprise and mid-market teams; there is no published guide showing SMBs how to connect three specialized agents (SEO + email + ads) into an orchestrated stack without a developer.",
+      "Landing-page CRO content from Landingi, Netpartners, and Foundry CRO covers generic checklists and A/B testing; none links the audit to a scored, time-boxed action plan using an AI website audit tool — a workflow gap FastStrat's own free audit product can uniquely fill."
+    ],
+    "trends": [
+      "GEO reaches the commerce layer: Amazon Rufus is expanding to TikTok Shop and Instagram in 2026, making AI-powered product discovery platform-native — SMBs not optimized for machine-readable structured data will be deprioritized in social feeds before a human ever sees the listing.",
+      "Social commerce bifurcation creates a measurable ROI decision: global social commerce crossed $1.2T; TikTok Shop converts at 4.7% vs Instagram's 2.1% and Facebook's 1.8%, giving SMBs a data-driven reason to choose one platform first rather than spreading thin.",
+      "Specialized AI agents beat all-in-one tools: 2026 consensus from AgentMarketCap and Commercetools is that small, high-trust purpose-built agents embedded in existing workflows outperform monolithic platforms — the SMB case for stacking a dedicated SEO agent, email agent, and ads agent is now concrete and affordable.",
+      "Continuous AI-driven CRO replaces one-off A/B testing: systematic AI optimization delivers 30-80% conversion uplift in 90 days and the best landing pages in 2026 are treated as living assets — tools to automate this loop are now available to SMBs for under $100/month.",
+      "AI marketing spend gap creates asymmetric opportunity: 95% of enterprise marketers are increasing AI budgets (Jasper 2026) while most SMBs remain underinvested — platforms that translate enterprise-grade AI capability into small-business ROI have a narrow window to capture this gap before it closes."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "You Got Your AI Website Audit Score — Now What? The 90-Day SEO Action Plan for SMBs",
+      "slug": "you-got-your-ai-website-audit-score-now-what-the-90-day-seo-",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "ai website audit tool with scorecard",
+      "intent": "post-audit actionability — users who already ran a scored audit and need a prioritized fix roadmap",
+      "rationale": "The published 'Best SEO Tools for Small Businesses in 2026' reviews tools and the proposed 'GEO Readiness Audit: 15 Checks' stops at diagnosis; this article starts exactly where both end — converting a multi-dimension audit score into a sequenced 90-day plan, directly supporting traffic to FastStrat's own free audit tool (pos 5.9, 26 impr).",
+      "outline": [
+        "What Your AI Website Audit Score Actually Measures Across 8 Dimensions",
+        "How to Prioritize Fixes: The Effort-vs-Impact Matrix for Time-Strapped SMBs",
+        "Weeks 1–4: Technical and Mobile Wins That Move Your Score Fast",
+        "Weeks 5–12: Content, Structured Data, and GEO Optimizations",
+        "How to Track Score Improvements Over Time and Know When to Re-Audit"
+      ]
+    },
+    {
+      "title": "TikTok Shop vs Instagram Shop for Small Businesses in 2026: Which Social Commerce Channel Actually Converts?",
+      "slug": "tiktok-shop-vs-instagram-shop-for-small-businesses-in-2026-w",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "social commerce small business 2026 TikTok Shop vs Instagram",
+      "intent": "comparative platform decision — SMB owners choosing where to invest their social commerce effort first",
+      "rationale": "The proposed 'Short-Form Video + AI: How Small Businesses Can Win the Highest-ROI Marketing Format in 2026' focuses on content format; this focuses on commerce infrastructure — TikTok Shop's 4.7% vs Instagram's 2.1% conversion data makes this a buying-decision guide anchored in hard numbers, a format not yet used in the library.",
+      "outline": [
+        "Platform Comparison: Fees, Setup Time, and Product Catalog Requirements",
+        "Conversion Rate Data: Why TikTok Shop Outperforms at 4.7% — and When It Does Not",
+        "Which Product Niches and Price Points Win on Each Platform",
+        "How to Use AI Tools to Manage Both Channels Without Adding Headcount",
+        "Which Platform Should Your SMB Start With? A 5-Question Decision Framework"
+      ]
+    },
+    {
+      "title": "SMB Email List Building in 2026: The AI Playbook to Grow from 0 to 10,000 Subscribers",
+      "slug": "smb-email-list-building-in-2026-the-ai-playbook-to-grow-from",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "smb email list building AI 2026",
+      "intent": "acquisition — SMBs that have email tools but a tiny or stagnant subscriber list",
+      "rationale": "The published 'AI Email Deliverability for SMBs in 2026' covers inbox placement and the proposed '7 Sequences That Drive Real Revenue' covers campaigns; this covers the step before both — how to grow the list from scratch using AI-powered lead magnets and organic capture, targeting the underexploited 'smb emails' signal at pos 12.9.",
+      "outline": [
+        "Why Most SMB Email Lists Stall Below 1,000 Subscribers (And the AI Fix)",
+        "The AI-Powered List Building Stack: Tools, Setup, and Monthly Cost Under $60",
+        "5 Lead Magnet Formats That Convert in 2026 — With AI-Generated Examples",
+        "How to Automate List Growth Without Paid Ads Using Content and GEO Signals",
+        "Benchmarks: What 10,000 Subscribers Is Actually Worth in Revenue for a Typical SMB"
+      ]
+    },
+    {
+      "title": "7 Structured Data Mistakes That Get Your Local Business Excluded from AI Answers in 2026",
+      "slug": "7-structured-data-mistakes-that-get-your-local-business-excl",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "google search central seo starter guide structured data local business 2026",
+      "intent": "failure-mode avoidance — local SMBs who implemented schema but are absent from AI Overviews, Perplexity, and ChatGPT citations",
+      "rationale": "The proposed 'Structured Data for Local Business in 2026: Google's SEO Starter Guide Applied to SMBs' is a how-to implementation guide; this is the counter-angle — what breaks, why it causes AI exclusion, and how to diagnose it — the negative-framing listicle format targeting the 65 impr / pos 8.8 signal with a differentiated angle that instructional content cannot compete against.",
+      "outline": [
+        "How AI Engines Actually Read LocalBusiness Schema — and What They Silently Reject",
+        "Mistakes 1–3: Missing, Mismatched, or Stale NAP Data Across Citation Sources",
+        "Mistakes 4–5: Wrong Schema Type and Incomplete Review and Hours Markup",
+        "Mistakes 6–7: No GeoCoordinates and Unsynced Google Business Profile",
+        "The 10-Minute Structured Data Audit to Find and Fix All 7 Mistakes Today"
+      ]
+    },
+    {
+      "title": "The 3-Agent Marketing Stack: How SMBs Can Run SEO, Email, and Ads on Autopilot in 2026",
+      "slug": "the-3-agent-marketing-stack-how-smbs-can-run-seo-email-and-a",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "AI marketing agents SMB orchestration stack 2026",
+      "intent": "implementation — SMBs that understand AI agents in principle and want a concrete multi-agent setup with wiring instructions",
+      "rationale": "The proposed 'SMB Guide to AI Marketing Agents: Deploy and Manage Without a Dev Team' covers single-agent management and 'From AI Copilot to AI Commander' is conceptual positioning; this covers orchestration specifically — how to connect three specialized agents via triggers and data handoffs into a system that runs without daily intervention, a layer none of the prior articles touch.",
+      "outline": [
+        "Why Specialized Agents Outperform All-in-One AI Tools in 2026 (Benchmark Data)",
+        "Agent 1 — The SEO Agent: Keyword Monitoring, Brief Generation, and Internal Linking Automation",
+        "Agent 2 — The Email Agent: Triggered Sequences, List Segmentation, and Send-Time Optimization",
+        "Agent 3 — The Ads Agent: Budget Reallocation, Copy Testing, and Performance Alerts",
+        "Wiring the Stack: Triggers, Data Handoffs, and What This System Costs Per Month"
+      ]
+    },
+    {
+      "title": "What Jasper's 2026 State of AI in Marketing Report Actually Means If You Run a Small Business",
+      "slug": "what-jasper-s-2026-state-of-ai-in-marketing-report-actually-",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "AI marketing trends 2026 small business strategy budget",
+      "intent": "strategic orientation — SMB owners who saw Jasper's report headline and want a plain-English translation for their scale",
+      "rationale": "No published or proposed FastStrat article uses a competitor's research report as the hook; this data-journalism format (Jasper surveyed 1,400 marketers but the report ignores SMBs entirely) is a new content type in the library and targets decision-stage readers with zero keyword cannibalization risk against anything previously written.",
+      "outline": [
+        "The 5 Biggest Numbers from Jasper's 2026 Survey — and What They Deliberately Hide",
+        "What '95% Increasing AI Spend' Actually Looks Like at a $300–$500/Month SMB Budget",
+        "The Capability Gap: Which AI Marketing Functions SMBs Should Prioritize First",
+        "Budget Allocation Guide: Translating Enterprise AI Spend Ratios to Your Reality",
+        "Your 3-Move Action Plan Based on Jasper's Data — Not Jasper's Products"
+      ]
+    },
+    {
+      "title": "Brand Equity for Small Businesses in 2026: How AI Tools Are Changing the Way SMBs Measure Brand Value",
+      "slug": "brand-equity-for-small-businesses-in-2026-how-ai-tools-are-c",
+      "lang": "en",
+      "priority": "baja",
+      "primaryKeyword": "brand appraisal importance small business AI measurement 2026",
+      "intent": "strategic awareness — SMB owners who want to quantify brand value for pricing power, fundraising, or partnership negotiations",
+      "rationale": "The published 'How Nike Turns Storytelling Into A Branding Superpower' and the proposed 'Brand Storytelling Playbook' both address brand narrative; this addresses the financial dimension — how AI tools now quantify brand equity as a measurable asset — targeting the 23 impr / pos 7.1 signal around brand appraisal case studies from an angle no prior article covers.",
+      "outline": [
+        "What Brand Equity Actually Means for a Small Business Beyond Logo and Tagline",
+        "How AI Tools Now Quantify Awareness, Sentiment, and Share of Voice for SMBs",
+        "4 Case Studies: SMBs That Grew Measurable Brand Equity Using AI Marketing",
+        "The Free Brand Equity Measurement Stack: What to Track and How to Report It",
+        "How Brand Equity Connects to Customer Lifetime Value — and Why It Should Drive Your Budget"
+      ]
+    },
+    {
+      "title": "ChatGPT o3 vs Claude Opus 4 for SMB Marketing: 12 Real Tasks Tested, Timed, and Scored (2026)",
+      "slug": "chatgpt-o3-vs-claude-opus-4-for-smb-marketing-12-real-tasks-",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "claude vs chatgpt for marketing 2026 small business",
+      "intent": "comparative purchase decision — SMBs choosing which AI model to default to across their marketing workflow",
+      "rationale": "The proposed 'Claude vs ChatGPT for Marketing in 2026: Which AI Wins for Small Businesses?' (proposed twice, never published) is a general feature overview; this uses current model version names (o3 vs Opus 4), 12 timed tasks with a blind scoring rubric, and includes a LATAM-Spanish round — transforming an opinion piece into a repeatable methodology that directly targets the 259 impr / pos 38.4 SIN EXPLOTAR signal.",
+      "outline": [
+        "Test Methodology: 12 SMB Marketing Tasks, Blind Scoring Rubric, and Time Tracking",
+        "Round 1: Blog Outlines, Ad Copy, and Email Subject Lines — Who Wins?",
+        "Round 2: SEO Meta Descriptions, Landing Page Headlines, and Social Captions",
+        "Round 3: LATAM Spanish Marketing Copy — Which Model Handles Regional Nuance Better?",
+        "Final Scorecard, Cost Per Output, and Which Model Your SMB Should Default To"
+      ]
+    },
+    {
+      "title": "AI Marketing for Mexican PYMEs in 2026: The 5 Tools Local Businesses Are Actually Using (Not Just Talking About)",
+      "slug": "ai-marketing-for-mexican-pymes-in-2026-the-5-tools-local-bus",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "pymes en mexico 2026 AI marketing tools",
+      "intent": "practical adoption — Mexican small business owners who want to know what working peers are already running, not a landscape survey",
+      "rationale": "The proposed 'How Small Businesses in Mexico Are Using AI to Compete in 2026: Adoption Data, Real Cases & What's Working' is a broad landscape overview; this narrows to 5 named tools with real usage data, MXN pricing where applicable, and one case study per tool — the 'show me what to actually install' angle for the 69 impr / pos 6.1 signal that an adoption survey cannot satisfy.",
+      "outline": [
+        "Why Mexican PYMEs Are Skipping Legacy Marketing and Going Straight to AI",
+        "Tools 1–2: WhatsApp AI Automation and AI-Powered Google Business Profile Optimization",
+        "Tools 3–4: GEO-Ready Content Generation and AI Ad Management for Meta",
+        "Tool 5: AI Website Audit and Local SEO Scorecard With Mexico-Specific Benchmarks",
+        "Total Monthly Cost, Setup Time, and What Results Look Like After 90 Days"
+      ]
+    }
+  ]
+}
