@@ -414,3 +414,62 @@ export async function pasoAlProducto(days = 90, dominioApp = "app.faststrat.ai")
     vistas: num(r.metricValues?.[0]?.value),
   }));
 }
+
+export interface EscalonEmbudo {
+  paso: string;
+  usuarios: number;
+  /** Porcentaje sobre los que llegaron. Es lo que señala dónde se pierde. */
+  pctDeLosQueLlegan: number;
+}
+
+/**
+ * El embudo dentro del producto: quién llega, quién entra y quién compra.
+ *
+ * La frontera de este sistema está aquí y conviene decirla: mide HASTA la
+ * compra para saber qué contenido trae gente que paga, y no más allá. Lo que
+ * el usuario hace dentro de la app, si vuelve o cuánto factura es analítica de
+ * producto, y meterlo aquí convertiría un sistema de SEO en otra cosa.
+ *
+ * Por qué merece la pena aun siendo SEO: sin este corte no se sabe de quién es
+ * el problema. Si llegan mil del blog y ninguno entra, el contenido atrae al
+ * público equivocado y es cosa de contenido. Si llegan cien y entran noventa,
+ * el contenido funciona y el cuello está en el producto. Son dos arreglos en
+ * equipos distintos.
+ *
+ * Medido la primera vez, sobre 90 días: 116 llegan, 21 entran (18%), 2 compran.
+ * El 82% se pierde ANTES de identificarse.
+ */
+export async function embudoProducto(days = 90, dominioApp = "app.faststrat.ai"): Promise<EscalonEmbudo[]> {
+  const res = await dataApi().properties.runReport({
+    property: `properties/${PROPERTY_ID}`,
+    requestBody: {
+      dateRanges: [{ startDate: `${days}daysAgo`, endDate: "today" }],
+      dimensions: [{ name: "eventName" }],
+      metrics: [{ name: "totalUsers" }],
+      dimensionFilter: { filter: { fieldName: "hostName", stringFilter: { value: dominioApp } } },
+      limit: "50",
+    },
+  });
+
+  const porEvento = new Map<string, number>();
+  for (const r of res.data.rows ?? []) {
+    porEvento.set(r.dimensionValues?.[0]?.value ?? "", num(r.metricValues?.[0]?.value));
+  }
+
+  // El orden es el del recorrido real, no el de volumen: así el escalón donde
+  // se cae la gente se ve de un vistazo en vez de haber que buscarlo.
+  const pasos: [string, string][] = [
+    ["page_view", "Llegan a la app"],
+    ["form_start", "Empiezan un formulario"],
+    ["view_plans", "Miran los planes"],
+    ["login", "Se identifican"],
+    ["select_plan", "Eligen un plan"],
+    ["purchase", "Compran"],
+  ];
+
+  const llegan = porEvento.get("page_view") ?? 0;
+  return pasos.map(([evento, paso]) => {
+    const usuarios = porEvento.get(evento) ?? 0;
+    return { paso, usuarios, pctDeLosQueLlegan: llegan ? Math.round((usuarios / llegan) * 1000) / 10 : 0 };
+  });
+}
