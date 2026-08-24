@@ -73,13 +73,13 @@ Lo que no tiene: capacidades de outbound masivo tan sofisticadas como plataforma
 
 **Treble.ai** es una empresa colombiana construida específicamente para lo que los equipos de ventas de LATAM necesitan: campañas de WhatsApp para prospección, nurturing y cierre, con flujos visuales y analytics por etapa del funnel. Tiene clientes activos en Colombia, México, Chile y Perú, y el equipo entiende contextos regionales como ningún proveedor europeo o asiático puede.
 
-- **Precio base:** cotización directa para PYMEs; los planes de pago [parten de ~USD $399/mes](https://ecosystem.hubspot.com/marketplace/listing/treble-whatsapp) según el Marketplace de HubSpot
+- **Precio base:** [Treble no publica tarifas](https://treble.ai/pricing): el precio se pide por cotización. Es el único de esta lista que no lo enseña, así que compararlo con los demás exige hablar con ventas antes
 - **Foco:** outbound, secuencias de seguimiento automatizadas, pipelines de venta
 - **Soporte:** en español, con equipo operando en LATAM
 - **Integraciones:** HubSpot (nativa), Salesforce, Zapier
 - **Ideal para:** inmobiliarias, educación, financiero, B2B con ciclo de venta largo
 
-El precio es más alto que Wati o 360dialog, pero si tu negocio depende de convertir prospectos por WhatsApp, el ROI se justifica rápidamente.
+Al no publicar tarifas no se puede decir si sale más caro que Wati o 360dialog, y cualquiera que lo afirme se lo está inventando. Lo que sí se puede evaluar antes de pedir cotización es el encaje: si tu negocio vive de convertir prospectos por WhatsApp con ciclos largos, es el que está construido para eso.
 
 ---
 

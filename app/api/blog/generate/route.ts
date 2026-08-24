@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createBlogPost, slugify } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
 import { REGLAS_DE_CASA } from "@/lib/house-rules";
-import { runQa } from "@/lib/qa";
+import { dejarPublicable } from "@/lib/publicable";
 import { persistChanges } from "@/lib/persist";
 
 // Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
@@ -19,6 +19,16 @@ export const dynamic = "force-dynamic";
 const WRITER_SYSTEM = `Eres redactor SEO senior y estratega de contenido para FastStrat, una plataforma de agentes de IA de marketing para PYMEs (mercados LATAM y EEUU). Escribes artículos de blog de calidad publicable, del nivel de un especialista humano experimentado, no de IA genérica.
 
 OBJETIVO: que el artículo (a) rankee en Google, (b) sea genuinamente útil para un dueño de PYME o marketer, y (c) sea lo suficientemente claro y citable como para que ChatGPT/Perplexity lo referencien (GEO).
+
+ANTES DE ESCRIBIR NADA: INVESTIGA.
+
+Este es el paso que decide si el artículo sale publicable a la primera o hay que corregirlo después. Tienes WebSearch y WebFetch: úsalos AHORA, no cuando ya hayas escrito.
+
+1. Busca las cifras que vas a necesitar para este tema y ABRE las páginas. Precios reales, benchmarks, estudios.
+2. Apunta la URL exacta de cada una. Si no abriste la página, la cifra no existe para ti.
+3. Escribe DESDE lo que encontraste. No escribas primero y busques fuentes después para tapar huecos: así es como salen cifras plausibles que ninguna página respalda, y es lo que bloquea la publicación.
+
+Si un dato que querías no tiene fuente pública, no lo escribas: di el mecanismo en su lugar. Un artículo sin ese número se publica; con él inventado, no.
 
 ESTÁNDARES DE CALIDAD (obligatorios):
 - Extensión: MÍNIMO 1.000 palabras, y a partir de ahí la que exija el tema. El mínimo no es una cuota que rellenar: si llegas a 1.000 con relleno, el artículo se bloquea igual por las reglas de lenguaje. Un tema que no da para 1.000 palabras con sustancia está mal acotado, y lo que hay que cambiar es el tema, no estirar el texto.
@@ -38,56 +48,6 @@ ${REGLAS_DE_CASA}
 FORMATO DE SALIDA: devuelve ÚNICAMENTE el cuerpo del artículo en Markdown. Sin frontmatter, sin título H1 (el H1 es el título del post), sin envolverlo en bloques de código. Empieza directo con el párrafo de intro.`;
 
 // POST /api/blog/generate { keyword, title?, lang?, category? }
-/**
- * Deja el borrador dentro de las reglas antes de guardarlo.
- *
- * Devuelve el markdown corregido. Si no puede dejarlo limpio del todo,
- * devuelve lo mejor que consiguió: un artículo con un bloqueo se arregla
- * después, uno que no se guardó se pierde entero.
- */
-async function dejarPublicable(title: string, markdown: string): Promise<string> {
-  const qa = runQa({ title, markdown, house: { noEmDash: true, urlProducto: "app.faststrat.ai" } });
-  if (qa.ok) return markdown;
-
-  let texto = markdown;
-  try {
-    const corregido = await runClaude({
-      model: "sonnet",
-      system: `Eres el editor que deja un artículo dentro de las reglas de publicación. Arregla cada hallazgo con el mínimo cambio posible: no es una reescritura.
-
-Ante una cifra sin fuente: PRIMERO búscala, que tienes WebSearch. Si la encuentras, enlázala y CONSERVA la cifra. Solo si no existe, sustitúyela por un hecho concreto y verificable del mismo tema, nunca por una generalidad: "muchas empresas", "la mayoría", "significativamente" están prohibidos como reemplazo. Borrar especificidad es una regresión, no un arreglo: deja la página sin nada que un lector recuerde ni un asistente cite.
-
-Nunca inventes un enlace ni atribuyas el dato a quien no lo publicó.
-
-${REGLAS_DE_CASA}
-
-Devuelve ÚNICAMENTE el cuerpo en Markdown, sin explicaciones y sin bloques de código.`,
-      prompt: `Hallazgos que bloquean:
-${qa.blocking.map((f) => `- [${f.rule}] ${f.detail}${f.excerpt ? ` en: "${f.excerpt}"` : ""}`).join("\n")}
-
-ARTÍCULO:
----
-${texto}
----`,
-      allowedTools: ["WebSearch", "WebFetch"],
-    });
-    const limpio = corregido.trim().replace(/^```(?:markdown|md)?/i, "").replace(/```$/, "").trim();
-    // Solo se acepta si mejora. Un "arreglo" que empeora se descarta.
-    if (limpio && runQa({ title, markdown: limpio, house: { noEmDash: true, urlProducto: "app.faststrat.ai" } }).blocking.length < qa.blocking.length) {
-      texto = limpio;
-    }
-  } catch {
-    // Si el corrector falla, se guarda el original. Perder el artículo por no
-    // poder pulirlo sería peor que guardarlo con hallazgos.
-  }
-
-  // Barrido determinista de rayas largas: no necesita criterio, y es lo que
-  // más bloqueos produce con diferencia.
-  return texto
-    .replace(/\s*—\s*$/gm, ".")
-    .replace(/\s+—\s+/g, ", ")
-    .replace(/—/g, ", ");
-}
 
 /**
  * El cierre que lleva al producto.
@@ -253,7 +213,8 @@ La extensión la marca el tema, no una cuota. No hay mínimo de palabras.`,
     // de autocita circular porque app.faststrat.ai está excluido de esa
     // comprobación: un "empieza gratis" no cita nada.
     markdown = conCta(markdown, lang);
-    markdown = await dejarPublicable(title, markdown);
+    const revisado = await dejarPublicable(title, markdown);
+    markdown = revisado.markdown;
 
     const excerpt =
       markdown

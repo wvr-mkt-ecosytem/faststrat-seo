@@ -10,7 +10,7 @@ status: draft
 ---
 ## The Short Answer: 7–8% of Revenue (But It Depends)
 
-If you've been Googling this question, you've probably seen a dozen different numbers. Here's the honest answer: **there's no single right figure**, but there is a well-established starting point — and a framework to make it your own.
+If you've been Googling this question, you've probably seen a dozen different numbers. Here's the honest answer: **there's no single right figure**, but there is a well-established starting point, and a framework to make it your own.
 
 The **U.S. Small Business Administration (SBA) recommends that small businesses with annual revenue under $5 million allocate 7–8% of gross revenue to marketing**. That's the closest thing to an official benchmark you'll find, and it's worth understanding where it comes from and when to adjust it.
 
@@ -36,7 +36,7 @@ Here's how that translates into real numbers:
 
 ## When the SBA Percentage Isn't Enough
 
-The 7–8% rule is a floor for mature small businesses, not a ceiling — and definitely not a one-size-fits-all answer. Several factors push the number higher or lower.
+The 7–8% rule is a floor for mature small businesses, not a ceiling, and definitely not a one-size-fits-all answer. Several factors push the number higher or lower.
 
 ### Stage of Business
 
@@ -49,7 +49,7 @@ The 7–8% rule is a floor for mature small businesses, not a ceiling — and de
 Business model makes a big difference:
 
 - **B2C small businesses** typically spend **7–10%** because the purchase cycle is shorter and volume depends on constant customer acquisition.
-- **B2B small businesses** often land at **2–5%**, since relationships and referrals do heavy lifting — though this is changing fast with digital channels.
+- **B2B small businesses** often land at **2–5%**, since relationships and referrals do heavy lifting, though this is changing fast with digital channels.
 
 ### Industry Benchmarks
 
@@ -65,7 +65,7 @@ Not all industries compete at the same intensity. Here's a realistic snapshot:
 | Manufacturing / industrial | 1–4% |
 | Real estate | 5–10% |
 
-If you're in a high-competition industry with short purchase cycles, your number will be closer to the top of the range. If you rely on long-term contracts and word-of-mouth, the lower end may be sufficient — as long as you have a system in place.
+If you're in a high-competition industry with short purchase cycles, your number will be closer to the top of the range. If you rely on long-term contracts and word-of-mouth, the lower end may be sufficient, as long as you have a system in place.
 
 ---
 
@@ -81,7 +81,7 @@ Instead of picking a percentage out of thin air, use this four-step approach.
 
 **Step 4: Sanity-check against your margins.** If the resulting number would push you into the red, either your margins need work or your growth target needs to be phased. Marketing can't fix a broken unit economics model.
 
-> **Example:** A $750,000/year landscaping business wants 25% revenue growth. SBA baseline = $52,500–$60,000. Growth adjustment (+3%) = $22,500. Adjusted total: ~$75,000–$82,500 for the year, or roughly $6,200–$6,900/month. That's about 10% of current revenue — aggressive but realistic for a clear growth target.
+> **Example:** A $750,000/year landscaping business wants 25% revenue growth. SBA baseline = $52,500–$60,000. Growth adjustment (+3%) = $22,500. Adjusted total: ~$75,000–$82,500 for the year, or roughly $6,200–$6,900/month. That's about 10% of current revenue, aggressive but realistic for a clear growth target.
 
 ---
 
@@ -95,9 +95,9 @@ Having the number is step one. Allocating it wisely is where most small business
 
 **Content & SEO:** Slower to produce results but compounds over time. A well-ranked blog post or landing page keeps generating leads for months without additional spend. Ideal if you have a longer planning horizon.
 
-**Social media (paid + organic):** B2C businesses often see strong ROI on Meta (Facebook/Instagram). B2B businesses increasingly find LinkedIn worth the premium CPCs for high-value leads. Don't spread across every platform — pick two and do them well.
+**Social media (paid + organic):** B2C businesses often see strong ROI on Meta (Facebook/Instagram). B2B businesses increasingly find LinkedIn worth the premium CPCs for high-value leads. Don't spread across every platform, pick two and do them well.
 
-**Email marketing:** Consistently the highest ROI channel for SMBs — often cited at $36 return for every $1 spent (Litmus, 2023). If you have a list, nurture it. If you don't, building one should be a marketing priority.
+**Email marketing:** Consistently the highest ROI channel for SMBs, often cited at $36 return for every $1 spent (Litmus, 2023). If you have a list, nurture it. If you don't, building one should be a marketing priority.
 
 **Referral programs and local partnerships:** These don't always get a budget line item, but they should. Even a small incentive structure (10% referral discount, co-marketing with a complementary business) can generate outsized returns.
 
@@ -129,7 +129,7 @@ Specifically, AI marketing agents can now:
 - **Personalize email sequences** based on behavior without manual segmentation
 - **Analyze campaign performance** and surface what to cut and what to double down on
 
-For a small business with a $30,000–$60,000 annual marketing budget, this isn't a luxury — it's a lever. Redirecting $10,000–$15,000 in labor costs toward AI tooling can free up capacity for strategy, customer relationships, and the things that actually need a human.
+For a small business with a $30,000–$60,000 annual marketing budget, this isn't a luxury, it's a lever. Redirecting $10,000–$15,000 in labor costs toward AI tooling can free up capacity for strategy, customer relationships, and the things that actually need a human.
 
 The net effect: SMBs using AI marketing tools can often *achieve the results* of a 10% budget on a 6–7% budget. That's the efficiency gain worth paying attention to.
 
@@ -161,7 +161,7 @@ The **SBA recommends 7–8% of gross revenue** for small businesses earning unde
 
 ### Is the SBA's 7–8% marketing budget rule still relevant in 2025?
 
-Yes, as a baseline. The 7–8% figure has held up because it balances sustainability with competitiveness. What's changed is *where* that money goes — digital and AI-driven channels now offer far better tracking and ROI than the traditional mix of print and events.
+Yes, as a baseline. The 7–8% figure has held up because it balances sustainability with competitiveness. What's changed is *where* that money goes, digital and AI-driven channels now offer far better tracking and ROI than the traditional mix of print and events.
 
 ### How do I calculate my small business marketing budget?
 
@@ -169,11 +169,11 @@ Multiply your annual gross revenue by 0.07–0.08 to get the SBA baseline. Then 
 
 ### What if I can't afford 7–8% of revenue for marketing?
 
-Start with what you can commit consistently — even 3–5% deployed strategically beats 8% spent without a plan. Focus on the highest-ROI channels first: email to your existing list, SEO for search intent, and one paid channel with tight targeting. Add channels as your revenue grows.
+Start with what you can commit consistently, even 3–5% deployed strategically beats 8% spent without a plan. Focus on the highest-ROI channels first: email to your existing list, SEO for search intent, and one paid channel with tight targeting. Add channels as your revenue grows.
 
 ### Does the SBA marketing percentage include salaries for marketing staff?
 
-It depends on how you account for it. Many SMBs include marketing salaries in the total marketing budget; others track them separately as overhead. **Be consistent** in your calculation — the important thing is knowing your total cost to acquire a customer, regardless of where the dollars are categorized.
+It depends on how you account for it. Many SMBs include marketing salaries in the total marketing budget; others track them separately as overhead. **Be consistent** in your calculation, the important thing is knowing your total cost to acquire a customer, regardless of where the dollars are categorized.
 
 ### How is the marketing budget for a B2B small business different from B2C?
 
@@ -181,14 +181,24 @@ B2B SMBs typically spend **2–5% of revenue** on marketing because sales cycles
 
 ### Should I spend more on marketing when business is slow?
 
-**Yes — with caveats.** Cutting marketing during a slow period is usually the wrong call; it's a lagging indicator of a problem, not the cause of one. If cash is tight, reallocate to your highest-ROI channel rather than cutting total spend. The businesses that keep marketing through slow cycles tend to emerge faster when demand rebounds.
+**Yes, with caveats.** Cutting marketing during a slow period is usually the wrong call; it's a lagging indicator of a problem, not the cause of one. If cash is tight, reallocate to your highest-ROI channel rather than cutting total spend. The businesses that keep marketing through slow cycles tend to emerge faster when demand rebounds.
 
 ---
 
 ## The Bottom Line
 
-The SBA's 7–8% of gross revenue benchmark is a solid anchor — but your actual number should reflect your industry, growth stage, and business model. New businesses need to spend more to build visibility; established businesses can often maintain with less, especially when they're using AI tools to stretch each dollar further.
+The SBA's 7–8% of gross revenue benchmark is a solid anchor, but your actual number should reflect your industry, growth stage, and business model. New businesses need to spend more to build visibility; established businesses can often maintain with less, especially when they're using AI tools to stretch each dollar further.
 
 **The worst marketing budget is zero.** The second worst is one you never review.
 
-Set a number you can sustain for 12 months, measure what's working at the 90-day mark, and adjust from there. That discipline — more than any specific percentage — is what separates SMBs that grow from ones that plateau.
+Set a number you can sustain for 12 months, measure what's working at the 90-day mark, and adjust from there. That discipline, more than any specific percentage, is what separates SMBs that grow from ones that plateau.
+
+---
+
+You now know what to do. The hard part is doing it every week, without a marketing team, while you run the business.
+
+That is the job FastStrat does: it plans the content, writes it, publishes it, and tells you what actually moved. One place, no stack to assemble.
+
+**[Start free at app.faststrat.ai →](https://app.faststrat.ai)**
+
+Set it up in minutes. Keep what works.

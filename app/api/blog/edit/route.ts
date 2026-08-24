@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getBlogPost, updateBlogMarkdown, renderHtml } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
 import { persistChanges } from "@/lib/persist";
+import { dejarPublicable } from "@/lib/publicable";
 
 // Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
 // llamada al agente y no devuelve nada: el navegador se queda esperando una
@@ -61,7 +62,10 @@ Devuelve el artículo completo reescrito en Markdown.`,
       return NextResponse.json({ markdown: newMarkdown, saved: false });
     }
 
-    const updated = updateBlogMarkdown(slug, newMarkdown);
+    // Editar también es escribir: una instrucción del usuario puede meter una
+    // cifra sin fuente o una raya larga igual que el escritor.
+    const revisado = await dejarPublicable(post.title, newMarkdown, { metaDescription: post.excerpt });
+    const updated = updateBlogMarkdown(slug, revisado.markdown);
     await persistChanges(`edit blog: ${updated.slug}`, [
       path.join(process.cwd(), "content", "blog", updated.file),
     ]);

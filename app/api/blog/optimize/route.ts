@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getBlogPosts, createBlogPost, slugify, renderHtml } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
 import { persistChanges } from "@/lib/persist";
+import { dejarPublicable } from "@/lib/publicable";
 
 // Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
 // llamada al agente y no devuelve nada: el navegador se queda esperando una
@@ -100,6 +101,10 @@ export const POST = apiRoute(async (request: NextRequest) => {
         .filter(Boolean)[0]
         ?.slice(0, 155) ?? title;
 
+    // La compuerta, que esta ruta se saltaba entera. El artículo que produjo
+    // llegó con 47 bloqueos porque nadie comprobaba nada antes de guardarlo.
+    const revisado = await dejarPublicable(local ? `${title} (optimized)` : title, newMarkdown, { metaDescription: excerpt });
+
     const post = createBlogPost({
       title: local ? `${title} (optimized)` : title,
       slug: newSlug,
@@ -108,7 +113,7 @@ export const POST = apiRoute(async (request: NextRequest) => {
       lang,
       category,
       status: "draft",
-      markdown: newMarkdown,
+      markdown: revisado.markdown,
     });
 
     await persistChanges(`optimize: ${urlPath}`, [
@@ -118,6 +123,9 @@ export const POST = apiRoute(async (request: NextRequest) => {
     return NextResponse.json({
       ok: true,
       slug: post.slug,
+      // Lo que quedó sin resolver se dice, no se calla.
+      pendientes: revisado.pendientes,
+      publicable: revisado.qa.ok,
       title: post.title,
       wordCount: newMarkdown.split(/\s+/).filter(Boolean).length,
       preview: newMarkdown.trim().slice(0, 500),

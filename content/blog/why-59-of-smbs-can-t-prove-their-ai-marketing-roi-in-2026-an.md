@@ -1,6 +1,6 @@
 ---
 title: >-
-  Why 59% of SMBs Can't Prove Their AI Marketing ROI in 2026 — And the
+  Why 59% of SMBs Can't Prove Their AI Marketing ROI in 2026, And the
   Measurement Framework That Fixes It
 slug: why-59-of-smbs-can-t-prove-their-ai-marketing-roi-in-2026-an
 excerpt: 'Las búsquedas confirman:'
