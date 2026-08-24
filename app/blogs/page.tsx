@@ -5,6 +5,7 @@ import { Send, Check, Loader2, ExternalLink, AlertCircle, Sparkles, Wand2 } from
 import { BrandHeader } from '@/components/BrandHeader'
 import { Progreso } from '@/components/Progreso'
 import { postJson, wake, ApiError } from '@/lib/api'
+import { CLIENTE } from "@/lib/cliente";
 
 type Post = {
   slug: string
@@ -322,7 +323,7 @@ export default function BlogsPage() {
                     <div className="mt-2 text-right">
                       {state.result.live ? (
                         <span className="inline-flex items-center gap-1 text-xs font-semibold text-green-700">
-                          <Check size={12} /> En vivo en faststrat.ai
+                          <Check size={12} /> En vivo en {CLIENTE.dominio}
                         </span>
                       ) : (
                         <span className="inline-flex items-center gap-1 text-xs font-semibold text-yellow-700">

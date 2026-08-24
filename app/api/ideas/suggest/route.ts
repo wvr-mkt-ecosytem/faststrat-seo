@@ -6,6 +6,7 @@ import { getIdeaBatches, type ArticleIdea, type IdeaBatch } from "@/lib/ideas";
 import { slugify } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
 import { persistChanges } from "@/lib/persist";
+import { CONTEXTO_CLIENTE, CLIENTE } from "@/lib/cliente";
 
 // Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
 // llamada al agente y no devuelve nada: el navegador se queda esperando una
@@ -18,7 +19,7 @@ export const dynamic = "force-dynamic";
 
 const IDEAS_DIR = path.join(process.cwd(), "data", "ideas");
 
-const SUGGEST_SYSTEM = `Eres estratega de contenido SEO para FastStrat (agentes de IA de marketing para PYMEs, LATAM y EEUU).
+const SUGGEST_SYSTEM = `${CONTEXTO_CLIENTE} Eres su estratega de contenido SEO.
 
 Dada una query de búsqueda real, propones UN artículo de blog para capturarla. Devuelves SOLO un objeto JSON válido (sin texto extra, sin bloques de código) con esta forma exacta:
 {"title": "...", "lang": "en|es", "intent": "...", "rationale": "...", "outline": ["...","...","...","...","..."]}
@@ -26,7 +27,7 @@ Dada una query de búsqueda real, propones UN artículo de blog para capturarla.
 - title: titular atractivo y optimizado para la query (no copies la query literal).
 - lang: "es" si la query está en español, si no "en".
 - intent: intención de búsqueda en pocas palabras.
-- rationale: 1 frase de por qué vale la pena para FastStrat.
+- rationale: 1 frase de por qué vale la pena para ${CLIENTE.nombre}.
 - outline: 5 secciones H2 propuestas.`;
 
 // POST /api/ideas/suggest { keyword, context? }

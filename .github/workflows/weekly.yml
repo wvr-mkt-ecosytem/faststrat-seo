@@ -16,12 +16,21 @@ jobs:
           APP_BASE_URL: ${{ secrets.APP_BASE_URL }}
           WEEKLY_SECRET: ${{ secrets.WEEKLY_SECRET }}
         run: |
-          # El web service de Render free se duerme; el primer request lo despierta
-          # (puede tardar ~30s). Damos hasta 120s y reintentamos hasta 3 veces.
+          # El web service de Render free se duerme; el primer request lo
+          # despierta y eso solo ya se come ~50s.
+          #
+          # --max-time era 300 y la ruta declara maxDuration=800. O sea que
+          # curl se rendía a los 5 minutos mientras el servidor seguía
+          # trabajando, y lo hacía TRES veces seguidas: el lunes 24 el trabajo
+          # falló con "timed out after 300002 ms with 0 bytes received" en los
+          # tres intentos, y llegó el correo de "run failed" por eso. La ruta
+          # investiga la web antes de proponer ideas; cinco minutos nunca le
+          # bastaron. El límite del cliente va por encima del del servidor, no
+          # por debajo, o el cliente cuelga trabajo que sí iba a terminar.
           for i in 1 2 3; do
             echo "Intento $i…"
             if curl -fsS -X POST \
-              --max-time 300 \
+              --max-time 900 \
               -H "x-weekly-secret: $WEEKLY_SECRET" \
               "$APP_BASE_URL/api/weekly"; then
               echo "✓ batch generado"
@@ -44,9 +53,27 @@ jobs:
           APP_BASE_URL: ${{ secrets.APP_BASE_URL }}
           WEEKLY_SECRET: ${{ secrets.WEEKLY_SECRET }}
         run: |
+          # No basta con que el servidor responda 200.
+          #
+          # `curl -f` solo mira el código HTTP, y esta ruta devuelve 200 tanto
+          # cuando el informe queda guardado como cuando se genera y NO se
+          # puede guardar. El lunes 24 el paso imprimió "análisis guardado" y
+          # no había ningún informe: nueve minutos de agente perdidos con un
+          # tick verde encima. Por eso ahora se mira la respuesta, no el código.
           for i in 1 2 3; do
             echo "Análisis, intento $i…"
-            if curl -fsS -X POST               --max-time 900               -H "x-weekly-secret: $WEEKLY_SECRET"               -H "Content-Type: application/json"               -d '{"days":28}'               "$APP_BASE_URL/api/ga4/analyst"; then
+            if curl -fsS -X POST \
+              --max-time 900 \
+              -H "x-weekly-secret: $WEEKLY_SECRET" \
+              -H "Content-Type: application/json" \
+              -d '{"days":28}' \
+              -o respuesta.json \
+              "$APP_BASE_URL/api/ga4/analyst"; then
+              if grep -q '"avisoGuardado"' respuesta.json; then
+                echo "✗ el informe se generó pero NO quedó guardado:"
+                python3 -c "import json;print(json.load(open('respuesta.json')).get('avisoGuardado'))"
+                exit 1
+              fi
               echo "✓ análisis guardado"
               exit 0
             fi

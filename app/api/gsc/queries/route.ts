@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { apiRoute } from "@/lib/google-auth-state";
 import { queryAnalytics } from "@/lib/gsc";
+import { RUIDO_MARCA } from "@/lib/cliente";
 
 // Ruido: operadores booleanos de bots, urls, marca, IDs numéricos.
-const NOISE = /"|http|daterange:|\bfast ?strat\b|\bstrat ?fast\b|faststrat|^\d+:/i;
+const NOISE = new RegExp(`"|http|daterange:|${RUIDO_MARCA}|^\\d+:`, "i");
 
 export const GET = apiRoute(async (request: NextRequest) => {
   const { searchParams } = new URL(request.url);

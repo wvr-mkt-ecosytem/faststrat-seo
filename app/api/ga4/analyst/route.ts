@@ -54,14 +54,29 @@ export const POST = apiRoute(async (request: NextRequest) => {
   // recargar la página, y sin histórico no se puede responder "¿esto mejoró?":
   // un informe describe un momento, dos describen una dirección.
   const guardado = guardarInforme(result);
-  await persistChanges(`informe del analista: ${guardado.generadoEn.slice(0, 10)}`, [
-    path.join(process.cwd(), "data", "reports"),
-  ]).catch(() => {
-    // Que no se pueda commitear no invalida el informe: ya está en disco y en
-    // la respuesta. Perderlo por eso sería el peor intercambio posible.
-  });
 
-  return NextResponse.json({ connected: true, ...guardado });
+  // El resultado de guardar se DICE, no se traga.
+  //
+  // El lunes 24 el analista corrió nueve minutos, devolvió el informe entero y
+  // el cron imprimió "análisis guardado". No se guardó: el commit falló, nadie
+  // se enteró, y al reiniciarse la instancia de Render el disco se borró con el
+  // informe dentro. En un servicio sin disco persistente, "está en disco" no es
+  // estar guardado, y un fallo de commit es la pérdida del trabajo entero.
+  const persistido = await persistChanges(
+    `informe del analista: ${guardado.generadoEn.slice(0, 10)}`,
+    [path.join(process.cwd(), "data", "reports")],
+  );
+
+  return NextResponse.json({
+    connected: true,
+    ...guardado,
+    guardado: persistido.ok,
+    // Va en la respuesta para que aparezca en el log del cron: es el único
+    // sitio donde alguien lo va a ver antes de echar de menos el informe.
+    avisoGuardado: persistido.ok
+      ? undefined
+      : `El informe se generó pero NO se pudo guardar en el repositorio, así que se perderá al reiniciarse el servicio. Motivo: ${persistido.error}`,
+  });
 });
 
 // GET /api/ga4/analyst — los informes ya generados, sin gastar agente.

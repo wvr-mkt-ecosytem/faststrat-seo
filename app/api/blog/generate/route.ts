@@ -3,9 +3,10 @@ import { apiRoute } from "@/lib/google-auth-state";
 import { NextRequest, NextResponse } from "next/server";
 import { createBlogPost, slugify } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
-import { REGLAS_DE_CASA } from "@/lib/house-rules";
+import { REGLAS_DE_CASA, LIMITE_TITULO_UTIL } from "@/lib/house-rules";
 import { dejarPublicable } from "@/lib/publicable";
 import { persistChanges } from "@/lib/persist";
+import { CONTEXTO_CLIENTE, CLIENTE, conCta } from "@/lib/cliente";
 
 // Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
 // llamada al agente y no devuelve nada: el navegador se queda esperando una
@@ -16,7 +17,7 @@ export const maxDuration = 800;
 export const dynamic = "force-dynamic";
 
 
-const WRITER_SYSTEM = `Eres redactor SEO senior y estratega de contenido para FastStrat, una plataforma de agentes de IA de marketing para PYMEs (mercados LATAM y EEUU). Escribes artículos de blog de calidad publicable, del nivel de un especialista humano experimentado, no de IA genérica.
+const WRITER_SYSTEM = `${CONTEXTO_CLIENTE} Eres redactor SEO senior y estratega de contenido. Escribes artículos de blog de calidad publicable, del nivel de un especialista humano experimentado, no de IA genérica.
 
 OBJETIVO: que el artículo (a) rankee en Google, (b) sea genuinamente útil para un dueño de PYME o marketer, y (c) sea lo suficientemente claro y citable como para que ChatGPT/Perplexity lo referencien (GEO).
 
@@ -38,7 +39,7 @@ ESTÁNDARES DE CALIDAD (obligatorios):
 - Al menos una tabla comparativa o lista estructurada cuando el tema lo permita (las tablas se citan y rankean bien).
 - Una respuesta directa y extractable cerca del inicio (un párrafo que responda la pregunta principal en 2-3 frases — esto es lo que las IA citan).
 - Sección de FAQ al final (3-4 preguntas reales que la gente busca, con respuestas de 2-3 frases).
-- Cierre: qué hace el lector el lunes, no un resumen de lo que acaba de leer. El enlace a una página nuestra es OBLIGATORIO y va a la página más útil para lo que acaba de leer, no a la home; la mención comercial de FastStrat es opcional y solo si encaja.
+- Cierre: qué hace el lector el lunes, no un resumen de lo que acaba de leer. El enlace a una página nuestra es OBLIGATORIO y va a la página más útil para lo que acaba de leer, no a la home; la mención comercial de la marca es opcional y solo si encaja.
 - Honestidad: toda cifra sale de una página que ABRISTE en esta sesión y cuya URL puedes pegar. Un "rango razonable" inventado es una estadística inventada con otro nombre. Si no encontraste el dato, escribe el mecanismo en vez del número ("el costo lo dominan las horas de setup, no la licencia"). Sustituir una cifra por una vaguedad tipo "la mayoría de las PYMEs" no cumple la regla: la incumple en silencio y deja la página sin nada que citar.
 - Voz: experta, directa, útil, con personalidad. Le hablas al lector de "tú". Sin clichés de marketing, sin jerga vacía, sin promesas exageradas.
 - SEO: usa la keyword principal de forma natural en intro, en al menos un H2 y en la conclusión — sin saturar. Incluye variantes y términos relacionados (semántica).
@@ -49,52 +50,6 @@ FORMATO DE SALIDA: devuelve ÚNICAMENTE el cuerpo del artículo en Markdown. Sin
 
 // POST /api/blog/generate { keyword, title?, lang?, category? }
 
-/**
- * El cierre que lleva al producto.
- *
- * Los 109 posts vivos lo tienen porque se les añadió con un script, pero el
- * escritor no lo ponía: cada artículo nuevo nacía sin ninguna ruta a
- * app.faststrat.ai. Se detectó publicando el primer artículo generado, que
- * llegó a WordPress con un enlace a una página de contenido y ninguno al
- * producto.
- *
- * Importa más de lo que parece: el sistema mide 1.784 sesiones y CERO
- * conversiones. Un artículo que atrae y no ofrece el paso siguiente es
- * exactamente esa cifra, repetida.
- *
- * El texto es el mismo que llevan los publicados, para que el lector encuentre
- * el mismo cierre venga del artículo que venga.
- */
-const CTA = {
-  en: `
-
----
-
-You now know what to do. The hard part is doing it every week, without a marketing team, while you run the business.
-
-That is the job FastStrat does: it plans the content, writes it, publishes it, and tells you what actually moved. One place, no stack to assemble.
-
-**[Start free at app.faststrat.ai →](https://app.faststrat.ai)**
-
-Set it up in minutes. Keep what works.
-`,
-  es: `
-
----
-
-Ya sabes qué hacer. Lo difícil es hacerlo cada semana, sin equipo de marketing y mientras sacas adelante el negocio.
-
-De eso se encarga FastStrat: planea el contenido, lo escribe, lo publica y te dice qué funcionó de verdad. En un solo sitio, sin herramientas que ensamblar.
-
-**[Empieza gratis en app.faststrat.ai →](https://app.faststrat.ai)**
-
-Se configura en minutos. Te quedas con lo que funcione.
-`,
-};
-
-/** Añade el cierre si no está ya. Idempotente: el corrector puede haberlo dejado. */
-const conCta = (markdown: string, lang: string) =>
-  markdown.includes("app.faststrat.ai") ? markdown : markdown.trimEnd() + CTA[lang === "es" ? "es" : "en"];
 
 /**
  * Un título que compita en la SERP, no uno que rellene el hueco.
@@ -108,7 +63,12 @@ const conCta = (markdown: string, lang: string) =>
  * Si la llamada falla, se cae al patrón viejo antes que perder el artículo.
  */
 async function tituloPara(keyword: string, lang: string): Promise<string> {
-  const LIMITE = 45; // 60 de Google menos " - faststrat.ai"
+  // El límite sale de una cuenta, no de un número copiado. Estaba escrito a
+  // mano como 45, que era correcto solo mientras el sufijo del sitio midiera
+  // exactamente 15 caracteres: con otro cliente, el escritor apuntaba a un
+  // largo y la compuerta medía otro, y los títulos salían bloqueados sin que
+  // el prompt supiera por qué.
+  const LIMITE = LIMITE_TITULO_UTIL;
   try {
     const raw = await runClaude({
       model: "sonnet",

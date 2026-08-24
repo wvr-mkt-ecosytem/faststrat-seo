@@ -5,6 +5,7 @@ import { getBlogPosts, createBlogPost, slugify, renderHtml } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
 import { persistChanges } from "@/lib/persist";
 import { dejarPublicable } from "@/lib/publicable";
+import { CONTEXTO_CLIENTE, CLIENTE } from "@/lib/cliente";
 
 // Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
 // llamada al agente y no devuelve nada: el navegador se queda esperando una
@@ -15,7 +16,7 @@ export const maxDuration = 600;
 export const dynamic = "force-dynamic";
 
 
-const OPTIMIZER_SYSTEM = `Eres editor SEO senior para FastStrat (agentes de IA de marketing para PYMEs, LATAM/EEUU). Recibes:
+const OPTIMIZER_SYSTEM = `${CONTEXTO_CLIENTE} Eres su editor SEO senior. Recibes:
 1. Un artículo existente (su markdown, título y URL).
 2. Queries reales por las que esa página YA aparece en Google pero ranquea fuera del top 5 (pos 5-20) — la palanca para subir a página 1.
 
@@ -87,7 +88,7 @@ export const POST = apiRoute(async (request: NextRequest) => {
     const newMarkdown = await runClaude({
       model: "sonnet",
       system: OPTIMIZER_SYSTEM,
-      prompt: `Artículo: "${title}"  ·  URL: https://faststrat.ai${urlPath}\nIdioma: ${lang}.\n\nQueries striking-distance a capturar:\n${queryList}\n\n${existing}\n\nReescribe el artículo.`,
+      prompt: `Artículo: "${title}"  ·  URL: https://${CLIENTE.dominio}${urlPath}\nIdioma: ${lang}.\n\nQueries striking-distance a capturar:\n${queryList}\n\n${existing}\n\nReescribe el artículo.`,
     });
 
     // Guarda como un nuevo borrador con sufijo -optimized para no pisar el archivo

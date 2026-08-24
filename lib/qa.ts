@@ -1,3 +1,5 @@
+import { CLIENTE } from "@/lib/cliente";
+
 // Comprobación mecánica de un borrador antes de que salga.
 //
 // Portado del sistema de contenido de Leasey, donde estas reglas no se
@@ -249,7 +251,7 @@ export function runQa(input: QaInput): QaResult {
   // El dominio del cliente. Por defecto faststrat.ai para no romper las
   // llamadas que ya existen, pero ahora es un parámetro: sin él, replicar el
   // sistema a otro cliente invertía las tres reglas de enlaces sin avisar.
-  const dominio = input.house?.dominio ?? "faststrat.ai";
+  const dominio = input.house?.dominio ?? CLIENTE.dominio;
   const propios = [dominio, ...(input.house?.dominiosPropios ?? [`app.${dominio}`])];
   const dom = escapar(dominio);
   const esPropio = (host: string) =>

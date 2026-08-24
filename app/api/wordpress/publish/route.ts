@@ -6,6 +6,7 @@ import { getBlogPosts, getBlogPost, renderHtml, type BlogPost } from "@/lib/blog
 import { publishPost } from "@/lib/wordpress";
 import { runQa } from "@/lib/qa";
 import { generateCover } from "@/lib/cover";
+import { CLIENTE } from "@/lib/cliente";
 
 // Reglas de casa de FastStrat. El em dash queda prohibido por decisión de
 // marca; el resto de comprobaciones no dependen de esto.
@@ -15,7 +16,7 @@ import { generateCover } from "@/lib/cover";
 // sistema llegó a WordPress sin él, porque los 109 posts vivos lo tenían por un
 // script y el escritor nunca lo añadía. Con 1.784 sesiones y cero conversiones,
 // un artículo que atrae y no ofrece a dónde ir es esa cifra repetida.
-const HOUSE = { noEmDash: true, urlProducto: "app.faststrat.ai" } as const;
+const HOUSE = { noEmDash: true, urlProducto: CLIENTE.dominioApp } as const;
 
 const EYEBROW: Record<string, string> = { en: "2026 Guide", es: "Guía 2026" };
 

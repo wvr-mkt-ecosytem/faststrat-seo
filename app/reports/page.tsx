@@ -9,6 +9,7 @@ import {
 import { BrandHeader } from '@/components/BrandHeader'
 import { Progreso } from '@/components/Progreso'
 import { postJson, wake, ApiError } from '@/lib/api'
+import { CLIENTE } from "@/lib/cliente";
 
 type Q = { query: string; clicks: number; impressions: number; ctr: number; position: number }
 
@@ -321,7 +322,7 @@ function PublishedSection({
         <span>📊</span> Tus artículos publicados
       </h2>
       <p className="text-sm text-sand mb-3">
-        Cada fila es una página real de faststrat.ai. <b>Click en una fila</b> para ver qué le está pasando y qué hacer al respecto.
+        Cada fila es una página real de {CLIENTE.dominio}. <b>Click en una fila</b> para ver qué le está pasando y qué hacer al respecto.
         Comparamos contra el período anterior ({previousLabel}).
       </p>
 
@@ -367,7 +368,7 @@ function PageRow({
           <Metric label="Impr." value={page.impressions} delta={page.impressionsDelta} />
           <span className="text-sand">CTR <b className="text-ink">{page.ctr}%</b></span>
         </div>
-        <a href={`https://faststrat.ai${page.path}`} target="_blank" rel="noopener noreferrer"
+        <a href={`https://${CLIENTE.dominio}${page.path}`} target="_blank" rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
           className="text-sand hover:text-maroon shrink-0">
           <ExternalLink size={14} />

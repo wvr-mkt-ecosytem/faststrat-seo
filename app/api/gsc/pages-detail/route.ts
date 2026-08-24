@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { apiRoute } from "@/lib/google-auth-state";
 import { searchconsole, dateRange } from "@/lib/gsc";
+import { RUIDO_MARCA } from "@/lib/cliente";
 
 // Análisis detallado por página: métricas, top queries que la traen,
 // queries en striking-distance dentro de la página, y tendencia vs período
@@ -8,7 +9,7 @@ import { searchconsole, dateRange } from "@/lib/gsc";
 //
 // GET /api/gsc/pages-detail?days=28
 
-const NOISE = /"|http|daterange:|\bfast ?strat\b|\bstrat ?fast\b|faststrat|^\d+:/i;
+const NOISE = new RegExp(`"|http|daterange:|${RUIDO_MARCA}|^\\d+:`, "i");
 
 function normalizePath(url: string): string {
   return url.replace(/^https?:\/\/[^/]+/, "") || "/";

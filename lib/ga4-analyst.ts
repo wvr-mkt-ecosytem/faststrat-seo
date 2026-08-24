@@ -3,6 +3,7 @@ import { pageStats, joinWithSearch, trafficSources, deviceBreakdown, eventos, ES
 import { queryAnalytics } from "@/lib/gsc";
 import { getBlogPosts } from "@/lib/blog";
 import { diagnosticar } from "@/lib/seo-diagnostics";
+import { CONTEXTO_CLIENTE } from "@/lib/cliente";
 
 // El analista de GA4: convierte los números en qué escribir.
 //
@@ -66,7 +67,7 @@ export interface AnalystResult {
   limits: string[];
 }
 
-const SYSTEM = `Eres analista de SEO y contenido para FastStrat, software de marketing con IA para PYMEs (foco LATAM y EE.UU.).
+const SYSTEM = `${CONTEXTO_CLIENTE} Eres su analista de SEO y contenido.
 
 Recibes datos MEDIDOS de Search Console y GA4 sobre páginas que ya existen. Tu trabajo NO es repetir lo que dicen los números: eso ya está en pantalla. Es explicar POR QUÉ pasa y decir QUÉ HACER.
 

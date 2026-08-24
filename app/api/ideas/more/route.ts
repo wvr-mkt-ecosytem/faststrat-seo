@@ -8,6 +8,7 @@ import { slugify } from "@/lib/blog";
 import { persistChanges } from "@/lib/persist";
 import { getIdeaBatches, type ArticleIdea, type IdeaBatch } from "@/lib/ideas";
 import { leerMemoria, bloqueDeMemoria, descartarRepetidas } from "@/lib/idea-memory";
+import { CONTEXTO_CLIENTE, CLIENTE, RUIDO_MARCA } from "@/lib/cliente";
 
 // Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
 // llamada al agente y no devuelve nada: el navegador se queda esperando una
@@ -19,15 +20,15 @@ export const dynamic = "force-dynamic";
 
 
 const IDEAS_DIR = path.join(process.cwd(), "data", "ideas");
-const NOISE = /"|http|daterange:|\bfast ?strat\b|\bstrat ?fast\b|faststrat|^\d+:/i;
+const NOISE = new RegExp(`"|http|daterange:|${RUIDO_MARCA}|^\\d+:`, "i");
 
-const MORE_SYSTEM = `Eres estratega de contenido SEO senior para FastStrat (agentes de IA de marketing para PYMEs, mercado EEUU/global en INGLÉS).
+const MORE_SYSTEM = `${CONTEXTO_CLIENTE} Eres su estratega de contenido SEO senior.
 
 Tu trabajo: proponer NUEVAS ideas de artículos de blog (en inglés) que maximicen tráfico orgánico y posicionamiento. Te basas en CUATRO fuentes:
 1. Lo que YA genera clicks (replicar/expandir esos temas ganadores).
 2. Queries striking-distance (donde ya apareces en pos 5-20 → contenido dedicado puede subirte a página 1).
 3. Búsquedas de la INDUSTRIA y de COMPETIDORES (usa WebSearch para ver qué publican y rankean Jasper, HubSpot, Copy.ai, Enrich Labs, etc., y qué temas están calientes en marketing/IA para PYMEs 2026).
-4. Temas con alto potencial de posicionamiento (volumen + baja dificultad + relevancia para FastStrat).
+4. Temas con alto potencial de posicionamiento (volumen + baja dificultad + relevancia para ${CLIENTE.nombre}).
 
 Devuelve SOLO un JSON válido (sin texto extra, sin code fence):
 {"ideas":[{"title":"...","lang":"en","priority":"alta|media|baja","primaryKeyword":"...","intent":"...","rationale":"por qué este tema posiciona / de qué fuente sale","outline":["H2 1","H2 2","H2 3","H2 4","H2 5"]}]}

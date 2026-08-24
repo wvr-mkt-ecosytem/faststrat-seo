@@ -5,6 +5,7 @@ import { getBlogPost, updateBlogMarkdown, renderHtml } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
 import { persistChanges } from "@/lib/persist";
 import { dejarPublicable } from "@/lib/publicable";
+import { CONTEXTO_CLIENTE } from "@/lib/cliente";
 
 // Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
 // llamada al agente y no devuelve nada: el navegador se queda esperando una
@@ -15,7 +16,7 @@ export const maxDuration = 600;
 export const dynamic = "force-dynamic";
 
 
-const SEO_EDITOR_SYSTEM = `Eres un editor de SEO y contenido para FastStrat, una plataforma de agentes de IA de marketing para PYMEs (mercado LATAM y EEUU).
+const SEO_EDITOR_SYSTEM = `${CONTEXTO_CLIENTE} Eres su editor de SEO y contenido.
 
 Tu trabajo: reescribir el cuerpo de un artículo de blog (en Markdown) siguiendo la instrucción del usuario, manteniendo calidad SEO.
 

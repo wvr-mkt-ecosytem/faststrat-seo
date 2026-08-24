@@ -10,6 +10,7 @@ import { BrandHeader } from '@/components/BrandHeader'
 import { Progreso } from '@/components/Progreso'
 import { useTareas } from '@/components/Tareas'
 import { postJson, wake, ApiError } from '@/lib/api'
+import { CLIENTE } from "@/lib/cliente";
 
 type Idea = {
   title: string
@@ -558,7 +559,7 @@ export default function IdeasPage() {
             <b>Cómo se diferencia de la tanda semanal:</b> arriba el agente propone <i>temas estratégicos</i> basados en tendencias del mercado. Aquí abajo son <i>búsquedas exactas de gente real</i> que ya está googleando estos términos pero no encuentra contenido tuyo. Las dos cosas son útiles, pero las de abajo tienen demanda comprobada hoy.
             <br />
             <b className="text-maroon">Acción:</b> <i>Idea</i> = el agente propone título + outline. <i>Generar</i> = el agente escribe el artículo completo. Ambos terminan en{' '}
-            <Link href="/blogs" className="text-maroon underline">Blogs</Link>, listo para publicar a faststrat.ai.
+            <Link href="/blogs" className="text-maroon underline">Blogs</Link>, listo para publicar a {CLIENTE.dominio}.
           </div>
 
           {oppLoading && <p className="text-sm text-sand">Cargando oportunidades…</p>}

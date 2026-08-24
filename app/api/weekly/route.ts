@@ -9,6 +9,7 @@ import { sendEmail } from "@/lib/email";
 import { persistChanges } from "@/lib/persist";
 import type { ArticleIdea, IdeaBatch } from "@/lib/ideas";
 import { leerMemoria, bloqueDeMemoria, descartarRepetidas } from "@/lib/idea-memory";
+import { CLIENTE, CONTEXTO_CLIENTE, RUIDO_MARCA } from "@/lib/cliente";
 
 // Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
 // llamada al agente y no devuelve nada: el navegador se queda esperando una
@@ -23,9 +24,12 @@ export const dynamic = "force-dynamic";
 // Protegido con WEEKLY_SECRET (header x-weekly-secret).
 // Lo dispara el cron job gratuito de Render con curl + header.
 
-const NOISE = /"|http|daterange:|\bfast ?strat\b|\bstrat ?fast\b|faststrat|^\d+:/i;
+// El nombre del cliente sale de la configuración, no escrito aquí. Con la marca
+// fija, el sistema replicado para otra empresa filtraba la marca equivocada y
+// dejaba pasar la suya como si fuera un tema del que escribir.
+const NOISE = new RegExp(`"|http|daterange:|${RUIDO_MARCA}|^\\d+:`, "i");
 
-const RESEARCHER_SYSTEM = `Eres estratega de contenido senior para FastStrat (plataforma de agentes de IA de marketing para PYMEs, LATAM/EEUU).
+const RESEARCHER_SYSTEM = `${CONTEXTO_CLIENTE} Eres su estratega de contenido senior.
 
 Recibes (1) un resumen de queries reales de Google Search Console con oportunidades striking-distance y (2) tu propio conocimiento general de tendencias actuales en marketing/IA/PYME.
 
@@ -114,7 +118,7 @@ export const POST = apiRoute(async (request: NextRequest) => {
       // WebSearch activo → el agente busca en la web de verdad, así competidores
       // y tendencias reflejan el estado actual, no la memoria del modelo.
       allowedTools: ["WebSearch", "WebFetch"],
-      prompt: `Hoy: ${today}.\n\nSeñales de GSC:\n${signalSummary}\n\nINSTRUCCIONES DE INVESTIGACIÓN:\n1. Busca en la web qué están publicando AHORA los competidores de FastStrat (plataformas de IA de marketing para PYMEs: Jasper, HubSpot, Copy.ai, Enrich Labs, etc.) — temas, títulos recientes, ángulos.\n2. Busca tendencias actuales 2026 en marketing/IA/PYMEs (GEO/AEO, agentes de IA, social commerce, etc.).\n3. Combina esos hallazgos REALES con las señales de GSC de arriba.\nDevuelve la tanda semanal (JSON estricto). Los arrays competitors y trends deben reflejar lo que encontraste en la web, citando lo concreto.
+      prompt: `Hoy: ${today}.\n\nSeñales de GSC:\n${signalSummary}\n\nINSTRUCCIONES DE INVESTIGACIÓN:\n1. Busca en la web qué están publicando AHORA los competidores de ${CLIENTE.nombre} (${CLIENTE.competidores.join(', ')}, entre otros) — temas, títulos recientes, ángulos.\n2. Busca tendencias actuales 2026 en marketing/IA/PYMEs (GEO/AEO, agentes de IA, social commerce, etc.).\n3. Combina esos hallazgos REALES con las señales de GSC de arriba.\nDevuelve la tanda semanal (JSON estricto). Los arrays competitors y trends deben reflejar lo que encontraste en la web, citando lo concreto.
 
 ${bloqueDeMemoria(memoria)}`,
     });
@@ -175,7 +179,7 @@ ${bloqueDeMemoria(memoria)}`,
       const baseUrl = process.env.APP_BASE_URL ?? "http://localhost:3100";
       const html = `<div style="font-family:Arial,Helvetica,sans-serif;color:#201b1b;max-width:560px;margin:auto;padding:24px;background:#f7f2e9">
         <div style="border-top:6px solid #5a1a1a;padding-top:16px">
-          <h1 style="color:#5a1a1a;font-size:22px;margin:0 0 6px">FastStrat · Nueva tanda de ideas</h1>
+          <h1 style="color:#5a1a1a;font-size:22px;margin:0 0 6px">${CLIENTE.nombre} · Nueva tanda de ideas</h1>
           <p style="font-size:13px;color:#6e6a64;margin:0 0 16px">Semana del ${today} · ${ideas.length} artículos sugeridos</p>
           <p style="font-size:14px">${batch.summary}</p>
           <ol style="font-size:14px;line-height:1.6">
@@ -186,7 +190,7 @@ ${bloqueDeMemoria(memoria)}`,
       </div>`;
       emailResult = await sendEmail({
         to,
-        subject: `FastStrat · ${ideas.length} nuevas ideas (${today})`,
+        subject: `${CLIENTE.nombre} · ${ideas.length} nuevas ideas (${today})`,
         html,
       });
     }

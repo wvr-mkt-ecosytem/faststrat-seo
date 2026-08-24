@@ -1,12 +1,13 @@
 import sharp from "sharp";
+import { CLIENTE } from "@/lib/cliente";
 
-// Genera la imagen destacada (1600x900) replicando el estilo de faststrat.ai:
+// Genera la imagen destacada (1600x900) con el estilo del sitio del cliente:
 // fondo crema, barras granate arriba/abajo, logo + tagline, pill de categoría,
 // eyebrow + guiones, título grande, subtítulo, cuadros decorativos y dominio.
 
 const W = 1600;
 const H = 900;
-const MAROON = "#5A1A1A";
+const MAROON = CLIENTE.colorPrincipal;
 const INK = "#201B1B";
 const GRAY = "#6E6A64";
 
@@ -80,7 +81,7 @@ export async function generateCover(input: CoverInput): Promise<Buffer> {
   const svg = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#F7F2E9"/>
+      <stop offset="0%" stop-color="${CLIENTE.colorFondo}"/>
       <stop offset="100%" stop-color="#ECE3D3"/>
     </linearGradient>
   </defs>
@@ -91,12 +92,12 @@ export async function generateCover(input: CoverInput): Promise<Buffer> {
   <rect x="0" y="${H - 9}" width="${W}" height="9" fill="${MAROON}"/>
 
   <!-- logo + tagline -->
-  <text x="60" y="68" font-family="Arial, 'Segoe UI', sans-serif" font-size="40" font-weight="800" fill="${MAROON}">FastStrat</text>
-  <text x="62" y="98" font-family="Arial, 'Segoe UI', sans-serif" font-size="19" font-weight="700" letter-spacing="1.5" fill="${GRAY}">AI MARKETING FOR SMALL BUSINESS</text>
+  <text x="60" y="68" font-family="Arial, 'Segoe UI', sans-serif" font-size="40" font-weight="800" fill="${MAROON}">${escapeXml(CLIENTE.nombre)}</text>
+  <text x="62" y="98" font-family="Arial, 'Segoe UI', sans-serif" font-size="19" font-weight="700" letter-spacing="1.5" fill="${GRAY}">${escapeXml(CLIENTE.tagline)}</text>
 
   <!-- pill categoría -->
   <rect x="${W - catWidth - 60}" y="40" width="${catWidth}" height="48" rx="24" fill="${MAROON}"/>
-  <text x="${W - catWidth / 2 - 60}" y="71" text-anchor="middle" font-family="Arial, 'Segoe UI', sans-serif" font-size="22" font-weight="800" letter-spacing="1" fill="#F7F2E9">${escapeXml(input.category.toUpperCase())}</text>
+  <text x="${W - catWidth / 2 - 60}" y="71" text-anchor="middle" font-family="Arial, 'Segoe UI', sans-serif" font-size="22" font-weight="800" letter-spacing="1" fill="${CLIENTE.colorFondo}">${escapeXml(input.category.toUpperCase())}</text>
 
   <!-- eyebrow + guiones -->
   <text x="120" y="${titleStartY - 150}" font-family="Arial, 'Segoe UI', sans-serif" font-size="34" font-weight="800" letter-spacing="1" fill="${MAROON}">${escapeXml(input.eyebrow.toUpperCase())}</text>
@@ -116,7 +117,7 @@ export async function generateCover(input: CoverInput): Promise<Buffer> {
   <rect x="1475" y="600" width="95" height="150" fill="${MAROON}"/>
 
   <!-- dominio -->
-  <text x="${W - 60}" y="${H - 45}" text-anchor="end" font-family="Arial, 'Segoe UI', sans-serif" font-size="26" font-weight="800" fill="${MAROON}">faststrat.ai</text>
+  <text x="${W - 60}" y="${H - 45}" text-anchor="end" font-family="Arial, 'Segoe UI', sans-serif" font-size="26" font-weight="800" fill="${MAROON}">${escapeXml(CLIENTE.dominio)}</text>
 </svg>`;
 
   return sharp(Buffer.from(svg)).png().toBuffer();

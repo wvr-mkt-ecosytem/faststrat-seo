@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import GoogleAccessBanner from "@/components/GoogleAccessBanner";
 import { ProveedorTareas } from "@/components/Tareas";
+import { CLIENTE } from "@/lib/cliente";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FastStrat · SEO Dashboard",
-  description: "Search Console analytics y publicación de contenido para faststrat.ai",
+  title: `${CLIENTE.nombre} · SEO Dashboard`,
+  description: `Search Console analytics y publicación de contenido para ${CLIENTE.dominio}`,
 };
 
 export default function RootLayout({

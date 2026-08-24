@@ -1,3 +1,5 @@
+import { CLIENTE } from "@/lib/cliente";
+
 import { google } from "googleapis";
 
 // Lee GA4 con la Data API.
@@ -47,7 +49,7 @@ const dataApi = () => google.analyticsdata({ version: "v1beta", auth: auth() });
  * v1beta y v1alpha). Así que se filtra en cada consulta: no cambia lo que GA4
  * guarda, pero sí lo que este sistema cuenta.
  */
-const HOST_PRODUCCION = process.env.SITE_HOST || "faststrat.ai";
+const HOST_PRODUCCION = CLIENTE.dominio;
 
 /** Filtro reutilizable: solo producción, nunca localhost ni dev. */
 const soloProduccion = () => ({
@@ -412,7 +414,7 @@ export interface PasoAlProducto {
  * del sitio sí se registran: si un artículo hubiera generado clics, aparecería
  * igual que aparece la home.
  */
-export async function pasoAlProducto(days = 90, dominioApp = "app.faststrat.ai"): Promise<PasoAlProducto[]> {
+export async function pasoAlProducto(days = 90, dominioApp = CLIENTE.dominioApp): Promise<PasoAlProducto[]> {
   const res = await dataApi().properties.runReport({
     property: `properties/${PROPERTY_ID}`,
     requestBody: {
@@ -426,7 +428,7 @@ export async function pasoAlProducto(days = 90, dominioApp = "app.faststrat.ai")
             // Solo los que vienen del sitio de contenido. El resto del ruido
             // (correos desechables, redes) no dice nada sobre si el contenido
             // convierte.
-            { filter: { fieldName: "pageReferrer", stringFilter: { matchType: "CONTAINS", value: "//faststrat.ai" } } },
+            { filter: { fieldName: "pageReferrer", stringFilter: { matchType: "CONTAINS", value: `//${CLIENTE.dominio}` } } },
           ],
         },
       },
@@ -465,7 +467,7 @@ export interface EscalonEmbudo {
  * Medido la primera vez, sobre 90 días: 116 llegan, 21 entran (18%), 2 compran.
  * El 82% se pierde ANTES de identificarse.
  */
-export async function embudoProducto(days = 90, dominioApp = "app.faststrat.ai"): Promise<EscalonEmbudo[]> {
+export async function embudoProducto(days = 90, dominioApp = CLIENTE.dominioApp): Promise<EscalonEmbudo[]> {
   const res = await dataApi().properties.runReport({
     property: `properties/${PROPERTY_ID}`,
     requestBody: {

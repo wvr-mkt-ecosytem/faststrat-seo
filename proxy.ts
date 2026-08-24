@@ -44,7 +44,7 @@ export function proxy(request: NextRequest) {
 
   return new NextResponse("Autenticación requerida", {
     status: 401,
-    headers: { "WWW-Authenticate": 'Basic realm="FastStrat SEO"' },
+    headers: { "WWW-Authenticate": 'Basic realm="SEO Dashboard"' },
   });
 }
 

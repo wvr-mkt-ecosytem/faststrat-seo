@@ -5,6 +5,7 @@ import { getBlogPost, updateBlogMarkdown } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
 import { runQa, type Finding, type HouseRules } from "@/lib/qa";
 import { persistChanges } from "@/lib/persist";
+import { CLIENTE } from "@/lib/cliente";
 
 // Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
 // llamada al agente y no devuelve nada: el navegador se queda esperando una
@@ -44,7 +45,7 @@ export const dynamic = "force-dynamic";
 // sistema llegó a WordPress sin él, porque los 109 posts vivos lo tenían por un
 // script y el escritor nunca lo añadía. Con 1.784 sesiones y cero conversiones,
 // un artículo que atrae y no ofrece a dónde ir es esa cifra repetida.
-const HOUSE: HouseRules = { noEmDash: true, urlProducto: "app.faststrat.ai" };
+const HOUSE: HouseRules = { noEmDash: true, urlProducto: CLIENTE.dominioApp };
 
 /**
  * Sustituye las rayas largas. Determinista y sin criterio: por eso no se le

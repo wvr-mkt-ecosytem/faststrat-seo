@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { TrendingUp, TrendingDown, Minus, ExternalLink, Sparkles, PenLine, Loader2, AlertCircle } from 'lucide-react'
 import { SeoCharts } from '@/components/SeoCharts'
 import { BrandHeader } from '@/components/BrandHeader'
+import { CLIENTE } from "@/lib/cliente";
 
 type Row = {
   page: string
@@ -281,7 +282,7 @@ export default function SeoPage() {
                           {row.page}
                         </span>
                         <a
-                          href={`https://faststrat.ai${row.page}`}
+                          href={`https://${CLIENTE.dominio}${row.page}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-sand hover:text-maroon shrink-0"

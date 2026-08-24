@@ -1,6 +1,7 @@
 import { runClaude } from "@/lib/claude";
 import { runQa, type HouseRules, type QaResult } from "@/lib/qa";
 import { REGLAS_DE_CASA } from "@/lib/house-rules";
+import { CLIENTE } from "@/lib/cliente";
 
 // Dejar un texto dentro de las reglas ANTES de guardarlo, no después.
 //
@@ -17,7 +18,7 @@ import { REGLAS_DE_CASA } from "@/lib/house-rules";
 // guardaba igual. Ahora insiste mientras mejore, con tope, porque un corrector
 // que se llama a sí mismo sin límite es una factura abierta.
 
-export const CASA: HouseRules = { noEmDash: true, urlProducto: "app.faststrat.ai" };
+export const CASA: HouseRules = { noEmDash: true, urlProducto: CLIENTE.dominioApp };
 
 /** Rayas largas: determinista, sin criterio, y la causa número uno de bloqueos. */
 export const barrerRayas = (t: string) =>

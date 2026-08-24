@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { LayoutDashboard, FileBarChart, Lightbulb, FileText, CalendarDays, Gauge } from 'lucide-react'
+import { CLIENTE } from "@/lib/cliente";
 
 const NAV = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -13,11 +14,11 @@ const NAV = [
   { href: '/measurement', label: 'Medición', icon: Gauge },
 ]
 
-/** Logo FastStrat: marca granate + tagline, estilo de las portadas del blog. */
+/** Logo del cliente: marca + tagline, estilo de las portadas del blog. */
 export function BrandMark({ compact = false }: { compact?: boolean }) {
   return (
     <Link href="/" className="block leading-none">
-      <span className="text-xl font-extrabold tracking-tight text-maroon">FastStrat</span>
+      <span className="text-xl font-extrabold tracking-tight text-maroon">{CLIENTE.nombre}</span>
       {!compact && (
         <span className="block text-[10px] font-bold uppercase tracking-[0.15em] text-sand mt-0.5">
           AI Marketing for Small Business

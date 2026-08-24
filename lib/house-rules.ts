@@ -1,3 +1,5 @@
+import { CLIENTE } from "@/lib/cliente";
+
 // Las reglas de publicación, escritas para que las lea quien escribe.
 //
 // Existían solo dentro de lib/qa.ts, en forma de expresiones regulares. Eso
@@ -31,7 +33,19 @@ export interface ClienteReglas {
   sufijoTitulo?: string;
 }
 
-const LIMITE_TITULO = 60;
+/** Donde corta Google. Es del buscador, no del cliente. */
+export const LIMITE_GOOGLE = 60;
+const LIMITE_TITULO = LIMITE_GOOGLE;
+
+/**
+ * Cuánto puede medir el título ANTES del sufijo que añade el sitio.
+ *
+ * Se exporta porque la ruta de generación tenía el resultado escrito a mano
+ * (`const LIMITE = 45`), calculado para un sufijo de 15 caracteres. Con otro
+ * cliente, o con un cambio de sufijo, el escritor apuntaba a un largo y la
+ * compuerta medía otro: títulos bloqueados sin causa visible en el prompt.
+ */
+export const LIMITE_TITULO_UTIL = Math.max(20, LIMITE_GOOGLE - CLIENTE.sufijoTitulo.length);
 
 /**
  * Las reglas, ya rellenas para un cliente.
@@ -98,9 +112,9 @@ LENGUAJE. Lo que se borra cuando alguien rellena en vez de decir algo.
 11. Nada de párrafos que no añadan información. Si una frase se puede borrar sin que se pierda nada, sobra.`;
 }
 
-/** Las reglas de FastStrat. El resto del sistema usa esta constante. */
+/** Las reglas del cliente configurado. El resto del sistema usa esta constante. */
 export const REGLAS_DE_CASA = reglasPara({
-  dominio: "faststrat.ai",
-  sinRayaLarga: true,
-  sufijoTitulo: " - faststrat.ai",
+  dominio: CLIENTE.dominio,
+  sinRayaLarga: CLIENTE.sinRayaLarga,
+  sufijoTitulo: CLIENTE.sufijoTitulo,
 });

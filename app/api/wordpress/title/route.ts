@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { apiRoute } from "@/lib/google-auth-state";
+import { CLIENTE } from "@/lib/cliente";
+import { LIMITE_GOOGLE } from "@/lib/house-rules";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 120;
@@ -13,14 +15,21 @@ export const maxDuration = 120;
 // devuelve la comparación.
 //
 // Lo que se cuenta es el título RENDERIZADO, no el del post. El sitio le añade
-// un sufijo (" - faststrat.ai", 15 caracteres) y Google corta en 60, así que el
-// presupuesto real es 45. Contar solo el título del post decía que 58 estaba
-// bien cuando en la SERP salía cortado a media palabra.
+// un sufijo y Google corta en 60, así que el presupuesto real es lo que quede.
+// Contar solo el título del post decía que 58 estaba bien cuando en la SERP
+// salía cortado a media palabra.
 
-const LIMITE_SERP = 60;
+const LIMITE_SERP = LIMITE_GOOGLE;
 
 const cfg = () => {
-  const base = (process.env.WORDPRESS_URL || "https://faststrat.ai").replace(/\/$/, "");
+  // La variable es WP_URL, la misma que usa lib/wordpress.ts.
+  //
+  // Aquí decía WORDPRESS_URL, que NO existe en el entorno: nadie la define. La
+  // ruta caía siempre al valor por defecto y funcionaba solo porque, en este
+  // cliente, el WordPress vive justo en el dominio del contenido. En cualquier
+  // instalación donde no coincidan (un WordPress en otro host, o headless) esta
+  // ruta habría escrito el título en el sitio equivocado, o en ninguno.
+  const base = (process.env.WP_URL || `https://${CLIENTE.dominio}`).replace(/\/$/, "");
   const user = process.env.WP_USER;
   const pass = process.env.WP_APP_PASSWORD;
   if (!user || !pass) throw new Error("Faltan WP_USER y WP_APP_PASSWORD");
