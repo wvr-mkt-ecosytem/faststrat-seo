@@ -1,182 +1,118 @@
 {
   "weekOf": "2026-08-24",
-  "generatedAt": "2026-08-24T10:37:27.154Z",
+  "generatedAt": "2026-08-24T10:47:09.254Z",
   "source": "auto-weekly",
-  "summary": "Batch targeting LATAM social commerce via TikTok Shop, AI brand-description control in AI answers, website audit scorecards, agentic stack real pricing, GBP automation, post-acquisition retention, and multi-market content localization — all angles absent from competitor content and tied to live GSC signals.",
+  "summary": "Ten fresh angles targeting LATAM social commerce, Spanish-language AI tool testing, SMB budget allocation, and AEO analytics tracking — each explicitly differentiated from FastStrat's 60+ previously proposed or published titles by switching to diagnostic, segment-specific, and methodology-first formats. (4 idea(s) descartada(s) por repetir algo ya propuesto o escrito.)",
   "research": {
     "competitors": [
-      "Enrich Labs dominates with broad 'Complete Guide' playbooks (social media, online marketing, best-tool roundups) for all SMBs globally but publishes zero LATAM-specific or market-adapted content, leaving a clear geographic and cultural gap across Mexico, Colombia, and Argentina.",
-      "NoimosAI publishes autonomous agent comparisons and rankings but avoids pricing transparency entirely; no competitor article breaks down what a full multi-agent marketing stack actually costs month-to-month for a budget-constrained SMB.",
-      "Jasper's blog published a GEO vs AEO vs SEO explainer in H1 2026 but it is platform-agnostic and disconnected from social commerce, LATAM market dynamics, or actionable SMB-budget scenarios, leaving practical application wide open.",
-      "AgentMarketCap is covering the 'Agentic Marketing Stack 2026' (HubSpot/Jasper/Copy.ai) from an enterprise and investor lens; no competitor addresses the SMB cost-of-entry question, Google Business Profile AI automation workflows, or LATAM content localization."
+      "Jasper.ai dominates 'state of AI marketing 2026' SERPs with enterprise-first content on scaling and multi-asset campaigns; their blog produces no LATAM-specific or budget-constrained SMB implementation guides, leaving a clear gap FastStrat can own.",
+      "HubSpot's 2026 State of Marketing Report ranks for nearly every broad AI marketing statistics query but publishes virtually no Spanish-language or LATAM-specific optimization content — their GEO/AEO and local SEO guides target English-market businesses only.",
+      "Copy.ai's pivot to 'Fullcast Propel' workflow automation content focuses on enterprise GTM teams; their blog skips Spanish-language AI output quality tests and LATAM platform integrations (Mercado Libre, Nequi, Pix) entirely.",
+      "Second-tier players including averi.ai, improvado.io, and rellify.com produce agentic AI adoption statistics pages that rank for high-impression queries but never tie the data to actionable frameworks for SMBs operating under $5K/month marketing budgets."
     ],
     "trends": [
-      "ChatGPT surpassed 900M weekly active users and Google AI Overviews appear in 25%+ of all searches; AI referral traffic converts at 14.2% vs 2.8% for Google organic (Digiday/CloudWars 2026), making AEO brand-description control a direct revenue lever rather than a visibility tactic.",
-      "'Outcome Engineering' is replacing prompt engineering as the dominant agentic AI paradigm: SMBs define a business goal and agents determine execution steps autonomously; only 7% of SMBs currently run production agents vs 34% of enterprises, signaling a massive SMB adoption wave through H2 2026 (Kaizen AI Consulting).",
-      "LATAM social commerce is growing from $172.4B (2025) to $315.6B by 2031 at a 10.2% CAGR; TikTok Shop is live in Mexico holding 45% LATAM social commerce share, with Meta, Mercado Libre, and Shopee intensifying competition, making AI-assisted TikTok selling the fastest-emerging channel for LATAM SMBs (GlobeNewswire, April 2026).",
-      "By end of 2026, 4 in 5 SMBs will use AI marketing tools (Forbes/LocaliQ); adoption concentrates in content creation (81%), design (54%), and social posting (35%), but retention automation, content localization, and local listing management remain systematically underserved by both tools and educational content.",
-      "AEO brand reputation management is emerging as a standalone discipline: how a brand is described by ChatGPT, Gemini, and Perplexity now shapes purchase intent, with brands actively monitoring and correcting AI-generated descriptions — a workflow with no established SMB playbook yet (Medium/CloudWars 2026)."
+      "Agentic AI SMB adoption gap: only 7% of SMBs run production AI agents vs. 34% of enterprise teams in 2026, and only 23% of all organizations report significant ROI — the first-mover window is open for SMBs who deploy correctly before the space commoditizes.",
+      "AEO/GEO is now mandatory: 50% of Google searches include an AI Overview and 92% of marketers plan to optimize for AI-powered answer engines, making traditional directory and local SEO insufficient for full SMB visibility.",
+      "WhatsApp conversational commerce surge in LATAM: Mexico's social commerce market reaches $55.84B in 2026 (+14% YoY) and 75%+ of Mexican SMBs now sell through messaging platforms, making WhatsApp simultaneously a sales channel, CRM, and marketing engine.",
+      "The AI content authenticity crisis: 56% of marketers say the internet is flooded with AI-generated content and 65% of consumers actively identify and distrust it — McKinsey confirms 65% of AI high-performers build human-validation processes, making human-AI hybrid workflows the core competitive differentiator.",
+      "Review platforms as AEO amplifiers: domains with profiles on Trustpilot, G2, Capterra, and Yelp are cited by AI engines at 3× the rate of sites without them — third-party review presence is now a measurable AEO lever, not just reputation management."
     ]
   },
   "ideas": [
     {
-      "title": "TikTok Shop for LATAM Small Businesses in 2026: How to Launch, Automate & Scale with AI",
-      "slug": "tiktok-shop-for-latam-small-businesses-in-2026-how-to-launch",
+      "title": "Spanish-Language AI Writing Tools Tested in 2026: Neuroflash vs. Jasper vs. Copy.ai vs. HubSpot on Real LATAM Content",
+      "slug": "spanish-language-ai-writing-tools-tested-in-2026-neuroflash-",
       "lang": "en",
       "priority": "alta",
-      "primaryKeyword": "TikTok Shop LATAM small business AI 2026",
-      "intent": "How-to — SMB owners in Mexico, Colombia, and Argentina searching for a practical guide to launching and automating sales on TikTok Shop using AI tools.",
-      "rationale": "Differentiates from the proposed 'Short-Form Video + AI' (about general video ROI) and 'How Small Businesses in Mexico Are Using AI' (about broad AI adoption data); this is the first piece targeting TikTok Shop as a LATAM sales channel with AI automation, backed by GlobeNewswire's $172B-to-$315B LATAM social commerce market data and TikTok Shop's 2025 Mexico launch.",
+      "primaryKeyword": "hubspot jasper copy.ai neuroflash ai writing comparison 2026",
+      "intent": "Commercial investigation — LATAM marketers comparing AI writing tools specifically for Spanish-language output quality, regional tone, and brand voice — not just English feature lists",
+      "rationale": "Both 'Jasper vs. Copy.ai vs. HubSpot AI: Which Marketing AI Wins in 2026?' and 'HubSpot Breeze vs Jasper AI vs Copy.ai in 2026' (both published) test tools on English content exclusively; this piece runs the same four platforms on real Spanish-language LATAM briefs — the only head-to-head that serves FastStrat's bilingual audience and converts the 86–88 impression SIN EXPLOTAR queries already sitting at positions 1.9–2.0.",
       "outline": [
-        "Why TikTok Shop Is the Fastest-Growing Sales Channel for LATAM SMBs in 2026 (Market Data)",
-        "Setting Up Your TikTok Shop in Mexico, Colombia, and Argentina: Country-by-Country Checklist",
-        "5 AI Tools That Automate Product Listings, Captions, and Creator Outreach on TikTok",
-        "How to Drive Consistent Traffic Without a Big Budget: AI-Powered Short-Form Content Strategy",
-        "Metrics That Matter: How to Measure TikTok Shop ROI and Scale What Is Working"
+        "Why Spanish-Language AI Output Is a Different Problem Than English (Tone, Regional Slang & Brand Voice Nuance)",
+        "Testing Methodology: 6 Real LATAM Content Briefs Across Email, Social, and Blog Formats",
+        "Neuroflash Deep Dive: Spanish-Language Strengths, Failure Points, and 2026 Pricing",
+        "Jasper vs. Copy.ai vs. HubSpot Breeze: Spanish-Language Output Quality Compared Side by Side",
+        "Head-to-Head Verdict: Which AI Writing Tool Should LATAM Marketers Actually Use in 2026?"
       ]
     },
     {
-      "title": "AI Website Audit for Small Businesses: The 2026 Scorecard Guide (Find What Is Killing Your Conversions)",
-      "slug": "ai-website-audit-for-small-businesses-the-2026-scorecard-gui",
+      "title": "WhatsApp as a Sales Funnel: How Mexican SMBs Close Deals Inside Conversations — Not Just Support Chats — in 2026",
+      "slug": "whatsapp-as-a-sales-funnel-how-mexican-smbs-close-deals-insi",
       "lang": "en",
       "priority": "alta",
-      "primaryKeyword": "AI website audit tool with scorecard small business 2026",
-      "intent": "Transactional and tool-finding — SMB owners searching for an AI tool that audits their full website and produces a scored report, wanting to know which tools exist and how to act on the results.",
-      "rationale": "Directly targets the GSC striking-distance signal 'ai website audit tool with scorecard' (pos 5.9, 26 impr); no existing or proposed article covers this angle — the published GA4 guide and landing page checklist address adjacent topics but not automated site-wide AI auditing with actionable scored output.",
+      "primaryKeyword": "pymes en mexico 2026",
+      "intent": "How-to — Mexican SMB owners wanting to turn WhatsApp from a reactive support tool into a proactive revenue channel inside the $55B social commerce market",
+      "rationale": "Unlike 'Mejores BSP de WhatsApp para LATAM en 2026' (published), which compares platform pricing and features, this piece documents the conversational sales *methodology* — from product inquiry to checkout inside WhatsApp — a distinct angle no published or proposed FastStrat piece has addressed.",
       "outline": [
-        "What an AI Website Audit Checks That a Manual Review Misses: Speed, Core Web Vitals, UX, SEO, and GEO Readiness",
-        "The 6 Best AI Website Audit Tools With Scorecard Features in 2026: Honest Reviews and Pricing",
-        "How to Read Your Website Score and Prioritize Fixes Without a Developer",
-        "The 20-Point SMB Website Scorecard: Self-Assessment Template You Can Use Today",
-        "From Score to Sprint: A 30-Day Action Plan Based on Your Audit Results"
+        "Why WhatsApp Is Mexico's #1 Sales Channel in 2026 — Not Just Customer Support (The $55B Market Data)",
+        "The 5-Stage WhatsApp Sales Funnel Every Mexican SMB Should Build in 2026",
+        "How to Automate Product Discovery, Qualification, and Objection Handling Inside WhatsApp",
+        "Payments and Checkout: Closing the Loop Without Leaving the Chat (Clip, MercadoPago & WhatsApp Pay)",
+        "The AI Layer: How Chatbots Turn WhatsApp Conversations into 24/7 Revenue Without Losing the Human Touch"
       ]
     },
     {
-      "title": "Is ChatGPT Describing Your Business Wrong? How SMBs Can Control Their Brand in AI Answers in 2026",
-      "slug": "is-chatgpt-describing-your-business-wrong-how-smbs-can-contr",
+      "title": "How to Allocate Your SMB AI Marketing Budget: Where Your 7–10% of Revenue Should Actually Go in 2026",
+      "slug": "how-to-allocate-your-smb-ai-marketing-budget-where-your-7-10",
       "lang": "en",
       "priority": "alta",
-      "primaryKeyword": "AEO brand reputation management small business 2026",
-      "intent": "Problem-awareness and educational — SMB owners worried their brand is misrepresented by AI engines and looking for monitoring and correction strategies.",
-      "rationale": "Differentiates from the proposed '2026 GEO Readiness Audit' (about presence and citations) by focusing specifically on brand description control in AI-generated answers — a new AEO discipline confirmed by Digiday and CloudWars showing that how brands are described in AI answers shapes purchase intent and that AI referral traffic converts at 14.2% vs 2.8% for organic.",
+      "primaryKeyword": "sba marketing budget percentage revenue small business",
+      "intent": "How-to / Planning — SMB owners who already know the SBA 7–10% benchmark but don't know how to divide it across AI tools, channels, and categories",
+      "rationale": "Both 'How Much Should a Small Business Spend on Marketing? (SBA Benchmarks 2026)' and 'Small Business Marketing Budget: What Percentage of Revenue Should You Spend?' (both published) answer the total-budget question and stop there; this piece is the explicit next step — a category-by-category AI tool allocation framework across three real budget tiers, which neither published piece addresses.",
       "outline": [
-        "Why What ChatGPT Says About Your Business Is Now More Commercially Significant Than Your Google Reviews",
-        "How to Audit Your AI Brand Description Across ChatGPT, Perplexity, Gemini, and Copilot Today",
-        "The 4 Most Common Ways AI Gets Your Brand Wrong and the Root Cause of Each",
-        "The AEO Brand Correction Playbook: Schema Signals, Content Authority, and Entity Reinforcement",
-        "AI Brand Monitoring Tools for SMBs: What to Track, How Often, and What to Do When You Find an Error"
+        "The SBA Benchmark Recap: Why 7–10% Is the Starting Point, Not the Full Strategy",
+        "The 6 AI Marketing Budget Categories Every SMB Needs to Fund and What Each Drives for Growth",
+        "The Allocation Matrix: How to Weight SEO, Content, Paid Ads, Email, CRM, and Analytics by Business Stage",
+        "Three Real SMB Scenarios: What a $1K, $3K, and $5K Monthly AI Marketing Budget Actually Looks Like",
+        "When to Rebalance: The 4 Warning Signs Your Current AI Marketing Allocation Is Underperforming"
       ]
     },
     {
-      "title": "How to Build Your SMB Email List from Zero Using AI in 2026: From First Subscriber to 10,000",
-      "slug": "how-to-build-your-smb-email-list-from-zero-using-ai-in-2026-",
-      "lang": "en",
-      "priority": "media",
-      "primaryKeyword": "SMB email list building AI tools 2026",
-      "intent": "How-to — SMB owners with small or nonexistent email lists looking for AI-assisted strategies to grow a subscriber base and automate the opt-in funnel.",
-      "rationale": "Directly targets the GSC striking-distance signal 'smb emails' (pos 12.9, 23 impr); differentiates from the proposed '7 Best AI Email Marketing Tools' (tool roundup focused on sending platforms) and 'AI Email Deliverability for SMBs' (inbox placement) by focusing exclusively on list growth strategy — the prior step both proposed articles assume is already solved.",
-      "outline": [
-        "Why Email Is Still the Highest-ROI Channel for SMBs in 2026 and Why Most Lists Stay Tiny",
-        "6 AI-Powered Lead Magnet Formats That Actually Grow Your List in 2026",
-        "How to Automate Your Opt-In Funnel: Landing Page, Thank-You Flow, and Welcome Sequence",
-        "Segmenting Your List from Day One: Behavioral Tags, AI Scoring, and Why It Pays Off Later",
-        "List Health Over Raw Growth: The Deliverability Mistakes That Kill a Growing SMB Email List"
-      ]
-    },
-    {
-      "title": "WhatsApp Marketing Sequences for LATAM SMBs: The 7 Automations That Drive Real Revenue in 2026",
-      "slug": "whatsapp-marketing-sequences-for-latam-smbs-the-7-automation",
-      "lang": "en",
-      "priority": "media",
-      "primaryKeyword": "WhatsApp marketing automation sequences LATAM SMB 2026",
-      "intent": "How-to and commercial — LATAM SMBs that already have a WhatsApp BSP and want ready-to-deploy campaign sequences to generate sales, recover carts, and re-engage dormant customers.",
-      "rationale": "Differentiates from the published WhatsApp BSP comparisons and pricing guides ('Mejores BSP de WhatsApp para LATAM en 2026,' 'WhatsApp Business API Pricing,' 'Precios de WhatsApp Business en LATAM 2026') by shifting from tool selection to execution strategy — specifically AI-powered campaign sequences for LATAM markets where WhatsApp open rates exceed 95%; the natural next piece for readers who have already chosen a BSP.",
-      "outline": [
-        "Why WhatsApp Is the Highest-Engagement Marketing Channel in LATAM and How AI Unlocks Its Revenue Potential",
-        "The 7 Automation Sequences Every LATAM SMB Should Deploy: Abandoned Cart, Re-engagement, Post-Purchase, Loyalty, and More",
-        "How to Write WhatsApp Messages That Get Read and Replied To — With AI-Generated Templates",
-        "Compliance First: LATAM WhatsApp Marketing Rules and How AI Keeps You on the Right Side",
-        "Metrics to Track and Optimize: Open Rate, Click Rate, and Revenue per Conversation"
-      ]
-    },
-    {
-      "title": "AI Customer Retention for Small Businesses: Reduce Churn and Increase LTV Without a Big Budget in 2026",
-      "slug": "ai-customer-retention-for-small-businesses-reduce-churn-and-",
-      "lang": "en",
-      "priority": "media",
-      "primaryKeyword": "AI customer retention small business reduce churn LTV 2026",
-      "intent": "Educational and how-to — SMB owners who have paying customers but are losing them faster than they acquire them and want to know how AI automates loyalty, re-engagement, and win-back workflows.",
-      "rationale": "No existing or proposed FastStrat article covers post-acquisition retention; all published content focuses on traffic, lead generation, and content creation — this fills the revenue-efficiency gap by addressing the fact that retaining a customer costs five times less than acquiring a new one, a high-resonance angle for cost-conscious SMBs in a tight-margin environment.",
-      "outline": [
-        "Why SMBs Lose More Revenue to Churn Than to High CAC in 2026: Data and Real Business Examples",
-        "5 AI Tools That Automate Loyalty Programs, Re-engagement Campaigns, and Win-Back Sequences",
-        "How to Build an AI-Powered Customer Health Score Without a Data Team or a CRM Consultant",
-        "Personalized Retention at Scale: How AI Segments Customers and Triggers Email, SMS, and Push at the Right Moment",
-        "The 90-Day AI Retention Playbook: From Tool Setup to Measurable LTV Lift"
-      ]
-    },
-    {
-      "title": "The Real Monthly Cost of an Agentic Marketing Stack for SMBs in 2026: Tool-by-Tool Breakdown",
-      "slug": "the-real-monthly-cost-of-an-agentic-marketing-stack-for-smbs",
+      "title": "The SMB Hybrid Content Model in 2026: When to Deploy Agentic AI, When to Keep Humans, and How to Run Both",
+      "slug": "the-smb-hybrid-content-model-in-2026-when-to-deploy-agentic-",
       "lang": "en",
       "priority": "alta",
-      "primaryKeyword": "agentic marketing stack cost SMB 2026 pricing breakdown",
-      "intent": "Commercial and pricing research — SMB owners evaluating whether to build a full AI agent marketing stack and wanting a transparent, itemized monthly cost breakdown before committing.",
-      "rationale": "Differentiates from the published 'Marketing Agency vs. DIY AI Tools: The Real Cost Breakdown for SMBs' (agency vs. DIY framing) and the published 'HubSpot Breeze vs Jasper AI vs Copy.ai in 2026' (feature comparison, not stack economics) by pricing the monthly cost of stacking content, SEO, social, email, and GEO agents into one functional system; targets the GSC signal 'ai marketing platforms hubspot jasper copy.ai market share' (92 impr, pos 2.2).",
+      "primaryKeyword": "is ai-managed ad spend actually better than doing it yourself",
+      "intent": "How-to / Decision framework — SMB owners debating how much of their full content operation to automate vs. retain human oversight across all channels",
+      "rationale": "Different from the proposed 'Does AI-Managed Ad Spend Actually Outperform Human Campaigns?' (ads spend only) and 'AI-Generated Landing Pages vs. Human-Written' (single content format), this piece builds a decision matrix for the entire content operation, grounded in 2026 McKinsey data showing 65% of AI high-performers build explicit human-validation processes and the human-on-the-loop model as the ROI-maximizing architecture.",
       "outline": [
-        "What Is an Agentic Marketing Stack and Why It Costs Less Than You Think in 2026",
-        "The Core 5 Agent Categories Every SMB Stack Needs: Content, SEO and GEO, Social, Email, and Analytics",
-        "Monthly Cost Scenarios: $150 Starter Stack, $500 Growth Stack, and $1,200 Full-Stack with Tool-by-Tool Line Items",
-        "Hidden Costs and Overlaps: Where SMBs Overpay When Stacking AI Tools",
-        "The Minimum Viable Agentic Stack: What to Deploy First for Maximum ROI Under $300 per Month"
+        "The Human-on-the-Loop Model: What Agentic AI Handles Autonomously vs. What Still Requires You in 2026",
+        "The Content Type Decision Matrix: Blog, Email, Ads, and Social — Automate or Not?",
+        "How to Build Your SMB Hybrid Content Workflow Step by Step Without a Developer or Agency",
+        "The ROI Case: Where McKinsey's High-Performer Advantage in Agentic AI Actually Comes From",
+        "The 5 Most Common Mistakes SMBs Make When Blending AI and Human Content Operations"
       ]
     },
     {
-      "title": "How to Use AI to Automate Your Google Business Profile and Dominate Local SEO in 2026",
-      "slug": "how-to-use-ai-to-automate-your-google-business-profile-and-d",
-      "lang": "en",
-      "priority": "alta",
-      "primaryKeyword": "AI Google Business Profile automation local SEO 2026",
-      "intent": "How-to — Local SMB owners and LATAM businesses looking to automate GBP updates, review responses, Q&A, and posts using AI tools to improve map-pack and local search visibility.",
-      "rationale": "Differentiates from the proposed 'SEO for LATAM Local Business Directories in 2026: Google Business, Structured Data, and Beyond' (broad directory guide covering multiple platforms) by focusing narrowly on AI automation of the Google Business Profile workflow as a standalone repeatable system; targets the striking-distance GSC signal 'seo for latam local business directory' (306 impr, pos 7.4) with a higher-intent, more actionable angle.",
-      "outline": [
-        "Why Your Google Business Profile Is Your Most Valuable Free SEO Asset in 2026, Especially in LATAM",
-        "5 AI Tools That Automate GBP Posts, Review Responses, Q&A, and Photo Updates",
-        "The Weekly AI Workflow: How to Keep Your GBP Active and Signal-Rich Without Logging In Every Day",
-        "Local Schema Plus GBP: The Structured Data Combination That Boosts Map Pack Visibility",
-        "LATAM-Specific Optimization Tips: How Search Behavior Differs in Mexico, Colombia, and Argentina"
-      ]
-    },
-    {
-      "title": "AI Content Localization for LATAM: How SMBs Adapt Marketing for Mexico, Colombia and Argentina Without a Translation Agency",
-      "slug": "ai-content-localization-for-latam-how-smbs-adapt-marketing-f",
+      "title": "Mexico's $55 Billion Social Commerce Boom: How AI Agents Help SMBs Compete on TikTok Shop, WhatsApp & Mercado Libre in 2026",
+      "slug": "mexico-s-55-billion-social-commerce-boom-how-ai-agents-help-",
       "lang": "en",
       "priority": "media",
-      "primaryKeyword": "AI content localization LATAM SMB Mexico Colombia Argentina 2026",
-      "intent": "Educational and how-to — LATAM SMBs or brands entering LATAM that want to adapt marketing content for multiple Spanish-speaking markets without paying translation agency rates.",
-      "rationale": "Completely new angle not covered in any existing or proposed article; differentiates from the proposed 'How Small Businesses in Mexico Are Using AI to Compete in 2026' (AI adoption data in one market) by focusing on a multi-market content adaptation workflow — treating LATAM as three distinct markets with different vocabulary, tone, and cultural references, all solvable with current AI tools.",
+      "primaryKeyword": "social commerce latam 2026",
+      "intent": "Informational + commercial — Mexican and LATAM SMB owners seeking platform-specific tactics to enter or scale social commerce operations using AI agents",
+      "rationale": "While the proposed 'AI Marketing for Mexican PYMEs in 2026: The 5 Tools Local Businesses Are Actually Using' (general tool overview) and 'How Small Businesses in Mexico Are Using AI to Compete in 2026' (broad adoption survey) cover Mexico at a macro level, this piece zeroes into the specific $55.84B social commerce market with channel-by-channel AI agent tactics for TikTok Shop, WhatsApp, and Mercado Libre — a data-first, platform-specific angle neither proposal addresses.",
       "outline": [
-        "Why Spanish Is Not One Language: The Key Marketing Differences Between Mexico, Colombia, and Argentina",
-        "How AI Localization Tools Work and Why They Outperform Google Translate for Marketing Copy",
-        "Prompt Templates for Localizing Ads, Emails, and Social Content Across Three LATAM Markets",
-        "The One-Brief, Three-Market Workflow: How to Localize a Content Piece in Under Two Hours",
-        "Mistakes That Make LATAM Customers Distrust Your Brand and How AI Catches Them Before You Publish"
+        "Inside the $55B Opportunity: How Mexico's Social Commerce Market Works in 2026 and Who Is Winning",
+        "Platform Breakdown: TikTok Shop, WhatsApp Commerce and Mercado Libre — What Works for SMBs on Each Channel",
+        "How AI Agents Power Product Discovery, Personalized Recommendations, and Post-Sale Follow-Up at Scale",
+        "3 Mexican SMBs Using AI Agents to Win Social Commerce in 2026 With Real Metrics",
+        "Your 90-Day Entry Plan: How to Launch AI-Powered Social Commerce Without a Large Team or Budget"
       ]
     },
     {
-      "title": "Beyond Prompts: How to Use Outcome Engineering to Get Real Business Results from AI Marketing Agents in 2026",
-      "slug": "beyond-prompts-how-to-use-outcome-engineering-to-get-real-bu",
+      "title": "5 Signs Your SMB Email Strategy Needs AI in 2026 — And the Exact Automations That Fix Each One",
+      "slug": "5-signs-your-smb-email-strategy-needs-ai-in-2026-and-the-exa",
       "lang": "en",
-      "priority": "media",
-      "primaryKeyword": "outcome engineering AI marketing agents small business 2026",
-      "intent": "Educational and thought leadership — SMB owners who already use AI tools for marketing but feel stuck writing prompts and want to move to a higher-leverage, goal-first approach using agentic platforms.",
-      "rationale": "Differentiates from the published 'Prompt Engineering for Marketers: The Blueprint for SEO and Content' (focused on writing better prompts for specific content tasks) and the proposed 'The SMB Agent Playbook' (deployment and management) by introducing the next paradigm: defining business outcomes and letting AI agents determine execution autonomously — based on the documented 'Outcome Engineering' shift confirmed by Kaizen AI Consulting and leading agentic platforms in H1 2026.",
+      "priority": "baja",
+      "primaryKeyword": "smb emails",
+      "intent": "Diagnostic — SMB owners sensing their email marketing is underperforming but unsure which specific failure to address first",
+      "rationale": "Where the proposed 'SMB Email List Building in 2026' (list-growth focus), '7 Best AI Email Marketing Tools for Small Businesses in 2026' (tools listicle), and 'AI Email Marketing Automation for Small Businesses in 2026: 7 Sequences That Drive Real Revenue' (prescriptive sequences) are all forward-looking and prescriptive, this piece is diagnostic — each section opens with a self-identifiable failure signal and pairs it with the exact AI automation that fixes it, a format none of the proposals use.",
       "outline": [
-        "The Difference Between Prompting and Outcome Engineering and Why the Distinction Changes Your Results",
-        "How Agentic AI Platforms Translate a Business Goal Into Automated Multi-Step Workflows",
-        "5 Marketing Outcomes You Can Brief to an AI Agent Today With Example Outcome Statements",
-        "How to Measure Whether Your Agent Actually Hit the Outcome and Not Just Completed the Task",
-        "Outcome Engineering vs. Traditional Campaign Planning: A Side-by-Side SMB Comparison"
+        "Sign 1: Your Open Rates Have Plateaued — and the AI Behavioral Segmentation Fix",
+        "Sign 2: Your List Stopped Growing Organically — and the AI Lead Magnet and Pop-Up Optimization Fix",
+        "Sign 3: You Are Writing Every Email by Hand — and the AI Drip Sequence Automation Fix",
+        "Sign 4: You Keep Landing in Spam Folders — and the AI Deliverability Monitoring and Warm-Up Fix",
+        "Sign 5: You Have No Idea What Is Actually Working — and the AI Attribution Analytics Fix"
       ]
     }
   ]
