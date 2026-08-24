@@ -62,7 +62,31 @@ export async function persistChanges(message: string, files: string[]): Promise<
     if (!status.stdout.trim()) return { ok: true };
 
     await run(["commit", "-m", `[auto] ${message}`]);
-    await run(["push", remote, `HEAD:${branch}`]);
+
+    // Empujar puede fallar por estar detrás del remoto, y hay que reintentar.
+    //
+    // Es la situación NORMAL en Render free, no una rareza. La instancia se
+    // reinicia sola (se duerme, se cae, se despierta) y al hacerlo su copia
+    // vuelve al commit que se desplegó. Si mientras tanto el propio sistema
+    // había empujado algo (una tanda de ideas, un borrador), la copia queda
+    // por detrás del remoto y CUALQUIER push posterior se rechaza por no ser
+    // avance rápido. Sin este reintento, el primer reinicio dejaba la
+    // persistencia rota hasta el siguiente despliegue, en silencio.
+    //
+    // Fue exactamente lo del lunes 24: tres tandas de ideas se empujaron entre
+    // las 10:35 y las 10:50, la instancia se reinició (el analista vio un 502),
+    // y a las 11:08 el informe se commiteó sobre una copia atrasada. El push se
+    // rechazó, nadie lo vio, y nueve minutos de agente se perdieron.
+    try {
+      await run(["push", remote, `HEAD:${branch}`]);
+    } catch {
+      // Traer lo que haya y volver a poner lo nuestro encima. El rebase se hace
+      // sobre FETCH_HEAD y no sobre una rama local, que puede no existir en un
+      // checkout desprendido como el que deja el despliegue.
+      await run(["fetch", remote, branch]);
+      await run(["rebase", "FETCH_HEAD"]);
+      await run(["push", remote, `HEAD:${branch}`]);
+    }
     return { ok: true };
   } catch (err) {
     // Fallar persist no rompe la operación principal, pero SÍ se cuenta.
