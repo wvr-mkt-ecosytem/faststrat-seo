@@ -6,7 +6,7 @@ import { runClaude } from "@/lib/claude";
 import { REGLAS_DE_CASA, LIMITE_TITULO_UTIL } from "@/lib/house-rules";
 import { revisarTitulo, explicar } from "@/lib/catalogo";
 import { INSTRUCCION_DIFERENCIAL, INSTRUCCION_KEYWORD, partir } from "@/lib/diferencial";
-import { tendencia } from "@/lib/trends";
+import { tendencia, describir } from "@/lib/trends";
 import { INSTRUCCION_LEGIBILIDAD } from "@/lib/legibilidad";
 import { dejarPublicable } from "@/lib/publicable";
 import { persistChanges } from "@/lib/persist";
@@ -128,6 +128,27 @@ export const POST = apiRoute(async (request: NextRequest) => {
     // fallar; si falla, el artículo sale igual sin este campo.
     const trendKeyword = keyword ? await tendencia(keyword) : null;
 
+    // El escritor sabe hacia dónde va la demanda, y eso cambia el ángulo.
+    //
+    // No es decoración: un término en caída pide una pieza que resuelva el
+    // problema de quien todavía lo busca, no un "las tendencias de 2026" sobre
+    // algo que se está apagando. Y uno sin volumen medible pide profundidad
+    // para quien ya sabe lo que busca, no una introducción para tráfico frío.
+    const contextoDemanda = trendKeyword
+      ? `
+
+DEMANDA DE ESTA KEYWORD (Google Trends): ${describir(trendKeyword)}.
+${
+  trendKeyword.direccion === "baja"
+    ? "La demanda cae. NO escribas una pieza de tendencias ni prometas que esto es el futuro: sería falso y se nota. Escribe para quien HOY tiene el problema y necesita resolverlo, con el paso concreto."
+    : trendKeyword.direccion === "sube"
+      ? "La demanda crece. Merece la pena cubrirlo a fondo y ser de los primeros con una respuesta completa."
+      : trendKeyword.direccion === "sin-volumen"
+        ? "Google Trends no ve volumen: es muy long-tail. Escribe para quien ya sabe exactamente qué busca, ve al detalle y sáltate la introducción de contexto general."
+        : "La demanda se mantiene. Cubre el tema de forma perenne, sin anclarlo a un año concreto más de lo necesario."
+}`
+      : "";
+
     if (topic && !body.title) {
       // El agente elige un título SEO atractivo a partir del tema y escribe.
       const raw = await runClaude({
@@ -228,7 +249,7 @@ Título del artículo (es el H1, no lo repitas): "${title}"
 Keyword principal a posicionar: "${keyword ?? title}"
 Idioma: ${lang === "es" ? "español (natural de LATAM, no traducido)" : "inglés"}.
 Audiencia: dueños de PYMEs y marketers que buscan resultados prácticos.
-La extensión la marca el tema, no una cuota. No hay mínimo de palabras.`,
+La extensión la marca el tema, no una cuota. No hay mínimo de palabras.${contextoDemanda}`,
       });
       const partes = partir(crudo);
       diferencial = partes.diferencial;

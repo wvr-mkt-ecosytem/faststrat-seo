@@ -10,7 +10,7 @@ import { persistChanges } from "@/lib/persist";
 import type { ArticleIdea, IdeaBatch } from "@/lib/ideas";
 import { leerMemoria, bloqueDeMemoria, descartarRepetidas } from "@/lib/idea-memory";
 import { CLIENTE, CONTEXTO_CLIENTE, RUIDO_MARCA } from "@/lib/cliente";
-import { tendencias, type Tendencia } from "@/lib/trends";
+import { tendencias, describir, type Tendencia } from "@/lib/trends";
 import { sinRepetir } from "@/lib/similitud";
 
 // Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
@@ -98,15 +98,45 @@ export const POST = apiRoute(async (request: NextRequest) => {
       .sort((a, b) => b.impressions - a.impressions)
       .slice(0, 15);
 
+    // La dirección de la demanda ENTRA en la decisión, no la comenta después.
+    //
+    // Antes las tendencias se consultaban al final, cuando el agente ya había
+    // elegido los diez temas: servían para bajar prioridades, no para elegir
+    // mejor. Ahora van dentro de las señales que recibe, así que puede
+    // descartar un tema en caída antes de proponerlo.
+    //
+    // Medido sobre las 20 keywords del blog: 9 caen, 3 suben, 8 no tienen
+    // volumen medible. Escribir sin este dato es lo que produjo esa foto.
+    const candidatas = [...striking.slice(0, 10), ...untapped.slice(0, 6)]
+      .map((r) => r.query)
+      .filter((q): q is string => !!q);
+    let direccionDe = new Map<string, Tendencia>();
+    try {
+      direccionDe = await tendencias(candidatas, { limite: 16 });
+    } catch {
+      // Endpoint no oficial. Si falla, el agente elige sin este dato, como antes.
+    }
+
+    const conTendencia = (r: { query?: string; impressions: number; position: number }) => {
+      const t = r.query ? direccionDe.get(r.query) : undefined;
+      return (
+        `- "${r.query}" — ${r.impressions} impr, pos ${r.position.toFixed(1)}` +
+        (t ? `  [demanda: ${describir(t)}]` : "")
+      );
+    };
+
     const signalSummary =
       "STRIKING DISTANCE:\n" +
-      striking
-        .map((r) => `- "${r.query}" — ${r.impressions} impr, pos ${r.position.toFixed(1)}`)
-        .join("\n") +
+      striking.map(conTendencia).join("\n") +
       "\n\nSIN EXPLOTAR:\n" +
-      untapped
-        .map((r) => `- "${r.query}" — ${r.impressions} impr, pos ${r.position.toFixed(1)}`)
-        .join("\n");
+      untapped.map(conTendencia).join("\n") +
+      `
+
+CÓMO LEER "[demanda: ...]": es Google Trends, comparando los últimos 12 meses con los 12 anteriores.
+- "baja" y por debajo de 35/100 de su máximo: NO propongas ese tema salvo que la intención de compra sea altísima. Escribir sobre demanda que se está muriendo es trabajo perdido.
+- "sube": priorízalo. Llegar temprano a un tema que crece vale más que pelear uno saturado.
+- "sin volumen medible": el término es muy long-tail. No lo descartes por eso, pero no esperes volumen: trátalo como pieza de profundidad para quien ya sabe lo que busca, no como cabecera de tráfico.
+- Sin corchete: no se pudo consultar. Decide por las otras señales.`;
 
     // 2) El agente arma la tanda, sabiendo qué ya existe.
     //
@@ -170,10 +200,17 @@ ${bloqueDeMemoria(memoria)}`,
     // Nunca frena la tanda: si Trends falla, las ideas salen sin este dato.
     let direcciones = new Map<string, Tendencia>();
     try {
-      direcciones = await tendencias(
-        conservadas.map((i) => i.primaryKeyword).filter(Boolean),
-        { limite: 12 },
-      );
+      // Solo las que no se consultaron ya arriba: cada término son dos
+      // peticiones a un endpoint que limita el ritmo, y repetirlas es lo que
+      // provoca los 429 que ya nos ha devuelto.
+      for (const i of conservadas) {
+        const t = i.primaryKeyword && direccionDe.get(i.primaryKeyword);
+        if (t) direcciones.set(i.primaryKeyword, t);
+      }
+      const faltan = conservadas
+        .map((i) => i.primaryKeyword)
+        .filter((k): k is string => !!k && !direccionDe.has(k));
+      for (const [k, v] of await tendencias(faltan, { limite: 10 })) direcciones.set(k, v);
     } catch {
       // Endpoint no oficial: puede cambiar o limitar el ritmo sin aviso.
     }
