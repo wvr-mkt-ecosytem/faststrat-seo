@@ -9,6 +9,10 @@ keywords:
 lang: en
 category: SEO
 status: draft
+keywordTrend:
+  direccion: baja
+  cambioAnual: -100
+  nivelActual: 0
 ---
 The question isn't whether you can afford a Meta ads agency, it's whether you can afford to make the wrong call. Agencies charge real money upfront. DIY AI tools have real learning curves. And your ad budget will burn regardless if the underlying strategy is off. Before you sign a contract or subscribe to another SaaS, here's a clear-eyed cost breakdown of both paths.
 

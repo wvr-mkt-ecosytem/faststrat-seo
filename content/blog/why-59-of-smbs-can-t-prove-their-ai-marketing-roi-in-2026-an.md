@@ -9,6 +9,10 @@ keywords:
 lang: en
 category: SEO
 status: draft
+keywordTrend:
+  direccion: sin-volumen
+  cambioAnual: 0
+  nivelActual: 0
 ---
 Las búsquedas confirman:
 - El informe Jasper 2026 sí recoge el 59% (inverso del 41% enlazado) y el 60%. Ambos van al mismo enlace.

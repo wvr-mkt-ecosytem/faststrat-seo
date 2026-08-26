@@ -10,6 +10,10 @@ keywords:
 lang: en
 category: SEO
 status: draft
+keywordTrend:
+  direccion: sin-volumen
+  cambioAnual: 0
+  nivelActual: 0
 ---
 Los cuatro BLOQUEOS están causados por las cifras en negrita del **preámbulo de notas del editor** (`**10,000**`, `**40%**`, `**8% / 22%**`), no en el cuerpo del artículo. El cuerpo ya las tiene eliminadas. La solución es quitar el preámbulo entero. Para los AVISOS de `$200–$500`, anclo el rango a la tabla de herramientas que aparece justo encima, sin forzar nada.
 

@@ -19,6 +19,50 @@ type Post = {
   coverUrl: string | null
   wpStatus: string | null
   wpLink: string | null
+  /** Por qué esta keyword: qué busca quien la escribe y por qué respondemos mejor. */
+  keywordRationale?: string
+  /** Hacia dónde va la demanda de la keyword, según Google Trends. */
+  keywordTrend?: { direccion: 'sube' | 'baja' | 'estable' | 'sin-volumen'; cambioAnual: number; nivelActual: number }
+}
+
+/**
+ * La tendencia de una keyword, en una línea.
+ *
+ * Los dos números van juntos a propósito. La dirección sola engaña: un tema al
+ * 12/100 que sube un 30% es un tema muerto rebotando, y uno al 90 que baja un
+ * 10% sigue teniendo diez veces más demanda.
+ */
+function Tendencia({ t }: { t: NonNullable<Post['keywordTrend']> }) {
+  // Sin volumen NO es "estable". Trends devuelve la serie a cero cuando el
+  // término es demasiado long-tail para medirlo, y pintar "→ 0% · 0/100" se
+  // leía como "la demanda se mantiene", que es lo contrario de lo que pasa.
+  if (t.direccion === 'sin-volumen') {
+    return (
+      <span
+        className="text-xs text-neutral-400"
+        title="Google Trends no registra volumen para este término. Suele significar que es muy long-tail: poca competencia, pero también poca demanda."
+      >
+        sin volumen medible
+      </span>
+    )
+  }
+
+  const color =
+    t.direccion === 'sube'
+      ? 'text-green-700 dark:text-green-400'
+      : t.direccion === 'baja'
+        ? 'text-red-700 dark:text-red-400'
+        : 'text-neutral-500'
+  const flecha = t.direccion === 'sube' ? '↑' : t.direccion === 'baja' ? '↓' : '→'
+  return (
+    <span
+      className={`text-xs font-medium ${color}`}
+      title="Google Trends: últimos 12 meses frente a los 12 anteriores, sobre 5 años de datos. El segundo número es dónde está hoy respecto a su propio máximo histórico."
+    >
+      {flecha} {t.cambioAnual > 0 ? '+' : ''}
+      {t.cambioAnual}% interanual · {t.nivelActual}/100 de su máximo
+    </span>
+  )
 }
 
 type Finding = { severity: string; rule: string; detail: string; excerpt?: string }
@@ -290,7 +334,7 @@ export default function BlogsPage() {
                   </div>
                   <h2 className="font-semibold">{post.title}</h2>
                   <p className="text-sm text-neutral-500 mt-1">{post.excerpt}</p>
-                  <div className="flex flex-wrap gap-1 mt-2">
+                  <div className="flex flex-wrap items-center gap-1 mt-2">
                     {post.keywords.slice(0, 4).map((k) => (
                       <span
                         key={k}
@@ -299,7 +343,14 @@ export default function BlogsPage() {
                         {k}
                       </span>
                     ))}
+                    {post.keywordTrend && <Tendencia t={post.keywordTrend} />}
                   </div>
+                  {post.keywordRationale && (
+                    <p className="text-xs text-neutral-500 mt-2 leading-relaxed">
+                      <b className="text-neutral-600 dark:text-neutral-400">Por qué esta keyword:</b>{' '}
+                      {post.keywordRationale}
+                    </p>
+                  )}
                 </div>
 
                 <div className="shrink-0 w-44 text-right space-y-2">

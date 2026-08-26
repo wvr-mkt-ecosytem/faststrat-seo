@@ -20,6 +20,8 @@ export const GET = apiRoute(async () => {
       title: p.title,
       excerpt: p.excerpt,
       keywords: p.keywords,
+      keywordRationale: p.keywordRationale,
+      keywordTrend: p.keywordTrend,
       lang: p.lang,
       category: p.category,
       status: p.status,

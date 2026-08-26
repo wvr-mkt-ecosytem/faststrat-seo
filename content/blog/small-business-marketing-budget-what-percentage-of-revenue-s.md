@@ -10,6 +10,10 @@ keywords:
 lang: en
 category: SEO
 status: draft
+keywordTrend:
+  direccion: baja
+  cambioAnual: -76
+  nivelActual: 13
 ---
 Most small business owners set their marketing budget by gut feel, or just copy what a competitor seems to be doing. Both approaches tend to produce the same result: either chronic underspending that stalls growth, or erratic spending with no ROI to show for it. There's a better framework, and it starts with one number: your revenue.
 

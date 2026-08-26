@@ -5,7 +5,8 @@ import { createBlogPost, slugify } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
 import { REGLAS_DE_CASA, LIMITE_TITULO_UTIL } from "@/lib/house-rules";
 import { revisarTitulo, explicar } from "@/lib/catalogo";
-import { INSTRUCCION_DIFERENCIAL, partir } from "@/lib/diferencial";
+import { INSTRUCCION_DIFERENCIAL, INSTRUCCION_KEYWORD, partir } from "@/lib/diferencial";
+import { tendencia } from "@/lib/trends";
 import { INSTRUCCION_LEGIBILIDAD } from "@/lib/legibilidad";
 import { dejarPublicable } from "@/lib/publicable";
 import { persistChanges } from "@/lib/persist";
@@ -52,6 +53,8 @@ ${REGLAS_DE_CASA}
 ${INSTRUCCION_LEGIBILIDAD}
 
 ${INSTRUCCION_DIFERENCIAL}
+
+${INSTRUCCION_KEYWORD}
 
 FORMATO DE SALIDA: devuelve ÚNICAMENTE el cuerpo del artículo en Markdown. Sin frontmatter, sin título H1 (el H1 es el título del post), sin envolverlo en bloques de código. Empieza directo con el párrafo de intro.`;
 
@@ -118,6 +121,12 @@ export const POST = apiRoute(async (request: NextRequest) => {
     let title: string;
     let markdown: string;
     let diferencial: string | undefined;
+    let porqueKeyword: string | undefined;
+
+    // La dirección de la demanda: dato, no criterio, así que se consulta aquí
+    // en vez de pedírsela al agente. Google Trends no tiene API oficial y puede
+    // fallar; si falla, el artículo sale igual sin este campo.
+    const trendKeyword = keyword ? await tendencia(keyword) : null;
 
     if (topic && !body.title) {
       // El agente elige un título SEO atractivo a partir del tema y escribe.
@@ -144,6 +153,7 @@ Después, en una línea nueva, el bloque <<<DIFERENCIAL>>> y luego <<<ARTICULO>>
       title = m ? m[1].trim().replace(/^["']|["']$/g, "") : topic.slice(0, 70);
       const partes = partir(raw);
       diferencial = partes.diferencial;
+      porqueKeyword = partes.keyword;
       markdown = partes.markdown;
 
       // En este modo el título lo elige el agente, así que el choque solo se
@@ -222,6 +232,7 @@ La extensión la marca el tema, no una cuota. No hay mínimo de palabras.`,
       });
       const partes = partir(crudo);
       diferencial = partes.diferencial;
+      porqueKeyword = partes.keyword;
       markdown = partes.markdown;
     }
 
@@ -300,6 +311,8 @@ La extensión la marca el tema, no una cuota. No hay mínimo de palabras.`,
       status: "draft", // los generados desde reportes entran como borrador
       publishAt,
       differentiator: diferencial,
+      keywordRationale: porqueKeyword,
+      keywordTrend: trendKeyword ?? undefined,
       markdown,
     });
 
@@ -323,6 +336,8 @@ La extensión la marca el tema, no una cuota. No hay mínimo de palabras.`,
       // que el trabajo se hizo, no que la respuesta sea buena. Eso lo decide
       // quien lo lee.
       diferencial,
+      keywordRationale: porqueKeyword,
+      keywordTrend: trendKeyword ?? undefined,
       pendientes: revisado.pendientes.length ? revisado.pendientes : undefined,
       wordCount: markdown.split(/\s+/).filter(Boolean).length,
     });

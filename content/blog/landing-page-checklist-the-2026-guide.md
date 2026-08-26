@@ -10,6 +10,10 @@ keywords:
 lang: en
 category: SEO
 status: draft
+keywordTrend:
+  direccion: baja
+  cambioAnual: -52
+  nivelActual: 30
 ---
 Every week, teams push live landing pages that look polished but convert poorly, not because of bad design, but because a handful of critical elements were skipped. A solid **landing page checklist** closes that gap before you spend a dollar on traffic.
 

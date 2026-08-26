@@ -37,6 +37,13 @@ export interface BlogPost {
    * "¿ofrece información, datos o análisis originales?".
    */
   differentiator?: string;
+  /**
+   * Por qué esta keyword: qué busca quien la escribe y por qué podemos
+   * responderle mejor. Lo escribe el agente tras mirar la SERP.
+   */
+  keywordRationale?: string;
+  /** Hacia dónde va la demanda de la keyword, según Google Trends. */
+  keywordTrend?: { direccion: "sube" | "baja" | "estable" | "sin-volumen"; cambioAnual: number; nivelActual: number };
   file: string;
   /** Raw markdown body (without frontmatter). */
   markdown: string;
@@ -67,6 +74,8 @@ export function getBlogPosts(): BlogPost[] {
         updated: data.updated ? String(data.updated) : undefined,
         publishAt: data.publishAt ? String(data.publishAt) : undefined,
         differentiator: data.differentiator ? String(data.differentiator) : undefined,
+        keywordRationale: data.keywordRationale ? String(data.keywordRationale) : undefined,
+        keywordTrend: data.keywordTrend ?? undefined,
         file,
         markdown: content,
       };
@@ -108,6 +117,8 @@ export function createBlogPost(meta: {
   /** ISO. Cuándo debe salir publicado. */
   publishAt?: string;
   differentiator?: string;
+  keywordRationale?: string;
+  keywordTrend?: BlogPost["keywordTrend"];
   markdown: string;
 }): BlogPost {
   const slug = meta.slug ?? slugify(meta.title);
@@ -127,6 +138,8 @@ export function createBlogPost(meta: {
     updated: ahora,
     ...(meta.publishAt ? { publishAt: meta.publishAt } : {}),
     ...(meta.differentiator ? { differentiator: meta.differentiator } : {}),
+    ...(meta.keywordRationale ? { keywordRationale: meta.keywordRationale } : {}),
+    ...(meta.keywordTrend ? { keywordTrend: meta.keywordTrend } : {}),
   };
   fs.writeFileSync(
     path.join(BLOG_DIR, file),

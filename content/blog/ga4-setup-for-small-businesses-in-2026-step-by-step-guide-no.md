@@ -10,6 +10,10 @@ keywords:
 lang: en
 category: SEO
 status: draft
+keywordTrend:
+  direccion: sin-volumen
+  cambioAnual: 0
+  nivelActual: 0
 ---
 If your website is running without GA4 properly configured, you're making marketing decisions based on gut feeling, or worse, on bad data. The good news: a solid ga4 setup for small business takes less than two hours if you follow the right steps, and you don't need to pay an agency $500 to do it.
 

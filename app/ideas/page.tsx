@@ -22,7 +22,9 @@ type Idea = {
   rationale: string
   outline: string[]
   /** Hacia dónde va la demanda, según Google Trends. Puede faltar. */
-  trend?: { direccion: 'sube' | 'baja' | 'estable'; cambioAnual: number; nivelActual: number }
+  trend?: { direccion: 'sube' | 'baja' | 'estable' | 'sin-volumen'; cambioAnual: number; nivelActual: number }
+  /** Por qué esta keyword. Distinto de rationale, que habla del tema. */
+  keywordRationale?: string
 }
 
 type Batch = {
@@ -433,24 +435,41 @@ export default function IdeasPage() {
                         {idea.trend && (
                           <>
                             {' · '}
-                            <span
-                              title={`Google Trends: últimos 12 meses frente a los 12 anteriores. Hoy está en ${idea.trend.nivelActual} de 100 respecto a su propio máximo histórico.`}
-                              className={
-                                idea.trend.direccion === 'sube'
-                                  ? 'text-green-700 font-medium'
-                                  : idea.trend.direccion === 'baja'
-                                    ? 'text-red-700 font-medium'
-                                    : 'text-sand'
-                              }
-                            >
-                              {idea.trend.direccion === 'sube' ? '↑' : idea.trend.direccion === 'baja' ? '↓' : '→'}{' '}
-                              {idea.trend.cambioAnual > 0 ? '+' : ''}
-                              {idea.trend.cambioAnual}% interanual · {idea.trend.nivelActual}/100 de su máximo
-                            </span>
+                            {idea.trend.direccion === 'sin-volumen' ? (
+                              // Sin volumen NO es "estable": Trends devuelve la serie a cero
+                              // cuando el término es demasiado long-tail para medirlo, y pintar
+                              // "→ 0% · 0/100" se lee como "la demanda se mantiene".
+                              <span
+                                className="text-sand"
+                                title="Google Trends no registra volumen para este término. Suele significar que es muy long-tail: poca competencia, pero también poca demanda."
+                              >
+                                sin volumen medible
+                              </span>
+                            ) : (
+                              <span
+                                title={`Google Trends: últimos 12 meses frente a los 12 anteriores. Hoy está en ${idea.trend.nivelActual} de 100 respecto a su propio máximo histórico.`}
+                                className={
+                                  idea.trend.direccion === 'sube'
+                                    ? 'text-green-700 font-medium'
+                                    : idea.trend.direccion === 'baja'
+                                      ? 'text-red-700 font-medium'
+                                      : 'text-sand'
+                                }
+                              >
+                                {idea.trend.direccion === 'sube' ? '↑' : idea.trend.direccion === 'baja' ? '↓' : '→'}{' '}
+                                {idea.trend.cambioAnual > 0 ? '+' : ''}
+                                {idea.trend.cambioAnual}% interanual · {idea.trend.nivelActual}/100 de su máximo
+                              </span>
+                            )}
                           </>
                         )}
                       </p>
                       <p className="text-sm text-ink/80 mt-2"><b>Por qué:</b> {idea.rationale}</p>
+                      {idea.keywordRationale && (
+                        <p className="text-xs text-ink/70 mt-1 leading-relaxed">
+                          <b>Por qué esta keyword:</b> {idea.keywordRationale}
+                        </p>
+                      )}
                       {idea.outline.length > 0 && (
                         <details className="mt-2">
                           <summary className="text-xs text-sand cursor-pointer hover:text-maroon">Ver outline</summary>

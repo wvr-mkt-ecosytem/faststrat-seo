@@ -9,6 +9,10 @@ keywords:
 lang: en
 category: SEO
 status: draft
+keywordTrend:
+  direccion: sin-volumen
+  cambioAnual: 0
+  nivelActual: 0
 ---
 Verificadas todas las cifras de Jasper. El umbral del 20% de tráfico directo tiene fuente en owox.com. Ahora aplico todos los arreglos.
 

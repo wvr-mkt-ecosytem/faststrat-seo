@@ -11,6 +11,10 @@ keywords:
 lang: en
 category: SEO
 status: draft
+keywordTrend:
+  direccion: baja
+  cambioAnual: -52
+  nivelActual: 30
 ---
 Across thousands of Google Ads accounts, [WordStream measured](https://www.wordstream.com/blog/ws/2014/03/17/what-is-a-good-conversion-rate) an average landing page conversion rate of 2.35%, with the top 25% at 5.31% or higher and the top 10% at 11.45% or higher. The gap isn't design budget, it's execution on a specific set of elements that most pages quietly skip.
 

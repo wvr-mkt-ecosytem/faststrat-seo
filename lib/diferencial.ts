@@ -121,9 +121,30 @@ y debajo, en 2 a 4 frases: qué prometen los tres primeros resultados (NOMBRA su
 <<<ARTICULO>>>
 y a continuación el artículo en Markdown.`;
 
-/** Saca el diferencial y el artículo de la respuesta del agente. */
-export function partir(raw: string): { diferencial?: string; markdown: string } {
+/**
+ * Por qué esta keyword y no otra.
+ *
+ * El sistema elegía keywords y no explicaba la elección en ninguna parte: la
+ * pantalla enseñaba la palabra y quien la leía tenía que fiarse. Con esto, cada
+ * artículo lleva escrito qué busca la gente que la escribe y por qué esta
+ * página puede responderle mejor que las que ya están.
+ *
+ * Va aparte del diferencial a propósito: el diferencial habla del ARTÍCULO
+ * frente a los de arriba, esto habla de la BÚSQUEDA. Un artículo puede aportar
+ * algo nuevo sobre una consulta que no busca nadie.
+ */
+export const INSTRUCCION_KEYWORD = `Justifica también la keyword. Después del bloque anterior, escribe la línea exacta
+<<<KEYWORD>>>
+y debajo, en 2 o 3 frases: qué está intentando resolver quien escribe esa búsqueda (la intención, no la definición), y por qué este artículo puede responderle mejor que lo que hay hoy en la primera página. Si la keyword tiene variantes que la gente usa más, dilo.`;
+
+/** Saca el diferencial, la justificación de la keyword y el artículo. */
+export function partir(raw: string): {
+  diferencial?: string;
+  keyword?: string;
+  markdown: string;
+} {
   const iDif = raw.indexOf("<<<DIFERENCIAL>>>");
+  const iKw = raw.indexOf("<<<KEYWORD>>>");
   const iArt = raw.indexOf("<<<ARTICULO>>>");
 
   // Sin el marcador del artículo no se sabe dónde acaba el razonamiento del
@@ -147,10 +168,16 @@ export function partir(raw: string): { diferencial?: string; markdown: string } 
     .replace(/^(?:\*\*)?(?:t[íi]tulo|title|keyword|idioma|language|audiencia|audience)(?:\*\*)?\s*:.*(?:\r?\n)+/gi, "")
     .trim();
 
+  // El diferencial acaba donde empiece el siguiente marcador, sea cual sea.
+  // Sin esto, si el agente pone KEYWORD entre medias, el diferencial se lo
+  // tragaba entero y la comprobación de longitud pasaba por el motivo
+  // equivocado.
+  const finDif = iKw !== -1 && iKw > iDif ? iKw : iArt;
   const diferencial =
-    iDif !== -1 && iDif < iArt
-      ? raw.slice(iDif + "<<<DIFERENCIAL>>>".length, iArt).trim()
-      : undefined;
+    iDif !== -1 && iDif < iArt ? raw.slice(iDif + "<<<DIFERENCIAL>>>".length, finDif).trim() : undefined;
 
-  return { diferencial, markdown };
+  const keyword =
+    iKw !== -1 && iKw < iArt ? raw.slice(iKw + "<<<KEYWORD>>>".length, iArt).trim() : undefined;
+
+  return { diferencial, keyword, markdown };
 }

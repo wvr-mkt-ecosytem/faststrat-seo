@@ -7,6 +7,10 @@ keywords:
 lang: en
 category: SEO
 status: draft
+keywordTrend:
+  direccion: sube
+  cambioAnual: 45
+  nivelActual: 7
 ---
 ## The Short Answer: 7–8% of Revenue (But It Depends)
 

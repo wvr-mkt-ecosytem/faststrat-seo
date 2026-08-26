@@ -49,7 +49,8 @@ Devuelves SOLO un JSON válido con esta forma (sin texto extra, sin code fence):
       "priority": "alta|media|baja",
       "primaryKeyword": "...",
       "intent": "...",
-      "rationale": "1 frase de por qué",
+      "rationale": "1 frase de por qué el TEMA vale la pena",
+      "keywordRationale": "2 frases: qué intenta resolver quien escribe esa búsqueda, y por qué podemos responderle mejor que lo que hay hoy arriba. Habla de la BÚSQUEDA, no del artículo.",
       "outline": ["H2 1", "H2 2", "H2 3", "H2 4", "H2 5"]
     }
   ]
@@ -139,6 +140,7 @@ ${bloqueDeMemoria(memoria)}`,
       primaryKeyword: String(i.primaryKeyword ?? ""),
       intent: String(i.intent ?? "Informacional"),
       rationale: String(i.rationale ?? ""),
+      keywordRationale: i.keywordRationale ? String(i.keywordRationale) : undefined,
       outline: Array.isArray(i.outline) ? i.outline.slice(0, 6) : [],
     }));
 

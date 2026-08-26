@@ -44,8 +44,20 @@ async function conseguirCookie(): Promise<string> {
 
 export interface Tendencia {
   termino: string;
-  /** Sube, baja o se mantiene, comparando los últimos 12 meses con los 12 anteriores. */
-  direccion: "sube" | "baja" | "estable";
+  /**
+   * Sube, baja, se mantiene, o no hay volumen suficiente para saberlo.
+   *
+   * "sin-volumen" es un estado propio y no un "estable" disfrazado. Google
+   * Trends devuelve la serie entera a cero cuando el término es demasiado
+   * long-tail para medirlo, y la cuenta interanual sobre ceros da 0%: eso se
+   * leía como "la demanda se mantiene", que es exactamente lo contrario de lo
+   * que pasa. De 19 keywords reales del blog, 8 salían así.
+   *
+   * Y la distinción es útil por sí misma: un término que Trends no ve es muy
+   * long-tail, o sea poca competencia y poco volumen. Eso cambia qué esperar
+   * del artículo, no si escribirlo.
+   */
+  direccion: "sube" | "baja" | "estable" | "sin-volumen";
   /** El cambio interanual, en porcentaje. */
   cambioAnual: number;
   /**
@@ -106,13 +118,25 @@ export async function tendencia(termino: string, geo = ""): Promise<Tendencia | 
     const anteriores = puntos.slice(-24, -12);
     const a = media(anteriores);
     const b = media(ultimos);
-    const cambio = a > 0 ? ((b - a) / a) * 100 : 0;
+    const pico = Math.max(...puntos);
+
+    // Serie plana a cero: Trends no ve el término. No es "estable".
+    //
+    // Trends normaliza a 0-100 sobre el propio pico del término, así que una
+    // serie entera de ceros significa volumen por debajo de su umbral de
+    // medición. Con la cuenta interanual eso daba 0% y el sistema lo publicaba
+    // como "estable", diciendo que la demanda se mantiene cuando en realidad
+    // no hay demanda medible.
+    if (pico === 0 || (a === 0 && b === 0)) {
+      return { termino, direccion: "sin-volumen", cambioAnual: 0, nivelActual: 0, meses: puntos.length };
+    }
+
+    const cambio = a > 0 ? ((b - a) / a) * 100 : 100;
 
     // El 15% no es un número redondo elegido a ojo: por debajo, el ruido de la
     // normalización de Trends (que redondea a enteros de 0 a 100) produce
     // variaciones de ese orden sin que la demanda haya cambiado.
-    const direccion = cambio > 15 ? "sube" : cambio < -15 ? "baja" : "estable";
-    const pico = Math.max(...puntos, 1);
+    const direccion: Tendencia["direccion"] = cambio > 15 ? "sube" : cambio < -15 ? "baja" : "estable";
 
     return {
       termino,
@@ -150,6 +174,9 @@ export async function tendencias(
 
 /** Cómo se cuenta una tendencia dentro de un prompt o en pantalla. */
 export function describir(t: Tendencia): string {
+  if (t.direccion === "sin-volumen") {
+    return "sin volumen medible en Google Trends (término muy long-tail)";
+  }
   const signo = t.cambioAnual > 0 ? "+" : "";
   const nivel =
     t.nivelActual >= 70 ? "cerca de su máximo" : t.nivelActual >= 35 ? "a media altura" : "muy por debajo de su máximo";

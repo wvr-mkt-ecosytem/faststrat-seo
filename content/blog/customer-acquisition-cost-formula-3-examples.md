@@ -42,6 +42,10 @@ differentiator: >-
   sugerida (148 chars): "Learn the CAC formula, what costs to include, and see 3
   worked examples — plus verified industry benchmarks so you know if your number
   is good or bad."
+keywordTrend:
+  direccion: sin-volumen
+  cambioAnual: 0
+  nivelActual: 0
 ---
 ---
 

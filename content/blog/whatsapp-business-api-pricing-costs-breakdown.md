@@ -10,6 +10,10 @@ keywords:
 lang: en
 category: SEO
 status: draft
+keywordTrend:
+  direccion: baja
+  cambioAnual: -70
+  nivelActual: 9
 ---
 WhatsApp Business API costs two things: Meta's per-message fee (from $0.0034 for a utility message in the US to $0.0625 for a marketing message reaching a number in Brazil), plus your BSP's markup, which runs $0.004–$0.005/message pay-as-you-go or €49/month flat.
 

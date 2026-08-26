@@ -12,6 +12,10 @@ keywords:
 lang: en
 category: Marketing Strategy
 status: publish
+keywordTrend:
+  direccion: baja
+  cambioAnual: -76
+  nivelActual: 13
 ---
 If you have ever stared at a spreadsheet wondering whether you are spending too much, or far too little, on marketing, you are not alone. It is the single most common question small business owners ask, and the answer hides behind a surprising amount of conflicting advice.
 

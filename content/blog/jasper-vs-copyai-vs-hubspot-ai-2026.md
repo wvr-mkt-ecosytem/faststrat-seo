@@ -13,6 +13,10 @@ keywords:
 lang: en
 category: AI Marketing
 status: publish
+keywordTrend:
+  direccion: sube
+  cambioAnual: 100
+  nivelActual: 2
 ---
 Ninguna fuente confirma que Jasper mantiene consistencia exactamente a las 2 000 palabras, de hecho hay reseñas que dicen lo contrario. Elimino la cifra y reformulo en cualitativo. Para el aviso de enlace interno, inserto un enlace a FastStrat en el cuerpo editorial donde el contexto lo justifica de forma natural.
 

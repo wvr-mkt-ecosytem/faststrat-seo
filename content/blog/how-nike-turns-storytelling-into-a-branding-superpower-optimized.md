@@ -8,6 +8,10 @@ keywords:
 lang: en
 category: SEO
 status: draft
+keywordTrend:
+  direccion: baja
+  cambioAnual: -53
+  nivelActual: 36
 ---
 ## Nike's Storytelling Is Not What You Think It Is
 
