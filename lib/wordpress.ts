@@ -98,6 +98,60 @@ async function uploadMedia(
 }
 
 /**
+ * Todos los títulos que ya existen en WordPress, publicados o en borrador.
+ *
+ * Hace falta para no volver a escribir algo que ya está. El repositorio local
+ * solo tiene 21 artículos y el sitio tiene 109: comprobar contra content/blog
+ * dejaba fuera el 80% de lo publicado, que es justo donde están las
+ * canibalizaciones que hoy hay que deshacer con redirecciones.
+ *
+ * Nunca lanza. Si WordPress no responde, devuelve lo que tenga y dice por qué:
+ * quedarse sin catálogo no puede impedir escribir, pero sí tiene que constar,
+ * porque una comprobación que falla en silencio se lee como una que pasó.
+ */
+export async function listarTitulos(): Promise<{
+  posts: { title: string; slug: string; status: string }[];
+  error: string | null;
+}> {
+  let cfg: WpConfig;
+  try {
+    cfg = getConfig();
+  } catch (e) {
+    return { posts: [], error: `WordPress sin configurar: ${(e as Error).message}` };
+  }
+
+  const posts: { title: string; slug: string; status: string }[] = [];
+  try {
+    for (let page = 1; page <= 20; page++) {
+      const list = await wpFetch(
+        cfg,
+        `posts?per_page=100&page=${page}&status=any&_fields=title,slug,status`,
+      );
+      if (!Array.isArray(list) || list.length === 0) break;
+      for (const p of list) {
+        // WordPress devuelve el título con entidades HTML (&amp;, &#8217;).
+        // Sin decodificarlas, la comparación trata "AI &amp; SEO" y "AI & SEO"
+        // como títulos distintos y el choque no se detecta.
+        const bruto: string = p.title?.rendered ?? "";
+        const limpio = bruto
+          .replace(/&#(\d+);/g, (_m, n) => String.fromCharCode(Number(n)))
+          .replace(/&amp;/g, "&")
+          .replace(/&quot;/g, '"')
+          .replace(/&#0?39;|&apos;|&#8217;/g, "'")
+          .replace(/&nbsp;/g, " ")
+          .replace(/&lt;/g, "<")
+          .replace(/&gt;/g, ">");
+        if (limpio) posts.push({ title: limpio, slug: p.slug ?? "", status: p.status ?? "" });
+      }
+      if (list.length < 100) break;
+    }
+  } catch (e) {
+    return { posts, error: `No se pudo listar WordPress: ${(e as Error).message}` };
+  }
+  return { posts, error: null };
+}
+
+/**
  * Consulta el estado en WordPress de una lista de slugs.
  * Devuelve un mapa slug → { status, link } para los que existen en WP.
  * Si no hay credenciales, devuelve {} (no rompe).
@@ -151,6 +205,34 @@ export interface PublishInput {
   status: "publish" | "draft";
   /** PNG de la imagen destacada (opcional). */
   coverImage?: Buffer;
+  /** Nombre del autor. Se resuelve al usuario de WordPress que coincida. */
+  authorName?: string;
+  /**
+   * Cuándo debe salir, en ISO. Si es futura y el estado es "publish",
+   * WordPress lo deja PROGRAMADO en vez de publicarlo ya.
+   */
+  publishAt?: string;
+}
+
+/**
+ * El id de usuario de WordPress que corresponde a un nombre.
+ *
+ * WordPress no acepta el nombre en el campo `author`: quiere el id numérico.
+ * Si no encuentra a nadie devuelve undefined y el post se publica con el autor
+ * de las credenciales, que es lo que pasaba hasta ahora. Nunca lanza: quedarse
+ * sin firmar es un defecto, no publicar es peor.
+ */
+async function buscarAutor(cfg: WpConfig, nombre: string): Promise<number | undefined> {
+  try {
+    const users = await wpFetch(cfg, `users?search=${encodeURIComponent(nombre)}&_fields=id,name,slug`);
+    if (!Array.isArray(users) || users.length === 0) return undefined;
+    const exacto = users.find(
+      (u: { name?: string }) => (u.name ?? "").toLowerCase() === nombre.toLowerCase(),
+    );
+    return (exacto ?? users[0])?.id;
+  } catch {
+    return undefined;
+  }
 }
 
 export interface PublishResult {
@@ -188,6 +270,27 @@ export async function publishPost(input: PublishInput): Promise<PublishResult> {
     categories: [categoryId],
   };
   if (featuredMedia) payload.featured_media = featuredMedia;
+
+  if (input.authorName) {
+    const autorId = await buscarAutor(cfg, input.authorName);
+    if (autorId) payload.author = autorId;
+  }
+
+  // Fecha futura + estado "publish" = programado.
+  //
+  // WordPress exige el estado "future" explícitamente: mandar solo una fecha
+  // futura con status "publish" lo publica igualmente, con la fecha por delante
+  // pero visible desde ya. La comparación se hace contra el instante actual,
+  // no contra el día, para que programar "hoy a las 18:00" funcione.
+  if (input.publishAt) {
+    const cuando = new Date(input.publishAt);
+    if (!Number.isNaN(cuando.getTime())) {
+      payload.date_gmt = cuando.toISOString().replace(/\.\d{3}Z$/, "");
+      if (input.status === "publish" && cuando.getTime() > Date.now()) {
+        payload.status = "future";
+      }
+    }
+  }
 
   const saved = existing
     ? await wpFetch(cfg, `posts/${existing.id}`, { method: "POST", body: JSON.stringify(payload) })

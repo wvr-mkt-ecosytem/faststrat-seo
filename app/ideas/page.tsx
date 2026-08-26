@@ -21,6 +21,8 @@ type Idea = {
   intent: string
   rationale: string
   outline: string[]
+  /** Hacia dónde va la demanda, según Google Trends. Puede faltar. */
+  trend?: { direccion: 'sube' | 'baja' | 'estable'; cambioAnual: number; nivelActual: number }
 }
 
 type Batch = {
@@ -428,6 +430,25 @@ export default function IdeasPage() {
                       <h4 className="font-semibold text-ink">{idea.title}</h4>
                       <p className="text-xs text-sand mt-1">
                         <b>Keyword:</b> {idea.primaryKeyword} · <b>Intención:</b> {idea.intent}
+                        {idea.trend && (
+                          <>
+                            {' · '}
+                            <span
+                              title={`Google Trends: últimos 12 meses frente a los 12 anteriores. Hoy está en ${idea.trend.nivelActual} de 100 respecto a su propio máximo histórico.`}
+                              className={
+                                idea.trend.direccion === 'sube'
+                                  ? 'text-green-700 font-medium'
+                                  : idea.trend.direccion === 'baja'
+                                    ? 'text-red-700 font-medium'
+                                    : 'text-sand'
+                              }
+                            >
+                              {idea.trend.direccion === 'sube' ? '↑' : idea.trend.direccion === 'baja' ? '↓' : '→'}{' '}
+                              {idea.trend.cambioAnual > 0 ? '+' : ''}
+                              {idea.trend.cambioAnual}% interanual · {idea.trend.nivelActual}/100 de su máximo
+                            </span>
+                          </>
+                        )}
                       </p>
                       <p className="text-sm text-ink/80 mt-2"><b>Por qué:</b> {idea.rationale}</p>
                       {idea.outline.length > 0 && (

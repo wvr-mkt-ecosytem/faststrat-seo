@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { marked } from "marked";
+import { CLIENTE } from "@/lib/cliente";
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
@@ -13,6 +14,29 @@ export interface BlogPost {
   lang: string;
   category: string;
   status: string;
+  /** Quién firma. Google pregunta expresamente quién creó el contenido. */
+  author: string;
+  /** Cuándo se escribió, en ISO. */
+  date: string;
+  /** Ultima modificacion real del cuerpo, en ISO. */
+  updated?: string;
+  /**
+   * Cuándo debe salir publicado, en ISO. Vacío = en cuanto se publique.
+   *
+   * Sin esto, publicar una tanda dejaba todos los artículos con la misma fecha
+   * y la misma hora, que es la huella más visible de publicación automatizada:
+   * Google lista "cambiar fechas sin actualizaciones sustanciales" entre las
+   * señales de contenido hecho para el buscador.
+   */
+  publishAt?: string;
+  /**
+   * Qué aporta este artículo que no tengan los que ya están arriba.
+   *
+   * Lo escribe el agente después de mirar la SERP, y la compuerta lo exige. Es
+   * la única respuesta que el sistema tenía en blanco a la pregunta de Google
+   * "¿ofrece información, datos o análisis originales?".
+   */
+  differentiator?: string;
   file: string;
   /** Raw markdown body (without frontmatter). */
   markdown: string;
@@ -35,10 +59,27 @@ export function getBlogPosts(): BlogPost[] {
         lang: data.lang ?? "en",
         category: data.category ?? "Uncategorized",
         status: data.status ?? "draft",
+        author: data.author ?? CLIENTE.autor,
+        // Los 21 archivos que ya existían no traen fecha. Se usa la del archivo
+        // en vez de la de hoy: inventar "hoy" para todos los antiguos es
+        // exactamente la huella de automatización que esto quiere evitar.
+        date: data.date ? String(data.date) : fechaDeArchivo(file),
+        updated: data.updated ? String(data.updated) : undefined,
+        publishAt: data.publishAt ? String(data.publishAt) : undefined,
+        differentiator: data.differentiator ? String(data.differentiator) : undefined,
         file,
         markdown: content,
       };
     });
+}
+
+/** La fecha de modificación del archivo, para los posts que nacieron sin ella. */
+function fechaDeArchivo(file: string): string {
+  try {
+    return fs.statSync(path.join(BLOG_DIR, file)).mtime.toISOString();
+  } catch {
+    return new Date().toISOString();
+  }
 }
 
 export function getBlogPost(slug: string): BlogPost | undefined {
@@ -50,15 +91,9 @@ export function renderHtml(post: BlogPost): string {
   return marked.parse(post.markdown, { async: false }) as string;
 }
 
-export function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 60);
-}
+export { slugify } from "@/lib/slug";
+import { slugify } from "@/lib/slug";
+
 
 /** Crea un nuevo archivo de blog (frontmatter + cuerpo markdown). */
 export function createBlogPost(meta: {
@@ -69,11 +104,16 @@ export function createBlogPost(meta: {
   lang: string;
   category: string;
   status?: string;
+  author?: string;
+  /** ISO. Cuándo debe salir publicado. */
+  publishAt?: string;
+  differentiator?: string;
   markdown: string;
 }): BlogPost {
   const slug = meta.slug ?? slugify(meta.title);
   if (!fs.existsSync(BLOG_DIR)) fs.mkdirSync(BLOG_DIR, { recursive: true });
   const file = `${slug}.md`;
+  const ahora = new Date().toISOString();
   const data = {
     title: meta.title,
     slug,
@@ -82,6 +122,11 @@ export function createBlogPost(meta: {
     lang: meta.lang,
     category: meta.category,
     status: meta.status ?? "publish",
+    author: meta.author ?? CLIENTE.autor,
+    date: ahora,
+    updated: ahora,
+    ...(meta.publishAt ? { publishAt: meta.publishAt } : {}),
+    ...(meta.differentiator ? { differentiator: meta.differentiator } : {}),
   };
   fs.writeFileSync(
     path.join(BLOG_DIR, file),
@@ -100,7 +145,18 @@ export function updateBlogMarkdown(slug: string, newMarkdown: string): BlogPost 
   const filePath = path.join(BLOG_DIR, post.file);
   const raw = fs.readFileSync(filePath, "utf8");
   const { data } = matter(raw);
-  const rebuilt = matter.stringify(newMarkdown.trim() + "\n", data);
+
+  // `updated` cambia solo cuando cambia el cuerpo de verdad.
+  //
+  // Tocarlo en cada guardado convertiría dateModified en ruido: Google avisa de
+  // que cambiar fechas sin actualizaciones sustanciales es señal de contenido
+  // hecho para el buscador, y reescribe los títulos cuando la fecha que ve no
+  // se corresponde con lo que hay en la página.
+  const cambio = newMarkdown.trim() !== post.markdown.trim();
+  const actualizado = cambio ? new Date().toISOString() : (data.updated ?? post.updated);
+  const nuevoData = { ...data, ...(actualizado ? { updated: actualizado } : {}) };
+
+  const rebuilt = matter.stringify(newMarkdown.trim() + "\n", nuevoData);
   fs.writeFileSync(filePath, rebuilt);
-  return { ...post, markdown: newMarkdown };
+  return { ...post, markdown: newMarkdown, updated: actualizado };
 }

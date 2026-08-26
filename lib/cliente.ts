@@ -34,8 +34,28 @@ export interface Cliente {
   mercados: string;
   /** Con quién compite. El analista los busca para ver qué prometen ellos. */
   competidores: string[];
+  /**
+   * Quién firma el contenido.
+   *
+   * Google pregunta expresamente "¿Se muestra claramente a los visitantes quién
+   * ha creado el contenido?", y hasta ahora la respuesta del sitio era que no:
+   * el frontmatter tenía cuatro campos y ninguno era el autor. Una persona
+   * responsable del contenido es lo que separa un blog de una granja de
+   * páginas, y es la parte de E-E-A-T que se puede resolver escribiéndola.
+   */
+  autor: string;
   /** Si el manual de marca prohíbe la raya larga. Es decisión de marca, no SEO. */
   sinRayaLarga: boolean;
+  /**
+   * Cómo se escriben los encabezados. Es estilo de casa, no una regla de SEO.
+   *
+   * "libre" es el valor por defecto y solo marca la INCOHERENCIA: mezclar los
+   * dos estilos dentro del mismo artículo. Medido sobre los 21 artículos del
+   * repositorio, exigir minúsculas producía 88 avisos de 112, o sea que ahogaba
+   * las cuatro señales que sí decían algo. Title Case no es un rastro de IA: es
+   * el estilo de medio internet en inglés.
+   */
+  encabezados: "libre" | "minusculas" | "titulo";
   /** La línea bajo el logo en las portadas generadas. En mayúsculas. */
   tagline: string;
   /** Los colores de la marca, para las portadas generadas. */
@@ -57,7 +77,9 @@ export const CLIENTE: Cliente = {
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean),
+  autor: env("CLIENTE_AUTOR", "Walter Von Roestel"),
   sinRayaLarga: env("CLIENTE_SIN_RAYA_LARGA", "true") === "true",
+  encabezados: env("CLIENTE_ENCABEZADOS", "libre") as Cliente["encabezados"],
   tagline: env("CLIENTE_TAGLINE", "AI MARKETING FOR SMALL BUSINESS"),
   // Los valores por defecto son los que ya usaban las portadas publicadas. Si
   // se cambian sin querer, las portadas nuevas dejan de parecerse a las 109 que

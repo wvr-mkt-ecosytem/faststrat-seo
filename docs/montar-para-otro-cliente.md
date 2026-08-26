@@ -23,6 +23,8 @@ CLIENTE_QUE_HACE=
 CLIENTE_MERCADOS=
 CLIENTE_COMPETIDORES=
 CLIENTE_MARCA_ALIAS=
+CLIENTE_AUTOR=
+CLIENTE_ENCABEZADOS=
 ```
 
 Dos avisos que valen más que el resto de la sección:
@@ -38,6 +40,18 @@ Google corta en 60 caracteres y ese sufijo se cobra siempre. Escríbelo con el
 espacio y el guion incluidos, tal cual salen en el navegador: `` - cliente.com``.
 Si te lo saltas, el sistema deja escribir títulos que en la SERP salen cortados
 a media palabra.
+
+**`CLIENTE_AUTOR` tiene que existir como usuario en WordPress.** El sistema
+busca a esa persona por nombre y le atribuye el post. Si no la encuentra, publica
+con el usuario de las credenciales y no se rompe nada, pero el artículo sale sin
+la firma que Google pide ver.
+
+**`CLIENTE_ENCABEZADOS` no afecta al SEO.** Google no dice nada sobre mayúsculas
+en encabezados; lo que pesa es el texto y la jerarquía. Es estilo de casa. En
+`libre`, que es el valor por defecto, solo se avisa cuando un artículo mezcla los
+dos estilos, que es lo único que nadie hace a propósito. Ponerlo en `minusculas`
+sobre un sitio que usa Title Case genera un aviso por encabezado y ahoga el
+resto: medido, 88 avisos de 112.
 
 **`CLIENTE_MARCA_ALIAS` solo hace falta cuando el nombre no basta.** El sistema
 ya deduce solo el nombre pegado, el nombre con espacios y la raíz del dominio.
@@ -160,6 +174,25 @@ texto podría ser de cualquier empresa del sector, la descripción es demasiado
 vaga y conviene concretarla antes de generar en volumen.
 
 ---
+
+## Qué comprueba el sistema antes de dejar publicar
+
+Tres compuertas, y conviene saber cuál frena y cuál solo avisa.
+
+**Duplicados: FRENA.** Antes de escribir, compara el título con todo lo que ya
+existe (WordPress, borradores e ideas ya propuestas). Si se pisa con algo
+publicado, no escribe. Chocar con una idea no frena: proponer y escribir son
+cosas distintas, y una idea repetida no divide autoridad en Google porque no hay
+página. Al publicar se vuelve a comprobar, y ahí sí frena contra lo publicado:
+un borrador duplicado no le hace daño a nadie, publicarlo sí.
+
+**Verificabilidad: FRENA.** Cifras sin fuente, citas no textuales, marcadores sin
+resolver, falta de enlaces. Es binario: o el dato tiene fuente o no la tiene.
+
+**Legibilidad: AVISA.** Los patrones de "Signs of AI writing": rodeos, fuentes
+sin nombre, cierres de optimismo vacío, exceso de negritas. Nunca frena, porque
+el estilo es un juicio y parar un artículo cierto y útil por abusar de las
+negritas sería peor que publicarlo.
 
 ## Lo que NO cambia entre clientes
 

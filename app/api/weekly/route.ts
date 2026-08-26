@@ -10,6 +10,8 @@ import { persistChanges } from "@/lib/persist";
 import type { ArticleIdea, IdeaBatch } from "@/lib/ideas";
 import { leerMemoria, bloqueDeMemoria, descartarRepetidas } from "@/lib/idea-memory";
 import { CLIENTE, CONTEXTO_CLIENTE, RUIDO_MARCA } from "@/lib/cliente";
+import { tendencias, type Tendencia } from "@/lib/trends";
+import { sinRepetir } from "@/lib/similitud";
 
 // Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
 // llamada al agente y no devuelve nada: el navegador se queda esperando una
@@ -148,20 +150,59 @@ ${bloqueDeMemoria(memoria)}`,
     // un número no se puede diagnosticar.
     const { nuevas, descartadas } = descartarRepetidas(ideas, memoria);
 
+    // Segundo filtro: títulos que se PISAN, no solo los idénticos.
+    //
+    // descartarRepetidas compara contra la memoria por título exacto. Eso deja
+    // pasar dos ideas de la misma tanda que tratan lo mismo con otras palabras,
+    // que es como nacieron las cinco canibalizaciones que hoy hay que deshacer
+    // con redirecciones.
+    const { conservadas, descartadas: pisadas } = sinRepetir(
+      nuevas,
+      [...memoria.titulos, ...memoria.escritos].map((t) => ({ title: t })),
+    );
+
+    // La dirección del tema: sube, baja o se mantiene.
+    //
+    // Es lo único que ni Search Console ni el agente sabían. GSC dice qué se
+    // busca hoy y dónde apareces; no dice si la demanda lleva dos años cayendo.
+    // Nunca frena la tanda: si Trends falla, las ideas salen sin este dato.
+    let direcciones = new Map<string, Tendencia>();
+    try {
+      direcciones = await tendencias(
+        conservadas.map((i) => i.primaryKeyword).filter(Boolean),
+        { limite: 12 },
+      );
+    } catch {
+      // Endpoint no oficial: puede cambiar o limitar el ritmo sin aviso.
+    }
+
+    for (const idea of conservadas) {
+      const t = direcciones.get(idea.primaryKeyword);
+      if (t) {
+        idea.trend = { direccion: t.direccion, cambioAnual: t.cambioAnual, nivelActual: t.nivelActual };
+        // Un tema en caída baja de prioridad solo, sin que nadie lo mire: es la
+        // decisión más fácil de automatizar y la que más trabajo ahorra.
+        if (t.direccion === "baja" && t.nivelActual < 35 && idea.priority === "alta") {
+          idea.priority = "media";
+          idea.rationale += ` [La demanda cae ${Math.abs(t.cambioAnual)}% interanual y está en ${t.nivelActual}/100 de su máximo: prioridad bajada.]`;
+        }
+      }
+    }
+
     const batch: IdeaBatch = {
       weekOf: today,
       generatedAt: new Date().toISOString(),
       source: "auto-weekly",
       summary:
         String(parsed.summary ?? "Tanda semanal automática.") +
-        (descartadas.length
-          ? ` (${descartadas.length} idea(s) descartada(s) por repetir algo ya propuesto o escrito.)`
+        (descartadas.length || pisadas.length
+          ? ` (${descartadas.length + pisadas.length} idea(s) descartada(s): ${descartadas.length} por repetir algo ya propuesto o escrito, ${pisadas.length} por pisarse con otro título.)`
           : ""),
       research: {
         competitors: Array.isArray(parsed.research?.competitors) ? parsed.research.competitors : [],
         trends: Array.isArray(parsed.research?.trends) ? parsed.research.trends : [],
       },
-      ideas: nuevas,
+      ideas: conservadas,
     };
 
     // 3) Guarda + persist al repo
@@ -180,7 +221,7 @@ ${bloqueDeMemoria(memoria)}`,
       const html = `<div style="font-family:Arial,Helvetica,sans-serif;color:#201b1b;max-width:560px;margin:auto;padding:24px;background:#f7f2e9">
         <div style="border-top:6px solid #5a1a1a;padding-top:16px">
           <h1 style="color:#5a1a1a;font-size:22px;margin:0 0 6px">${CLIENTE.nombre} · Nueva tanda de ideas</h1>
-          <p style="font-size:13px;color:#6e6a64;margin:0 0 16px">Semana del ${today} · ${ideas.length} artículos sugeridos</p>
+          <p style="font-size:13px;color:#6e6a64;margin:0 0 16px">Semana del ${today} · ${conservadas.length} artículos sugeridos</p>
           <p style="font-size:14px">${batch.summary}</p>
           <ol style="font-size:14px;line-height:1.6">
             ${ideas.map((i) => `<li><b>${i.title}</b> <span style="color:#6e6a64">· ${i.priority} · ${i.lang}</span></li>`).join("")}
@@ -190,7 +231,7 @@ ${bloqueDeMemoria(memoria)}`,
       </div>`;
       emailResult = await sendEmail({
         to,
-        subject: `${CLIENTE.nombre} · ${ideas.length} nuevas ideas (${today})`,
+        subject: `${CLIENTE.nombre} · ${conservadas.length} nuevas ideas (${today})`,
         html,
       });
     }
@@ -200,8 +241,10 @@ ${bloqueDeMemoria(memoria)}`,
       // Cuántas se cayeron por repetidas. Sin este número, "salieron las
       // mismas" es una queja que no se puede comprobar ni desmentir.
       descartadasPorRepetir: descartadas.length,
+      descartadasPorPisarse: pisadas.length,
+      conTendencia: [...direcciones.keys()].length,
       weekOf: today,
-      ideas: nuevas.length,
+      ideas: conservadas.length,
       emailed: emailResult.ok,
       emailError: emailResult.error,
     });

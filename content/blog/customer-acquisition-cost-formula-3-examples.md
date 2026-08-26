@@ -1,7 +1,7 @@
 ---
 title: 'Customer Acquisition Cost: Formula + 3 Examples'
 slug: customer-acquisition-cost-formula-3-examples
-excerpt: 'Título: Customer Acquisition Cost: Formula, Examples'
+excerpt: "The formula is simple. What trips up most small businesses is the numerator, which costs belong in it and which don't. Get that wrong and you'll undercount"
 keywords:
   - how to calculate customer acquisition cost for a small business
 lang: en
@@ -43,8 +43,6 @@ differentiator: >-
   worked examples — plus verified industry benchmarks so you know if your number
   is good or bad."
 ---
-**Título:** Customer Acquisition Cost: Formula, Examples
-
 ---
 
 **Customer acquisition cost (CAC)** = total marketing and sales spend ÷ new customers acquired in the same period. Suppose you spent $3,460 on ads, tools, and influencers in a quarter and gained 72 new customers: your CAC is $48.

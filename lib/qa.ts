@@ -1,4 +1,6 @@
 import { CLIENTE } from "@/lib/cliente";
+import { revisarDiferencial } from "@/lib/diferencial";
+import { revisarLegibilidad } from "@/lib/legibilidad";
 
 // Comprobación mecánica de un borrador antes de que salga.
 //
@@ -235,6 +237,16 @@ export interface QaInput {
   markdown: string;
   /** Citas aprobadas, textuales. Sin esto no se comprueban las comillas. */
   approvedQuotes?: string[];
+  /**
+   * Qué aporta este artículo frente a los que ya rankean.
+   *
+   * Opcional a propósito: los 21 artículos que ya existen no lo tienen y
+   * bloquearlos a todos de golpe convertiría la compuerta en un muro. Solo se
+   * exige cuando `exigirDiferencial` está encendido, que es lo que hacen las
+   * rutas que ESCRIBEN contenido nuevo.
+   */
+  differentiator?: string;
+  exigirDiferencial?: boolean;
   house?: HouseRules;
 }
 
@@ -256,6 +268,25 @@ export function runQa(input: QaInput): QaResult {
   const dom = escapar(dominio);
   const esPropio = (host: string) =>
     propios.some((d) => host.toLowerCase() === d.toLowerCase() || host.toLowerCase().endsWith("." + d.toLowerCase()));
+
+  // Lo primero que se mira es si aporta algo, porque es lo único que no se
+  // arregla editando: un artículo que repite a los de arriba sigue repitiéndolos
+  // con las rayas cambiadas.
+  if (input.exigirDiferencial) {
+    const d = revisarDiferencial(input.differentiator);
+    if (!d.ok) {
+      findings.push({
+        severity: "block",
+        rule: "no-differentiator",
+        detail: d.motivo ?? "Falta el diferencial.",
+      });
+    }
+  }
+
+  // Cómo se lee. Todo esto AVISA y nada bloquea: la verificabilidad es binaria
+  // (una cifra tiene fuente o no), el estilo es un juicio, y frenar un artículo
+  // cierto y útil por abusar de las negritas sería peor que publicarlo.
+  findings.push(...revisarLegibilidad(markdown, { encabezados: CLIENTE.encabezados }));
 
   for (const m of markdown.matchAll(BANNED)) {
     findings.push({

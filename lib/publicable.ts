@@ -2,6 +2,7 @@ import { runClaude } from "@/lib/claude";
 import { runQa, type HouseRules, type QaResult } from "@/lib/qa";
 import { REGLAS_DE_CASA } from "@/lib/house-rules";
 import { CLIENTE } from "@/lib/cliente";
+import { INSTRUCCION_LEGIBILIDAD } from "@/lib/legibilidad";
 
 // Dejar un texto dentro de las reglas ANTES de guardarlo, no después.
 //
@@ -35,6 +36,8 @@ Nunca inventes un enlace, no atribuyas el dato a quien no lo publicó, y no enla
 
 ${REGLAS_DE_CASA}
 
+${INSTRUCCION_LEGIBILIDAD}
+
 Formato de salida, OBLIGATORIO: empieza tu respuesta con la línea exacta
 <<<ARTICULO>>>
 y a continuación el cuerpo en Markdown, hasta el final. Si escribes cualquier explicación o plan, ponlo ANTES de esa línea; todo lo anterior se descarta.`;
@@ -62,6 +65,19 @@ function extraer(raw: string): string | null {
 const listar = (qa: QaResult) =>
   qa.blocking.map((f) => `- [${f.rule}] ${f.detail}${f.excerpt ? ` en: "${f.excerpt}"` : ""}`).join("\n");
 
+/**
+ * Hallazgos que el corrector NO puede arreglar reescribiendo el cuerpo.
+ *
+ * `no-differentiator` no habla del texto: dice que nadie miró la SERP antes de
+ * escribir. El corrector solo devuelve el artículo, así que por mucho que lo
+ * reescriba el hallazgo sigue ahí. Sin esta lista, cada artículo sin
+ * diferencial gastaba las dos pasadas del bucle para acabar exactamente igual.
+ */
+const NO_LO_ARREGLA_EDITANDO = new Set(["no-differentiator"]);
+
+const hayAlgoQueEditar = (qa: QaResult) =>
+  qa.blocking.some((f) => !NO_LO_ARREGLA_EDITANDO.has(f.rule));
+
 export interface ResultadoPublicable {
   markdown: string;
   qa: QaResult;
@@ -80,11 +96,31 @@ export interface ResultadoPublicable {
 export async function dejarPublicable(
   title: string,
   markdown: string,
-  opciones: { metaDescription?: string; maxPasadas?: number } = {},
+  opciones: {
+    metaDescription?: string;
+    maxPasadas?: number;
+    differentiator?: string;
+    /**
+     * Exigir el diferencial. Lo enciende quien ESCRIBE algo nuevo.
+     *
+     * Apagado por defecto a propósito: el corrector trabaja sobre los 21
+     * artículos que ya existen y ninguno lo tiene. Encenderlo para todos los
+     * llamantes convertiría la compuerta en un muro que dejaría el corrector
+     * inservible, y un muro acaba rodeándose.
+     */
+    exigirDiferencial?: boolean;
+  } = {},
 ): Promise<ResultadoPublicable> {
   const max = opciones.maxPasadas ?? 2;
   const evaluar = (t: string) =>
-    runQa({ title, metaDescription: opciones.metaDescription, markdown: t, house: CASA });
+    runQa({
+      title,
+      metaDescription: opciones.metaDescription,
+      markdown: t,
+      house: CASA,
+      differentiator: opciones.differentiator,
+      exigirDiferencial: opciones.exigirDiferencial === true,
+    });
 
   // El barrido va primero: de 306 bloqueos medidos, 203 eran rayas largas.
   // Gastar una llamada al agente en sustituir un carácter es lo que agotaba el
@@ -93,7 +129,7 @@ export async function dejarPublicable(
   let qa = evaluar(texto);
   let pasadas = 0;
 
-  while (!qa.ok && pasadas < max) {
+  while (!qa.ok && pasadas < max && hayAlgoQueEditar(qa)) {
     let siguiente: string | null = null;
     try {
       const raw = await runClaude({
@@ -104,6 +140,21 @@ export async function dejarPublicable(
 
 BLOQUEOS (hay que resolver todos):
 ${listar(qa)}
+${
+  // Los avisos van también, pero como segunda prioridad.
+  //
+  // El corrector solo recibía los bloqueos, así que los hallazgos de
+  // legibilidad no le llegaban nunca: son avisos, y los avisos no entraban en
+  // el prompt. Como el bucle ya está pagado cuando hay algo que bloquea,
+  // arreglar de paso el estilo sale gratis. Lo que no se hace es lanzar una
+  // pasada SOLO por estilo: eso costaría una llamada por artículo para algo
+  // que no impide publicar.
+  qa.warnings.length
+    ? `\nADEMÁS, si puedes arreglarlos sin forzar el texto (segunda prioridad, nunca a costa de un bloqueo):\n${qa.warnings
+        .map((f) => `- [${f.rule}] ${f.detail}${f.excerpt ? ` en: "${f.excerpt}"` : ""}`)
+        .join("\n")}`
+    : ""
+}
 
 ARTÍCULO:
 ---

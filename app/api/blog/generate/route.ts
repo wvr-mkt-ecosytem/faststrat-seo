@@ -4,9 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { createBlogPost, slugify } from "@/lib/blog";
 import { runClaude } from "@/lib/claude";
 import { REGLAS_DE_CASA, LIMITE_TITULO_UTIL } from "@/lib/house-rules";
+import { revisarTitulo, explicar } from "@/lib/catalogo";
+import { INSTRUCCION_DIFERENCIAL, partir } from "@/lib/diferencial";
+import { INSTRUCCION_LEGIBILIDAD } from "@/lib/legibilidad";
 import { dejarPublicable } from "@/lib/publicable";
 import { persistChanges } from "@/lib/persist";
-import { CONTEXTO_CLIENTE, CLIENTE, conCta } from "@/lib/cliente";
+import { CONTEXTO_CLIENTE, conCta } from "@/lib/cliente";
 
 // Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
 // llamada al agente y no devuelve nada: el navegador se queda esperando una
@@ -45,6 +48,10 @@ ESTÁNDARES DE CALIDAD (obligatorios):
 - SEO: usa la keyword principal de forma natural en intro, en al menos un H2 y en la conclusión — sin saturar. Incluye variantes y términos relacionados (semántica).
 
 ${REGLAS_DE_CASA}
+
+${INSTRUCCION_LEGIBILIDAD}
+
+${INSTRUCCION_DIFERENCIAL}
 
 FORMATO DE SALIDA: devuelve ÚNICAMENTE el cuerpo del artículo en Markdown. Sin frontmatter, sin título H1 (el H1 es el título del post), sin envolverlo en bloques de código. Empieza directo con el párrafo de intro.`;
 
@@ -102,10 +109,15 @@ export const POST = apiRoute(async (request: NextRequest) => {
   }
   const lang: string = body.lang ?? "en";
   const category: string = body.category ?? "SEO";
+  // `force` lo pone una persona que ya vio el choque y decidió seguir.
+  const force: boolean = body.force === true;
+  // ISO. Si es futura, WordPress lo dejará programado en vez de publicarlo ya.
+  const publishAt: string | undefined = body.publishAt;
 
   try {
     let title: string;
     let markdown: string;
+    let diferencial: string | undefined;
 
     if (topic && !body.title) {
       // El agente elige un título SEO atractivo a partir del tema y escribe.
@@ -126,11 +138,37 @@ Audiencia: dueños de PYMEs y marketers.
 Primero elige un TÍTULO SEO específico y atractivo para este tema (no genérico).
 Tu respuesta debe empezar EXACTAMENTE con la línea:
 TITLE: <el título>
-Luego una línea en blanco y después el artículo completo en Markdown, siguiendo todos los estándares de calidad.`,
+Después, en una línea nueva, el bloque <<<DIFERENCIAL>>> y luego <<<ARTICULO>>> con el artículo completo en Markdown.`,
       });
       const m = raw.match(/^\s*TITLE:\s*(.+?)\s*\n/i);
       title = m ? m[1].trim().replace(/^["']|["']$/g, "") : topic.slice(0, 70);
-      markdown = raw.replace(/^\s*TITLE:\s*.+?\n/i, "").trim();
+      const partes = partir(raw);
+      diferencial = partes.diferencial;
+      markdown = partes.markdown;
+
+      // En este modo el título lo elige el agente, así que el choque solo se
+      // puede comprobar AHORA. Es tarde para ahorrar la llamada, pero no para
+      // evitar la canibalización: lo que no se puede es guardar un artículo que
+      // compite con otro propio sin que nadie lo sepa.
+      if (!force) {
+        const v = await revisarTitulo(title);
+        if (!v.ok) {
+          return NextResponse.json(
+            {
+              error: `El agente eligió "${title}", que se pisa con algo que ya existe`,
+              explicacion: explicar(v),
+              choques: v.choques,
+              // El artículo va en la respuesta para que no se pierda el trabajo
+              // ya pagado: se puede republicar con otro título y force: true.
+              titulo: title,
+              markdown,
+              comoSeguir:
+                "Reenvía con otro 'title' y force: true si el ángulo de verdad es distinto, o descarta.",
+            },
+            { status: 409 },
+          );
+        }
+      }
     } else {
       // Sin título dado, lo elige el agente. El valor por defecto era
       // "Guía 2026: <keyword>", que es exactamente el título contra el que
@@ -138,7 +176,34 @@ Luego una línea en blanco y después el artículo completo en Markdown, siguien
       // "2026", que es lo que promete todo el mundo. Un título genérico en
       // posición 10 no se clica, y varios de los 17 artículos lo llevan.
       title = body.title ?? (await tituloPara(keyword ?? topic ?? "", lang));
-      markdown = await runClaude({
+
+      // El choque se comprueba con el TÍTULO, no con la keyword.
+      //
+      // Primero se sondeaba con la keyword, y salía mal: "best SEO tools for
+      // small business 2026" chocaba al 75% con "SEO for Small Business: The
+      // 2026 No-BS Guide", que es otra intención (una lista de herramientas
+      // frente a una guía general). Una keyword tiene menos palabras que un
+      // título, así que el parecido sale inflado y bloquea temas legítimos.
+      //
+      // Sigue yendo ANTES de escribir, que es donde está el ahorro: sacar el
+      // título cuesta una llamada corta, redactar el artículo cuesta minutos.
+      if (!force) {
+        const v = await revisarTitulo(title);
+        if (!v.ok) {
+          return NextResponse.json(
+            {
+              error: "Ya existe algo que cubre esto",
+              titulo: title,
+              explicacion: explicar(v),
+              choques: v.choques,
+              comoSeguir:
+                "Manda un 'title' distinto con otro ángulo, o reenvía con force: true si de verdad son intenciones distintas.",
+            },
+            { status: 409 },
+          );
+        }
+      }
+      const crudo = await runClaude({
         model: "sonnet",
         system: WRITER_SYSTEM,
         // El escritor busca en la web. Sin esto se le exigía que toda cifra
@@ -155,6 +220,25 @@ Idioma: ${lang === "es" ? "español (natural de LATAM, no traducido)" : "inglés
 Audiencia: dueños de PYMEs y marketers que buscan resultados prácticos.
 La extensión la marca el tema, no una cuota. No hay mínimo de palabras.`,
       });
+      const partes = partir(crudo);
+      diferencial = partes.diferencial;
+      markdown = partes.markdown;
+    }
+
+    // Sin el marcador del artículo no se guarda nada.
+    //
+    // No es celo: ya se publicaron tres posts con el plan del modelo pegado
+    // dentro del cuerpo, uno de ellos con status publish, o sea a un clic de
+    // salir así al sitio. Es preferible perder la corrida que guardar eso.
+    if (!markdown.trim()) {
+      return NextResponse.json(
+        {
+          error:
+            "El agente no devolvió el artículo con el marcador <<<ARTICULO>>>, así que no se puede " +
+            "separar su razonamiento del texto. No se guardó nada.",
+        },
+        { status: 502 },
+      );
     }
 
     // Comprobar antes de guardar, y corregir si hace falta.
@@ -173,16 +257,38 @@ La extensión la marca el tema, no una cuota. No hay mínimo de palabras.`,
     // de autocita circular porque app.faststrat.ai está excluido de esa
     // comprobación: un "empieza gratis" no cita nada.
     markdown = conCta(markdown, lang);
-    const revisado = await dejarPublicable(title, markdown);
+    const revisado = await dejarPublicable(title, markdown, {
+      differentiator: diferencial,
+      exigirDiferencial: true,
+    });
     markdown = revisado.markdown;
 
-    const excerpt =
-      markdown
-        .replace(/[#*`>_-]/g, "")
-        .split("\n")
-        .map((l) => l.trim())
-        .filter(Boolean)[0]
-        ?.slice(0, 155) ?? title;
+    // La meta description: la primera FRASE de verdad, no la primera línea.
+    //
+    // Antes cogía la primera línea no vacía, y eso publicó una descripción que
+    // decía "Título: Customer Acquisition Cost: Formula, Examples" — la
+    // etiqueta del prompt que el agente había repetido. Es el texto que Google
+    // enseña debajo del resultado, así que un descuido ahí se ve en la SERP.
+    //
+    // Se descartan encabezados, citas, listas y líneas con pinta de etiqueta, y
+    // se exige un mínimo de largo para no quedarse con un fragmento suelto.
+    const esEtiqueta = (l: string) =>
+      /^(?:t[íi]tulo|title|keyword|idioma|language|audiencia|audience|meta)\s*:/i.test(l);
+
+    const primeraFrase = markdown
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(
+        (l) =>
+          l.length >= 40 &&
+          !l.startsWith("#") &&
+          !l.startsWith(">") &&
+          !l.startsWith("|") &&
+          !/^[-*+]\s/.test(l) &&
+          !esEtiqueta(l.replace(/\*\*/g, "")),
+      )[0];
+
+    const excerpt = (primeraFrase ?? title).replace(/[#*`>_]/g, "").trim().slice(0, 155);
 
     const post = createBlogPost({
       title,
@@ -192,6 +298,8 @@ La extensión la marca el tema, no una cuota. No hay mínimo de palabras.`,
       lang,
       category,
       status: "draft", // los generados desde reportes entran como borrador
+      publishAt,
+      differentiator: diferencial,
       markdown,
     });
 
@@ -209,6 +317,13 @@ La extensión la marca el tema, no una cuota. No hay mínimo de palabras.`,
       title: post.title,
       excerpt,
       preview,
+      author: post.author,
+      publishAt: post.publishAt,
+      // Va en la respuesta para que se pueda leer y juzgar: la regla comprueba
+      // que el trabajo se hizo, no que la respuesta sea buena. Eso lo decide
+      // quien lo lee.
+      diferencial,
+      pendientes: revisado.pendientes.length ? revisado.pendientes : undefined,
       wordCount: markdown.split(/\s+/).filter(Boolean).length,
     });
   } catch (err: unknown) {

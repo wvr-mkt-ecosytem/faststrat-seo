@@ -7,6 +7,7 @@ import { publishPost } from "@/lib/wordpress";
 import { runQa } from "@/lib/qa";
 import { generateCover } from "@/lib/cover";
 import { CLIENTE } from "@/lib/cliente";
+import { revisarTitulo, explicar } from "@/lib/catalogo";
 
 // Reglas de casa de FastStrat. El em dash queda prohibido por decisión de
 // marca; el resto de comprobaciones no dependen de esto.
@@ -101,6 +102,34 @@ export const POST = apiRoute(async (request: NextRequest) => {
   for (const post of targets) {
     if (!post) continue;
     const qa = runQa({ title: post.title, metaDescription: post.excerpt, markdown: post.markdown, house: HOUSE });
+
+    // La canibalización se decide AQUÍ, no al escribir.
+    //
+    // Un borrador duplicado no le hace daño a nadie: no está en Google y se
+    // renombra o se tira. Lo que reparte la autoridad entre dos URLs es
+    // PUBLICAR la segunda. Por eso escribir solo avisa y publicar frena.
+    //
+    // Cuesta un listado de WordPress por artículo, contra una redirección 301 y
+    // varias semanas de reevaluación si se cuela.
+    if (!body.force) {
+      const v = await revisarTitulo(post.title);
+      const contraPublicado = v.choques.filter(
+        (c) => c.origen === "wordpress" && c.slug !== post.slug,
+      );
+      if (contraPublicado.length > 0) {
+        results.push({
+          slug: post.slug,
+          ok: false,
+          error: "Compite con una página que ya está publicada",
+          explicacion: explicar({ ...v, choques: contraPublicado }),
+          choques: contraPublicado,
+          comoSeguir:
+            "Cambia el título y el ángulo, o reenvía con force: true si de verdad son intenciones distintas.",
+        });
+        continue;
+      }
+    }
+
     try {
       const result = await publishPost({
         title: post.title,
@@ -116,6 +145,11 @@ export const POST = apiRoute(async (request: NextRequest) => {
               ? "publish"
               : "draft",
         coverImage: await getCover(post),
+        // Firma y fecha. Google pregunta expresamente quién creó el contenido,
+        // y publicar una tanda entera con la misma marca de tiempo es la huella
+        // más visible de automatización.
+        authorName: post.author,
+        publishAt: post.publishAt,
       });
       results.push({ slug: post.slug, ok: true, ...result, warnings: qa.warnings, bypassed: qa.blocking.length ? qa.blocking : undefined });
     } catch (err: unknown) {

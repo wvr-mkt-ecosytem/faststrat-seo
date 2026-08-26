@@ -12,6 +12,19 @@ export interface ArticleIdea {
   intent: string;
   rationale: string;
   outline: string[];
+  /**
+   * Hacia dónde va la demanda del tema, según Google Trends.
+   *
+   * Opcional porque Trends no tiene API oficial y puede fallar. Una idea sin
+   * este dato es una idea normal, no una idea rota: nunca frena la tanda.
+   */
+  trend?: {
+    direccion: "sube" | "baja" | "estable";
+    /** Cambio interanual en porcentaje. */
+    cambioAnual: number;
+    /** Dónde está hoy respecto a su propio máximo, de 0 a 100. */
+    nivelActual: number;
+  };
 }
 
 export interface IdeaBatch {
