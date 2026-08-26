@@ -30,7 +30,14 @@ export function slugify(text: string): string {
   // antes de hacer clic, que la página se publicó sin que nadie la mirara. El
   // informe del 24 de agosto lo listaba como arreglo pendiente.
   const palabras = base.split("-");
-  const utiles = palabras.filter((p) => !RELLENO_SLUG.has(p));
+
+  // Se quita el relleno, PERO no cuando al quitarlo quedan dos palabras
+  // iguales pegadas. "step-by-step" se convertía en "step-step", que se lee
+  // peor que el original y delata igual que la URL la generó una máquina.
+  const utiles = palabras.filter((p, i) => {
+    if (!RELLENO_SLUG.has(p)) return true;
+    return palabras[i - 1] !== undefined && palabras[i - 1] === palabras[i + 1];
+  });
 
   // Primero se prueba sin las palabras de relleno: casi siempre basta y el slug
   // queda además más legible.
