@@ -198,7 +198,7 @@ ${bloqueDeMemoria(memoria)}`,
     // Es lo único que ni Search Console ni el agente sabían. GSC dice qué se
     // busca hoy y dónde apareces; no dice si la demanda lleva dos años cayendo.
     // Nunca frena la tanda: si Trends falla, las ideas salen sin este dato.
-    let direcciones = new Map<string, Tendencia>();
+    const direcciones = new Map<string, Tendencia>();
     try {
       // Solo las que no se consultaron ya arriba: cada término son dos
       // peticiones a un endpoint que limita el ritmo, y repetirlas es lo que
