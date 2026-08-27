@@ -153,7 +153,9 @@ export const POST = apiRoute(async (request: NextRequest) => {
         // y publicar una tanda entera con la misma marca de tiempo es la huella
         // más visible de automatización.
         authorName: post.author,
-        publishAt: post.publishAt,
+        // La fecha puede venir de la petición (el usuario eligió una) o del
+        // frontmatter (la puso quien generó el artículo). Manda la explícita.
+        publishAt: body.programarPara ?? post.publishAt,
         publicarAhora: body.ahora === true,
       });
       // Si tiene versión en otro idioma, se enlazan en WordPress para que el

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Send, Check, Loader2, ExternalLink, AlertCircle, Sparkles, Wand2, Languages } from 'lucide-react'
+import { Send, Check, Loader2, ExternalLink, AlertCircle, Sparkles, Wand2, Languages, Calendar } from 'lucide-react'
 import { BrandHeader } from '@/components/BrandHeader'
 import { Progreso } from '@/components/Progreso'
 import { postJson, wake, ApiError } from '@/lib/api'
@@ -111,6 +111,8 @@ export default function BlogsPage() {
   const [publishingAll, setPublishingAll] = useState(false)
   const [traduciendo, setTraduciendo] = useState<string | null>(null)
   const [renombrando, setRenombrando] = useState<Record<string, string>>({})
+  // Qué tarjeta tiene abierto el panel de programar, y con qué fecha.
+  const [programando, setProgramando] = useState<Record<string, string>>({})
   const [publishAllProgress, setPublishAllProgress] = useState<{ done: number; total: number } | null>(null)
 
   useEffect(() => {
@@ -317,6 +319,36 @@ export default function BlogsPage() {
     return publish(post.slug, true, false, true)
   }
 
+  /**
+   * Programa la salida para una fecha concreta.
+   *
+   * WordPress decide "programado" mirando la FECHA del post, así que aquí se
+   * manda la fecha y el estado juntos: mandar solo el estado no basta, cosa
+   * que costó dos intentos descubrir.
+   */
+  async function programar(slug: string, cuandoLocal: string) {
+    const cuando = new Date(cuandoLocal)
+    if (Number.isNaN(cuando.getTime())) return alert('Esa fecha no es válida.')
+    if (cuando.getTime() <= Date.now()) {
+      return alert('Esa fecha ya pasó. Para publicarlo ahora, usa "Publicar ya".')
+    }
+    setStates((st) => ({ ...st, [slug]: { loading: true } }))
+    try {
+      const d = await postJson<{ results?: PublishState['result'][]; error?: string }>(
+        '/api/wordpress/publish',
+        { slug, live: true, draft: false, programarPara: cuando.toISOString() },
+      )
+      const res = d.results?.[0]
+      setStates((st) => ({ ...st, [slug]: { loading: false, result: res } }))
+      setProgramando((pr) => { const n = { ...pr }; delete n[slug]; return n })
+    } catch (e) {
+      setStates((st) => ({
+        ...st,
+        [slug]: { loading: false, result: { ok: false, error: e instanceof ApiError ? e.message : String(e) } },
+      }))
+    }
+  }
+
   async function publish(slug: string, live: boolean, force = false, ahora = false) {
     setStates((s) => ({ ...s, [slug]: { loading: true } }))
     try {
@@ -476,10 +508,61 @@ export default function BlogsPage() {
                     {state?.loading ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
                     {post.wpStatus === 'publish' ? 'Actualizar (en vivo)' : 'Publicar en vivo'}
                   </button>
+                  {/* Programar es una tercera cosa, no una variante de
+                      publicar. Salir ya, salir un día concreto y quedarse en
+                      borrador son tres decisiones distintas, y tenerlas
+                      separadas evita el caso de ayer: pedir "en vivo" y que se
+                      quede en cola sin decirlo. */}
+                  {programando[post.slug] !== undefined ? (
+                    <div className="w-full rounded-md border border-maroon/20 p-2 text-left space-y-2">
+                      <label className="block text-[11px] text-neutral-500">Sale solo el día y la hora que pongas</label>
+                      <input
+                        type="datetime-local"
+                        value={programando[post.slug]}
+                        onChange={(e) => setProgramando((p) => ({ ...p, [post.slug]: e.target.value }))}
+                        className="w-full text-xs px-2 py-1 rounded border border-black/15 dark:border-white/15 bg-white dark:bg-neutral-900"
+                      />
+                      <div className="flex gap-1.5">
+                        <button
+                          onClick={() => programar(post.slug, programando[post.slug])}
+                          disabled={!programando[post.slug] || state?.loading}
+                          className="flex-1 text-xs font-medium px-2 py-1.5 rounded bg-maroon text-cream disabled:opacity-40"
+                        >
+                          Programar
+                        </button>
+                        <button
+                          onClick={() => setProgramando((p) => { const n = { ...p }; delete n[post.slug]; return n })}
+                          className="text-xs px-2 py-1.5 rounded border border-black/15 dark:border-white/15 text-neutral-500"
+                        >
+                          Cancelar
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        // Por defecto, mañana a las 9: una fecha razonable ya
+                        // puesta ahorra el paso de pensarla, y se puede cambiar.
+                        const m = new Date()
+                        m.setDate(m.getDate() + 1)
+                        m.setHours(9, 0, 0, 0)
+                        const local = new Date(m.getTime() - m.getTimezoneOffset() * 60000)
+                          .toISOString()
+                          .slice(0, 16)
+                        setProgramando((p) => ({ ...p, [post.slug]: local }))
+                      }}
+                      disabled={state?.loading}
+                      className="w-full flex items-center justify-center gap-2 text-xs font-medium px-3 py-1.5 rounded-md border border-maroon/20 text-maroon hover:bg-maroon/8 disabled:opacity-50 transition-colors"
+                    >
+                      <Calendar size={13} />
+                      Programar para una fecha
+                    </button>
+                  )}
+
                   <button
                     onClick={() => publish(post.slug, false)}
                     disabled={state?.loading}
-                    className="w-full flex items-center justify-center gap-2 text-xs font-medium px-3 py-1.5 rounded-md border border-maroon/20 text-maroon hover:bg-maroon/8 disabled:opacity-50 transition-colors"
+                    className="w-full flex items-center justify-center gap-2 text-xs font-medium px-3 py-1.5 rounded-md border border-black/10 dark:border-white/10 text-neutral-500 hover:bg-black/5 dark:hover:bg-white/5 disabled:opacity-50 transition-colors"
                   >
                     Guardar como borrador
                   </button>
