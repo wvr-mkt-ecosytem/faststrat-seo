@@ -6,11 +6,10 @@ keywords:
   - how to calculate customer acquisition cost for a small business
 lang: en
 category: Analytics
-status: draft
+status: publish
 author: Walter Von Roestel
 date: '2026-08-26T18:55:32.645Z'
 updated: '2026-08-26T18:55:32.645Z'
-publishAt: '2026-08-29T18:32:07.127Z'
 differentiator: >-
   Los tres primeros resultados para esta keyword son **highervisibility.com**,
   **omnicalculator.com** y **zendesk.com**. Los tres explican la misma fórmula

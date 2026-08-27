@@ -154,6 +154,7 @@ export const POST = apiRoute(async (request: NextRequest) => {
         // más visible de automatización.
         authorName: post.author,
         publishAt: post.publishAt,
+        publicarAhora: body.ahora === true,
       });
       // Si tiene versión en otro idioma, se enlazan en WordPress para que el
       // fragmento de WPCode pueda emitir el hreflang. Falla en silencio cuando

@@ -25,6 +25,8 @@ type Post = {
   keywordTrend?: { direccion: 'sube' | 'baja' | 'estable' | 'sin-volumen'; cambioAnual: number; nivelActual: number }
   /** La versión en el otro idioma, si ya existe. */
   alternate?: { lang: string; slug: string }
+  /** Fecha programada de publicación, si tiene. */
+  publishAt?: string
 }
 
 /**
@@ -78,6 +80,9 @@ type PublishState = {
     error?: string
     status?: string
     live?: boolean
+    /** Programado para más adelante. NO es un borrador. */
+    scheduled?: boolean
+    scheduledFor?: string
     /** Lo que impidió publicar. Va aquí y no en un error suelto porque hay que
      *  poder leer QUÉ arreglar, no solo que algo falló. */
     blocking?: Finding[]
@@ -286,7 +291,33 @@ export default function BlogsPage() {
     }
   }
 
-  async function publish(slug: string, live: boolean, force = false) {
+  /**
+   * "Publicar en vivo" tiene que significar en vivo.
+   *
+   * Con una fecha programada guardada, el botón dejaba el artículo en cola y la
+   * pantalla decía "guardado como borrador": se pedía una cosa, pasaba otra, y
+   * el mensaje contaba una tercera. Ahora se pregunta antes.
+   */
+  async function publicarEnVivo(post: Post) {
+    const futura = post.publishAt && new Date(post.publishAt).getTime() > Date.now()
+    if (!futura) return publish(post.slug, true)
+
+    const cuando = new Date(post.publishAt!).toLocaleString('es', {
+      day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit',
+    })
+    const ahora = confirm(
+      `Este artículo está programado para el ${cuando}.
+
+` +
+      `Aceptar = publicarlo AHORA y quitar la programación.
+` +
+      `Cancelar = dejarlo programado.`
+    )
+    if (!ahora) return
+    return publish(post.slug, true, false, true)
+  }
+
+  async function publish(slug: string, live: boolean, force = false, ahora = false) {
     setStates((s) => ({ ...s, [slug]: { loading: true } }))
     try {
       const data = await postJson<{
@@ -295,7 +326,7 @@ export default function BlogsPage() {
         blocked?: boolean
         message?: string
         findings?: { slug: string; blocking: Finding[]; warnings: Finding[] }[]
-      }>('/api/wordpress/publish', { slug, live, draft: !live, force })
+      }>('/api/wordpress/publish', { slug, live, draft: !live, force, ahora })
 
       // La compuerta responde con `blocked` y los hallazgos, no con results.
       const gate = data.blocked ? data.findings?.find((f) => f.slug === slug) : undefined
@@ -438,7 +469,7 @@ export default function BlogsPage() {
 
                 <div className="shrink-0 w-44 text-right space-y-2">
                   <button
-                    onClick={() => publish(post.slug, true)}
+                    onClick={() => publicarEnVivo(post)}
                     disabled={state?.loading}
                     className="w-full flex items-center justify-center gap-2 text-sm font-medium px-3 py-2 rounded-md bg-maroon text-cream hover:bg-maroon-hover disabled:opacity-50 transition-colors"
                   >
@@ -455,9 +486,36 @@ export default function BlogsPage() {
 
                   {state?.result?.ok && (
                     <div className="mt-2 text-right">
+                      {/* Tres estados, no dos. WordPress distingue borrador
+                          (nadie lo verá hasta que alguien actúe), programado
+                          (sale solo en su fecha) y publicado. Llamar "borrador"
+                          a un artículo programado para dentro de dos días
+                          decía que se había quedado a medias cuando no. */}
                       {state.result.live ? (
                         <span className="inline-flex items-center gap-1 text-xs font-semibold text-green-700">
                           <Check size={12} /> En vivo en {CLIENTE.dominio}
+                        </span>
+                      ) : state.result.scheduled ? (
+                        <span className="inline-flex flex-col items-end gap-0.5">
+                          <span className="inline-flex items-center gap-1 text-xs font-semibold text-blue-700 dark:text-blue-400">
+                            <Check size={12} /> Programado
+                          </span>
+                          <span className="text-[11px] text-neutral-500">
+                            {state.result.scheduledFor
+                              ? `saldrá solo el ${new Date(state.result.scheduledFor).toLocaleString('es', {
+                                  day: 'numeric',
+                                  month: 'long',
+                                  hour: '2-digit',
+                                  minute: '2-digit',
+                                })}`
+                              : 'saldrá solo en su fecha'}
+                          </span>
+                          <button
+                            onClick={() => publish(post.slug, true, false, true)}
+                            className="text-[11px] text-maroon hover:underline"
+                          >
+                            Publicar ahora en vez de esperar
+                          </button>
                         </span>
                       ) : (
                         <span className="inline-flex items-center gap-1 text-xs font-semibold text-yellow-700">

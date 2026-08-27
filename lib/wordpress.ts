@@ -256,6 +256,15 @@ export interface PublishInput {
    * WordPress lo deja PROGRAMADO en vez de publicarlo ya.
    */
   publishAt?: string;
+  /**
+   * Publicar YA, ignorando la fecha programada.
+   *
+   * Existe porque "Publicar en vivo" tiene que significar en vivo. Con una
+   * fecha futura guardada, ese botón dejaba el artículo programado y la
+   * pantalla decía "guardado como borrador": el usuario pedía una cosa, pasaba
+   * otra, y el mensaje contaba una tercera.
+   */
+  publicarAhora?: boolean;
 }
 
 /**
@@ -287,6 +296,18 @@ export interface PublishResult {
   status: string;
   /** true solo si WordPress confirma que está publicado en vivo. */
   live: boolean;
+  /**
+   * Programado para más adelante. NO es un borrador.
+   *
+   * WordPress lo llama "future" y son tres estados distintos: borrador (nadie
+   * lo verá hasta que alguien actúe), programado (saldrá solo en su fecha) y
+   * publicado. La pantalla decía "guardado como borrador" para los dos
+   * primeros, así que un artículo programado para el 29 se leía como si se
+   * hubiera quedado a medias.
+   */
+  scheduled: boolean;
+  /** Cuándo saldrá, si está programado. */
+  scheduledFor?: string;
 }
 
 /** Crea o actualiza un post en WordPress (idempotente por slug). */
@@ -326,7 +347,15 @@ export async function publishPost(input: PublishInput): Promise<PublishResult> {
   // futura con status "publish" lo publica igualmente, con la fecha por delante
   // pero visible desde ya. La comparación se hace contra el instante actual,
   // no contra el día, para que programar "hoy a las 18:00" funcione.
-  if (input.publishAt) {
+  // Publicar YA obliga a reescribir la fecha, no solo el estado.
+  //
+  // WordPress decide "future" mirando la fecha del post, no lo que le mandes:
+  // si su date sigue en el futuro, vuelve a ponerlo en cola aunque le pidas
+  // "publish". Medido: el artículo seguía en future tras pedir publicarAhora.
+  if (input.publicarAhora) {
+    payload.date_gmt = new Date().toISOString().replace(/\.\d{3}Z$/, "");
+    payload.status = input.status;
+  } else if (input.publishAt) {
     const cuando = new Date(input.publishAt);
     if (!Number.isNaN(cuando.getTime())) {
       payload.date_gmt = cuando.toISOString().replace(/\.\d{3}Z$/, "");
@@ -357,5 +386,7 @@ export async function publishPost(input: PublishInput): Promise<PublishResult> {
     action: existing ? "updated" : "created",
     status: confirmedStatus,
     live: confirmedStatus === "publish",
+    scheduled: confirmedStatus === "future",
+    scheduledFor: confirmedStatus === "future" ? input.publishAt : undefined,
   };
 }
