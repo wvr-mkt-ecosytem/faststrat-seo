@@ -8,6 +8,7 @@ import { runQa } from "@/lib/qa";
 import { generateCover } from "@/lib/cover";
 import { CLIENTE } from "@/lib/cliente";
 import { revisarTitulo, explicar } from "@/lib/catalogo";
+import { emparejarEnWordpress } from "@/lib/wordpress";
 
 // Reglas de casa de FastStrat. El em dash queda prohibido por decisión de
 // marca; el resto de comprobaciones no dependen de esto.
@@ -151,7 +152,17 @@ export const POST = apiRoute(async (request: NextRequest) => {
         authorName: post.author,
         publishAt: post.publishAt,
       });
-      results.push({ slug: post.slug, ok: true, ...result, warnings: qa.warnings, bypassed: qa.blocking.length ? qa.blocking : undefined });
+      // Si tiene versión en otro idioma, se enlazan en WordPress para que el
+      // fragmento de WPCode pueda emitir el hreflang. Falla en silencio cuando
+      // la otra versión todavía no está publicada, que es lo normal la primera
+      // vez: al publicar la segunda se vuelve a intentar y ahí sí cuaja.
+      let hreflang: string | undefined;
+      if (post.alternate) {
+        const r = await emparejarEnWordpress(post.slug, post.lang, post.alternate.slug, post.alternate.lang);
+        hreflang = r.ok ? "enlazado con su versión en otro idioma" : r.error;
+      }
+
+      results.push({ slug: post.slug, ok: true, hreflang, ...result, warnings: qa.warnings, bypassed: qa.blocking.length ? qa.blocking : undefined });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       results.push({ slug: post.slug, ok: false, error: msg });

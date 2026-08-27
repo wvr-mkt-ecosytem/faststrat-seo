@@ -73,6 +73,85 @@ export interface Tendencia {
    */
   nivelActual: number;
   meses: number;
+  /**
+   * El detalle por país, cuando se midió en varios.
+   *
+   * Trends no admite regiones: no se puede preguntar por "LATAM", hay que
+   * preguntar país por país. Y el detalle importa, no es adorno: un tema que
+   * crece en Colombia y se muere en México no es "estable en LATAM", son dos
+   * situaciones distintas, y saberlo cambia para quién se escribe.
+   */
+  mercados?: Record<string, { direccion: Tendencia["direccion"]; cambioAnual: number; nivelActual: number }>;
+}
+
+/**
+ * La demanda de un término en VARIOS países, combinada.
+ *
+ * Manda el país donde más demanda hay, no el promedio. Promediar un 100 y un 0
+ * da 50, que es un número que no describe a ningún mercado real; quedarse con
+ * el más fuerte al menos describe uno, y el detalle de los otros va en
+ * `mercados` para quien quiera mirarlo.
+ *
+ * Devuelve null solo si NINGÚN país respondió.
+ */
+export async function tendenciaEnVarios(termino: string, geos: string[]): Promise<Tendencia | null> {
+  const porPais: NonNullable<Tendencia["mercados"]> = {};
+  const medidos: Tendencia[] = [];
+
+  for (const geo of geos) {
+    const t = await tendencia(termino, geo);
+    if (!t) continue;
+    porPais[geo || "global"] = {
+      direccion: t.direccion,
+      cambioAnual: t.cambioAnual,
+      nivelActual: t.nivelActual,
+    };
+    medidos.push(t);
+  }
+
+  if (medidos.length === 0) return null;
+
+  // Solo los países con demanda medible entran en la cuenta. Un país donde
+  // Trends no ve nada no vota: no dice que el tema esté plano, dice que no lo
+  // sabe, y meterlo como un cero arrastraría el resultado hacia abajo.
+  const conVolumen = medidos.filter((t) => t.direccion !== "sin-volumen");
+  if (conVolumen.length === 0) {
+    return { ...medidos[0], mercados: porPais };
+  }
+
+  // La MEDIANA del cambio interanual, no la media y no el país más grande.
+  //
+  // Las dos alternativas fallaban sobre datos reales:
+  //
+  //   Quedarse con el país de más nivel decía "baja" para un término que iba
+  //   +100% en Colombia, +100% en México y -30% en Argentina, porque Argentina
+  //   tenía el nivel más alto. El resumen contradecía a dos de los tres.
+  //
+  //   La media la rompe un solo país raro: -50%, +263% y -30% promedia +61% y
+  //   sale "sube", cuando dos de los tres están cayendo.
+  //
+  // La mediana sobrevive a las dos cosas: da +100% en el primer caso y -30% en
+  // el segundo, que es lo que de verdad describe al conjunto.
+  const cambios = conVolumen.map((t) => t.cambioAnual).sort((a, b) => a - b);
+  const medio = Math.floor(cambios.length / 2);
+  const cambioAnual =
+    cambios.length % 2 === 1 ? cambios[medio] : Math.round((cambios[medio - 1] + cambios[medio]) / 2);
+
+  const direccion: Tendencia["direccion"] =
+    cambioAnual > 15 ? "sube" : cambioAnual < -15 ? "baja" : "estable";
+
+  // El nivel sí es el del mercado más fuerte: es donde el artículo puede
+  // rendir, y el detalle por país queda en `mercados` para quien mire.
+  const nivelActual = Math.max(...conVolumen.map((t) => t.nivelActual));
+
+  return {
+    termino,
+    direccion,
+    cambioAnual,
+    nivelActual,
+    meses: conVolumen[0].meses,
+    mercados: porPais,
+  };
 }
 
 /**
@@ -184,13 +263,14 @@ async function consultar(termino: string, geo: string): Promise<Tendencia | null
  */
 export async function tendencias(
   terminos: string[],
-  opciones: { geo?: string; limite?: number; pausaMs?: number } = {},
+  opciones: { geo?: string; geos?: string[]; limite?: number; pausaMs?: number } = {},
 ): Promise<Map<string, Tendencia>> {
-  const { geo = "", limite = 10, pausaMs = 1200 } = opciones;
+  const { geo = "", geos, limite = 10, pausaMs = 1200 } = opciones;
+  const paises = geos ?? [geo];
   const salida = new Map<string, Tendencia>();
 
   for (const t of terminos.slice(0, limite)) {
-    const r = await tendencia(t, geo);
+    const r = await tendenciaEnVarios(t, paises);
     if (r) salida.set(t, r);
     await new Promise((s) => setTimeout(s, pausaMs));
   }
@@ -199,11 +279,26 @@ export async function tendencias(
 
 /** Cómo se cuenta una tendencia dentro de un prompt o en pantalla. */
 export function describir(t: Tendencia): string {
+  // El desacuerdo entre países se DICE, no se promedia.
+  const paises = Object.entries(t.mercados ?? {});
+  const detalle =
+    paises.length > 1
+      ? "  [" +
+        paises
+          .map(([p, m]) =>
+            m.direccion === "sin-volumen"
+              ? `${p}: sin volumen`
+              : `${p}: ${m.cambioAnual > 0 ? "+" : ""}${m.cambioAnual}%`,
+          )
+          .join(", ") +
+        "]"
+      : "";
+
   if (t.direccion === "sin-volumen") {
-    return "sin volumen medible en Google Trends (término muy long-tail)";
+    return "sin volumen medible en Google Trends (término muy long-tail)" + detalle;
   }
   const signo = t.cambioAnual > 0 ? "+" : "";
   const nivel =
     t.nivelActual >= 70 ? "cerca de su máximo" : t.nivelActual >= 35 ? "a media altura" : "muy por debajo de su máximo";
-  return `${t.direccion} (${signo}${t.cambioAnual}% interanual, hoy ${nivel}: ${t.nivelActual}/100)`;
+  return `${t.direccion} (${signo}${t.cambioAnual}% interanual, hoy ${nivel}: ${t.nivelActual}/100)${detalle}`;
 }

@@ -11,6 +11,7 @@ import type { ArticleIdea, IdeaBatch } from "@/lib/ideas";
 import { leerMemoria, bloqueDeMemoria, descartarRepetidas } from "@/lib/idea-memory";
 import { CLIENTE, CONTEXTO_CLIENTE, RUIDO_MARCA } from "@/lib/cliente";
 import { tendencias, describir, type Tendencia } from "@/lib/trends";
+import { geosDe } from "@/lib/cliente";
 import { sinRepetir } from "@/lib/similitud";
 import { candidatas as variantesDe, porIntencion } from "@/lib/sugerencias";
 
@@ -113,7 +114,7 @@ export const POST = apiRoute(async (request: NextRequest) => {
       .filter((q): q is string => !!q);
     let direccionDe = new Map<string, Tendencia>();
     try {
-      direccionDe = await tendencias(candidatas, { limite: 16 });
+      direccionDe = await tendencias(candidatas, { limite: 16, geos: geosDe("en") });
     } catch {
       // Endpoint no oficial. Si falla, el agente elige sin este dato, como antes.
     }
@@ -243,7 +244,7 @@ ${bloqueDeMemoria(memoria)}`,
       const faltan = conservadas
         .map((i) => i.primaryKeyword)
         .filter((k): k is string => !!k && !direccionDe.has(k));
-      for (const [k, v] of await tendencias(faltan, { limite: 10 })) direcciones.set(k, v);
+      for (const [k, v] of await tendencias(faltan, { limite: 10, geos: geosDe("en") })) direcciones.set(k, v);
     } catch {
       // Endpoint no oficial: puede cambiar o limitar el ritmo sin aviso.
     }

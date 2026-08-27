@@ -102,13 +102,23 @@ export const CLIENTE: Cliente = {
  * México es el mercado hispanohablante más grande de los que atiende el
  * cliente; si el suyo es otro, se cambia con CLIENTE_GEO_ES.
  */
-export const GEO_POR_IDIOMA: Record<string, string> = {
-  en: env("CLIENTE_GEO_EN", "US"),
-  es: env("CLIENTE_GEO_ES", "MX"),
+export const GEOS_POR_IDIOMA: Record<string, string[]> = {
+  en: env("CLIENTE_GEO_EN", "US").split(",").map((g) => g.trim()).filter(Boolean),
+  es: env("CLIENTE_GEO_ES", "CO,MX,AR").split(",").map((g) => g.trim()).filter(Boolean),
 };
 
-/** El país cuya demanda se mide para un idioma. Vacío = todo el mundo. */
-export const geoDe = (lang: string) => GEO_POR_IDIOMA[lang] ?? "";
+/**
+ * Los países cuya demanda se mide para un idioma.
+ *
+ * Varios por idioma porque Trends NO admite regiones: no se puede preguntar
+ * por "LATAM". Y elegir uno solo mentía por omisión, porque un tema puede
+ * crecer en Colombia y estar muerto en México, y ese desacuerdo es justo el
+ * dato que decide si el artículo merece la pena.
+ */
+export const geosDe = (lang: string) => GEOS_POR_IDIOMA[lang] ?? [""];
+
+/** El primer país del idioma. Para cuando solo cabe uno. */
+export const geoDe = (lang: string) => geosDe(lang)[0] ?? "";
 
 /** La URL del producto, ya formada. Es a donde lleva el CTA. */
 export const URL_PRODUCTO = `https://${CLIENTE.dominioApp}`;

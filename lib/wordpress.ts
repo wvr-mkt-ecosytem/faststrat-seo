@@ -196,6 +196,50 @@ export async function getPublishStatuses(
   return { statuses, error: null };
 }
 
+/**
+ * Guarda en WordPress la pareja de idiomas, en los dos posts.
+ *
+ * El campo lo lee el fragmento de WPCode para emitir las etiquetas hreflang
+ * (ver docs/hreflang-wpcode.md). Si el fragmento no está pegado, esto guarda un
+ * campo que nadie lee: no rompe nada y queda listo para cuando se pegue.
+ *
+ * Recíproco porque Google ignora el grupo entero si una versión no devuelve el
+ * enlace. Nunca lanza: quedarse sin hreflang es un defecto, no publicar es peor.
+ */
+export async function emparejarEnWordpress(
+  slugA: string,
+  langA: string,
+  slugB: string,
+  langB: string,
+): Promise<{ ok: boolean; error?: string }> {
+  try {
+    const cfg = getConfig();
+    const a = await findBySlug(cfg, slugA);
+    const b = await findBySlug(cfg, slugB);
+    if (!a || !b) {
+      // Lo normal cuando solo se ha publicado una de las dos. No es un fallo:
+      // al publicar la segunda se vuelve a intentar y entonces sí encuentra las dos.
+      return { ok: false, error: `Todavía no están las dos en WordPress (falta ${!a ? slugA : slugB})` };
+    }
+
+    const meta = (otro: { link: string }, langOtro: string, langPropio: string) => ({
+      faststrat_alternate: { lang: langOtro, url: otro.link, self_lang: langPropio },
+    });
+
+    await wpFetch(cfg, `posts/${a.id}`, {
+      method: "POST",
+      body: JSON.stringify({ meta: meta(b, langB, langA) }),
+    });
+    await wpFetch(cfg, `posts/${b.id}`, {
+      method: "POST",
+      body: JSON.stringify({ meta: meta(a, langA, langB) }),
+    });
+    return { ok: true };
+  } catch (e) {
+    return { ok: false, error: (e as Error).message };
+  }
+}
+
 export interface PublishInput {
   title: string;
   slug: string;

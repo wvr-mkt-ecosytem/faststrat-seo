@@ -1,5 +1,5 @@
 {
-  "MX|marketing digital curso gratis": {
+  "CO|marketing digital curso gratis": {
     "t": {
       "termino": "marketing digital curso gratis",
       "direccion": "sube",
@@ -7,7 +7,47 @@
       "nivelActual": 3,
       "meses": 262
     },
-    "cuando": "2026-08-27T14:50:22.256Z"
+    "cuando": "2026-08-27T19:43:35.317Z"
+  },
+  "MX|marketing digital curso gratis": {
+    "t": {
+      "termino": "marketing digital curso gratis",
+      "direccion": "sube",
+      "cambioAnual": 100,
+      "nivelActual": 2,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T19:43:35.849Z"
+  },
+  "AR|marketing digital curso gratis": {
+    "t": {
+      "termino": "marketing digital curso gratis",
+      "direccion": "baja",
+      "cambioAnual": -30,
+      "nivelActual": 4,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T19:43:36.639Z"
+  },
+  "CO|digitalbabaa marketing solutions reviews": {
+    "t": {
+      "termino": "digitalbabaa marketing solutions reviews",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T19:43:37.213Z"
+  },
+  "CO|marketing digital sena": {
+    "t": {
+      "termino": "marketing digital sena",
+      "direccion": "baja",
+      "cambioAnual": -48,
+      "nivelActual": 15,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T19:43:38.892Z"
   },
   "MX|marketing digital sena": {
     "t": {
@@ -17,7 +57,17 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-08-27T14:50:23.224Z"
+    "cuando": "2026-08-27T19:43:39.608Z"
+  },
+  "AR|marketing digital sena": {
+    "t": {
+      "termino": "marketing digital sena",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T19:43:40.137Z"
   },
   "MX|marketing digital santa marta": {
     "t": {
@@ -27,6 +77,66 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-08-27T14:50:23.748Z"
+    "cuando": "2026-08-27T19:43:41.248Z"
+  },
+  "AR|marketing digital santa marta": {
+    "t": {
+      "termino": "marketing digital santa marta",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T19:43:41.726Z"
+  },
+  "CO|marketing digital carrera": {
+    "t": {
+      "termino": "marketing digital carrera",
+      "direccion": "baja",
+      "cambioAnual": -50,
+      "nivelActual": 4,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T19:43:42.278Z"
+  },
+  "MX|marketing digital carrera": {
+    "t": {
+      "termino": "marketing digital carrera",
+      "direccion": "sube",
+      "cambioAnual": 263,
+      "nivelActual": 24,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T19:43:42.895Z"
+  },
+  "AR|marketing digital carrera": {
+    "t": {
+      "termino": "marketing digital carrera",
+      "direccion": "baja",
+      "cambioAnual": -30,
+      "nivelActual": 14,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T19:43:43.608Z"
+  },
+  "CO|marketing digital que es y como funciona": {
+    "t": {
+      "termino": "marketing digital que es y como funciona",
+      "direccion": "sube",
+      "cambioAnual": 100,
+      "nivelActual": 1,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T19:46:41.777Z"
+  },
+  "MX|marketing digital que es y como funciona": {
+    "t": {
+      "termino": "marketing digital que es y como funciona",
+      "direccion": "sube",
+      "cambioAnual": 100,
+      "nivelActual": 1,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T19:46:42.348Z"
   }
 }

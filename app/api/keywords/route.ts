@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { apiRoute } from "@/lib/google-auth-state";
 import { candidatas, porIntencion } from "@/lib/sugerencias";
-import { tendencia } from "@/lib/trends";
+import { tendenciaEnVarios } from "@/lib/trends";
 import { estado } from "@/lib/trends-cache";
-import { geoDe } from "@/lib/cliente";
+import { geosDe } from "@/lib/cliente";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 300;
@@ -27,8 +27,9 @@ export const GET = apiRoute(async (request: NextRequest) => {
   if (!termino) return NextResponse.json({ error: "Falta 'q'" }, { status: 400 });
 
   const idioma = request.nextUrl.searchParams.get("lang") === "es" ? "es" : "en";
-  // Por defecto, el país del idioma pedido. Se puede forzar otro con ?geo=
-  const geo = request.nextUrl.searchParams.get("geo") ?? geoDe(idioma);
+  // Por defecto, los países del idioma pedido. Se puede forzar otro con ?geo=
+  const forzado = request.nextUrl.searchParams.get("geo");
+  const geos = forzado ? [forzado] : geosDe(idioma);
 
   const c = await candidatas(termino, { idioma, letras: 4 });
   const todas = [...c.directas, ...c.ampliadas];
@@ -39,9 +40,9 @@ export const GET = apiRoute(async (request: NextRequest) => {
   // Consultarla para las cuarenta candidatas serían ochenta peticiones a
   // Trends: exactamente la ráfaga que activa el límite y deja al sistema sin
   // dato para todo lo demás durante horas.
-  const finalistas: { keyword: string; intencion: boolean; trend: Awaited<ReturnType<typeof tendencia>> }[] = [];
+  const finalistas: { keyword: string; intencion: boolean; trend: Awaited<ReturnType<typeof tendenciaEnVarios>> }[] = [];
   for (const q of [...conIntencion.slice(0, 5), ...resto.slice(0, 3)]) {
-    finalistas.push({ keyword: q, intencion: conIntencion.includes(q), trend: await tendencia(q, geo) });
+    finalistas.push({ keyword: q, intencion: conIntencion.includes(q), trend: await tendenciaEnVarios(q, geos) });
   }
 
   return NextResponse.json({

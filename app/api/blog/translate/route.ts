@@ -10,8 +10,8 @@ import { instruccionesAdaptar, cabecera, NOMBRE_IDIOMA } from "@/lib/adaptar";
 import { revisarTitulo, explicar } from "@/lib/catalogo";
 import { dejarPublicable } from "@/lib/publicable";
 import { persistChanges } from "@/lib/persist";
-import { CONTEXTO_CLIENTE, conCta, geoDe } from "@/lib/cliente";
-import { tendencia } from "@/lib/trends";
+import { CONTEXTO_CLIENTE, conCta, geosDe } from "@/lib/cliente";
+import { tendenciaEnVarios } from "@/lib/trends";
 
 export const maxDuration = 800;
 export const dynamic = "force-dynamic";
@@ -150,7 +150,7 @@ export const POST = apiRoute(async (request: NextRequest) => {
       keywordRationale: partes.keyword,
       // Se mide en el país del idioma DESTINO. Medir la keyword en español
       // contra la demanda mundial daría una cifra que no describe a nadie.
-      keywordTrend: (await tendencia(kw, geoDe(destino))) ?? undefined,
+      keywordTrend: (await tendenciaEnVarios(kw, geosDe(destino))) ?? undefined,
       markdown: revisado.markdown,
     });
 

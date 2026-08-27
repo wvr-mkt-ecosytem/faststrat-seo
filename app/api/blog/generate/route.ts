@@ -6,11 +6,11 @@ import { runClaude } from "@/lib/claude";
 import { REGLAS_DE_CASA, LIMITE_TITULO_UTIL } from "@/lib/house-rules";
 import { revisarTitulo, explicar } from "@/lib/catalogo";
 import { INSTRUCCION_DIFERENCIAL, INSTRUCCION_KEYWORD, partir } from "@/lib/diferencial";
-import { tendencia, describir } from "@/lib/trends";
+import { tendenciaEnVarios, describir } from "@/lib/trends";
 import { INSTRUCCION_LEGIBILIDAD } from "@/lib/legibilidad";
 import { dejarPublicable } from "@/lib/publicable";
 import { persistChanges } from "@/lib/persist";
-import { CONTEXTO_CLIENTE, conCta, geoDe } from "@/lib/cliente";
+import { CONTEXTO_CLIENTE, conCta, geosDe } from "@/lib/cliente";
 
 // Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
 // llamada al agente y no devuelve nada: el navegador se queda esperando una
@@ -126,7 +126,7 @@ export const POST = apiRoute(async (request: NextRequest) => {
     // La dirección de la demanda: dato, no criterio, así que se consulta aquí
     // en vez de pedírsela al agente. Google Trends no tiene API oficial y puede
     // fallar; si falla, el artículo sale igual sin este campo.
-    const trendKeyword = keyword ? await tendencia(keyword, geoDe(lang)) : null;
+    const trendKeyword = keyword ? await tendenciaEnVarios(keyword, geosDe(lang)) : null;
 
     // El escritor sabe hacia dónde va la demanda, y eso cambia el ángulo.
     //
