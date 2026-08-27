@@ -82,6 +82,9 @@ type PublishState = {
      *  poder leer QUÉ arreglar, no solo que algo falló. */
     blocking?: Finding[]
     warnings?: Finding[]
+    /** Con qué páginas publicadas se pisa. La ruta ya lo devolvía; faltaba leerlo. */
+    choques?: { titulo: string; slug?: string; parecido: number; motivo: string; origen: string }[]
+    explicacion?: string
   }
 }
 
@@ -102,6 +105,7 @@ export default function BlogsPage() {
   const [loadError, setLoadError] = useState<string | null>(null)
   const [publishingAll, setPublishingAll] = useState(false)
   const [traduciendo, setTraduciendo] = useState<string | null>(null)
+  const [renombrando, setRenombrando] = useState<Record<string, string>>({})
   const [publishAllProgress, setPublishAllProgress] = useState<{ done: number; total: number } | null>(null)
 
   useEffect(() => {
@@ -255,7 +259,34 @@ export default function BlogsPage() {
     }
   }
 
-  async function publish(slug: string, live: boolean) {
+  /**
+   * Renombra un borrador para que deje de pisarse con una página publicada.
+   *
+   * Es la salida al bloqueo. Un freno sin alternativa se acaba rodeando, y aquí
+   * el rodeo sería publicar igual y crear la canibalización que el freno existe
+   * para evitar.
+   */
+  async function renombrar(slug: string) {
+    const nuevo = renombrando[slug]?.trim()
+    if (!nuevo) return
+    try {
+      const d = await postJson<{ ok?: boolean; slug?: string; error?: string; explicacion?: string }>(
+        '/api/blog/rename', { slug, title: nuevo },
+      )
+      if (d.ok) {
+        const fresh = await fetch('/api/blog').then((r) => r.json())
+        setPosts(fresh.posts ?? [])
+        setStates((st) => { const n = { ...st }; delete n[slug]; return n })
+        setRenombrando((r) => { const n = { ...r }; delete n[slug]; return n })
+      } else {
+        alert(d.explicacion ?? d.error ?? 'No se pudo renombrar.')
+      }
+    } catch (e) {
+      alert(e instanceof ApiError ? e.message : String(e))
+    }
+  }
+
+  async function publish(slug: string, live: boolean, force = false) {
     setStates((s) => ({ ...s, [slug]: { loading: true } }))
     try {
       const data = await postJson<{
@@ -264,7 +295,7 @@ export default function BlogsPage() {
         blocked?: boolean
         message?: string
         findings?: { slug: string; blocking: Finding[]; warnings: Finding[] }[]
-      }>('/api/wordpress/publish', { slug, live, draft: !live })
+      }>('/api/wordpress/publish', { slug, live, draft: !live, force })
 
       // La compuerta responde con `blocked` y los hallazgos, no con results.
       const gate = data.blocked ? data.findings?.find((f) => f.slug === slug) : undefined
@@ -443,7 +474,75 @@ export default function BlogsPage() {
                       </a>
                     </div>
                   )}
-                  {state?.result && !state.result.ok && (
+                  {/* La canibalización se explica y se resuelve aquí mismo.
+                      Antes decía solo "compite con una página que ya está
+                      publicada": ni cuál, ni qué hacer. Un freno sin salida se
+                      acaba rodeando, y el rodeo es publicar igual. */}
+                  {!!state?.result?.choques?.length && (
+                    <div className="mt-2 text-left rounded-md border border-red-200 bg-red-50/60 dark:bg-red-950/20 dark:border-red-900/40 p-3">
+                      <p className="flex items-start gap-1.5 text-xs font-medium text-red-700 dark:text-red-400">
+                        <AlertCircle size={13} className="mt-0.5 shrink-0" />
+                        Se pisa con una página que ya está publicada
+                      </p>
+
+                      {state.result.choques.map((c, i) => (
+                        <div key={i} className="mt-2 text-xs">
+                          <p className="font-medium text-ink dark:text-neutral-200">{c.titulo}</p>
+                          <p className="text-neutral-500 mt-0.5">
+                            {c.parecido}% de parecido · {c.motivo}
+                          </p>
+                          {c.slug && (
+                            <a
+                              href={`https://${CLIENTE.dominio}/${c.slug}/`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-maroon hover:underline mt-1"
+                            >
+                              Ver la página publicada <ExternalLink size={11} />
+                            </a>
+                          )}
+                        </div>
+                      ))}
+
+                      <p className="text-[11px] text-neutral-500 mt-3 leading-snug">
+                        Dos páginas propias con la misma intención se reparten la autoridad en vez de
+                        sumarla: ninguna de las dos sube. O le cambias el ángulo a esta, o publicas
+                        igual si de verdad responden a búsquedas distintas.
+                      </p>
+
+                      <div className="mt-3 flex flex-col gap-2">
+                        <input
+                          value={renombrando[post.slug] ?? post.title}
+                          onChange={(e) => setRenombrando((r) => ({ ...r, [post.slug]: e.target.value }))}
+                          placeholder="Título nuevo, con otro ángulo"
+                          className="w-full text-xs px-2 py-1.5 rounded border border-black/15 dark:border-white/15 bg-white dark:bg-neutral-900"
+                        />
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => renombrar(post.slug)}
+                            disabled={!renombrando[post.slug]?.trim() || renombrando[post.slug] === post.title}
+                            className="flex-1 text-xs font-medium px-3 py-1.5 rounded-md bg-maroon text-white disabled:opacity-40"
+                          >
+                            Cambiar el título
+                          </button>
+                          <button
+                            onClick={() => {
+                              if (confirm(
+                                'Vas a publicar dos páginas propias que compiten por la misma búsqueda. ' +
+                                'Google reparte la autoridad entre ellas y suele acabar en una redirección 301 ' +
+                                'semanas después.\n\n¿Seguro que responden a búsquedas distintas?'
+                              )) publish(post.slug, true, true)
+                            }}
+                            className="text-xs font-medium px-3 py-1.5 rounded-md border border-black/15 dark:border-white/15 text-neutral-600 dark:text-neutral-300"
+                          >
+                            Publicar igual
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {state?.result && !state.result.ok && !state.result.choques?.length && (
                     <p className="flex items-start gap-1 justify-end text-xs text-red-500 mt-2 text-right">
                       <AlertCircle size={12} className="mt-0.5 shrink-0" />
                       {state.result.error}

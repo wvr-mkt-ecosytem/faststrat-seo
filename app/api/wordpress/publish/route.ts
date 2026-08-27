@@ -123,7 +123,10 @@ export const POST = apiRoute(async (request: NextRequest) => {
           ok: false,
           error: "Compite con una página que ya está publicada",
           explicacion: explicar({ ...v, choques: contraPublicado }),
-          choques: contraPublicado,
+          // El parecido va en PORCENTAJE, como en el resto de las rutas.
+          // Iba de 0 a 1 y la pantalla lo pintaba tal cual: un choque idéntico
+          // se leía como "1% de parecido", que dice justo lo contrario.
+          choques: contraPublicado.map((c) => ({ ...c, parecido: Math.round(c.parecido * 100) })),
           comoSeguir:
             "Cambia el título y el ángulo, o reenvía con force: true si de verdad son intenciones distintas.",
         });

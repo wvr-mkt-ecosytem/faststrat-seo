@@ -1,6 +1,6 @@
 ---
 title: 'WhatsApp Business Platform: Precios y Opciones para Empresas en México 2026'
-slug: whatsapp-business-platform-precios-y-opciones-para-empresas-
+slug: whatsapp-business-platform-precios-opciones-empresas-mexico
 excerpt: >-
   Si tu PYME usa WhatsApp para vender o atender clientes en México, elegir mal
   el proveedor o el plan puede costarte el doble de lo necesario. En este artícu

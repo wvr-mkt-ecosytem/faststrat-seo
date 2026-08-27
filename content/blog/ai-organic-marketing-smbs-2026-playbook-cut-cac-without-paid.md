@@ -1,6 +1,6 @@
 ---
 title: 'AI Organic Marketing for SMBs: The 2026 Playbook to Cut CAC Without Paid Ads'
-slug: ai-organic-marketing-for-smbs-the-2026-playbook-to-cut-cac-w
+slug: ai-organic-marketing-smbs-2026-playbook-cut-cac-without-paid
 excerpt: >-
   Paid ads are getting more expensive and less predictable. Google CPCs in
   competitive SMB categories have climbed steadily, and iOS privacy changes have

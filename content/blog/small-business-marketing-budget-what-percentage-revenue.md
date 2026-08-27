@@ -1,6 +1,6 @@
 ---
 title: 'Small Business Marketing Budget: What Percentage of Revenue Should You Spend?'
-slug: small-business-marketing-budget-what-percentage-of-revenue-s
+slug: small-business-marketing-budget-what-percentage-revenue
 excerpt: >-
   Most small business owners set their marketing budget by gut feel, or just
   copy what a competitor seems to be doing. Both approaches tend to produce the

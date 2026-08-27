@@ -1,6 +1,6 @@
 ---
 title: 'Meta Ads Agency vs DIY AI Tools: The True Cost Breakdown for SMBs in 2026'
-slug: meta-ads-agency-vs-diy-ai-tools-the-true-cost-breakdown-for-
+slug: meta-ads-agency-vs-diy-ai-tools-true-cost-breakdown-smbs
 excerpt: >-
   The question isn't whether you can afford a Meta ads agency, it's whether you
   can afford to make the wrong call. Agencies charge real money upfront. DIY A
