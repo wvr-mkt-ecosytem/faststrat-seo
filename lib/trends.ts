@@ -18,6 +18,8 @@
 // tanda sale igual y sin tendencia: es un dato que ayuda a priorizar, no un
 // requisito.
 
+import { guardado, guardar, PLAZO_MS } from "@/lib/trends-cache";
+
 const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36";
 
@@ -84,6 +86,29 @@ export interface Tendencia {
  * Devuelve null si algo falla, siempre. Nunca lanza.
  */
 export async function tendencia(termino: string, geo = ""): Promise<Tendencia | null> {
+  // Lo guardado vale si no ha caducado. La serie que devuelve Trends con
+  // "today 5-y" es MENSUAL, así que consultar dos veces la misma semana da lo
+  // mismo y solo sirve para acercar el 429.
+  const enCache = guardado(termino, geo, PLAZO_MS);
+  if (enCache && !enCache.caducado) return enCache.t;
+
+  const fresco = await consultar(termino, geo);
+  if (fresco) {
+    guardar(termino, geo, fresco);
+    return fresco;
+  }
+
+  // Falló la consulta. Si hay algo viejo, se sirve VIEJO antes que nada.
+  //
+  // Sin esto, el primer 429 dejaba sin dirección de demanda a todas las
+  // keywords siguientes de la tanda, que es exactamente lo que pasó tras
+  // rellenar los 21 artículos. Un dato de hace cinco semanas describe la
+  // tendencia igual de bien: la serie es mensual.
+  return enCache?.t ?? null;
+}
+
+/** La consulta de verdad, sin caché. */
+async function consultar(termino: string, geo: string): Promise<Tendencia | null> {
   try {
     const ck = await conseguirCookie();
     const req = { comparisonItem: [{ keyword: termino, geo, time: "today 5-y" }], category: 0, property: "" };

@@ -12,6 +12,7 @@ import { leerMemoria, bloqueDeMemoria, descartarRepetidas } from "@/lib/idea-mem
 import { CLIENTE, CONTEXTO_CLIENTE, RUIDO_MARCA } from "@/lib/cliente";
 import { tendencias, describir, type Tendencia } from "@/lib/trends";
 import { sinRepetir } from "@/lib/similitud";
+import { candidatas as variantesDe, porIntencion } from "@/lib/sugerencias";
 
 // Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
 // llamada al agente y no devuelve nada: el navegador se queda esperando una
@@ -125,6 +126,37 @@ export const POST = apiRoute(async (request: NextRequest) => {
       );
     };
 
+    // Qué escribe la gente alrededor de nuestros temas.
+    //
+    // Search Console solo enseña dónde YA aparecemos: las consultas con cero
+    // impresiones son invisibles, y ahí están los temas que no se nos han
+    // ocurrido. Autocomplete llena parte de ese hueco gratis y sin
+    // autenticación, que es más de lo que puede decirse del endpoint de
+    // "related queries" de Trends, que nos devuelve 429 de forma sostenida.
+    //
+    // Se parte solo de las tres señales más fuertes: cada semilla son cinco
+    // peticiones, y con veinte semillas esto dejaría de ser barato.
+    const semillas = striking
+      .slice(0, 3)
+      .map((r) => r.query)
+      .filter((q): q is string => !!q);
+
+    const sugeridas: string[] = [];
+    for (const semilla of semillas) {
+      const c = await variantesDe(semilla, { letras: 4 });
+      const { conIntencion, resto } = porIntencion([...c.directas, ...c.ampliadas], semilla);
+      // Las de intención primero: llevan a alguien que está decidiendo. La
+      // única página del sitio con clics sostenidos responde justo una
+      // pregunta de tipo "cuánto cuesta".
+      for (const q of conIntencion.slice(0, 6)) sugeridas.push(`- "${q}"  (de "${semilla}", con intención)`);
+      for (const q of resto.slice(0, 3)) sugeridas.push(`- "${q}"  (de "${semilla}")`);
+    }
+
+    const bloqueSugeridas = sugeridas.length
+      ? `\n\nLO QUE LA GENTE ESCRIBE (Google Autocomplete, a partir de nuestras señales):\n${sugeridas.join("\n")}\n` +
+        `Estas NO aparecen en Search Console porque todavía no rankeamos para ellas: son huecos, no confirmaciones. Si alguna encaja con lo que sabemos hacer, propónla como idea.`
+      : "";
+
     const signalSummary =
       "STRIKING DISTANCE:\n" +
       striking.map(conTendencia).join("\n") +
@@ -136,7 +168,8 @@ CÓMO LEER "[demanda: ...]": es Google Trends, comparando los últimos 12 meses 
 - "baja" y por debajo de 35/100 de su máximo: NO propongas ese tema salvo que la intención de compra sea altísima. Escribir sobre demanda que se está muriendo es trabajo perdido.
 - "sube": priorízalo. Llegar temprano a un tema que crece vale más que pelear uno saturado.
 - "sin volumen medible": el término es muy long-tail. No lo descartes por eso, pero no esperes volumen: trátalo como pieza de profundidad para quien ya sabe lo que busca, no como cabecera de tráfico.
-- Sin corchete: no se pudo consultar. Decide por las otras señales.`;
+- Sin corchete: no se pudo consultar. Decide por las otras señales.` +
+      bloqueSugeridas;
 
     // 2) El agente arma la tanda, sabiendo qué ya existe.
     //

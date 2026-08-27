@@ -1,0 +1,72 @@
+{
+  "|whatsapp business api pricing": {
+    "t": {
+      "termino": "whatsapp business api pricing",
+      "direccion": "baja",
+      "cambioAnual": -42,
+      "nivelActual": 34,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T14:25:19.431Z"
+  },
+  "|whatsapp business api free": {
+    "t": {
+      "termino": "whatsapp business api free",
+      "direccion": "baja",
+      "cambioAnual": -42,
+      "nivelActual": 39,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T14:25:19.988Z"
+  },
+  "|whatsapp business api cost per message": {
+    "t": {
+      "termino": "whatsapp business api cost per message",
+      "direccion": "baja",
+      "cambioAnual": -94,
+      "nivelActual": 1,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T14:25:20.945Z"
+  },
+  "|whatsapp business api charges in india": {
+    "t": {
+      "termino": "whatsapp business api charges in india",
+      "direccion": "sube",
+      "cambioAnual": 100,
+      "nivelActual": 7,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T14:25:21.987Z"
+  },
+  "|whatsapp business api download": {
+    "t": {
+      "termino": "whatsapp business api download",
+      "direccion": "baja",
+      "cambioAnual": -44,
+      "nivelActual": 29,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T14:25:22.515Z"
+  },
+  "|whatsapp business api pricing india": {
+    "t": {
+      "termino": "whatsapp business api pricing india",
+      "direccion": "baja",
+      "cambioAnual": -50,
+      "nivelActual": 25,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T14:25:26.572Z"
+  },
+  "|whatsapp business api for bulk messaging": {
+    "t": {
+      "termino": "whatsapp business api for bulk messaging",
+      "direccion": "sube",
+      "cambioAnual": 100,
+      "nivelActual": 8,
+      "meses": 262
+    },
+    "cuando": "2026-08-27T14:25:27.239Z"
+  }
+}
