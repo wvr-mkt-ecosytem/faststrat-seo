@@ -88,6 +88,28 @@ export const CLIENTE: Cliente = {
   colorFondo: env("CLIENTE_COLOR_FONDO", "#F7F2E9"),
 };
 
+/**
+ * A qué país mira Google Trends para cada idioma.
+ *
+ * Sin esto se consultaba EN TODO EL MUNDO, y eso mezcla mercados que no tienen
+ * nada que ver: "whatsapp business api" medido globalmente lo domina India, y
+ * la cifra que salía no describía ni a Estados Unidos ni a México. Para un
+ * sistema que va a escribir en dos idiomas, medir la demanda en el sitio
+ * equivocado es peor que no medirla, porque parece un dato.
+ *
+ * Un solo país por idioma a propósito: Trends no admite "LATAM" como región,
+ * y comparar contra un agregado inventado daría un número que no existe.
+ * México es el mercado hispanohablante más grande de los que atiende el
+ * cliente; si el suyo es otro, se cambia con CLIENTE_GEO_ES.
+ */
+export const GEO_POR_IDIOMA: Record<string, string> = {
+  en: env("CLIENTE_GEO_EN", "US"),
+  es: env("CLIENTE_GEO_ES", "MX"),
+};
+
+/** El país cuya demanda se mide para un idioma. Vacío = todo el mundo. */
+export const geoDe = (lang: string) => GEO_POR_IDIOMA[lang] ?? "";
+
 /** La URL del producto, ya formada. Es a donde lleva el CTA. */
 export const URL_PRODUCTO = `https://${CLIENTE.dominioApp}`;
 

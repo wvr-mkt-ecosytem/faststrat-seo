@@ -22,6 +22,7 @@ export const GET = apiRoute(async () => {
       keywords: p.keywords,
       keywordRationale: p.keywordRationale,
       keywordTrend: p.keywordTrend,
+      alternate: p.alternate,
       lang: p.lang,
       category: p.category,
       status: p.status,

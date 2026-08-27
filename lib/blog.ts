@@ -44,6 +44,18 @@ export interface BlogPost {
   keywordRationale?: string;
   /** Hacia dónde va la demanda de la keyword, según Google Trends. */
   keywordTrend?: { direccion: "sube" | "baja" | "estable" | "sin-volumen"; cambioAnual: number; nivelActual: number };
+  /**
+   * La versión en el otro idioma, si existe.
+   *
+   * Son DOS artículos, no uno con dos cuerpos. Cada uno tiene su URL, su
+   * entrada en el sitemap y rankea por su cuenta, que es como Google entiende
+   * el contenido en varios idiomas. Guardarlos juntos habría peleado con
+   * WordPress, donde un post es una URL.
+   *
+   * El enlace es recíproco: cada versión apunta a la otra. Lo exige hreflang y
+   * además evita el caso de dejar una huérfana al borrar la otra.
+   */
+  alternate?: { lang: string; slug: string };
   file: string;
   /** Raw markdown body (without frontmatter). */
   markdown: string;
@@ -76,6 +88,7 @@ export function getBlogPosts(): BlogPost[] {
         differentiator: data.differentiator ? String(data.differentiator) : undefined,
         keywordRationale: data.keywordRationale ? String(data.keywordRationale) : undefined,
         keywordTrend: data.keywordTrend ?? undefined,
+        alternate: data.alternate ?? undefined,
         file,
         markdown: content,
       };
@@ -119,6 +132,7 @@ export function createBlogPost(meta: {
   differentiator?: string;
   keywordRationale?: string;
   keywordTrend?: BlogPost["keywordTrend"];
+  alternate?: BlogPost["alternate"];
   markdown: string;
 }): BlogPost {
   const slug = meta.slug ?? slugify(meta.title);
@@ -140,12 +154,38 @@ export function createBlogPost(meta: {
     ...(meta.differentiator ? { differentiator: meta.differentiator } : {}),
     ...(meta.keywordRationale ? { keywordRationale: meta.keywordRationale } : {}),
     ...(meta.keywordTrend ? { keywordTrend: meta.keywordTrend } : {}),
+    ...(meta.alternate ? { alternate: meta.alternate } : {}),
   };
   fs.writeFileSync(
     path.join(BLOG_DIR, file),
     matter.stringify(meta.markdown.trim() + "\n", data)
   );
   return { ...data, file, markdown: meta.markdown };
+}
+
+/**
+ * Enlaza dos versiones en distinto idioma, en los DOS sentidos.
+ *
+ * Recíproco a propósito. hreflang lo exige —Google ignora las anotaciones que
+ * no se devuelven el enlace— y además evita dejar una versión huérfana
+ * apuntando a algo que ya no existe.
+ */
+export function emparejar(slugA: string, slugB: string): void {
+  const a = getBlogPost(slugA);
+  const b = getBlogPost(slugB);
+  if (!a || !b) throw new Error(`No se encontró ${!a ? slugA : slugB}`);
+  if (a.lang === b.lang) {
+    throw new Error(`Los dos están en ${a.lang}: una versión alterna tiene que estar en otro idioma`);
+  }
+  ponerAlternate(a, { lang: b.lang, slug: b.slug });
+  ponerAlternate(b, { lang: a.lang, slug: a.slug });
+}
+
+function ponerAlternate(post: BlogPost, alternate: NonNullable<BlogPost["alternate"]>): void {
+  const filePath = path.join(BLOG_DIR, post.file);
+  const raw = fs.readFileSync(filePath, "utf8");
+  const { data, content } = matter(raw);
+  fs.writeFileSync(filePath, matter.stringify(content.trim() + "\n", { ...data, alternate }));
 }
 
 /**

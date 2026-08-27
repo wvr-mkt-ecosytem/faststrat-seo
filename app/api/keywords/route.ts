@@ -3,6 +3,7 @@ import { apiRoute } from "@/lib/google-auth-state";
 import { candidatas, porIntencion } from "@/lib/sugerencias";
 import { tendencia } from "@/lib/trends";
 import { estado } from "@/lib/trends-cache";
+import { geoDe } from "@/lib/cliente";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 300;
@@ -26,7 +27,8 @@ export const GET = apiRoute(async (request: NextRequest) => {
   if (!termino) return NextResponse.json({ error: "Falta 'q'" }, { status: 400 });
 
   const idioma = request.nextUrl.searchParams.get("lang") === "es" ? "es" : "en";
-  const geo = request.nextUrl.searchParams.get("geo") ?? "";
+  // Por defecto, el país del idioma pedido. Se puede forzar otro con ?geo=
+  const geo = request.nextUrl.searchParams.get("geo") ?? geoDe(idioma);
 
   const c = await candidatas(termino, { idioma, letras: 4 });
   const todas = [...c.directas, ...c.ampliadas];

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Send, Check, Loader2, ExternalLink, AlertCircle, Sparkles, Wand2 } from 'lucide-react'
+import { Send, Check, Loader2, ExternalLink, AlertCircle, Sparkles, Wand2, Languages } from 'lucide-react'
 import { BrandHeader } from '@/components/BrandHeader'
 import { Progreso } from '@/components/Progreso'
 import { postJson, wake, ApiError } from '@/lib/api'
@@ -23,6 +23,8 @@ type Post = {
   keywordRationale?: string
   /** Hacia dónde va la demanda de la keyword, según Google Trends. */
   keywordTrend?: { direccion: 'sube' | 'baja' | 'estable' | 'sin-volumen'; cambioAnual: number; nivelActual: number }
+  /** La versión en el otro idioma, si ya existe. */
+  alternate?: { lang: string; slug: string }
 }
 
 /**
@@ -99,6 +101,7 @@ export default function BlogsPage() {
   const [wpError, setWpError] = useState<string | null>(null)
   const [loadError, setLoadError] = useState<string | null>(null)
   const [publishingAll, setPublishingAll] = useState(false)
+  const [traduciendo, setTraduciendo] = useState<string | null>(null)
   const [publishAllProgress, setPublishAllProgress] = useState<{ done: number; total: number } | null>(null)
 
   useEffect(() => {
@@ -117,6 +120,53 @@ export default function BlogsPage() {
       .catch((e) => setLoadError(String(e?.message ?? e)))
       .finally(() => setLoading(false))
   }, [])
+
+  /** Salta a la tarjeta de la otra versión y la resalta un momento. */
+  function irAlSlug(slug: string) {
+    const el = document.getElementById(`post-${slug}`)
+    if (!el) return
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    el.classList.add('ring-2', 'ring-maroon')
+    setTimeout(() => el.classList.remove('ring-2', 'ring-maroon'), 1800)
+  }
+
+  /**
+   * Escribe la versión en el otro idioma.
+   *
+   * Va en una llamada aparte y no dentro de la generación porque escribir un
+   * artículo tarda unos 24 minutos y el límite de la plataforma son 13: pedir
+   * los dos de una vez cortaría la petición a media faena y perdería el trabajo
+   * ya pagado. Así, si esta falla, el original sigue guardado.
+   */
+  async function escribirOtroIdioma(post: Post) {
+    const otro = post.lang === 'es' ? 'inglés' : 'español'
+    if (!confirm(
+      `El agente va a mirar la SERP en ${otro} y ADAPTAR el artículo a ese mercado: otros competidores, ` +
+      `precios en su moneda y fuentes que le sirvan a ese lector. No es una traducción.
+
+` +
+      `Tarda unos 25 minutos. ¿Sigo?`
+    )) return
+
+    setTraduciendo(post.slug)
+    try {
+      const d = await postJson<{ ok?: boolean; slug?: string; title?: string; error?: string; explicacion?: string }>(
+        '/api/blog/translate',
+        { slug: post.slug, lang: post.lang === 'es' ? 'en' : 'es' },
+      )
+      if (d.ok) {
+        const fresh = await fetch('/api/blog').then((r) => r.json())
+        setPosts(fresh.posts ?? [])
+        setTimeout(() => d.slug && irAlSlug(d.slug), 300)
+      } else {
+        alert(d.explicacion ?? d.error ?? 'No se pudo escribir la otra versión.')
+      }
+    } catch (e) {
+      alert(e instanceof ApiError ? e.message : String(e))
+    } finally {
+      setTraduciendo(null)
+    }
+  }
 
   function toggleEdit(slug: string) {
     setEdits((e) => ({
@@ -299,7 +349,9 @@ export default function BlogsPage() {
           return (
             <div
               key={post.slug}
-              className="border border-black/10 dark:border-white/10 rounded-lg p-5"
+              // El id permite saltar de una versión de idioma a la otra.
+              id={`post-${post.slug}`}
+              className="border border-black/10 dark:border-white/10 rounded-lg p-5 transition-shadow scroll-mt-24"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
@@ -446,6 +498,32 @@ export default function BlogsPage() {
                     <Sparkles size={14} />
                     Editar con IA
                   </button>
+
+                  {/* La otra versión: ir a ella si existe, o escribirla si no.
+                      El mismo sitio para las dos cosas, porque para quien mira
+                      es la misma pregunta: "¿y en el otro idioma?" */}
+                  {post.alternate ? (
+                    <button
+                      onClick={() => irAlSlug(post.alternate!.slug)}
+                      className="w-full flex items-center justify-center gap-2 text-xs font-medium px-3 py-1.5 rounded-md text-maroon hover:bg-maroon/8 transition-colors"
+                      title={`Ver la versión en ${post.alternate.lang === 'es' ? 'español' : 'inglés'}`}
+                    >
+                      <Languages size={14} />
+                      Ver en {post.alternate.lang === 'es' ? 'español' : 'inglés'}
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => escribirOtroIdioma(post)}
+                      disabled={traduciendo === post.slug}
+                      className="w-full flex items-center justify-center gap-2 text-xs font-medium px-3 py-1.5 rounded-md text-sand hover:bg-maroon/8 hover:text-maroon transition-colors disabled:opacity-50"
+                      title={`El agente vuelve a mirar la SERP en el otro idioma y adapta el artículo: fuentes, precios y ejemplos de ese mercado. No es una traducción. Tarda unos 25 minutos.`}
+                    >
+                      {traduciendo === post.slug ? <Loader2 size={14} className="animate-spin" /> : <Languages size={14} />}
+                      {traduciendo === post.slug
+                        ? 'Adaptando…'
+                        : `Escribir en ${post.lang === 'es' ? 'inglés' : 'español'}`}
+                    </button>
+                  )}
                 </div>
               </div>
 
