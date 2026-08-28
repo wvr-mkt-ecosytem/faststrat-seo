@@ -78,6 +78,42 @@ const NO_LO_ARREGLA_EDITANDO = new Set(["no-differentiator"]);
 const hayAlgoQueEditar = (qa: QaResult) =>
   qa.blocking.some((f) => !NO_LO_ARREGLA_EDITANDO.has(f.rule));
 
+/** Cuánto del artículo tiene que sobrevivir a una corrección. */
+const MINIMO_QUE_SOBREVIVE = 0.75;
+
+/**
+ * ¿La corrección arregló el artículo, o se lo llevó por delante?
+ *
+ * Medido sobre un caso real: corregir 5 cifras sin fuente dejó el artículo en
+ * 1.151 palabras de 1.951, y con 3 secciones de las 7 que tenía. Cuatro
+ * secciones enteras desaparecidas. Y la compuerta lo dio por bueno, porque solo
+ * mira la forma: sin cifras huérfanas, con enlaces, con encabezados. Un
+ * artículo al que le falta el 60% cumple las tres cosas.
+ *
+ * "El mínimo cambio posible" está en el prompt desde el principio, pero un
+ * prompt es una intención. Esto es la comprobación.
+ */
+function seLoLlevoPorDelante(antes: string, despues: string): string | null {
+  const palabras = (t: string) => t.split(/\s+/).filter(Boolean).length;
+  const secciones = (t: string) => (t.match(/^##\s+/gm) ?? []).length;
+
+  const pAntes = palabras(antes);
+  const pDespues = palabras(despues);
+  if (pAntes > 0 && pDespues / pAntes < MINIMO_QUE_SOBREVIVE) {
+    return `perdió ${pAntes - pDespues} palabras de ${pAntes} (queda el ${Math.round((pDespues / pAntes) * 100)}%)`;
+  }
+
+  // Las secciones importan aparte del recuento: se puede perder poco texto y
+  // aun así borrar la sección que respondía a la mitad de la intención.
+  const sAntes = secciones(antes);
+  const sDespues = secciones(despues);
+  if (sAntes >= 3 && sDespues < sAntes - 1) {
+    return `borró ${sAntes - sDespues} secciones de ${sAntes}`;
+  }
+
+  return null;
+}
+
 /**
  * El último recurso: quitar la cifra que no se pudo respaldar.
  *
@@ -117,6 +153,14 @@ export interface ResultadoPublicable {
    * quien lo publica tiene derecho a saber qué desapareció.
    */
   quitadas: string[];
+  /**
+   * Correcciones descartadas por mutilar el artículo.
+   *
+   * Se dice: si el artículo sigue bloqueado y esto tiene contenido, la causa no
+   * es que el problema sea irresoluble, sino que el agente intentó resolverlo
+   * borrando medio texto y se le paró.
+   */
+  destrozos: string[];
 }
 
 /**
@@ -160,6 +204,8 @@ export async function dejarPublicable(
   let texto = CASA.noEmDash ? barrerRayas(markdown) : markdown;
   let qa = evaluar(texto);
   let pasadas = 0;
+  /** Correcciones descartadas por mutilar el artículo. Se cuentan y se dicen. */
+  const destrozos: string[] = [];
 
   while (!qa.ok && pasadas < max && hayAlgoQueEditar(qa)) {
     let siguiente: string | null = null;
@@ -203,6 +249,16 @@ ${texto}
     if (!siguiente) break;
 
     const limpio = CASA.noEmDash ? barrerRayas(siguiente) : siguiente;
+
+    // Una corrección que destroza el artículo se descarta, aunque deje cero
+    // bloqueos. Cero bloqueos sobre un artículo mutilado no es un artículo
+    // publicable: es otro artículo, más corto y peor.
+    const destrozo = seLoLlevoPorDelante(texto, limpio);
+    if (destrozo) {
+      destrozos.push(destrozo);
+      break;
+    }
+
     const nuevoQa = evaluar(limpio);
 
     // Solo se acepta si MEJORA. Un "arreglo" que empeora se descarta: es
@@ -242,10 +298,16 @@ ${texto}
       const limpio = extraer(raw);
       if (limpio) {
         const sinRayas = CASA.noEmDash ? barrerRayas(limpio) : limpio;
+        // Aquí el suelo es más bajo: quitar cifras SÍ borra texto a propósito,
+        // así que se permite perder más. Lo que no se permite es que se lleve
+        // el artículo entero.
+        const destrozo = seLoLlevoPorDelante(texto, sinRayas);
         const nuevoQa = evaluar(sinRayas);
         // Solo se acepta si de verdad quedan MENOS bloqueos. Un "arreglo" que
         // no arregla se descarta, como en el resto del bucle.
-        if (nuevoQa.blocking.length < qa.blocking.length) {
+        if (destrozo) {
+          destrozos.push(`al quitar cifras: ${destrozo}`);
+        } else if (nuevoQa.blocking.length < qa.blocking.length) {
           quitadas.push(...qa.blocking.map((f) => f.detail));
           texto = sinRayas;
           qa = nuevoQa;
@@ -264,5 +326,6 @@ ${texto}
     pasadas,
     pendientes: qa.blocking.map((f) => f.detail),
     quitadas,
+    destrozos,
   };
 }
