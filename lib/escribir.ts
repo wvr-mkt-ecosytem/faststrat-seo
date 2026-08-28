@@ -12,7 +12,8 @@
 // habría garantizado que se separaran a la primera corrección.
 
 import path from "path";
-import { createBlogPost, slugify } from "@/lib/blog";
+import { createBlogPost, slugify, renderHtml } from "@/lib/blog";
+import { publishPost } from "@/lib/wordpress";
 import { runClaude } from "@/lib/claude";
 import { REGLAS_DE_CASA, LIMITE_TITULO_UTIL } from "@/lib/house-rules";
 import { revisarTitulo, explicar } from "@/lib/catalogo";
@@ -34,6 +35,16 @@ export interface PeticionEscribir {
   force?: boolean;
   /** ISO. Cuándo debe salir publicado. */
   publishAt?: string;
+  /**
+   * Publicar en WordPress al terminar.
+   *
+   * Va aquí y no en el trabajo de Actions para que la ruta web y Actions
+   * publiquen EXACTAMENTE igual. Si el artículo quedó con bloqueos sin
+   * resolver, no se publica: se guarda como borrador y se dice por qué.
+   */
+  publicar?: boolean;
+  /** Con `publicar`, si sale en vivo o queda de borrador en WordPress. */
+  enVivo?: boolean;
 }
 
 /** O el artículo, o el motivo por el que no. `estado` es el código HTTP a devolver. */
@@ -51,6 +62,8 @@ export type ResultadoEscribir =
       keywordRationale?: string;
       keywordTrend?: NonNullable<Awaited<ReturnType<typeof tendenciaEnVarios>>>;
       pendientes?: string[];
+      /** Qué pasó al publicar, si se pidió. */
+      publicacion?: { intentado: boolean; ok: boolean; estado?: string; link?: string; motivo?: string };
     }
   | {
       ok: false;
@@ -389,8 +402,44 @@ La extensión la marca el tema, no una cuota. No hay mínimo de palabras.${conte
 
     apuntar("escribir", (Date.now() - arranque) / 1000);
 
+    // Publicar, si se pidió.
+    //
+    // Nunca se publica un artículo que quedó con bloqueos: la compuerta existe
+    // para eso, y saltársela porque "ya que estamos" la convierte en decorado.
+    // En ese caso se guarda igual —el trabajo está pagado— y se dice el motivo.
+    let publicacion: { intentado: boolean; ok: boolean; estado?: string; link?: string; motivo?: string } | undefined;
+    if (peticion.publicar) {
+      if (revisado.pendientes.length > 0) {
+        publicacion = {
+          intentado: true,
+          ok: false,
+          motivo: `Quedaron ${revisado.pendientes.length} bloqueo(s) sin resolver. El artículo está guardado como borrador.`,
+        };
+      } else {
+        try {
+          const r = await publishPost({
+            title: post.title,
+            slug: post.slug,
+            contentHtml: renderHtml(post),
+            excerpt: post.excerpt,
+            category: post.category,
+            status: peticion.enVivo === false ? "draft" : "publish",
+            authorName: post.author,
+            publishAt: post.publishAt,
+          });
+          publicacion = { intentado: true, ok: true, estado: r.status, link: r.link };
+        } catch (e) {
+          // Que no se pueda publicar no invalida el artículo: está escrito y
+          // guardado, y publicarlo es un clic. Perderlo aquí sería el peor
+          // intercambio posible.
+          publicacion = { intentado: true, ok: false, motivo: (e as Error).message };
+        }
+      }
+    }
+
     return {
       ok: true as const,
+      publicacion,
       slug: post.slug,
       title: post.title,
       excerpt,

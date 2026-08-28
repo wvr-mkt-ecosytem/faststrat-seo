@@ -56,11 +56,15 @@ type ResultMap = Record<string, {
   ok?: boolean
   error?: string
   gen?: { title: string; slug: string; preview: string; wordCount: number }
+  /** El trabajo se pidió a GitHub Actions y corre por su cuenta. */
+  lanzado?: { mensaje: string; seguimiento?: string }
   idea?: { title: string; intent: string; rationale: string; outline: string[]; lang: string }
 }>
 
 export default function IdeasPage() {
-  const { lanzar } = useTareas()
+  //  ya no hace falta para escribir: el trabajo corre en GitHub Actions
+  // y esta pantalla no lo espera. Se conserva el proveedor para el resto.
+  useTareas()
   const [batches, setBatches] = useState<Batch[]>([])
   const [loading, setLoading] = useState(true)
   const [selected, setSelected] = useState(0)
@@ -202,29 +206,38 @@ export default function IdeasPage() {
   // servidor sin que nadie se enterara.
   async function generate(key: string, payload: { keyword?: string; topic?: string; title?: string; lang?: string; category?: string }) {
     setResults((s) => ({ ...s, [key]: { kind: 'gen', loading: true } }))
-    await lanzar(
-      {
-        etiqueta: `Escribiendo: ${(payload.title ?? payload.keyword ?? '').slice(0, 40)}`,
-        estimadoSeg: 900,
-        detalle: 'Tres pasos: elegir el título, escribir y corregirse. Puedes cambiar de pestaña.',
-        enlace: '/blogs',
-      },
-      async () => {
-        try {
-          const d = await postJson<{ ok?: boolean; error?: string; title?: string; slug?: string; preview?: string; wordCount?: number }>('/api/blog/generate', payload)
-          setResults((s) => ({ ...s, [key]: d.ok
-            ? { kind: 'gen', loading: false, ok: true, gen: { title: d.title!, slug: d.slug!, preview: d.preview!, wordCount: d.wordCount! } }
-            : { kind: 'gen', loading: false, ok: false, error: d.error } }))
-          return d.ok
-            ? { ok: true, resultado: `${d.wordCount} palabras. Está en Blogs como borrador.`, enlace: '/blogs' }
-            : { ok: false, resultado: d.error ?? 'Error desconocido' }
-        } catch (e) {
-          const msg = e instanceof ApiError ? e.message : String(e)
-          setResults((s) => ({ ...s, [key]: { kind: 'gen', loading: false, ok: false, error: msg } }))
-          return { ok: false, resultado: msg }
-        }
-      },
-    )
+
+    // Se PIDE el trabajo, no se espera aquí.
+    //
+    // Escribir tarda unos 25 minutos y el plan gratuito de Render no lo
+    // aguanta: el agente se come la CPU, el servidor deja de responder al
+    // health check de 5 segundos, Render lo da por caído y lo reinicia. El
+    // artículo moría con el reinicio, y desde la pantalla se veía como un
+    // botón que giraba media hora para nada.
+    //
+    // Ahora el trabajo corre en GitHub Actions y esta llamada tarda un
+    // segundo. Se puede cerrar el navegador: el artículo aparece solo en la
+    // pestaña Blogs cuando termina.
+    try {
+      const d = await postJson<{
+        ok?: boolean
+        error?: string
+        explicacion?: string
+        comoSeguir?: string
+        seguimiento?: string
+        mensaje?: string
+      }>('/api/blog/dispatch', { ...payload, publicar: true, enVivo: true })
+
+      setResults((s) => ({
+        ...s,
+        [key]: d.ok
+          ? { kind: 'gen', loading: false, ok: true, lanzado: { mensaje: d.mensaje!, seguimiento: d.seguimiento } }
+          : { kind: 'gen', loading: false, ok: false, error: d.explicacion ?? d.error },
+      }))
+    } catch (e) {
+      const msg = e instanceof ApiError ? e.message : String(e)
+      setResults((s) => ({ ...s, [key]: { kind: 'gen', loading: false, ok: false, error: msg } }))
+    }
   }
 
 
@@ -355,7 +368,7 @@ export default function IdeasPage() {
           <div className="rounded-md border border-maroon/15 bg-white/60 px-4 py-3">
             <Progreso
               etiqueta={moreLoading ? 'Buscando ideas nuevas' : 'Regenerando la investigación de la semana'}
-              estimadoSeg={moreLoading ? 180 : 240}
+              tarea={moreLoading ? 'ideas' : 'tanda'}
               detalle="El agente busca en la web y compara con todo lo que ya se propuso alguna vez."
             />
           </div>
@@ -672,15 +685,43 @@ export default function IdeasPage() {
 
 function ResultPanel({ result: r }: { result: ResultMap[string] }) {
   if (r.loading) {
-    // Los tiempos salen de corridas medidas, no de un número redondo.
+    // Escribir ya no espera aquí: solo se PIDE el trabajo y eso tarda un
+    // segundo. La barra larga se quedó para lo que sí corre en el servidor.
     return r.kind === 'gen' ? (
-      <Progreso
-        etiqueta="Escribiendo el artículo"
-        estimadoSeg={480}
-        detalle="Son tres pasos encadenados: elegir el título, escribir, y corregirse si la compuerta lo bloquea."
-      />
+      <Progreso etiqueta="Pidiendo el trabajo" tarea="corregir" detalle="Comprueba que no se pise con nada y lo encarga." />
     ) : (
-      <Progreso etiqueta="Armando la idea" estimadoSeg={30} detalle="Busca en la web y propone título y guion." />
+      <Progreso etiqueta="Armando la idea" tarea="ideas" detalle="Busca en la web y propone título y guion." />
+    )
+  }
+
+  // El trabajo se está haciendo en GitHub Actions, no aquí.
+  //
+  // Antes esta pantalla esperaba media hora a una petición que Render mataba a
+  // los tres minutos: el botón giraba, no aparecía nada, y no había forma de
+  // saber si iba o se había perdido. Ahora se dice lo que de verdad pasa.
+  if (r.kind === 'gen' && r.lanzado) {
+    return (
+      <div className="rounded-md border border-maroon/15 bg-white/70 p-3">
+        <div className="flex items-center gap-1.5 text-xs font-semibold text-maroon mb-1">
+          <Check size={13} /> Encargado
+        </div>
+        <p className="text-xs text-ink/80 leading-snug">{r.lanzado.mensaje}</p>
+        <div className="flex items-center gap-3 mt-2">
+          <Link href="/blogs" className="inline-flex items-center gap-1 text-xs font-medium text-maroon hover:underline">
+            Ver en Blogs <ExternalLink size={11} />
+          </Link>
+          {r.lanzado.seguimiento && (
+            <a
+              href={r.lanzado.seguimiento}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-xs text-sand hover:underline"
+            >
+              Ver cómo va <ExternalLink size={11} />
+            </a>
+          )}
+        </div>
+      </div>
     )
   }
   if (r.error) {

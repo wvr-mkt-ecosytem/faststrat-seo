@@ -41,6 +41,18 @@ on:
         default: "false"
         type: choice
         options: ["false", "true"]
+      publicar:
+        description: "Publicar en WordPress al terminar"
+        required: false
+        default: "true"
+        type: choice
+        options: ["true", "false"]
+      enVivo:
+        description: "En vivo, o como borrador en WordPress"
+        required: false
+        default: "true"
+        type: choice
+        options: ["true", "false"]
 
 jobs:
   escribir:
@@ -92,7 +104,9 @@ jobs:
             --lang "${{ inputs.lang }}" \
             --category "${{ inputs.category }}" \
             --publishAt "${{ inputs.publishAt }}" \
-            --force "${{ inputs.force }}"
+            --force "${{ inputs.force }}" \
+            --publicar "${{ inputs.publicar }}" \
+            --enVivo "${{ inputs.enVivo }}"
 
       - name: Guardar el artículo
         # `always()` porque un choque de títulos sale con 0 y no escribe nada:

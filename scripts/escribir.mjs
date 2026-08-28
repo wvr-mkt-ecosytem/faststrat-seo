@@ -74,6 +74,8 @@ const r = await escribirArticulo({
   category: args.category ?? "SEO",
   force: args.force === "true",
   publishAt: args.publishAt || undefined,
+  publicar: args.publicar === "true",
+  enVivo: args.enVivo !== "false",
 });
 
 const min = ((Date.now() - t0) / 60000).toFixed(1);
@@ -95,3 +97,14 @@ console.log(`  autor:       ${r.author}`);
 if (r.keywordTrend) console.log(`  demanda:     ${r.keywordTrend.direccion} ${r.keywordTrend.cambioAnual}%`);
 if (r.diferencial) console.log(`  diferencial: ${r.diferencial.slice(0, 160)}`);
 if (r.pendientes?.length) console.log(`  pendientes:  ${r.pendientes.length} bloqueo(s) sin resolver`);
+
+if (r.publicacion) {
+  console.log(
+    r.publicacion.ok
+      ? `  WordPress:   ${r.publicacion.estado} · ${r.publicacion.link}`
+      : `  WordPress:   NO se publicó · ${r.publicacion.motivo}`,
+  );
+  // No publicar no es un fallo del trabajo: el artículo está escrito y
+  // guardado, y publicarlo después es un clic. Marcar esto en rojo entrenaría
+  // a ignorar los correos de error.
+}
