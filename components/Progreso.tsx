@@ -1,4 +1,5 @@
 'use client'
+import { useEstimacion, type Tarea } from '@/lib/estimaciones'
 
 import { useEffect, useState } from 'react'
 
@@ -28,25 +29,36 @@ import { useEffect, useState } from 'react'
 export interface ProgresoProps {
   /** Qué está haciendo, en presente. Ej: "Escribiendo el artículo". */
   etiqueta: string
-  /** Segundos que suele tardar, medidos en corridas reales. */
-  estimadoSeg: number
+  /**
+   * Qué tarea es. El tiempo sale de las corridas medidas, no de aquí.
+   *
+   * Antes cada sitio pasaba su propio `estimadoSeg` a mano, y salió lo
+   * previsible: la tarjeta decía "~8:00" para escribir un artículo que tarda
+   * casi 24 minutos, y el aviso flotante decía otra cosa. Ahora las dos leen
+   * la misma fuente.
+   */
+  tarea?: Tarea
+  /** Escala fija, solo para lo que no está medido. */
+  estimadoSeg?: number
   /** Detalle opcional bajo la barra: qué pasos incluye. */
   detalle?: string
 }
 
 const mmss = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
 
-export function Progreso({ etiqueta, estimadoSeg, detalle }: ProgresoProps) {
+export function Progreso({ etiqueta, tarea, estimadoSeg, detalle }: ProgresoProps) {
   const [seg, setSeg] = useState(0)
+  const medido = useEstimacion(tarea ?? 'escribir')
+  const escala = tarea ? medido.segundos : (estimadoSeg ?? medido.segundos)
 
   useEffect(() => {
     const t = setInterval(() => setSeg((s) => s + 1), 1000)
     return () => clearInterval(t)
   }, [])
 
-  const pasado = seg > estimadoSeg
+  const pasado = seg > escala
   // Tope al 90%: llegar al 100% sin haber terminado se lee como "ya está".
-  const pct = Math.min(90, Math.round((seg / Math.max(estimadoSeg, 1)) * 90))
+  const pct = Math.min(90, Math.round((seg / Math.max(escala, 1)) * 90))
 
   return (
     <div className="flex flex-col gap-1 w-full">
@@ -54,7 +66,7 @@ export function Progreso({ etiqueta, estimadoSeg, detalle }: ProgresoProps) {
         <span className="text-ink">{etiqueta}</span>
         <span className="text-sand tabular-nums">
           {mmss(seg)}
-          {!pasado && ` de ~${mmss(estimadoSeg)}`}
+          {!pasado && ` de ~${mmss(escala)}`}
         </span>
       </div>
 

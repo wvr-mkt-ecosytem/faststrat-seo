@@ -10,6 +10,7 @@ import { tendenciaEnVarios, describir } from "@/lib/trends";
 import { INSTRUCCION_LEGIBILIDAD } from "@/lib/legibilidad";
 import { dejarPublicable } from "@/lib/publicable";
 import { persistChanges } from "@/lib/persist";
+import { apuntar } from "@/lib/duraciones";
 import { CONTEXTO_CLIENTE, conCta, geosDe } from "@/lib/cliente";
 
 // Cuánto puede tardar. Sin esto, la plataforma corta la petición a mitad de la
@@ -103,6 +104,9 @@ Devuelve el titular.`,
 }
 
 export const POST = apiRoute(async (request: NextRequest) => {
+  // Se cronometra la corrida entera para que la barra de progreso diga un
+  // tiempo medido y no uno supuesto. Solo se apunta si TERMINA.
+  const arranque = Date.now();
   const body = await request.json().catch(() => ({}));
   // Modo A: keyword (+ title opcional). Modo B: topic libre (el agente elige título).
   const keyword: string | undefined = body.keyword;
@@ -344,6 +348,8 @@ La extensión la marca el tema, no una cuota. No hay mínimo de palabras.${conte
 
     // Preview: primeros ~500 caracteres del cuerpo para mostrar en el reporte.
     const preview = markdown.trim().slice(0, 500);
+
+    apuntar("escribir", (Date.now() - arranque) / 1000);
 
     return NextResponse.json({
       ok: true,

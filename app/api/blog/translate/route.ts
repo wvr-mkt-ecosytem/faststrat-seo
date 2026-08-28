@@ -10,6 +10,7 @@ import { instruccionesAdaptar, cabecera, NOMBRE_IDIOMA } from "@/lib/adaptar";
 import { revisarTitulo, explicar } from "@/lib/catalogo";
 import { dejarPublicable } from "@/lib/publicable";
 import { persistChanges } from "@/lib/persist";
+import { apuntar } from "@/lib/duraciones";
 import { CONTEXTO_CLIENTE, conCta, geosDe } from "@/lib/cliente";
 import { tendenciaEnVarios } from "@/lib/trends";
 
@@ -39,6 +40,9 @@ ${INSTRUCCION_KEYWORD}`;
 
 // POST { slug, lang }   lang = idioma DESTINO
 export const POST = apiRoute(async (request: NextRequest) => {
+  // Se cronometra la corrida entera para que la barra de progreso diga un
+  // tiempo medido y no uno supuesto. Solo se apunta si TERMINA.
+  const arranque = Date.now();
   const { slug, lang, force } = await request.json().catch(() => ({}));
   if (!slug) return NextResponse.json({ error: "Falta 'slug'" }, { status: 400 });
 
@@ -162,6 +166,8 @@ export const POST = apiRoute(async (request: NextRequest) => {
       path.join(process.cwd(), "content", "blog", `${nuevo.slug}.md`),
       path.join(process.cwd(), "content", "blog", original.file),
     ]);
+
+    apuntar("adaptar", (Date.now() - arranque) / 1000);
 
     return NextResponse.json({
       ok: true,

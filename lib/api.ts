@@ -27,6 +27,11 @@ export async function postJson<T = unknown>(
   body: unknown,
   opts: { retriedOnWake?: boolean; timeoutMs?: number } = {}
 ): Promise<T> {
+  // Cuándo empezó. Es lo que distingue un arranque en frío (falla en segundos,
+  // y reintentar es correcto) de un corte del proxy sobre trabajo ya en marcha
+  // (falla en minutos, y reintentar duplica el gasto).
+  const arrancoEn = Date.now();
+
   // Un límite explícito, siempre.
   //
   // No había ninguno, así que un botón que llamaba al agente podía girar
@@ -59,15 +64,37 @@ export async function postJson<T = unknown>(
     throw new ApiError("No se pudo conectar con el servidor. Revisa tu conexión y reintenta.");
   }
 
-  // Cold start del free tier: 503/502/504 sin JSON. Despertamos y reintentamos 1 vez.
+  // 502/503/504: hay que distinguir DOS cosas que se veían igual.
+  //
+  //   Arranque en frío: la instancia dormía, falla en SEGUNDOS y reintentar es
+  //   lo correcto porque no se había empezado nada.
+  //
+  //   Corte del proxy: la petición llevaba minutos trabajando y Render cortó la
+  //   conexión. Medido: 502 a los 3,2 minutos, con la instancia despierta
+  //   (respondía en medio segundo justo después). Aquí reintentar es lo PEOR
+  //   que se puede hacer: la primera sigue viva y se lanza una segunda encima.
+  //   Es lo que hizo el cron del lunes, que escribió la tanda tres veces.
+  //
+  // El tiempo transcurrido separa los dos casos sin ambigüedad.
   if ([502, 503, 504].includes(res.status)) {
-    if (!opts.retriedOnWake) {
+    const segundos = (Date.now() - arrancoEn) / 1000;
+
+    if (segundos < 60 && !opts.retriedOnWake) {
       await wake();
       await new Promise((r) => setTimeout(r, 12000));
       return postJson<T>(url, body, { retriedOnWake: true });
     }
+
+    if (segundos >= 60) {
+      throw new ApiError(
+        `La conexión se cortó a los ${Math.round(segundos / 60)} minutos, pero el servidor puede seguir trabajando. ` +
+          "NO lo repitas todavía: lanzarías un segundo trabajo encima del primero y gastarías el doble. " +
+          "Espera y recarga la página para ver si aparece.",
+      );
+    }
+
     throw new ApiError(
-      "El servidor estaba despertando (plan gratis de Render). Espera ~30 segundos y vuelve a intentar."
+      "El servidor estaba despertando (plan gratis de Render). Espera ~30 segundos y vuelve a intentar.",
     );
   }
 
