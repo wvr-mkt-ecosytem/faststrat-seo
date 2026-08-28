@@ -1,0 +1,116 @@
+name: Escribir un artículo
+
+# Escribir vive aquí y no en el servidor web.
+#
+# En el plan gratuito de Render, escribir mata la instancia: el agente se come
+# la CPU, el health check deja de responder en 5 segundos, Render da el servicio
+# por caído y lo reinicia. El artículo muere con el reinicio. Medido: 502 a los
+# 3,2 minutos, y la alerta de Render diciendo "health check timed out after 5s".
+#
+# Actions tiene CPU de verdad y seis horas de margen. La lógica es la MISMA:
+# scripts/escribir.mjs importa lib/escribir.ts, que es lo que usa la ruta web.
+
+on:
+  workflow_dispatch:
+    inputs:
+      keyword:
+        description: "Keyword principal a posicionar"
+        required: false
+      topic:
+        description: "Tema o ángulo (si no hay keyword; el agente elige el título)"
+        required: false
+      title:
+        description: "Título exacto. Si se deja vacío, lo elige el agente"
+        required: false
+      lang:
+        description: "Idioma"
+        required: false
+        default: "en"
+        type: choice
+        options: ["en", "es"]
+      category:
+        description: "Categoría"
+        required: false
+        default: "SEO"
+      publishAt:
+        description: "Cuándo publicarlo, en ISO. Vacío = sin programar"
+        required: false
+      force:
+        description: "Escribir aunque el título se pise con algo que ya existe"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+jobs:
+  escribir:
+    runs-on: ubuntu-latest
+    # Escribir midió 23,8 minutos. El tope va holgado porque el agente puede
+    # tener que reintentar la corrección: quedarse corto aquí perdería el
+    # trabajo ya pagado, que es exactamente el problema que esto viene a
+    # resolver.
+    timeout-minutes: 90
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Hace falta el historial para poder commitear y empujar el resultado.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Escribir
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # El catálogo de títulos sale de WordPress: sin esto no se puede
+          # comprobar si el artículo nuevo se pisa con alguno de los 109 vivos.
+          WP_URL: ${{ secrets.WP_URL }}
+          WP_USER: ${{ secrets.WP_USER }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+          # Search Console, para la tendencia y las señales.
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+          # La configuración del cliente, para que el artículo no salga
+          # firmado ni escrito para la empresa equivocada.
+          CLIENTE_NOMBRE: ${{ vars.CLIENTE_NOMBRE }}
+          CLIENTE_DOMINIO: ${{ vars.CLIENTE_DOMINIO }}
+          CLIENTE_DOMINIO_APP: ${{ vars.CLIENTE_DOMINIO_APP }}
+          CLIENTE_AUTOR: ${{ vars.CLIENTE_AUTOR }}
+          CLIENTE_QUE_HACE: ${{ vars.CLIENTE_QUE_HACE }}
+        run: |
+          node scripts/escribir.mjs \
+            --keyword "${{ inputs.keyword }}" \
+            --topic "${{ inputs.topic }}" \
+            --title "${{ inputs.title }}" \
+            --lang "${{ inputs.lang }}" \
+            --category "${{ inputs.category }}" \
+            --publishAt "${{ inputs.publishAt }}" \
+            --force "${{ inputs.force }}"
+
+      - name: Guardar el artículo
+        # `always()` porque un choque de títulos sale con 0 y no escribe nada:
+        # en ese caso no hay que commitear, pero tampoco marcar el trabajo como
+        # fallido. Y si escribió y falló algo después, el artículo se guarda
+        # igual: perder 24 minutos de agente por un fallo posterior sería el
+        # peor intercambio posible.
+        if: always()
+        run: |
+          git config user.name  "${{ vars.CLIENTE_NOMBRE || 'Content' }} Bot"
+          git config user.email "bot@${{ vars.CLIENTE_DOMINIO || 'example.com' }}"
+          git add content/blog data || true
+          if git diff --cached --quiet; then
+            echo "No hay nada que guardar (o no se escribió, o ya estaba)."
+            exit 0
+          fi
+          git commit -m "[auto] artículo nuevo desde Actions"
+          # Rebase antes de empujar: entre que empezó el trabajo y termina, el
+          # sistema puede haber commiteado otra cosa desde Render.
+          git pull --rebase origin main
+          git push origin HEAD:main
