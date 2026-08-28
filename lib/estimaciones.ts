@@ -40,15 +40,32 @@ let pidiendo: Promise<void> | null = null
  * tienen que hacer dos peticiones para saber lo mismo.
  */
 export function useEstimacion(tarea: Tarea): Estimacion {
-  const [est, setEst] = useState<Estimacion>(cache?.[tarea] ?? POR_DEFECTO[tarea])
+  // El valor inicial se lee de la caché en el propio useState, no dentro del
+  // efecto. Llamar a setEst nada más entrar provoca un render encadenado —React
+  // avisa de ello— y además parpadea: pinta el valor por defecto y lo cambia al
+  // instante. Si ya está cacheado, se pinta bien a la primera.
+  const [est, setEst] = useState<Estimacion>(() => cache?.[tarea] ?? POR_DEFECTO[tarea])
 
   useEffect(() => {
-    if (cache) return setEst(cache[tarea])
+    if (cache) return
+    let vivo = true
     pidiendo ??= fetch('/api/duraciones')
       .then((r) => r.json())
-      .then((d) => { if (d?.estimaciones) cache = d.estimaciones })
-      .catch(() => { /* se queda el valor por defecto */ })
-    pidiendo.then(() => cache && setEst(cache[tarea]))
+      .then((d) => {
+        if (d?.estimaciones) cache = d.estimaciones
+      })
+      .catch(() => {
+        /* se queda el valor por defecto */
+      })
+    // El setState va en la respuesta de algo externo, que es justo para lo que
+    // sirve un efecto. `vivo` evita tocar el estado de un componente que ya se
+    // desmontó mientras la petición volvía.
+    pidiendo.then(() => {
+      if (vivo && cache) setEst(cache[tarea])
+    })
+    return () => {
+      vivo = false
+    }
   }, [tarea])
 
   return est
