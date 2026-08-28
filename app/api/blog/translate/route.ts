@@ -180,6 +180,7 @@ export const POST = apiRoute(async (request: NextRequest) => {
       keywordRationale: partes.keyword,
       wordCount: revisado.markdown.split(/\s+/).filter(Boolean).length,
       pendientes: revisado.pendientes.length ? revisado.pendientes : undefined,
+      quitadas: revisado.quitadas.length ? revisado.quitadas : undefined,
     });
   } catch (err: unknown) {
     return NextResponse.json(

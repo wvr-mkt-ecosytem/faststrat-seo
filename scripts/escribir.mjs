@@ -98,6 +98,13 @@ if (r.keywordTrend) console.log(`  demanda:     ${r.keywordTrend.direccion} ${r.
 if (r.diferencial) console.log(`  diferencial: ${r.diferencial.slice(0, 160)}`);
 if (r.pendientes?.length) console.log(`  pendientes:  ${r.pendientes.length} bloqueo(s) sin resolver`);
 
+// Lo que se quitó se DICE. Quitar un dato cambia lo que el artículo afirma, y
+// quien lo publica tiene derecho a saber qué desapareció.
+if (r.quitadas?.length) {
+  console.log(`  quitadas:    ${r.quitadas.length} cifra(s) sin fuente pública:`);
+  for (const q of r.quitadas) console.log(`     - ${q.slice(0, 90)}`);
+}
+
 if (r.publicacion) {
   console.log(
     r.publicacion.ok

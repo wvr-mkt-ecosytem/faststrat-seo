@@ -62,6 +62,8 @@ export type ResultadoEscribir =
       keywordRationale?: string;
       keywordTrend?: NonNullable<Awaited<ReturnType<typeof tendenciaEnVarios>>>;
       pendientes?: string[];
+      /** Cifras que hubo que quitar por no encontrarles fuente. Se dice. */
+      quitadas?: string[];
       /** Qué pasó al publicar, si se pidió. */
       publicacion?: { intentado: boolean; ok: boolean; estado?: string; link?: string; motivo?: string };
     }
@@ -453,6 +455,7 @@ La extensión la marca el tema, no una cuota. No hay mínimo de palabras.${conte
       keywordRationale: porqueKeyword,
       keywordTrend: trendKeyword ?? undefined,
       pendientes: revisado.pendientes.length ? revisado.pendientes : undefined,
+      quitadas: revisado.quitadas.length ? revisado.quitadas : undefined,
       wordCount: markdown.split(/\s+/).filter(Boolean).length,
     };
   } catch (err: unknown) {

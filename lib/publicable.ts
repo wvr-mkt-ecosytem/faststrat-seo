@@ -78,6 +78,31 @@ const NO_LO_ARREGLA_EDITANDO = new Set(["no-differentiator"]);
 const hayAlgoQueEditar = (qa: QaResult) =>
   qa.blocking.some((f) => !NO_LO_ARREGLA_EDITANDO.has(f.rule));
 
+/**
+ * El último recurso: quitar la cifra que no se pudo respaldar.
+ *
+ * Se llega aquí cuando el corrector ya BUSCÓ la fuente y no la encontró. La
+ * alternativa era dejar el artículo bloqueado para siempre: escrito, pagado, y
+ * sin poder salir. Un artículo sin ese número se publica; con él inventado, no.
+ *
+ * LO QUE NO PUEDE HACER, y es la mitad del trabajo: cambiar "el 12% de las
+ * PYMEs" por "muchas PYMEs" no es quitar la cifra, es esconderla. Deja la frase
+ * afirmando lo mismo sin nada que la respalde y encima sin nada que citar. Si
+ * la frase no se sostiene sin el número, la frase se va entera.
+ */
+const QUITAR_CIFRAS = `Estas cifras no tienen fuente pública y ya se buscó: no la hay. Quítalas para que el artículo pueda publicarse.
+
+CÓMO SE QUITA UNA CIFRA:
+- Reescribe la frase explicando el MECANISMO en vez del número. "El coste lo dominan las horas de configuración, no la licencia" dice algo útil; "el 12% del presupuesto" sin fuente, no.
+- Si la frase entera existía solo para soltar ese dato, bórrala. Un párrafo menos es mejor que un párrafo que afirma algo que nadie puede comprobar.
+
+PROHIBIDO, y es lo importante:
+- Sustituirla por una vaguedad: "muchas", "la mayoría", "un porcentaje significativo", "gran parte". Eso no quita la cifra, la esconde: la frase sigue afirmando lo mismo, ya sin nada que la respalde y sin nada que un lector recuerde.
+- Cambiar el número por otro que te parezca razonable. Un rango inventado es una estadística inventada con otro nombre.
+- Tocar las cifras que SÍ tienen su fuente enlazada al lado. Esas se quedan como están.
+
+No cambies el tema, el idioma ni la estructura. Devuelve el artículo entero.`;
+
 export interface ResultadoPublicable {
   markdown: string;
   qa: QaResult;
@@ -85,6 +110,13 @@ export interface ResultadoPublicable {
   pasadas: number;
   /** Lo que quedó sin resolver, dicho en vez de callado. */
   pendientes: string[];
+  /**
+   * Cifras que hubo que quitar porque no se les encontró fuente.
+   *
+   * Se dice, no se calla. Quitar un dato cambia lo que el artículo afirma, y
+   * quien lo publica tiene derecho a saber qué desapareció.
+   */
+  quitadas: string[];
 }
 
 /**
@@ -181,10 +213,56 @@ ${texto}
     qa = nuevoQa;
   }
 
+  // Último recurso: si lo único que bloquea son cifras sin fuente, se quitan.
+  //
+  // Antes el artículo se quedaba aquí para siempre: escrito, pagado y sin poder
+  // salir. El corrector ya buscó la fuente en las pasadas anteriores y no la
+  // encontró, así que insistir no va a cambiar nada; lo que queda es decidir
+  // entre publicarlo sin ese número o no publicarlo.
+  const quitadas: string[] = [];
+  const soloCifras = qa.blocking.length > 0 && qa.blocking.every((f) => f.rule === "figure-without-source");
+
+  if (soloCifras) {
+    try {
+      const raw = await runClaude({
+        model: "sonnet",
+        system: SISTEMA,
+        prompt: `Título: "${title}"
+
+${QUITAR_CIFRAS}
+
+CIFRAS A QUITAR:
+${listar(qa)}
+
+ARTÍCULO:
+---
+${texto}
+---`,
+      });
+      const limpio = extraer(raw);
+      if (limpio) {
+        const sinRayas = CASA.noEmDash ? barrerRayas(limpio) : limpio;
+        const nuevoQa = evaluar(sinRayas);
+        // Solo se acepta si de verdad quedan MENOS bloqueos. Un "arreglo" que
+        // no arregla se descarta, como en el resto del bucle.
+        if (nuevoQa.blocking.length < qa.blocking.length) {
+          quitadas.push(...qa.blocking.map((f) => f.detail));
+          texto = sinRayas;
+          qa = nuevoQa;
+          pasadas++;
+        }
+      }
+    } catch {
+      // Si falla, el artículo se queda como estaba y bloqueado. Es el
+      // comportamiento de antes: peor, pero no peor de lo que era.
+    }
+  }
+
   return {
     markdown: texto,
     qa,
     pasadas,
     pendientes: qa.blocking.map((f) => f.detail),
+    quitadas,
   };
 }
