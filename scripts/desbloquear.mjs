@@ -80,6 +80,8 @@ console.log(`  pasadas del agente:  ${r.pasadas}`);
 console.log(`  cifras quitadas:     ${r.quitadas.length}`);
 for (const q of r.quitadas) console.log(`     - ${q.slice(0, 80)}`);
 for (const b of r.qa.blocking) console.log(`  sigue bloqueando: ${b.detail.slice(0, 80)}`);
+for (const f of r.fallos) console.log(`  EL AGENTE FALLÓ: ${f}`);
+for (const d of r.destrozos) console.log(`  descartado por mutilar: ${d}`);
 
 // Que no se haya colado una vaguedad al quitar las cifras. Es la comprobación
 // que importa: sustituir "el 12%" por "muchas" no quita la cifra, la esconde.

@@ -161,6 +161,15 @@ export interface ResultadoPublicable {
    * borrando medio texto y se le paró.
    */
   destrozos: string[];
+  /**
+   * Por qué falló el agente, si falló.
+   *
+   * Antes el error se perdía en un catch vacío y el resultado decía "0 pasadas"
+   * después de cinco minutos: indistinguible de no haberlo intentado. Un límite
+   * de sesión, un corte de red y un error de programación necesitan respuestas
+   * distintas, y sin el mensaje no se sabe cuál es.
+   */
+  fallos: string[];
 }
 
 /**
@@ -206,6 +215,8 @@ export async function dejarPublicable(
   let pasadas = 0;
   /** Correcciones descartadas por mutilar el artículo. Se cuentan y se dicen. */
   const destrozos: string[] = [];
+  /** Por qué reventó el agente, si reventó. Un fallo mudo no se puede diagnosticar. */
+  const fallos: string[] = [];
 
   while (!qa.ok && pasadas < max && hayAlgoQueEditar(qa)) {
     let siguiente: string | null = null;
@@ -240,8 +251,13 @@ ${texto}
 ---`,
       });
       siguiente = extraer(raw);
-    } catch {
-      // Si el agente falla (límite de sesión, red), se guarda lo que haya.
+    } catch (e) {
+      // Se APUNTA por qué falló. Antes el catch se lo tragaba y el resultado
+      // decía "0 pasadas del agente" tras cinco minutos y medio: parecía que no
+      // había intentado nada, cuando había intentado y reventado. Sin el motivo
+      // no se puede distinguir un límite de sesión de un fallo de red o de un
+      // error de programación.
+      fallos.push(`corrigiendo: ${(e as Error).message}`.slice(0, 200));
       break;
     }
 
@@ -314,9 +330,9 @@ ${texto}
           pasadas++;
         }
       }
-    } catch {
-      // Si falla, el artículo se queda como estaba y bloqueado. Es el
-      // comportamiento de antes: peor, pero no peor de lo que era.
+    } catch (e) {
+      // Igual que arriba: el motivo se apunta, no se pierde.
+      fallos.push(`quitando cifras: ${(e as Error).message}`.slice(0, 200));
     }
   }
 
@@ -327,5 +343,6 @@ ${texto}
     pendientes: qa.blocking.map((f) => f.detail),
     quitadas,
     destrozos,
+    fallos,
   };
 }
