@@ -1,0 +1,228 @@
+{
+  "weekOf": "2026-08-31",
+  "generatedAt": "2026-08-31T20:35:22.026Z",
+  "source": "auto-weekly",
+  "summary": "10 ideas anchored in the fastest-rising GSC signals — WhatsApp agentic commerce, GEO citation monitoring, and LATAM AI adoption — each with a fresh angle that avoids every published or proposed title, backed by live competitor and trend research.",
+  "research": {
+    "competitors": [
+      "Jasper, Copy.ai, and HubSpot Breeze continue flooding the 'best AI content tools 2026' SERP with broadly similar listicles; none produce LATAM-specific content, WhatsApp agentic commerce guides, or Spanish-language testing — a sustained gap FastStrat can own.",
+      "For 'headlines that convert,' the SERP is dominated by generic copywriting blogs (GoGoChimp, ToolsForWriting, TrySight) covering psychological frameworks in the abstract — none connect those frameworks to AI prompt generation or channel-specific 2026 conversion benchmarks.",
+      "The 'landing page cost' autocomplete gap is unaddressed by any major player: top results are agency sites with self-serving pricing or optimization checklists; no AI-tools-first cost breakdown exists for a decision-stage SMB buyer.",
+      "GEO monitoring tools (Brandi AI, Otterly.AI, Gauge, Conductor) publish product-led content targeting enterprise teams with four-figure monthly budgets — no SMB-accessible, sub-$100/month citation monitoring playbook has a real owner in the SERP."
+    ],
+    "trends": [
+      "Agentic AI goes mainstream for SMBs in 2026: tools now autonomously monitor leads, trigger email sequences, and optimize spend without per-prompt human input; Digiday/Glossy research identifies agentic AI as the #1 shift reshaping SMB marketing stacks this year.",
+      "GEO/AEO investment is accelerating fast — enterprises allocated 12% of digital marketing budgets to GEO/AEO in 2025, with 94% planning increases in 2026; SMBs are just entering this discipline and urgently need affordable monitoring workflows.",
+      "Agentic commerce on WhatsApp is a LATAM breakout: Brazil's CADE ruling (March 2026) opens WhatsApp to third-party AI agents, unlocking an $18.2B conversational commerce market growing at 35%/year and 400M+ regional users.",
+      "AI citation monitoring is becoming a mandatory marketing KPI — tracking brand mentions inside ChatGPT, Gemini, and Perplexity answers is now treated the way Google rank tracking was in 2018; brands without a monitoring routine are invisible to a growing share of buyers.",
+      "AI-powered A/B headline testing is reshaping copywriting at scale: 2026 benchmarks show odd-number specificity and curiosity-gap formulas outperform generic headlines by 17–30%; SMB marketers are generating and testing variants with AI prompts rather than manual iteration."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "WhatsApp vs SMS Marketing for LATAM SMBs in 2026: Open Rates, Conversion Data, and Which Channel Actually Wins",
+      "slug": "whatsapp-vs-sms-marketing-latam-smbs-2026-open-rates",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "whatsapp vs sms marketing for small business 2026",
+      "intent": "Commercial investigation — deciding between messaging channels before committing budget to automation",
+      "rationale": "Differentiates from 'Mejores BSP de WhatsApp para LATAM en 2026' (published — platform selection) and 'WhatsApp Business API Pricing' (published — cost focus) by answering an earlier, different question: which channel delivers better ROI at all, using LATAM-specific open rate and conversion benchmarks neither existing article touches.",
+      "keywordRationale": "Someone searching this comparison has already decided to invest in messaging automation and is choosing where to put the budget — not which provider to use, but which channel wins. Existing results mix generic SMS marketing guides with brand-agnostic overviews; a LATAM-benchmarked piece citing 98% WhatsApp open rates and 45–60% conversion rates against SMS baselines wins on specificity and gives a decisive answer no current result provides.",
+      "outline": [
+        "H2 1: The State of WhatsApp and SMS Adoption in LATAM in 2026 — Numbers by Country",
+        "H2 2: Open Rates, Click-Through Rates, and Conversion Data Compared Head-to-Head",
+        "H2 3: Cost Per Message — WhatsApp Business API vs. SMS Carriers Across LATAM Markets",
+        "H2 4: Which Channel Fits Which SMB Use Case (Lead Nurturing, Promos, Re-engagement, Support)",
+        "H2 5: How to Build a Dual-Channel Sequence That Gets the Best of Both Worlds"
+      ]
+    },
+    {
+      "title": "AI Website Audit Tool with Scorecard: The SMB Self-Audit Guide for 2026",
+      "slug": "ai-website-audit-tool-scorecard-smb-self-audit-guide-2026",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "ai website audit tool with scorecard",
+      "intent": "Tool and process discovery — high commercial intent, wants a structured evaluation framework or downloadable template",
+      "rationale": "No prior FastStrat coverage exists for this query; the GSC signal already lands at position 6.1 with 30 impressions, meaning traffic is accumulating with no published page to capture it — an immediate, low-competition opportunity.",
+      "keywordRationale": "Someone typing 'ai website audit tool with scorecard' wants a structured output — either a tool that runs the audit automatically or a scorecard template to do it themselves. The current SERP is dominated by general platforms (Semrush, Ahrefs) without an SMB-friendly scorecard format or action-priority framework; a practical guide pairing AI tools with a printable five-category scorecard matches the intent better than any existing result and wins on specificity.",
+      "outline": [
+        "H2 1: Why a Scorecard-Based Audit Beats a Generic SEO Scan for SMBs",
+        "H2 2: The 5-Category SMB Website Audit Scorecard (Speed, On-Page SEO, GEO Readiness, CRO, Content Quality)",
+        "H2 3: Best AI Website Audit Tools in 2026 — Free and Paid Options Compared",
+        "H2 4: How to Complete Your Full Audit in Under 2 Hours, Step by Step",
+        "H2 5: What to Fix First — Prioritizing Your Scorecard Findings for Maximum ROI"
+      ]
+    },
+    {
+      "title": "Agentic Commerce on WhatsApp: How LATAM SMBs Can Deploy an AI Sales Agent in 2026",
+      "slug": "agentic-commerce-whatsapp-how-latam-smbs-can-deploy-ai-sales",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "whatsapp ai sales agent small business latam 2026",
+      "intent": "Informational/Commercial — wants implementation steps for deploying an AI agent on WhatsApp, not channel strategy theory",
+      "rationale": "Differentiates from 'WhatsApp as a Sales Funnel: How Mexican SMBs Close Deals Inside Conversations' (proposed — strategy overview) and all BSP/pricing pieces (published — platform selection) by being the only implementation guide for building an AI sales agent on WhatsApp after CADE's March 2026 ruling opened third-party agents in LATAM — a genuinely new capability with no incumbent SMB content.",
+      "keywordRationale": "Post-CADE 2026, LATAM SMBs can deploy third-party AI agents inside WhatsApp for the first time, but someone searching around this topic can't find step-by-step guidance for their budget or technical level. Existing results cover enterprise implementations or generic chatbot setups; an SMB-targeted deployment guide with no-code options and LATAM BSP context answers a question no current result addresses and captures the rising WhatsApp BSP demand signal with a meaningfully different angle.",
+      "outline": [
+        "H2 1: What the CADE 2026 Ruling Actually Means for SMBs Selling on WhatsApp",
+        "H2 2: AI Sales Agent vs. WhatsApp Chatbot — What the Difference Costs You in Lost Revenue",
+        "H2 3: Choosing the Right BSP and AI Layer for Your Use Case and Budget",
+        "H2 4: Step-by-Step — Building Your First WhatsApp AI Sales Flow (No-Code Options Included)",
+        "H2 5: How to Measure Your Agent's Revenue Impact — KPIs and 2026 LATAM Benchmarks"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "How Much Does a Landing Page Cost in 2026? DIY AI vs. Freelancer vs. Agency Breakdown",
+      "slug": "how-much-does-landing-page-cost-2026-diy-ai-vs-freelancer-vs",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "landing page cost 2026",
+      "intent": "Commercial — evaluating build options and setting a budget before making a hiring or purchasing decision",
+      "rationale": "Differentiates from 'The Ultimate Landing Page Checklist for 2026: 47 Elements That Actually Convert' (published — optimization content) and 'Marketing Agency vs. DIY AI Tools: The Real Cost Breakdown for SMBs' (published — broad comparison) by focusing exclusively on landing page production cost as a standalone commercial-intent query that the autocomplete data confirms is an unaddressed gap.",
+      "keywordRationale": "The 'landing page cost' autocomplete branches off our high-impression 'landing page checklist' traffic — the person already knows what a landing page is and needs to budget before hiring or building. Current top results are agency sites with self-serving pricing or outdated freelance rate cards; a transparent, AI-tools-first cost breakdown with real 2026 numbers wins credibility and captures a decision-stage buyer that our checklist article brings to the door but currently has nowhere to send.",
+      "outline": [
+        "H2 1: The True Cost Range in 2026 — From $0 (DIY AI) to $10,000+ (Agency)",
+        "H2 2: AI Landing Page Builders — Real Costs, Capabilities, and What You Still Have to Do Yourself",
+        "H2 3: Freelancer Rates for Landing Pages in 2026 — Upwork, Fiverr, and LATAM Talent Markets",
+        "H2 4: Agency Pricing Demystified — What You're Actually Paying For (and When It's Worth It)",
+        "H2 5: Which Option Fits Your SMB Budget, Timeline, and Conversion Goals?"
+      ],
+      "trend": {
+        "direccion": "baja",
+        "cambioAnual": -59,
+        "nivelActual": 28
+      }
+    },
+    {
+      "title": "GEO Citation Monitoring for SMBs in 2026: How to Track Whether ChatGPT, Gemini, and Perplexity Are Recommending You",
+      "slug": "geo-citation-monitoring-smbs-2026-how-track-whether-chatgpt",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "geo citation monitoring small business 2026",
+      "intent": "Informational/Commercial — wants to know if they appear in AI-generated answers and how to improve their citation frequency",
+      "rationale": "Differentiates from 'Best GEO Tools for Small Businesses in 2026' (proposed — one-time tool selection) and '2026 GEO Readiness Audit' (proposed — initial setup) by addressing ongoing monitoring as a distinct, repeatable discipline — the phase that comes after optimization, when you need to measure whether it's actually working.",
+      "keywordRationale": "A business owner searching around GEO tools in 2026 is past 'what is GEO' and is now asking 'am I showing up in AI answers?' — that monitoring workflow is poorly documented for non-enterprise budgets. Existing content from Brandi AI, Conductor, and Gauge targets teams spending $500+/month on tools; an SMB-accessible citation monitoring playbook with free and sub-$100 options has no real owner in the SERP and captures the 'best geo seo tools for small business 2026' signal at pos 16.2.",
+      "outline": [
+        "H2 1: Why Citation Monitoring Is the New Rank Tracking — and What It Costs to Ignore It in 2026",
+        "H2 2: The 4 AI Search Engines Every SMB Must Monitor (ChatGPT, Gemini, Perplexity, Copilot)",
+        "H2 3: Best GEO Monitoring Tools for SMBs — Otterly.AI, Gauge, Brandi AI, and Affordable Alternatives",
+        "H2 4: How to Read Your AI Citation Score and Diagnose Why You're Being Skipped",
+        "H2 5: The Monthly GEO Monitoring Routine for a One-Person Marketing Team"
+      ]
+    },
+    {
+      "title": "Claude vs ChatGPT vs Gemini for Marketing in 2026: The Three-Way SMB Benchmark",
+      "slug": "claude-vs-chatgpt-vs-gemini-marketing-2026-three-way-smb",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "claude vs chatgpt vs gemini for marketing 2026",
+      "intent": "Commercial investigation — choosing an AI model for marketing before committing to a paid plan",
+      "rationale": "Differentiates from 'Claude vs ChatGPT for Marketing in 2026: Which AI Wins for Small Businesses in 2026?' (proposed — binary comparison) by adding Gemini as the third contender that SMBs are actually evaluating in 2026, making this the more comprehensive and more linkable benchmark that outcompetes every existing binary piece on completeness.",
+      "keywordRationale": "Someone comparing these models for marketing is already advanced — they've tested at least one tool and want a structured verdict before spending. Current results are either binary Claude vs ChatGPT comparisons or generic AI tool roundups without marketing-specific task testing; a three-way benchmark with actual marketing prompts (ad copy, email sequences, blog outlines, SEO briefs) and SMB pricing context delivers a more complete and credible answer than anything currently ranking — capturing 254 impressions stuck at position 38.6.",
+      "outline": [
+        "H2 1: How We Tested — Marketing Tasks, Prompts, and Scoring Criteria",
+        "H2 2: Content Creation Showdown — Blog Posts, Ad Copy, and Email Sequences Compared",
+        "H2 3: SEO, Keyword Research, and GEO Content Capabilities Across All Three Models",
+        "H2 4: Pricing vs. Output Quality — The SMB Value Calculation for Each Tool",
+        "H2 5: The Verdict — Which AI Model Should Your SMB Use for Which Marketing Task?"
+      ],
+      "trend": {
+        "direccion": "sube",
+        "cambioAnual": 100,
+        "nivelActual": 8
+      }
+    },
+    {
+      "title": "SMB Email Marketing in 2026: Cold Outreach vs. Newsletter vs. Automated Drip — Which Type Drives More Revenue?",
+      "slug": "smb-email-marketing-2026-cold-outreach-vs-newsletter-vs",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "smb email marketing strategy 2026",
+      "intent": "Informational with commercial undertone — deciding which email approach to invest in before choosing tools or sequences",
+      "rationale": "Differentiates from '7 Best AI Email Marketing Tools for Small Businesses in 2026' (proposed — tool selection), 'AI Email Marketing Automation for Small Businesses in 2026: 7 Sequences That Drive Real Revenue' (proposed — automation sequences), and '5 Signs Your SMB Email Strategy Needs AI in 2026' (proposed — diagnostic) by targeting the strategic comparison layer — which email type wins on ROI — a decision that comes before tool selection or sequence design.",
+      "keywordRationale": "An SMB owner searching 'smb emails' or adjacent terms in 2026 often conflates cold outreach, newsletters, and automated drips as a single category — the real underlying question is which type deserves investment at their current business stage. Existing content either sells email tools or explains individual formats in isolation; a revenue-comparison framework for all three archetypes with 2026 benchmark data gives an answer that no current SERP result delivers, and positions FastStrat as the strategic advisor before the buyer reaches tool comparison pages.",
+      "outline": [
+        "H2 1: The Three Email Types SMBs Are Actually Running in 2026 — and the Confusion That Costs Them Revenue",
+        "H2 2: Cold Outreach in 2026 — Open Rates, Reply Rates, and What AI Personalization Actually Changes",
+        "H2 3: Newsletter ROI for SMBs — The Real Numbers Behind Owned Audience Building",
+        "H2 4: Automated Drip Sequences — Revenue Per Subscriber Benchmarks and the Right Triggers",
+        "H2 5: How to Choose — and Combine — the Right Email Strategy for Your Business Stage"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Headline Formulas That Actually Convert in 2026: AI-Tested Copy Psychology for SMB Marketers",
+      "slug": "headline-formulas-actually-convert-2026-ai-tested-copy",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "headlines that convert for small business 2026",
+      "intent": "Informational — practitioner wants battle-tested formulas ready to deploy immediately across landing pages, ads, and email subject lines",
+      "rationale": "No prior FastStrat coverage; differentiates from 'The SMB Marketer's Prompt Engineering Playbook' (published — broad prompt strategy) and 'Brand Storytelling Playbook: 5 Lessons Small Businesses Can Steal from Nike, Apple & Patagonia' (proposed — narrative/branding) by focusing on headline psychology as a specific, high-frequency conversion task, paired with the 2026 angle of AI-generated A/B testing at scale.",
+      "keywordRationale": "Someone searching 'headlines that convert' is a practitioner — copywriter, SMB owner, or paid ads manager — who needs formulas ready to deploy right now, not a deep dive into brand strategy. Current top results (GoGoChimp, ToolsForWriting, TrySight) cover psychological frameworks in the abstract without connecting them to AI prompt generation or 2026 channel-specific data; pairing proven triggers like curiosity gaps and odd-number specificity with ready-to-use AI prompts gives a double payoff that no existing result delivers.",
+      "outline": [
+        "H2 1: Why Most SMB Headlines Fail — The 3 Patterns AI Testing Has Exposed in 2026",
+        "H2 2: The 7 Headline Formulas That Consistently Outperform (With AI Prompts to Generate Each One)",
+        "H2 3: How to A/B Test Headlines at Scale Using AI — Without a Data Science Team",
+        "H2 4: Headlines by Channel — Landing Pages, Email Subject Lines, Social Ads, and Meta Descriptions",
+        "H2 5: Real SMB Before-and-After Examples With Measured Conversion Lift"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "How to Run Your Own SEO Analysis in 2026: A Step-by-Step Guide for Small Business Owners",
+      "slug": "how-run-your-own-seo-analysis-2026-step-by-step-guide-small",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "how to run seo analysis for small business 2026",
+      "intent": "Informational/DIY — business owner wants to audit their own site without hiring an agency or understanding technical jargon",
+      "rationale": "Differentiates from 'Best SEO Tools for Small Businesses in 2026: Honest Reviews & Pricing' (published — tool reviews with pricing) and 'GA4 Setup for Small Businesses in 2026: Step-by-Step Guide' (published — analytics configuration) by being a process-first audit guide — the 'how to do the full analysis' step-by-step that neither existing article provides.",
+      "keywordRationale": "The exact GSC query 'online seo analysis in 2026 the business owner's complete guide' at position 6.2 signals someone who wants a full sequential walkthrough, not a tool comparison or a glossary. Existing top results are either agency service pages selling audit engagements or generic tool roundups selling software; a jargon-free, step-by-step process written for non-technical owners matches this stated intent more precisely than any current result and captures a searcher ready to act.",
+      "outline": [
+        "H2 1: What a Real SEO Analysis Actually Covers in 2026 — and What Most Guides Conveniently Skip",
+        "H2 2: Technical SEO Audit — 10 Checks You Can Run for Free Right Now",
+        "H2 3: Content and Keyword Gap Analysis — How to Find What Your Competitors Are Winning",
+        "H2 4: GEO Readiness Check — Are You Visible in AI Search Results as Well as Google?",
+        "H2 5: Building a 90-Day Fix Plan from Your Audit Findings"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "The 5 Best Free AI Marketing Tools for Mexican Small Businesses in 2026 (Tested in Spanish)",
+      "slug": "5-best-free-ai-marketing-tools-mexican-small-businesses-2026",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "free ai marketing tools for mexican small business 2026",
+      "intent": "Informational/Commercial — budget-constrained Mexican SMB owner at the start of their AI adoption journey, looking for zero-risk entry points",
+      "rationale": "Differentiates from 'How Small Businesses in Mexico Are Using AI to Compete in 2026' (proposed — adoption data and case studies) and all broad AI tool roundups by combining three specific angles no proposed or published piece covers simultaneously: country specificity (Mexico), budget constraint (free tier only), and language quality (tested with Spanish prompts for LATAM audiences).",
+      "keywordRationale": "A Mexican PYME owner searching 'pymes en mexico 2026' alongside AI topics is early in adoption — they want affordable or free tools that actually work in Spanish, not a list built for US English audiences. The query is rising +100% YoY, signaling growing intent with limited existing supply. Current content targets enterprise teams or English-speaking markets; a free-tier-focused guide tested with Spanish-language prompts and realistic PYME use cases (WhatsApp content, local SEO, social captions) is the only result that speaks directly to their budget and language reality.",
+      "outline": [
+        "H2 1: Why Mexican PYMEs Are Adopting AI Marketing Faster Than the LATAM Average in 2026",
+        "H2 2: Best Free AI Tools for Social Media Content and Copywriting in Spanish",
+        "H2 3: Free AI SEO Tools That Work for Local Mexican Business Directories",
+        "H2 4: Free WhatsApp and Email Automation Options for PYMEs Starting at Zero Budget",
+        "H2 5: How to Build a Full AI Marketing Stack for Under $50/Month Once You're Ready to Scale"
+      ],
+      "trend": {
+        "direccion": "sube",
+        "cambioAnual": 100,
+        "nivelActual": 8
+      }
+    }
+  ]
+}
