@@ -98,6 +98,25 @@ export async function postJson<T = unknown>(
     );
   }
 
+  // Un "no tienes permiso" NUNCA se reintenta, así que nunca se disfraza.
+  //
+  // El proxy contesta 401 en texto plano, no en JSON, así que caía en el
+  // JSON.parse de más abajo y salía por pantalla como "reintenta en unos
+  // segundos". El botón Escribir llevaba así desde que se quitó el login: el
+  // usuario esperaba treinta segundos y volvía a intentarlo, para siempre,
+  // mientras el problema era una variable sin poner en el servidor.
+  //
+  // Un error que se puede resolver y uno que solo se puede esperar no pueden
+  // dar el mismo mensaje.
+  if (res.status === 401 || res.status === 403) {
+    const detalle = (await res.text()).trim().slice(0, 300);
+    throw new ApiError(
+      `El servidor rechazó la acción por permisos (HTTP ${res.status}). ` +
+        `Esto no se arregla reintentando. ${detalle || ""} ` +
+        `Si el panel debe funcionar sin login, falta ACCIONES_PUBLICAS=true en el servidor.`,
+    );
+  }
+
   const text = await res.text();
   if (!text) {
     throw new ApiError(
