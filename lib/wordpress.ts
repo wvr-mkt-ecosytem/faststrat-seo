@@ -64,7 +64,7 @@ async function ensureCategory(cfg: WpConfig, name: string): Promise<number> {
 
 /** Devuelve el post existente con ese slug, o null. */
 async function findBySlug(cfg: WpConfig, slug: string) {
-  const found = await wpFetch(cfg, `posts?slug=${encodeURIComponent(slug)}&status=any`);
+  const found = await wpFetch(cfg, `posts?slug=${encodeURIComponent(slug)}&status=${estadosQueSirven ?? "publish"}`);
   return Array.isArray(found) && found.length > 0 ? found[0] : null;
 }
 
@@ -109,6 +109,41 @@ async function uploadMedia(
  * quedarse sin catálogo no puede impedir escribir, pero sí tiene que constar,
  * porque una comprobación que falla en silencio se lee como una que pasó.
  */
+
+// Qué estados puede consultar esta credencial.
+//
+// `status=any` es lo que documenta WordPress, pero el sitio lo rechaza con
+// "Invalid parameter(s): status" y un 400 —no un 401— porque el usuario de la
+// contraseña de aplicación no tiene permiso para leer borradores. Comprobado
+// uno por uno: publish responde 200 y draft, future, pending y private dan 400.
+//
+// El efecto era peor que un fallo ruidoso: listar devolvía CERO artículos y la
+// comprobación de canibalización seguía adelante comparando solo lo local. El
+// aviso decía "no se pudo listar WordPress" en una esquina y el sistema daba
+// vía libre a un título que ya existía publicado.
+//
+// Ahora se prueba `any` y, si el sitio lo rechaza, se cae a `publish`: en un
+// sitio con permisos completos se sigue viendo todo, y en este se ve al menos
+// lo publicado, que es contra lo que de verdad hay que no chocar.
+let estadosQueSirven: string | null = null;
+
+async function conEstados(
+  cfg: Parameters<typeof wpFetch>[0],
+  ruta: (estado: string) => string,
+): Promise<unknown> {
+  if (estadosQueSirven) return wpFetch(cfg, ruta(estadosQueSirven));
+  try {
+    const r = await wpFetch(cfg, ruta("any"));
+    estadosQueSirven = "any";
+    return r;
+  } catch (e) {
+    if (!/Invalid parameter\(s\): status/.test((e as Error).message)) throw e;
+    const r = await wpFetch(cfg, ruta("publish"));
+    estadosQueSirven = "publish";
+    return r;
+  }
+}
+
 export async function listarTitulos(): Promise<{
   posts: { title: string; slug: string; status: string }[];
   error: string | null;
@@ -123,10 +158,10 @@ export async function listarTitulos(): Promise<{
   const posts: { title: string; slug: string; status: string }[] = [];
   try {
     for (let page = 1; page <= 20; page++) {
-      const list = await wpFetch(
+      const list = (await conEstados(
         cfg,
-        `posts?per_page=100&page=${page}&status=any&_fields=title,slug,status`,
-      );
+        (e) => `posts?per_page=100&page=${page}&status=${e}&_fields=title,slug,status`,
+      )) as { title?: { rendered?: string }; slug?: string; status?: string }[];
       if (!Array.isArray(list) || list.length === 0) break;
       for (const p of list) {
         // WordPress devuelve el título con entidades HTML (&amp;, &#8217;).
@@ -180,7 +215,7 @@ export async function getPublishStatuses(
     for (let page = 1; page <= 20; page++) {
       const list = await wpFetch(
         cfg,
-        `posts?per_page=100&page=${page}&status=any&_fields=slug,status,link`
+        `posts?per_page=100&page=${page}&status=${estadosQueSirven ?? "publish"}&_fields=slug,status,link`
       );
       if (!Array.isArray(list) || list.length === 0) break;
       for (const p of list) {
@@ -373,7 +408,7 @@ export async function publishPost(input: PublishInput): Promise<PublishResult> {
   let confirmedStatus = saved.status as string;
   let confirmedLink = saved.link as string;
   try {
-    const check = await wpFetch(cfg, `posts/${saved.id}?status=any&_fields=status,link`);
+    const check = await wpFetch(cfg, `posts/${saved.id}?_fields=status,link`);
     confirmedStatus = check.status ?? confirmedStatus;
     confirmedLink = check.link ?? confirmedLink;
   } catch {
