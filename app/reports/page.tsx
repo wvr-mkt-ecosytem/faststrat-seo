@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Markdown } from "@/components/Markdown"
 import Link from 'next/link'
 import {
   Loader2, Check, AlertCircle, ExternalLink,
@@ -551,6 +552,56 @@ function AnalisisSemanal() {
   // consulta.
   const [titulo, setTitulo] = useState<Record<string, TituloEstado>>({})
 
+  // Qué recomendaciones ya están resueltas, y cuál se está resolviendo ahora.
+  //
+  // El informe repite semana a semana lo que sigue sin hacerse, que es
+  // correcto, pero sin memoria no se distingue "sigue pendiente" de "esto ya lo
+  // hice y el analista no se enteró". Ocho recomendaciones idénticas cada lunes
+  // es como se deja de leer un informe.
+  const [aplicadas, setAplicadas] = useState<Record<string, { como: string; detalle?: string }>>({})
+  const [enCurso, setEnCurso] = useState<string | null>(null)
+  const [fallo, setFallo] = useState<Record<string, string>>({})
+
+  useEffect(() => {
+    fetch('/api/reports/aplicar')
+      .then((r) => r.json())
+      .then((d) => {
+        const m: Record<string, { como: string; detalle?: string }> = {}
+        for (const a of d.aplicadas ?? []) m[`${a.informe}#${a.indice}`] = { como: a.como, detalle: a.detalle }
+        setAplicadas(m)
+      })
+      .catch(() => {})
+  }, [])
+
+  async function resolver(indice: number, accion: string) {
+    if (!actual) return
+    const clave = `${actual.generadoEn}#${indice}`
+    setEnCurso(clave)
+    setFallo((f) => ({ ...f, [clave]: '' }))
+    try {
+      const r = await fetch('/api/reports/aplicar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ informe: actual.generadoEn, indice, accion }),
+      })
+      const d = await r.json()
+      if (!r.ok) {
+        // El "cómo arreglarlo" se enseña junto al error, no en la consola: el
+        // caso más probable es un permiso que falta en WordPress, y eso se
+        // resuelve en dos clics si alguien te dice dónde.
+        setFallo((f) => ({ ...f, [clave]: [d.error, d.comoArreglarlo].filter(Boolean).join(' ') }))
+        return
+      }
+      const m: Record<string, { como: string; detalle?: string }> = {}
+      for (const a of d.aplicadas ?? []) m[`${a.informe}#${a.indice}`] = { como: a.como, detalle: a.detalle }
+      setAplicadas(m)
+    } catch (e) {
+      setFallo((f) => ({ ...f, [clave]: e instanceof Error ? e.message : String(e) }))
+    } finally {
+      setEnCurso(null)
+    }
+  }
+
   async function pedirTitulo(clave: string, path: string, propuesto: string, aplicar = false) {
     setTitulo((t) => ({ ...t, [clave]: { ...(t[clave] ?? { propuesto }), cargando: true, propuesto } }))
     try {
@@ -678,8 +729,8 @@ function AnalisisSemanal() {
       )}
 
       {actual?.report && (
-        <div className="text-[13px] text-ink leading-relaxed whitespace-pre-wrap border-t border-maroon/10 pt-3">
-          {actual.report}
+        <div className="border-t border-maroon/10 pt-3">
+          <Markdown texto={actual.report} />
         </div>
       )}
 
@@ -713,6 +764,61 @@ function AnalisisSemanal() {
                 <span className="text-sand">Qué hacer: </span>{r.suggestion}
               </p>
               <p className="text-[11px] font-mono text-maroon mt-1">{r.evidence}</p>
+
+              {(() => {
+                const clave = `${actual?.generadoEn}#${i}`
+                const ya = aplicadas[clave]
+                const trabajando = enCurso === clave
+                const err = fallo[clave]
+
+                if (ya) {
+                  const etiqueta =
+                    ya.como === 'aplicada' ? 'Aplicada' : ya.como === 'hecha-a-mano' ? 'Hecha a mano' : 'Descartada'
+                  return (
+                    <div className="mt-2 flex items-center gap-2 flex-wrap">
+                      <span className="text-[11px] px-2 py-0.5 rounded bg-green-900/10 text-green-900">{etiqueta}</span>
+                      {ya.detalle && <span className="text-[11px] text-sand">{ya.detalle}</span>}
+                      <button
+                        onClick={() => resolver(i, 'reabrir')}
+                        className="text-[11px] text-sand underline decoration-dotted hover:text-maroon"
+                      >
+                        Reabrir
+                      </button>
+                    </div>
+                  )
+                }
+
+                return (
+                  <div className="mt-2 flex flex-col gap-1">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {r.kind === 'consolidate' && (
+                        <button
+                          disabled={trabajando}
+                          onClick={() => resolver(i, 'aplicar')}
+                          className="text-[11px] font-medium px-2.5 py-1 rounded bg-maroon/10 text-maroon hover:bg-maroon/20 disabled:opacity-50"
+                        >
+                          {trabajando ? 'Aplicando…' : 'Aplicar el 301'}
+                        </button>
+                      )}
+                      <button
+                        disabled={trabajando}
+                        onClick={() => resolver(i, 'hecha-a-mano')}
+                        className="text-[11px] px-2.5 py-1 rounded border border-maroon/20 text-sand hover:text-maroon disabled:opacity-50"
+                      >
+                        Ya está hecha
+                      </button>
+                      <button
+                        disabled={trabajando}
+                        onClick={() => resolver(i, 'descartada')}
+                        className="text-[11px] px-2.5 py-1 rounded border border-maroon/20 text-sand hover:text-maroon disabled:opacity-50"
+                      >
+                        No la voy a hacer
+                      </button>
+                    </div>
+                    {err && <p className="text-[11px] text-red-700 leading-snug">{err}</p>}
+                  </div>
+                )
+              })()}
 
               {/* Solo los títulos se aplican desde aquí: es la única acción
                   reversible con un clic. No toca el cuerpo, no rompe enlaces y
