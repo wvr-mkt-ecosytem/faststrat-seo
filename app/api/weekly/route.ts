@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
+import { puedeGastarCupo } from "@/lib/autorizacion";
 import { apiRoute } from "@/lib/google-auth-state";
 import { queryAnalytics } from "@/lib/gsc";
 import { runClaude } from "@/lib/claude";
@@ -67,24 +68,9 @@ Reglas:
 - trends: 4-5 tendencias 2026 (en inglés) relevantes para PYMEs (GEO/AEO, agentes IA, social commerce, etc.).`;
 
 export const POST = apiRoute(async (request: NextRequest) => {
-  // Autoriza si: (a) trae el WEEKLY_SECRET (cron de GitHub Actions), o
-  // (b) viene con el login del dashboard (botón "Refrescar" desde el navegador).
-  const secret = process.env.WEEKLY_SECRET;
-  const dashUser = process.env.DASHBOARD_USER;
-  const dashPass = process.env.DASHBOARD_PASSWORD;
-
-  const hasSecret = secret && request.headers.get("x-weekly-secret") === secret;
-
-  let hasDashAuth = false;
-  const authz = request.headers.get("authorization");
-  if (dashUser && dashPass && authz?.startsWith("Basic ")) {
-    const [u, p] = Buffer.from(authz.slice(6), "base64").toString().split(":");
-    hasDashAuth = u === dashUser && p === dashPass;
-  }
-
-  // Si hay credenciales configuradas, exige al menos una vía válida.
-  if ((secret || (dashUser && dashPass)) && !hasSecret && !hasDashAuth) {
-    return NextResponse.json({ error: "no autorizado" }, { status: 401 });
+  const permiso = puedeGastarCupo(request);
+  if (!permiso.ok) {
+    return NextResponse.json({ error: permiso.motivo }, { status: 401 });
   }
 
   try {

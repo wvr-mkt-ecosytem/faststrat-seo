@@ -5,6 +5,7 @@ import { ga4Configured } from "@/lib/ga4";
 import { guardarInforme, listarInformes } from "@/lib/reports-store";
 import { informeComoCorreo } from "@/lib/informe-email";
 import { sendEmail } from "@/lib/email";
+import { puedeGastarCupo } from "@/lib/autorizacion";
 import { persistChanges } from "@/lib/persist";
 import path from "path";
 
@@ -20,23 +21,9 @@ export const maxDuration = 800;
 // haya pedido.
 
 export const POST = apiRoute(async (request: NextRequest) => {
-  // O el secreto del cron, o el login del dashboard.
-  //
-  // Sin esto el trabajo del lunes recibiría un 401 del proxy y el análisis
-  // semanal no se generaría nunca, igual que le pasó a la tanda de ideas
-  // durante dos meses sin que nada lo dijera.
-  const secret = process.env.WEEKLY_SECRET;
-  const user = process.env.DASHBOARD_USER;
-  const pass = process.env.DASHBOARD_PASSWORD;
-  const conSecreto = !!secret && request.headers.get("x-weekly-secret") === secret;
-  let conLogin = false;
-  const authz = request.headers.get("authorization");
-  if (user && pass && authz?.startsWith("Basic ")) {
-    const [u, p] = Buffer.from(authz.slice(6), "base64").toString().split(":");
-    conLogin = u === user && p === pass;
-  }
-  if ((secret || (user && pass)) && !conSecreto && !conLogin) {
-    return NextResponse.json({ error: "no autorizado" }, { status: 401 });
+  const permiso = puedeGastarCupo(request);
+  if (!permiso.ok) {
+    return NextResponse.json({ error: permiso.motivo }, { status: 401 });
   }
 
   if (!ga4Configured()) {
