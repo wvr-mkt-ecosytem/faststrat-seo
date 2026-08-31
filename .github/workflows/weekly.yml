@@ -1,83 +1,84 @@
 name: Weekly content batch
 
+# El trabajo de los lunes corre AQUÍ, no en Render.
+#
+# Antes este workflow le hacía curl a Render y Render se moría: en el plan
+# gratis el agente se come la CPU, el health check no responde en 5 segundos y
+# la instancia se reinicia a mitad del trabajo. Las tres últimas corridas
+# fallaron así, y cada diagnóstico terminaba en una variable de entorno de
+# Render mal puesta —secret de Google caducado, clave de Resend muerta— porque
+# el trabajo dependía de un servidor que nadie estaba mirando.
+#
+# Ahora se corre la misma librería directamente, con los secrets de GitHub.
+# Render se queda solo con el panel, que es leer, que es lo que un plan gratis
+# sí puede hacer.
+
+permissions:
+  contents: write
+
 on:
-  # Lunes 10:00 UTC = 5:00 AM Bogotá / 4:00 AM CDMX
   schedule:
     - cron: "0 10 * * 1"
-  # Permite dispararlo manualmente desde la pestaña Actions del repo
   workflow_dispatch:
+    inputs:
+      parte:
+        description: "Qué correr"
+        type: choice
+        options: ["todo", "solo-ideas", "solo-analisis"]
+        default: "todo"
 
 jobs:
-  trigger-weekly:
+  semanal:
     runs-on: ubuntu-latest
+    # El agente tarda: unos 10 minutos las ideas y otros 10 el análisis. El
+    # margen es amplio a propósito, porque quedarse corto significa perder el
+    # trabajo entero después de haberlo pagado.
+    timeout-minutes: 90
     steps:
-      - name: Wake up + run weekly endpoint
-        env:
-          APP_BASE_URL: ${{ secrets.APP_BASE_URL }}
-          WEEKLY_SECRET: ${{ secrets.WEEKLY_SECRET }}
-        run: |
-          # El web service de Render free se duerme; el primer request lo
-          # despierta y eso solo ya se come ~50s.
-          #
-          # --max-time era 300 y la ruta declara maxDuration=800. O sea que
-          # curl se rendía a los 5 minutos mientras el servidor seguía
-          # trabajando, y lo hacía TRES veces seguidas: el lunes 24 el trabajo
-          # falló con "timed out after 300002 ms with 0 bytes received" en los
-          # tres intentos, y llegó el correo de "run failed" por eso. La ruta
-          # investiga la web antes de proponer ideas; cinco minutos nunca le
-          # bastaron. El límite del cliente va por encima del del servidor, no
-          # por debajo, o el cliente cuelga trabajo que sí iba a terminar.
-          for i in 1 2 3; do
-            echo "Intento $i…"
-            if curl -fsS -X POST \
-              --max-time 900 \
-              -H "x-weekly-secret: $WEEKLY_SECRET" \
-              "$APP_BASE_URL/api/weekly"; then
-              echo "✓ batch generado"
-              exit 0
-            fi
-            sleep 30
-          done
-          echo "✗ falló tras 3 intentos"
-          exit 1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
 
-      # El análisis semanal, igual que la tanda de ideas.
-      #
-      # Va con `if: always()` porque son independientes: que falle la generación
-      # de ideas no debe dejarte sin análisis, ni al revés. Y con --max-time
-      # alto porque el agente abre páginas de la competencia: una corrida real
-      # tardó 8,8 minutos.
-      - name: Análisis semanal de SEO
-        if: always()
+      - name: Ideas y análisis
         env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_MEASUREMENT_REFRESH_TOKEN: ${{ secrets.GOOGLE_MEASUREMENT_REFRESH_TOKEN }}
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          WP_URL: ${{ secrets.WP_URL }}
+          WP_USER: ${{ secrets.WP_USER }}
+          WP_APP_PASSWORD: ${{ secrets.WP_APP_PASSWORD }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          REPORT_EMAIL_TO: ${{ secrets.REPORT_EMAIL_TO }}
           APP_BASE_URL: ${{ secrets.APP_BASE_URL }}
-          WEEKLY_SECRET: ${{ secrets.WEEKLY_SECRET }}
+          CLIENTE_NOMBRE: ${{ vars.CLIENTE_NOMBRE }}
+          CLIENTE_DOMINIO: ${{ vars.CLIENTE_DOMINIO }}
+          CLIENTE_DOMINIO_APP: ${{ vars.CLIENTE_DOMINIO_APP }}
+          CLIENTE_AUTOR: ${{ vars.CLIENTE_AUTOR }}
+          CLIENTE_QUE_HACE: ${{ vars.CLIENTE_QUE_HACE }}
         run: |
-          # No basta con que el servidor responda 200.
-          #
-          # `curl -f` solo mira el código HTTP, y esta ruta devuelve 200 tanto
-          # cuando el informe queda guardado como cuando se genera y NO se
-          # puede guardar. El lunes 24 el paso imprimió "análisis guardado" y
-          # no había ningún informe: nueve minutos de agente perdidos con un
-          # tick verde encima. Por eso ahora se mira la respuesta, no el código.
-          for i in 1 2 3; do
-            echo "Análisis, intento $i…"
-            if curl -fsS -X POST \
-              --max-time 900 \
-              -H "x-weekly-secret: $WEEKLY_SECRET" \
-              -H "Content-Type: application/json" \
-              -d '{"days":28}' \
-              -o respuesta.json \
-              "$APP_BASE_URL/api/ga4/analyst"; then
-              if grep -q '"avisoGuardado"' respuesta.json; then
-                echo "✗ el informe se generó pero NO quedó guardado:"
-                python3 -c "import json;print(json.load(open('respuesta.json')).get('avisoGuardado'))"
-                exit 1
-              fi
-              echo "✓ análisis guardado"
-              exit 0
-            fi
-            sleep 30
-          done
-          echo "✗ el análisis falló tras 3 intentos"
-          exit 1
+          case "${{ inputs.parte }}" in
+            solo-ideas)    node scripts/semanal.mjs --solo-ideas ;;
+            solo-analisis) node scripts/semanal.mjs --solo-analisis ;;
+            *)             node scripts/semanal.mjs ;;
+          esac
+
+      - name: Guardar ideas e informe
+        # Siempre, incluso si una de las dos partes falló: la otra pudo haber
+        # producido trabajo real, y perderlo por el fallo de su compañera es
+        # exactamente lo que pasaba antes.
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ideas data/reports data/trends 2>/dev/null || true
+          git diff --cached --quiet && { echo "No hay nada que guardar."; exit 0; }
+          git commit -m "[auto] tanda semanal"
+          git pull --rebase origin main
+          git push origin HEAD:main

@@ -39,6 +39,14 @@ const SECRETS = [
   "GOOGLE_CLIENT_SECRET",
   "GOOGLE_REFRESH_TOKEN",
   "GSC_SITE_URL",
+  // Los añadidos al mover la corrida semanal fuera de Render: el analista
+  // necesita GA4, y el aviso necesita Resend. Sin estos, el lunes corre y no
+  // avisa a nadie, que es como estuvo semanas.
+  "GOOGLE_MEASUREMENT_REFRESH_TOKEN",
+  "GA4_PROPERTY_ID",
+  "RESEND_API_KEY",
+  "REPORT_EMAIL_TO",
+  "APP_BASE_URL",
 ];
 
 // Variables: configuración, no secretos. Van aparte para poder leerlas y
