@@ -148,5 +148,25 @@
       "meses": 262
     },
     "cuando": "2026-08-28T01:22:54.489Z"
+  },
+  "CO|whatsapp business api pricing for small business mexico": {
+    "t": {
+      "termino": "whatsapp business api pricing for small business mexico",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-08-31T19:58:10.936Z"
+  },
+  "MX|whatsapp business api pricing for small business mexico": {
+    "t": {
+      "termino": "whatsapp business api pricing for small business mexico",
+      "direccion": "sube",
+      "cambioAnual": 100,
+      "nivelActual": 8,
+      "meses": 262
+    },
+    "cuando": "2026-08-31T19:58:11.355Z"
   }
 }
