@@ -10,6 +10,14 @@ name: Escribir un artículo
 # Actions tiene CPU de verdad y seis horas de margen. La lógica es la MISMA:
 # scripts/escribir.mjs importa lib/escribir.ts, que es lo que usa la ruta web.
 
+# El trabajo termina haciendo commit del artículo, así que necesita escribir.
+#
+# Sin esto el token de github-actions[bot] es de solo lectura y el push muere
+# con "Permission denied ... 403" DESPUÉS de 24 minutos de agente: el artículo
+# está escrito, commiteado en local y se tira a la basura al acabar el runner.
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
     inputs:

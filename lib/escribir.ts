@@ -163,7 +163,20 @@ export async function escribirArticulo(peticion: PeticionEscribir): Promise<Resu
   // Se cronometra la corrida entera para que la barra de progreso diga un
   // tiempo medido y no uno supuesto. Solo se apunta si TERMINA.
   const arranque = Date.now();
-  const body = peticion;
+  // Un campo vacío es un campo que NO se llenó.
+  //
+  // `title = body.title ?? tituloPara(...)` parecía correcto, y por la web lo
+  // era: allí el campo no enviado llega `undefined` y el ?? hace su trabajo.
+  // Pero un workflow_dispatch de Actions manda las entradas no rellenadas como
+  // cadena vacía, y "" no es null: pasaba de largo. La corrida escribió 1986
+  // palabras y las guardó en `content/blog/.md`, sin título y sin slug.
+  //
+  // Se normaliza aquí, en la librería, y no en cada script: el fallo no fue del
+  // que llamaba, fue de suponer que solo hay una forma de decir "vacío".
+  const body: PeticionEscribir = { ...peticion };
+  for (const campo of ["title", "keyword", "topic", "category", "publishAt"] as const) {
+    if (typeof body[campo] === "string" && body[campo]!.trim() === "") delete body[campo];
+  }
   // Modo A: keyword (+ title opcional). Modo B: topic libre (el agente elige título).
   const keyword: string | undefined = body.keyword;
   const topic: string | undefined = body.topic;
@@ -379,9 +392,24 @@ La extensión la marca el tema, no una cuota. No hay mínimo de palabras.${conte
 
     const excerpt = (primeraFrase ?? title).replace(/[#*`>_]/g, "").trim().slice(0, 155);
 
+    // Sin slug no se guarda. Es la red debajo de la normalización de arriba.
+    //
+    // La corrida que descubrió esto llegó hasta aquí con el título vacío,
+    // escribió el fichero como `.md` y solo se supo porque el push falló por
+    // otro motivo. Un artículo de 24 minutos guardado sin nombre es un artículo
+    // perdido que además ensucia el repositorio, así que se para antes.
+    const slug = slugify(title);
+    if (!slug) {
+      return {
+        ok: false,
+        estado: 500,
+        error: `El artículo se escribió pero salió sin título, así que no se puede guardar (el nombre del fichero se saca del título). Keyword: "${keyword ?? topic ?? "?"}".`,
+      };
+    }
+
     const post = createBlogPost({
       title,
-      slug: slugify(title),
+      slug,
       excerpt,
       keywords: [keyword ?? title],
       lang,
