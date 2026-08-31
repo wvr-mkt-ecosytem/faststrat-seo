@@ -3,6 +3,8 @@ import { apiRoute } from "@/lib/google-auth-state";
 import { analyse } from "@/lib/ga4-analyst";
 import { ga4Configured } from "@/lib/ga4";
 import { guardarInforme, listarInformes } from "@/lib/reports-store";
+import { informeComoCorreo } from "@/lib/informe-email";
+import { sendEmail } from "@/lib/email";
 import { persistChanges } from "@/lib/persist";
 import path from "path";
 
@@ -67,10 +69,37 @@ export const POST = apiRoute(async (request: NextRequest) => {
     [path.join(process.cwd(), "data", "reports")],
   );
 
+  // Y se manda por correo, que es la única forma de que alguien lo lea.
+  //
+  // Durante meses el analista corrió cada lunes, gastó nueve minutos de agente
+  // y dejó el informe en una pestaña que había que acordarse de abrir. La tanda
+  // de ideas sí avisaba; el análisis —que es la parte que dice QUÉ HACER— no.
+  // Un informe que nadie ve no es un informe, es un archivo.
+  //
+  // Se omite con ?noEmail=1, igual que en la tanda semanal: el botón "Analizar"
+  // del panel lo usa quien ya está mirando la pantalla.
+  const noEmail = request.nextUrl.searchParams.get("noEmail") === "1";
+  const destino = process.env.REPORT_EMAIL_TO;
+  let correo: { ok: boolean; error?: string } | undefined;
+  if (destino && !noEmail) {
+    const { subject, html } = informeComoCorreo(guardado, process.env.APP_BASE_URL);
+    correo = await sendEmail({ to: destino, subject, html });
+  }
+
   return NextResponse.json({
     connected: true,
     ...guardado,
     guardado: persistido.ok,
+    // El envío también se dice. Resend falla en silencio con una clave caducada
+    // —devuelve 401 y ya está—, y así es como se pasaron semanas sin que
+    // llegara ningún correo sin que nada lo delatara.
+    correo: !destino
+      ? "no hay REPORT_EMAIL_TO configurado"
+      : noEmail
+        ? undefined
+        : correo?.ok
+          ? `enviado a ${destino}`
+          : `NO SE PUDO ENVIAR a ${destino}: ${correo?.error}`,
     // Va en la respuesta para que aparezca en el log del cron: es el único
     // sitio donde alguien lo va a ver antes de echar de menos el informe.
     avisoGuardado: persistido.ok
