@@ -143,18 +143,45 @@ export function partir(raw: string): {
   keyword?: string;
   markdown: string;
 } {
-  const iDif = raw.indexOf("<<<DIFERENCIAL>>>");
-  const iKw = raw.indexOf("<<<KEYWORD>>>");
-  const iArt = raw.indexOf("<<<ARTICULO>>>");
+  // Cada sección va de su marcador al SIGUIENTE, sea cual sea el orden.
+  //
+  // Antes se daba por hecho que el artículo iba el último y se tomaba como
+  // cuerpo "todo lo que hay después de <<<ARTICULO>>>". El agente no siempre
+  // respeta ese orden: en la corrida del 1 de septiembre puso <<<KEYWORD>>>
+  // DESPUÉS del artículo, y el razonamiento sobre la búsqueda —"The searcher is
+  // an SMB owner..."— se publicó en vivo, dentro del post, en faststrat.ai.
+  //
+  // Un formato que solo funciona si el modelo ordena las secciones como
+  // esperamos no es un formato, es una apuesta. Ordenando por posición, el
+  // orden deja de importar.
+  const marcas = (
+    [
+      ["diferencial", "<<<DIFERENCIAL>>>"],
+      ["keyword", "<<<KEYWORD>>>"],
+      ["articulo", "<<<ARTICULO>>>"],
+    ] as const
+  )
+    .map(([nombre, etiqueta]) => ({ nombre, etiqueta, en: raw.indexOf(etiqueta) }))
+    .filter((m) => m.en !== -1)
+    .sort((a, b) => a.en - b.en);
 
+  const art = marcas.find((m) => m.nombre === "articulo");
   // Sin el marcador del artículo no se sabe dónde acaba el razonamiento del
   // agente y dónde empieza el texto. Ya se publicaron tres posts con el plan
   // del modelo dentro por saltarse esto, uno de ellos con status: publish.
-  if (iArt === -1) return { markdown: "" };
+  if (!art) return { markdown: "" };
 
-  const markdown = raw
-    .slice(iArt + "<<<ARTICULO>>>".length)
-    .trim()
+  /** El trozo que va de un marcador al siguiente. */
+  const trozo = (nombre: string): string | undefined => {
+    const i = marcas.findIndex((m) => m.nombre === nombre);
+    if (i === -1) return undefined;
+    const desde = marcas[i].en + marcas[i].etiqueta.length;
+    const hasta = i + 1 < marcas.length ? marcas[i + 1].en : raw.length;
+    const t = raw.slice(desde, hasta).trim();
+    return t || undefined;
+  };
+
+  const markdown = (trozo("articulo") ?? "")
     .replace(/^```(?:markdown|md)?/i, "")
     .replace(/```$/, "")
     .trim()
@@ -165,19 +192,11 @@ export function partir(raw: string): {
     // publica como primer párrafo Y se convierte en la meta description, que es
     // lo que Google enseña bajo el resultado. Se quitan tantas como haya:
     // suelen venir en bloque (Título, Keyword, Idioma).
-    .replace(/^(?:\*\*)?(?:t[íi]tulo|title|keyword|idioma|language|audiencia|audience)(?:\*\*)?\s*:.*(?:\r?\n)+/gi, "")
+    .replace(
+      /^(?:\*\*)?(?:t[íi]tulo|title|keyword|idioma|language|audiencia|audience)(?:\*\*)?\s*:.*(?:\r?\n)+/gi,
+      "",
+    )
     .trim();
 
-  // El diferencial acaba donde empiece el siguiente marcador, sea cual sea.
-  // Sin esto, si el agente pone KEYWORD entre medias, el diferencial se lo
-  // tragaba entero y la comprobación de longitud pasaba por el motivo
-  // equivocado.
-  const finDif = iKw !== -1 && iKw > iDif ? iKw : iArt;
-  const diferencial =
-    iDif !== -1 && iDif < iArt ? raw.slice(iDif + "<<<DIFERENCIAL>>>".length, finDif).trim() : undefined;
-
-  const keyword =
-    iKw !== -1 && iKw < iArt ? raw.slice(iKw + "<<<KEYWORD>>>".length, iArt).trim() : undefined;
-
-  return { diferencial, keyword, markdown };
+  return { diferencial: trozo("diferencial"), keyword: trozo("keyword"), markdown };
 }
