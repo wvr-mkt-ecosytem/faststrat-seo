@@ -44,6 +44,27 @@ export interface Cliente {
    * páginas, y es la parte de E-E-A-T que se puede resolver escribiéndola.
    */
   autor: string;
+  /**
+   * Palabras con las que el contenido NO debe describir al cliente.
+   *
+   * El agente escribió el enlace interno como "FastStrat's marketing automation
+   * tools". FastStrat no vende automatización: vende la capa de estrategia. Un
+   * anchor text es la etiqueta con la que Google y los modelos aprenden qué es
+   * una marca, así que llamarte por la categoría equivocada en cada artículo
+   * erosiona justo la categoría que intentas crear. Es un fallo de marca que se
+   * repite solo, y por eso vive en la configuración y no en la cabeza de nadie.
+   */
+  categoriaProhibida: string[];
+  /**
+   * Dominios que cuentan como fuente primaria para precios y especificaciones.
+   *
+   * Un artículo demolió el "98% de open rate" por no tener fuente primaria y
+   * acto seguido construyó su tabla de costos sobre blogs de vendors de
+   * WhatsApp, teniendo Meta la tarifa publicada. La compuerta comprobaba que
+   * cada cifra TUVIERA fuente, no que la fuente fuera independiente de quien se
+   * beneficia del dato. Un competidor peor en todo lo demás citaba la oficial.
+   */
+  fuentesPrimarias: string[];
   /** Si el manual de marca prohíbe la raya larga. Es decisión de marca, no SEO. */
   sinRayaLarga: boolean;
   /**
@@ -78,6 +99,17 @@ export const CLIENTE: Cliente = {
     .map((s) => s.trim())
     .filter(Boolean),
   autor: env("CLIENTE_AUTOR", "Walter Von Roestel"),
+  categoriaProhibida: env("CLIENTE_CATEGORIA_PROHIBIDA", "marketing automation,automatización de marketing,automation tool,herramienta de automatización")
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean),
+  fuentesPrimarias: env(
+    "CLIENTE_FUENTES_PRIMARIAS",
+    "developers.facebook.com,business.whatsapp.com,support.google.com,developers.google.com,platform.openai.com,docs.anthropic.com,help.shopify.com,stripe.com,twilio.com",
+  )
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean),
   sinRayaLarga: env("CLIENTE_SIN_RAYA_LARGA", "true") === "true",
   encabezados: env("CLIENTE_ENCABEZADOS", "libre") as Cliente["encabezados"],
   tagline: env("CLIENTE_TAGLINE", "AI MARKETING FOR SMALL BUSINESS"),

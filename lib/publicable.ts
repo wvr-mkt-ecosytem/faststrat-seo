@@ -19,7 +19,14 @@ import { INSTRUCCION_LEGIBILIDAD } from "@/lib/legibilidad";
 // guardaba igual. Ahora insiste mientras mejore, con tope, porque un corrector
 // que se llama a sí mismo sin límite es una factura abierta.
 
-export const CASA: HouseRules = { noEmDash: true, urlProducto: CLIENTE.dominioApp };
+export const CASA: HouseRules = {
+  noEmDash: true,
+  urlProducto: CLIENTE.dominioApp,
+  // Las dos salen de la configuración del cliente, no de aquí: son decisiones
+  // de marca y de sector, y cambian con cada cliente al que se replique esto.
+  categoriaProhibida: CLIENTE.categoriaProhibida,
+  fuentesPrimarias: CLIENTE.fuentesPrimarias,
+};
 
 /** Rayas largas: determinista, sin criterio, y la causa número uno de bloqueos. */
 export const barrerRayas = (t: string) =>

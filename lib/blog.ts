@@ -131,6 +131,16 @@ export function createBlogPost(meta: {
   publishAt?: string;
   differentiator?: string;
   keywordRationale?: string;
+  /**
+   * ISO. Cuándo hay que volver a mirar este artículo.
+   *
+   * Lo pone el escritor cuando cita algo con fecha de cambio conocida (una
+   * tarifa que sube el 1 de octubre, una API que se retira). Si no lo pone, se
+   * calcula desde la publicación. Ver lib/caducidad.ts.
+   */
+  caduca?: string;
+  /** Qué caduca ese día, en una frase. */
+  motivoCaducidad?: string;
   keywordTrend?: BlogPost["keywordTrend"];
   alternate?: BlogPost["alternate"];
   markdown: string;
@@ -153,6 +163,8 @@ export function createBlogPost(meta: {
     ...(meta.publishAt ? { publishAt: meta.publishAt } : {}),
     ...(meta.differentiator ? { differentiator: meta.differentiator } : {}),
     ...(meta.keywordRationale ? { keywordRationale: meta.keywordRationale } : {}),
+    ...(meta.caduca ? { caduca: meta.caduca } : {}),
+    ...(meta.motivoCaducidad ? { motivoCaducidad: meta.motivoCaducidad } : {}),
     ...(meta.keywordTrend ? { keywordTrend: meta.keywordTrend } : {}),
     ...(meta.alternate ? { alternate: meta.alternate } : {}),
   };

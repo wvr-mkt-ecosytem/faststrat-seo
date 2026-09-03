@@ -92,6 +92,17 @@ Este es el paso que decide si el artículo sale publicable a la primera o hay qu
 
 Si un dato que querías no tiene fuente pública, no lo escribas: di el mecanismo en su lugar. Un artículo sin ese número se publica; con él inventado, no.
 
+4. Para precios, límites y especificaciones de una plataforma, cita a QUIEN LOS PUBLICA. La tarifa de WhatsApp la publica Meta; los límites de la API de Google los publica Google. Un blog de un proveedor que revende esa plataforma no es la fuente: es alguien con interés en el número.
+   Si solo encuentras el dato en un proveedor, escríbelo diciéndolo: "según datos de plataforma de X, no auditados por terceros". Exigir fuente primaria a los demás y construir sobre blogs de vendors es la contradicción que un lector técnico detecta primero.
+
+5. Lo que hace distinto a este artículo va en los DOS PRIMEROS PÁRRAFOS, no en la mitad. Si tu tesis es que dos cosas parecen iguales pero se separan en un caso concreto, eso se dice arriba: el lector que llega a la primera tabla y saca la conclusión contraria ya no sigue leyendo.
+
+6. Cuando enlaces a una página propia, describe lo que de verdad hace. No inventes una categoría: el texto del enlace es la etiqueta con la que Google y los modelos aprenden qué es esta marca.
+
+7. Si el artículo depende de algo que cambia en una fecha CONOCIDA —una tarifa que sube, un plan que se retira, una API que se apaga— dilo al final, en su propia línea y exactamente así:
+CADUCA: AAAA-MM-DD — qué cambia ese día
+   Esa línea no forma parte del artículo, se quita antes de publicar. Sirve para que el sistema avise de revisarlo antes de que empiece a decir cifras falsas. Si nada del artículo tiene fecha de caducidad conocida, no pongas la línea.
+
 ESTÁNDARES DE CALIDAD (obligatorios):
 - Extensión: MÍNIMO 1.000 palabras, y a partir de ahí la que exija el tema. El mínimo no es una cuota que rellenar: si llegas a 1.000 con relleno, el artículo se bloquea igual por las reglas de lenguaje. Un tema que no da para 1.000 palabras con sustancia está mal acotado, y lo que hay que cambiar es el tema, no estirar el texto.
 - El primer párrafo RESPONDE la pregunta del título, entera, en 40 palabras o menos, antes de cualquier contexto. Nada de plantear el problema primero: quien llega desde el resultado número diez ya leyó a dos competidores y viene a comprobar si aquí está la respuesta. Si tiene que bajar para averiguarlo, no baja.
@@ -398,6 +409,22 @@ La extensión la marca el tema, no una cuota. No hay mínimo de palabras.${conte
     // escribió el fichero como `.md` y solo se supo porque el push falló por
     // otro motivo. Un artículo de 24 minutos guardado sin nombre es un artículo
     // perdido que además ensucia el repositorio, así que se para antes.
+    // La línea CADUCA sale del artículo y pasa a ser un campo.
+    //
+    // Va en el cuerpo porque es donde el agente puede escribirla sin inventarse
+    // un formato, pero publicarla sería absurdo: al lector no le importa cuándo
+    // tenemos que revisar el texto. Ver lib/caducidad.ts.
+    let caduca: string | undefined;
+    let motivoCaducidad: string | undefined;
+    markdown = markdown.replace(
+      /^[ \t]*(?:\\*\\*)?CADUCA(?:\\*\\*)?[ \t]*:[ \t]*(\d{4}-\d{2}-\d{2})[ \t]*(?:[-–—][ \t]*(.*))?$/gim,
+      (_todo, fecha: string, motivo?: string) => {
+        caduca = new Date(`${fecha}T00:00:00Z`).toISOString();
+        motivoCaducidad = motivo?.trim() || undefined;
+        return "";
+      },
+    ).trim();
+
     const slug = slugify(title);
     if (!slug) {
       return {
@@ -418,6 +445,8 @@ La extensión la marca el tema, no una cuota. No hay mínimo de palabras.${conte
       publishAt,
       differentiator: diferencial,
       keywordRationale: porqueKeyword,
+      caduca,
+      motivoCaducidad,
       keywordTrend: trendKeyword ?? undefined,
       markdown,
     });

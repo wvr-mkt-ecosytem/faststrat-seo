@@ -225,6 +225,15 @@ export interface HouseRules {
    * escritor nunca lo añadía. Con 1.784 sesiones y cero conversiones, un
    * artículo que atrae y no ofrece el paso siguiente es esa cifra repetida.
    */
+  /**
+   * Palabras con las que el contenido no debe describir al cliente.
+   *
+   * Ver Cliente.categoriaProhibida: el anchor text es la etiqueta con la que
+   * Google y los modelos aprenden qué es una marca.
+   */
+  categoriaProhibida?: string[];
+  /** Dominios que valen como fuente primaria para precios y especificaciones. */
+  fuentesPrimarias?: string[];
   urlProducto?: string;
 }
 
@@ -406,6 +415,61 @@ export function runQa(input: QaInput): QaResult {
       rule: "circular-self-citation",
       detail: "Every link points at our own site. A figure whose only source is us is not sourced.",
     });
+  }
+
+  // El anchor de los enlaces propios no puede llamarnos por otra categoría.
+  //
+  // El agente escribió "FastStrat's marketing automation tools" apuntando a una
+  // página nuestra. FastStrat no vende automatización, vende la capa de
+  // estrategia. El anchor text es literalmente cómo Google y los modelos
+  // aprenden qué es una marca, así que equivocar la categoría en cada artículo
+  // desgasta justo la que intentas construir.
+  //
+  // Bloquea en vez de avisar porque el arreglo es mecánico —cambiar unas
+  // palabras— y el corrector lo resuelve solo. Un aviso se queda ahí para
+  // siempre.
+  // La primera posición de una coincidencia es el texto entero, no el primer
+  // grupo. Sin la coma, `anchor` valía "[texto](url)" y `destino` valía el
+  // anchor: la regla no saltaba nunca y parecía que el artículo estaba limpio.
+  for (const [, anchor, destino] of markdown.matchAll(/\[([^\]]+)\]\((\/[^)]*|https?:\/\/[^)]+)\)/g)) {
+    const esNuestro = destino.startsWith("/") || esPropio(destino.replace(/^https?:\/\/(?:www\.)?/, "").split("/")[0]);
+    if (!esNuestro) continue;
+    const mala = (input.house?.categoriaProhibida ?? []).find((c) => anchor.toLowerCase().includes(c));
+    if (mala) {
+      findings.push({
+        severity: "block",
+        rule: "anchor-off-category",
+        detail: `El enlace propio "${anchor}" nos llama "${mala}", que no es la categoría del cliente. Reescribe el anchor describiendo lo que de verdad hace.`,
+      });
+    }
+  }
+
+  // Un precio o un límite de plataforma se cita de quien lo publica.
+  //
+  // Un artículo demolió el "98% de open rate" ajeno por no tener fuente
+  // primaria y construyó su propia tabla de costos sobre blogs de vendors de
+  // WhatsApp, con la tarifa de Meta publicada y sin citarla. La compuerta
+  // comprobaba que la cifra TUVIERA fuente, no que la fuente fuera
+  // independiente de quien se beneficia del dato.
+  //
+  // Avisa, no bloquea: no se puede saber cuál es la fuente oficial de todo, y
+  // bloquear por lo que no sabemos es como se ahogan las señales que sí valen.
+  const primarias = input.house?.fuentesPrimarias ?? [];
+  if (primarias.length) {
+    const PRECIO = /(?:\$|US\$|€)\s?\d|(?:\d+[.,]\d+|\d+)\s*(?:por mensaje|per message|\/msg|per conversation|por conversación)/i;
+    for (const parrafo of markdown.split(/\n\s*\n/)) {
+      if (!PRECIO.test(parrafo)) continue;
+      const fuentes = [...parrafo.matchAll(/https?:\/\/([^/\s)]+)/g)].map((m) => m[1].toLowerCase());
+      if (!fuentes.length) continue; // eso ya lo dice figure-without-source
+      if (fuentes.some((h) => primarias.some((d) => h === d || h.endsWith(`.${d}`)))) continue;
+      findings.push({
+        severity: "warn",
+        rule: "pricing-not-from-primary-source",
+        detail:
+          `Hay precios citados solo desde ${[...new Set(fuentes)].join(", ")}, que no son la fuente oficial. ` +
+          `Busca la tarifa publicada por la propia plataforma; si no existe, di que el dato es de un proveedor y no está auditado.`,
+      });
+    }
   }
 
   // El enlace al producto. Bloquea, no avisa: un aviso que aparece siempre se
