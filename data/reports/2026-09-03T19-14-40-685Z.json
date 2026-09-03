@@ -1,0 +1,21 @@
+{
+  "days": 28,
+  "totals": {
+    "clicks": 45,
+    "sessions": 1859,
+    "conversions": 0
+  },
+  "counts": {
+    "entran y se van": 1,
+    "sale y no la clican": 31,
+    "casi nadie la ve": 47
+  },
+  "recommendations": [],
+  "limits": [
+    "Cero conversiones registradas en el periodo. Sin conversiones no se puede decir qué contenido convierte, solo qué se lee.",
+    "El agente no devolvió un JSON válido, así que no hay recomendaciones en esta corrida.",
+    "El agente no devolvió el informe escrito, solo la lista de acciones."
+  ],
+  "report": "",
+  "generadoEn": "2026-09-03T19:14:40.685Z"
+}
