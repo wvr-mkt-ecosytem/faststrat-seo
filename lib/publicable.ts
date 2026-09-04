@@ -201,6 +201,8 @@ export async function dejarPublicable(
      * inservible, y un muro acaba rodeándose.
      */
     exigirDiferencial?: boolean;
+    /** El idioma en el que se pidió, para comprobar que el cuerpo lo cumple. */
+    lang?: string;
   } = {},
 ): Promise<ResultadoPublicable> {
   const max = opciones.maxPasadas ?? 2;
@@ -212,6 +214,7 @@ export async function dejarPublicable(
       house: CASA,
       differentiator: opciones.differentiator,
       exigirDiferencial: opciones.exigirDiferencial === true,
+      lang: opciones.lang,
     });
 
   // El barrido va primero: de 306 bloqueos medidos, 203 eran rayas largas.

@@ -326,10 +326,23 @@ Después, en una línea nueva, el bloque <<<DIFERENCIAL>>> y luego <<<ARTICULO>>
         // salieron de esta contradicción, no de cómo estaban redactadas las
         // reglas. El corrector sí tenía búsqueda; el escritor no.
         allowedTools: ["WebSearch", "WebFetch"],
-        prompt: `Escribe el artículo completo siguiendo TODOS los estándares de calidad.
+        // El idioma se dice PRIMERO y EN el idioma pedido.
+        //
+        // Antes era una línea en español —"Idioma: inglés."— dentro de un
+        // prompt de cien líneas en español. El 4 de septiembre el agente
+        // devolvió un artículo con título en inglés y las 2.221 palabras del
+        // cuerpo en español, y nada lo detectó. Una instrucción en minoría
+        // frente al idioma del resto del prompt no se sostiene.
+        prompt: `${
+          lang === "es"
+            ? "ESCRIBE TODO EL ARTÍCULO EN ESPAÑOL, natural de LATAM, no traducido del inglés."
+            : "WRITE THE ENTIRE ARTICLE IN ENGLISH. Every heading, paragraph, table, FAQ and call to action must be in English. Do not write any part of the body in Spanish, even though these instructions are in Spanish."
+        }
+
+Escribe el artículo completo siguiendo TODOS los estándares de calidad.
 Título del artículo (es el H1, no lo repitas): "${title}"
 Keyword principal a posicionar: "${keyword ?? title}"
-Idioma: ${lang === "es" ? "español (natural de LATAM, no traducido)" : "inglés"}.
+Idioma del artículo: ${lang === "es" ? "español (natural de LATAM, no traducido)" : "inglés — TODO el cuerpo"}.
 Audiencia: dueños de PYMEs y marketers que buscan resultados prácticos.
 La extensión la marca el tema, no una cuota. No hay mínimo de palabras.${contextoDemanda}`,
       });
@@ -373,6 +386,9 @@ La extensión la marca el tema, no una cuota. No hay mínimo de palabras.${conte
     const revisado = await dejarPublicable(title, markdown, {
       differentiator: diferencial,
       exigirDiferencial: true,
+      // El idioma viaja hasta la compuerta. Sin esto la regla existe y no se
+      // activa nunca, que es como no tenerla.
+      lang,
     });
     markdown = revisado.markdown;
 

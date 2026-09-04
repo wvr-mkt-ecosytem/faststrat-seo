@@ -103,6 +103,30 @@ comprobar(
   caducidadDe({ slug: "s", title: "t", date: enDias(-3), caduca: "no es una fecha" }).estado === "vigente",
 );
 
+console.log("");
+console.log("IDIOMA DEL CUERPO");
+const conIdioma = (md, lang) =>
+  runQa({ title: "T", markdown: md, house: CASA, lang }).blocking.filter((f) => f.rule === "wrong-language");
+const EN = "The best way to audit your site is with a scorecard that shows what to fix and why this matters. ".repeat(8);
+const ES = "La mejor forma de auditar tu sitio es con un scorecard que muestre qué arreglar y por qué importa. ".repeat(8);
+comprobar("cuerpo en español pedido en inglés bloquea", conIdioma(ES, "en").length === 1);
+comprobar("cuerpo en inglés pedido en inglés pasa", conIdioma(EN, "en").length === 0);
+comprobar("cuerpo en español pedido en español pasa", conIdioma(ES, "es").length === 0);
+comprobar("sin idioma pedido no se pronuncia", conIdioma(ES, undefined).length === 0);
+comprobar("un texto corto no se pronuncia", conIdioma("Hola.", "en").length === 0);
+console.log("");
+console.log("QUIÉN COBRA vs QUIÉN REPORTA");
+const precio = (md) =>
+  runQa({ title: "T", markdown: md, house: CASA }).warnings.filter((f) => f.rule === "pricing-not-from-primary-source");
+comprobar(
+  "la marca citando su propio precio pasa",
+  precio("[Screaming Frog](https://www.screamingfrog.co.uk/pricing/) cuesta $279/año.").length === 0,
+);
+comprobar(
+  "un vendor citando precio ajeno avisa",
+  precio("WhatsApp cuesta $0.0625, [según Blueticks](https://blueticks.co/p).").length === 1,
+);
+
 console.log("\nEL ARTÍCULO QUE PROVOCÓ TODO ESTO");
 const ruta = "content/blog/whatsapp-vs-sms-marketing-latam-smbs-2026-open-rates.md";
 if (fs.existsSync(ruta)) {
@@ -112,9 +136,9 @@ if (fs.existsSync(ruta)) {
   const nuevas = [...r.blocking, ...r.warnings].filter((f) =>
     /anchor-off-category|pricing-not-from-primary/.test(f.rule),
   );
-  console.log(`  ${nuevas.length} hallazgo(s) de las reglas nuevas:`);
-  for (const f of nuevas) console.log(`    [${f.severity}] ${f.rule}`);
-  comprobar("las reglas nuevas encuentran lo que encontró la crítica", nuevas.length >= 2);
+  console.log(`  ${nuevas.length} hallazgo(s) de las reglas nuevas sobre el artículo real:`);
+  for (const f of nuevas) console.log(`    [${f.severity}] ${f.rule} · ${f.detail.slice(0, 78)}`);
+  comprobar("el artículo real no tiene bloqueos", r.blocking.length === 0, `${r.blocking.length} bloqueo(s)`);
 }
 
 console.log(fallos === 0 ? "\nTodo correcto.\n" : `\n${fallos} comprobación(es) mal.\n`);

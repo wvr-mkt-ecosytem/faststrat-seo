@@ -244,6 +244,14 @@ export interface QaInput {
   title?: string;
   metaDescription?: string;
   markdown: string;
+  /**
+   * El idioma en el que SE PIDIÓ el artículo ("en" | "es").
+   *
+   * Sin esto no se puede comprobar que el cuerpo esté en el idioma correcto, y
+   * el 4 de septiembre salió un artículo con título en inglés y 2.221 palabras
+   * de cuerpo en español sin que nada lo notara.
+   */
+  lang?: string;
   /** Citas aprobadas, textuales. Sin esto no se comprueban las comillas. */
   approvedQuotes?: string[];
   /**
@@ -462,12 +470,81 @@ export function runQa(input: QaInput): QaResult {
       const fuentes = [...parrafo.matchAll(/https?:\/\/([^/\s)]+)/g)].map((m) => m[1].toLowerCase());
       if (!fuentes.length) continue; // eso ya lo dice figure-without-source
       if (fuentes.some((h) => primarias.some((d) => h === d || h.endsWith(`.${d}`)))) continue;
+      // El dominio de un producto ES la fuente primaria de SU precio.
+      //
+      // La lista de arriba solo conoce a Meta, Google y unos pocos más, así que
+      // el primer artículo escrito con esta regla salió con cuatro avisos por
+      // citar screamingfrog.co.uk, semrush.com y ahrefs.com — que son
+      // exactamente quien publica esos precios. Una regla que avisa en cada
+      // artículo que compara herramientas deja de leerse.
+      //
+      // Si el párrafo NOMBRA la marca cuyo dominio se cita, la cita es
+      // primaria. "Blueticks dice que WhatsApp cuesta X" no pasa: ahí lo que se
+      // pone precio es WhatsApp, no Blueticks.
+      const nombreDe = (host: string) =>
+        host.replace(/^www\./, "").split(".")[0].replace(/[^a-z0-9]/gi, "").toLowerCase();
+      // Se conserva el TEXTO del enlace y se tira solo la URL.
+      //
+      // La primera versión borraba `[Screaming Frog](url)` entero, y con él la
+      // marca: el artículo decía "[Screaming Frog](su-web) cuesta $279/año",
+      // que es la cita primaria perfecta, y aun así avisaba. La marca suele
+      // estar justo en el anchor.
+      // Lo que decide no es que la marca aparezca, sino en qué PAPEL.
+      //
+      //   "[Screaming Frog](su-web) cuesta $279"      -> es el sujeto: primaria
+      //   "WhatsApp cuesta $0.06, [según Blueticks]"  -> es quien reporta: no
+      //
+      // Conservar todos los anchors dejaba pasar el segundo, porque "según
+      // Blueticks" también nombra a Blueticks. Así que los anchors que van
+      // detrás de una fórmula de cita se borran con ella: quien atribuye no es
+      // quien cobra.
+      const CITA = /seg[úu]n|according to|per|via|v[íi]a|fuente|source|datos de|data from/i;
+      const textoPlano = parrafo
+        // La fórmula de cita puede ir ANTES del enlace…
+        .replace(new RegExp(`(?:${CITA.source})\\s*:?\\s*\\[[^\\]]*\\]\\([^)]*\\)`, "gi"), " ")
+        // …o DENTRO del propio anchor, que es como lo escribe el agente:
+        // "[según Blueticks](url)". Sin esto, la marca que solo REPORTA el
+        // precio se contaba como si fuera la que lo cobra.
+        .replace(new RegExp(`\\[\\s*(?:${CITA.source})[^\\]]*\\]\\([^)]*\\)`, "gi"), " ")
+        .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+        .replace(/https?:\/\/\S+/g, " ")
+        .replace(/[^a-z0-9]/gi, "")
+        .toLowerCase();
+      if (fuentes.some((h) => nombreDe(h).length > 3 && textoPlano.includes(nombreDe(h)))) continue;
       findings.push({
         severity: "warn",
         rule: "pricing-not-from-primary-source",
         detail:
           `Hay precios citados solo desde ${[...new Set(fuentes)].join(", ")}, que no son la fuente oficial. ` +
           `Busca la tarifa publicada por la propia plataforma; si no existe, di que el dato es de un proveedor y no está auditado.`,
+      });
+    }
+  }
+
+  // El cuerpo tiene que estar en el idioma que se pidió.
+  //
+  // Se pidió un artículo en inglés y el agente devolvió el título en inglés y
+  // las 2.221 palabras del cuerpo en español. Pasó la compuerta entera —cero
+  // bloqueos— porque ninguna regla miraba el idioma, y se guardó listo para
+  // publicar bajo una keyword en inglés.
+  //
+  // Se cuenta con palabras funcionales, que son las que no se pueden evitar al
+  // escribir: "the/and/for" frente a "el/la/que". Un artículo en inglés que
+  // cite marcas o frases en español sigue teniendo abrumadora mayoría inglesa,
+  // así que solo salta cuando el idioma equivocado GANA.
+  if (input.lang) {
+    const cuenta = (re: RegExp) => (markdown.match(re) ?? []).length;
+    const enES = cuenta(/\b(el|la|los|las|de|del|que|para|con|una|más|está|pero|cuando|donde|tus?|cada|sitio|porque)\b/gi);
+    const enEN = cuenta(/\b(the|and|for|with|that|this|your|from|have|are|will|which|about|each|because)\b/gi);
+    const pedido = input.lang === "es" ? "español" : "inglés";
+    const escrito = enES > enEN ? "español" : "inglés";
+    // El margen evita saltar con textos muy cortos o muy técnicos, donde diez
+    // palabras funcionales de más no significan nada.
+    if (escrito !== pedido && Math.max(enES, enEN) > 30 && Math.max(enES, enEN) > Math.min(enES, enEN) * 2) {
+      findings.push({
+        severity: "block",
+        rule: "wrong-language",
+        detail: `Se pidió el artículo en ${pedido} y el cuerpo está en ${escrito} (${enES} marcadores de español frente a ${enEN} de inglés). Reescribe el cuerpo entero en ${pedido}.`,
       });
     }
   }
