@@ -108,6 +108,24 @@ export default function BlogsPage() {
   const [fixing, setFixing] = useState<string | null>(null)
   const [wpError, setWpError] = useState<string | null>(null)
   const [loadError, setLoadError] = useState<string | null>(null)
+
+  // Los artículos que hay que volver a mirar.
+  //
+  // La caducidad se calculaba y no la veía nadie: ningún panel la consultaba.
+  // Aquí es donde tiene sentido, junto a la lista de artículos, y solo aparece
+  // cuando hay alguno: un aviso permanente se lee como decoración.
+  const [porRevisar, setPorRevisar] = useState<
+    { slug: string; title: string; caduca: string; diasRestantes: number; estado: string; motivo?: string }[]
+  >([])
+
+  useEffect(() => {
+    fetch('/api/caducidad')
+      .then((r) => r.json())
+      .then((d) => setPorRevisar(d.articulos ?? []))
+      .catch(() => {
+        /* que no falte por esto la lista de artículos */
+      })
+  }, [])
   const [publishingAll, setPublishingAll] = useState(false)
   const [traduciendo, setTraduciendo] = useState<string | null>(null)
   const [renombrando, setRenombrando] = useState<Record<string, string>>({})
@@ -422,6 +440,33 @@ export default function BlogsPage() {
       </BrandHeader>
 
       <div className="p-6 space-y-4 max-w-3xl">
+        {porRevisar.length > 0 && (
+          <div className="border border-maroon/25 rounded-md p-3 bg-maroon/[0.04]">
+            <p className="text-sm font-medium text-ink">
+              {porRevisar.length} artículo{porRevisar.length > 1 ? 's' : ''} por revisar
+            </p>
+            <p className="text-[11px] text-sand leading-snug mt-0.5">
+              Citan datos que pueden haber cambiado. Revisar no es republicar: es comprobar que lo que dicen sigue siendo cierto.
+            </p>
+            <ul className="mt-2 flex flex-col gap-1.5">
+              {porRevisar.slice(0, 8).map((c) => (
+                <li key={c.slug} className="text-[12px] leading-snug">
+                  <span
+                    className={
+                      c.estado === 'caducado'
+                        ? 'text-[10px] px-1.5 py-0.5 rounded bg-maroon/15 text-maroon mr-1.5'
+                        : 'text-[10px] px-1.5 py-0.5 rounded bg-amber-900/10 text-amber-900 mr-1.5'
+                    }
+                  >
+                    {c.diasRestantes < 0 ? `venció hace ${-c.diasRestantes} d` : `vence en ${c.diasRestantes} d`}
+                  </span>
+                  <span className="text-ink">{c.title}</span>
+                  {c.motivo && <span className="text-sand"> — {c.motivo}</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         {loading && <p className="text-sm text-neutral-500">Cargando posts…</p>}
 
         {!loading && loadError && (

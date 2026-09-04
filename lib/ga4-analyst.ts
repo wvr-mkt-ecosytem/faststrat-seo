@@ -367,10 +367,20 @@ Da las recomendaciones en JSON.`;
     const bloque = iAcc !== -1 ? raw.slice(iAcc + "<<<ACCIONES>>>".length) : raw;
     const m = bloque.match(/\{[\s\S]*\}/);
     recommendations = m ? JSON.parse(m[0]).recommendations ?? [] : [];
-  } catch {
+  } catch (e) {
     // Devolver el análisis sin recomendaciones y decirlo es mejor que fingir
     // que no hubo respuesta: los números de arriba siguen siendo válidos.
-    limits.push("El agente no devolvió un JSON válido, así que no hay recomendaciones en esta corrida.");
+    //
+    // Pero se guarda un trozo de LO QUE SÍ devolvió. La corrida del 3 de
+    // septiembre gastó 12,5 minutos de agente, dejó exactamente este aviso y no
+    // hubo forma de saber por qué: ni el error, ni la respuesta, nada. Un fallo
+    // que no deja rastro obliga a repetir el gasto solo para volver a verlo.
+    const pista = (raw ?? "").trim().slice(0, 400).replace(/\s+/g, " ");
+    limits.push(
+      "El agente no devolvió un JSON válido, así que no hay recomendaciones en esta corrida. " +
+        `Motivo: ${e instanceof Error ? e.message : String(e)}. ` +
+        (pista ? `Empezaba así: "${pista}"` : "No devolvió absolutamente nada."),
+    );
   }
 
   // "No inventes cifras" era solo una instrucción en el prompt, y una

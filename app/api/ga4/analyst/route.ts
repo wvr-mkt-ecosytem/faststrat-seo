@@ -67,8 +67,12 @@ export const POST = apiRoute(async (request: NextRequest) => {
   // del panel lo usa quien ya está mirando la pantalla.
   const noEmail = request.nextUrl.searchParams.get("noEmail") === "1";
   const destino = process.env.REPORT_EMAIL_TO;
+  // Un informe en blanco no se manda. Ver scripts/semanal.mjs: el agente puede
+  // no devolver nada aprovechable y los números seguir siendo válidos; se
+  // guarda, pero mandarlo por correo solo enseña una página vacía.
+  const vacio = !guardado.report?.trim() && (guardado.recommendations ?? []).length === 0;
   let correo: { ok: boolean; error?: string } | undefined;
-  if (destino && !noEmail) {
+  if (destino && !noEmail && !vacio) {
     const { subject, html } = informeComoCorreo(guardado, process.env.APP_BASE_URL);
     correo = await sendEmail({ to: destino, subject, html });
   }
@@ -80,7 +84,9 @@ export const POST = apiRoute(async (request: NextRequest) => {
     // El envío también se dice. Resend falla en silencio con una clave caducada
     // —devuelve 401 y ya está—, y así es como se pasaron semanas sin que
     // llegara ningún correo sin que nada lo delatara.
-    correo: !destino
+    correo: vacio
+      ? "no se mandó: el análisis salió vacío"
+      : !destino
       ? "no hay REPORT_EMAIL_TO configurado"
       : noEmail
         ? undefined

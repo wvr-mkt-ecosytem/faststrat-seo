@@ -78,20 +78,38 @@ if (!soloIdeas) {
     const { persistChanges } = await import("@/lib/persist");
 
     const informe = guardarInforme(await analyse(28));
-    console.log(`[${((Date.now() - t0) / 60000).toFixed(1)} min] ${(informe.recommendations ?? []).length} recomendaciones`);
+    const cuantas = (informe.recommendations ?? []).length;
+    console.log(`[${((Date.now() - t0) / 60000).toFixed(1)} min] ${cuantas} recomendaciones`);
 
     const persistido = await persistChanges(`informe del analista: ${informe.generadoEn.slice(0, 10)}`, [
       path.join(process.cwd(), "data", "reports"),
     ]);
     console.log(`  guardado: ${persistido.ok ? "sí" : `NO (${persistido.error})`}`);
 
-    const destino = process.env.REPORT_EMAIL_TO;
-    if (destino) {
-      const { subject, html } = informeComoCorreo(informe, process.env.APP_BASE_URL);
-      const c = await sendEmail({ to: destino, subject, html });
-      console.log(`  correo: ${c.ok ? `enviado a ${destino}` : `NO se envió (${c.error})`}`);
+    // Un informe sin texto y sin acciones es una corrida fallida, no una
+    // corrida tranquila.
+    //
+    // El 3 de septiembre el analista gastó 12,5 minutos, el agente no devolvió
+    // un JSON válido, y esto imprimió "0 recomendaciones · correo: enviado ·
+    // Todo listo", salió con código 0 y mandó por correo un informe en blanco.
+    // Nada avisó. Los datos de arriba sí eran válidos, así que el fichero se
+    // guarda igual —tiene valor— pero la corrida NO puede darse por buena: si
+    // se cae en silencio, se sigue cayendo cada lunes.
+    const vacio = !informe.report?.trim() && cuantas === 0;
+    if (vacio) {
+      console.error("  EL ANÁLISIS SALIÓ VACÍO. Los números se guardaron, pero el agente no produjo informe.");
+      for (const l of informe.limits ?? []) console.error(`    ${l}`);
+      console.error("  No se manda correo: un informe en blanco no informa de nada.");
+      fallos.push("análisis (vacío)");
     } else {
-      console.log("  correo: no hay REPORT_EMAIL_TO configurado");
+      const destino = process.env.REPORT_EMAIL_TO;
+      if (destino) {
+        const { subject, html } = informeComoCorreo(informe, process.env.APP_BASE_URL);
+        const c = await sendEmail({ to: destino, subject, html });
+        console.log(`  correo: ${c.ok ? `enviado a ${destino}` : `NO se envió (${c.error})`}`);
+      } else {
+        console.log("  correo: no hay REPORT_EMAIL_TO configurado");
+      }
     }
   } catch (e) {
     console.error(`  FALLÓ: ${e?.message ?? e}`);
