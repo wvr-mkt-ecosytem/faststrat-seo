@@ -367,9 +367,14 @@ await comprobar("El cron semanal sigue programado", async () => {
 });
 
 await comprobar("La última corrida semanal salió bien", async () => {
-  const j = await (await gh("actions/runs?per_page=5")).json();
-  const ultima = (j.workflow_runs ?? []).find((r) => /weekly/.test(r.path ?? ""));
-  exige(ultima, "no hay corridas");
+  // Se pregunta por SU workflow, no por las últimas corridas del repositorio.
+  //
+  // Mirando las 5 más recientes, un par de corridas de artículos desplazaban a
+  // la semanal fuera de la ventana y la comprobación decía "no hay corridas"
+  // como si el cron nunca hubiera funcionado.
+  const j = await (await gh("actions/workflows/weekly.yml/runs?per_page=1")).json();
+  const ultima = (j.workflow_runs ?? [])[0];
+  exige(ultima, "el workflow semanal no tiene ninguna corrida");
   exige(ultima.conclusion === "success", `la última salió "${ultima.conclusion}" (${ultima.created_at?.slice(0, 10)})`);
   return ultima.created_at?.slice(0, 10);
 }, { critico: false });
