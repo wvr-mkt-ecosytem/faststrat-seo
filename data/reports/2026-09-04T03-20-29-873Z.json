@@ -1,0 +1,151 @@
+{
+  "days": 28,
+  "totals": {
+    "clicks": 41,
+    "sessions": 1867,
+    "conversions": 0
+  },
+  "counts": {
+    "entran y se van": 1,
+    "sale y no la clican": 31,
+    "casi nadie la ve": 46
+  },
+  "recommendations": [
+    {
+      "kind": "consolidate",
+      "target": "/hubspot-breeze-vs-jasper-ai-vs-copy-ai-in-2026-which-ai-tool/",
+      "reason": "Dos URLs de FastStrat aparecen juntas en el mismo SERP para la misma consulta, dividiendo la autoridad del dominio e impidiendo que ninguna acumule suficiente señal para convertir impresiones en clics",
+      "cause": "Cuando Google detecta dos páginas del mismo dominio compitiendo por la misma intención, asigna a ambas menos autoridad colectiva de la que daría a una URL canónica única: las posiciona juntas en el SERP pero por debajo de donde estaría la versión consolidada, y el usuario no sabe cuál elegir. Confirmado en búsqueda directa: ambas URLs de faststrat.ai aparecen simultáneamente en el SERP de 'jasper vs copy.ai vs hubspot ai 2026'.",
+      "evidence": "5040 impresiones combinadas, 0 clics. /hubspot-breeze-vs-jasper-ai-vs-copy-ai-in-2026-which-ai-tool/: 2183 impr, pos 4.2, 0 clics. /jasper-vs-copyai-vs-hubspot-ai-2026/: 2857 impr, pos 3.4, 0 clics.",
+      "sourceUrl": "https://faststrat.ai/hubspot-breeze-vs-jasper-ai-vs-copy-ai-in-2026-which-ai-tool/",
+      "suggestion": "Antes de redirigir, revisar /hubspot-breeze-vs-jasper-ai-vs-copy-ai-in-2026-which-ai-tool/ y copiar al artículo superviviente cualquier sección, dato de precios o comparativa que no exista ya en /jasper-vs-copyai-vs-hubspot-ai-2026/. Después implementar: redirect 301 https://faststrat.ai/hubspot-breeze-vs-jasper-ai-vs-copy-ai-in-2026-which-ai-tool/ → https://faststrat.ai/jasper-vs-copyai-vs-hubspot-ai-2026/.",
+      "priority": "alta"
+    },
+    {
+      "kind": "rewrite-title",
+      "target": "/jasper-vs-copyai-vs-hubspot-ai-2026/",
+      "reason": "El título formula una pregunta que repite la duda del usuario; los resultados que lo rodean en el SERP prometen una respuesta directa con un veredicto",
+      "cause": "En un SERP de comparación el usuario ya tiene la pregunta. Los títulos de los competidores dicen 'Cheaper & Better' o 'Which Platform Fits Your Workflow' —entregan la respuesta en el título— mientras que el de FastStrat dice 'Which Marketing AI Wins in 2026?', que es exactamente lo que el usuario ya está pensando. El clic va al que promete resolver la duda, no al que la repite.",
+      "evidence": "2857 impresiones, posición 3.4, 0 clics. CTR esperado en posición 3 para consultas comparativas: ~10-12%. CTR real: 0%.",
+      "sourceUrl": "https://www.conbersa.ai/learn/jasper-vs-copy-ai",
+      "suggestion": "Cambiar el tag <title> HTML de la página a: \"Jasper vs Copy.ai vs HubSpot AI (2026): The SMB Winner After Testing All 3\" (74 caracteres). Actualizar la meta description para que su primera frase nombre explícitamente cuál herramienta recomienda FastStrat y en qué caso de uso, en lugar de dejar el veredicto para el final del artículo.",
+      "priority": "alta"
+    },
+    {
+      "kind": "technical-fix",
+      "target": "dev.faststrat.ai",
+      "reason": "El subdominio de desarrollo está indexado en Google y duplica el contenido de producción",
+      "cause": "Google encuentra dev.faststrat.ai accesible y sin ninguna directiva de bloqueo; al rastrear el mismo contenido en dos dominios distintos, puede interpretar una de las versiones como la canónica y dividir la señal de autoridad entre ambas, o tratar el dominio principal como fuente de contenido duplicado",
+      "evidence": "1 URL de entorno no-productivo detectada como indexada: https://dev.faststrat.ai/",
+      "sourceUrl": "",
+      "suggestion": "Añadir al robots.txt de dev.faststrat.ai: 'User-agent: *' en una línea y 'Disallow: /' en la siguiente. Si el servidor no permite un robots.txt independiente por subdominio, añadir <meta name='robots' content='noindex, nofollow'> en el <head> de todas las plantillas del entorno. Verificar en Search Console → Herramienta de inspección de URL que dev.faststrat.ai devuelve directiva noindex, 48 horas después del despliegue.",
+      "priority": "alta"
+    },
+    {
+      "kind": "consolidate",
+      "target": "/best-seo-tools-for-small-businesses-in-2026-honest-reviews-p/",
+      "reason": "La URL con slug truncado aparece en el mismo SERP que la URL limpia de SEO tools, repartiendo impresiones y mostrando una señal visible de publicación automatizada antes de que el usuario lea el título",
+      "cause": "El slug cortado ('-p/' al final) es visible en la URL del resultado de búsqueda; un usuario que lo detecta asocia el artículo con contenido generado automáticamente sin revisión, lo que reduce el clic antes de evaluar el título. Confirmado en búsqueda directa: ambas URLs de FastStrat sobre SEO tools aparecen simultáneamente en el SERP de 'best SEO tools small business 2026', dividiendo la autoridad del dominio",
+      "evidence": "853 impr, pos 4.2, 0 clics. faststrat.ai/best-seo-tools-small-business-2026/ (2730 impr, 1 clic) aparece en el mismo SERP que la URL truncada para 'best SEO tools small business 2026'.",
+      "sourceUrl": "https://trafficthinktank.com/seo-tools-for-small-business/",
+      "suggestion": "Integrar en /best-seo-tools-small-business-2026/ cualquier reseña o comparativa de precios exclusiva de la URL descartada. Después: redirect 301 https://faststrat.ai/best-seo-tools-for-small-businesses-in-2026-honest-reviews-p/ → https://faststrat.ai/best-seo-tools-small-business-2026/.",
+      "priority": "alta"
+    },
+    {
+      "kind": "improve-page",
+      "target": "/how-much-should-smb-spend-on-marketing/",
+      "reason": "Es la página con la mayor demanda humana verificada del sitio, está a 4-5 posiciones de entrar a página 1 de Google, y su título no promete ningún dato concreto mientras todos los competidores visibles sí lo hacen",
+      "cause": "Posición 11.6 es el inicio de la página 2 de Google, donde el CTR cae por debajo del 1%. La permanencia de 25 segundos confirma que el contenido retiene cuando alguien llega. Dos palancas para subir posición: (1) links internos desde páginas del sitio con más autoridad, que le señalan a Google que esta URL es relevante dentro del dominio; (2) un <title> que prometa datos, porque los 9 competidores visibles en ese SERP —Mercury, BoomCycle, Searchlab, BizIQ— usan ganchos como 'Real Numbers', '26% Plan to Spend $0', 'Budget & ROI Data', mientras que el título actual no promete nada específico",
+      "evidence": "4 clics, 1823 impr, pos 11.6, 37 ses, 25s. FastStrat no aparece en la primera página de resultados para la consulta principal de esta URL.",
+      "sourceUrl": "https://mercury.com/blog/how-much-should-a-small-business-spend-on-marketing",
+      "suggestion": "Acción 1 — Reescribir el <title> a: \"How Much Should a Small Business Spend on Marketing? 2026 Data & Benchmarks\" (74 caracteres). Acción 2 — Añadir un enlace en el cuerpo (no en el footer) a https://faststrat.ai/how-much-should-smb-spend-on-marketing/ desde estas tres URLs con los textos ancla indicados: /jasper-vs-copyai-vs-hubspot-ai-2026/ con ancla 'SMB marketing budget benchmarks for 2026'; /best-seo-tools-small-business-2026/ con ancla 'how much small businesses typically spend on SEO'; /seo-for-small-business-2026/ con ancla 'setting a realistic marketing budget for your SMB'.",
+      "priority": "media"
+    },
+    {
+      "kind": "consolidate",
+      "target": "/whatsapp-business-pricing-latam-2026/",
+      "reason": "Dos páginas sobre WhatsApp Business para LATAM comparten intención de búsqueda y reparten 887 impresiones con 0 clics",
+      "cause": "La URL de precios y la guía general compiten por las mismas consultas en español sobre WhatsApp Business para PYMEs latinoamericanas; Google no puede determinar cuál es más relevante y posiciona ambas por debajo de donde estaría una sola URL con todo el contenido consolidado",
+      "evidence": "/whatsapp-business-pricing-latam-2026/: 102 impr, 0 clics, pos 8.9. /whatsapp-business-pymes-latam-guia-2026/: 785 impr, 0 clics, pos 5.9.",
+      "sourceUrl": "",
+      "suggestion": "Incorporar en /whatsapp-business-pymes-latam-guia-2026/ una sección H2 titulada 'Precios de WhatsApp Business API en LATAM 2026: desglose por BSP' con el contenido de la URL de precios. Después: redirect 301 https://faststrat.ai/whatsapp-business-pricing-latam-2026/ → https://faststrat.ai/whatsapp-business-pymes-latam-guia-2026/.",
+      "priority": "media"
+    },
+    {
+      "kind": "consolidate",
+      "target": "/prompt-engineering-for-marketers-2026/",
+      "reason": "La URL en posición 2.7 no genera clics porque aparece en superficies de IA; la URL con demanda humana real está enterrada en posición 40.7 y necesita ese link equity para subir",
+      "cause": "Una posición 2.7 con 82 impresiones y 0 clics es el patrón exacto del tráfico de LLMs que extraen el contenido sin mandar visitas. La URL de 20 prompts aparece para búsquedas humanas reales (556 impr) pero en posición 40.7 porque no tiene autoridad suficiente. Consolidar el link equity de la primera hacia la segunda la empuja a posiciones donde sí habrá clics. Comprobé el SERP: los competidores dominantes son guías teóricas ('Complete Guide', 'Advanced Guide'); el título con número concreto y verbo de acción se diferencia.",
+      "evidence": "/prompt-engineering-for-marketers-2026/: 82 impr, pos 2.7, 0 clics. /prompt-engineering-for-marketers-20-prompts/: 556 impr, pos 40.7, 0 clics.",
+      "sourceUrl": "https://genesysgrowth.com/blog/ai-prompt-engineering-for-marketers-complete-guide",
+      "suggestion": "Redirect 301 https://faststrat.ai/prompt-engineering-for-marketers-2026/ → https://faststrat.ai/prompt-engineering-for-marketers-20-prompts/. Después reescribir el <title> de la superviviente a: '20 AI Marketing Prompts for 2026: Copy, Paste, and Use Today' (para audiencia US, 57 caracteres) o '20 Prompts de Marketing para IA (2026): Copia, Pega y Usa Hoy' (para LATAM, 63 caracteres). El número concreto y el verbo de acción inmediata son el diferenciador frente a las guías genéricas del SERP.",
+      "priority": "media"
+    },
+    {
+      "kind": "consolidate",
+      "target": "/marketing-pymes-argentinas-presupuesto-limitado/",
+      "reason": "Dos artículos en español sobre marketing para PYMEs latinoamericanas comparten consultas de intención amplia y reparten 646 impresiones con 0 clics",
+      "cause": "Las consultas de intención amplia en español ('marketing pymes latam', 'marketing presupuesto limitado pymes') activan ambas URLs; Google no puede priorizar ninguna y las posiciona juntas por debajo de donde estaría un solo artículo consolidado sobre el tema",
+      "evidence": "/marketing-pymes-argentinas-presupuesto-limitado/: 54 impr, 0 clics, pos 7.6. /marketing-pymes-mexicanas-2026/: 592 impr, 0 clics, pos 8.5.",
+      "sourceUrl": "",
+      "suggestion": "Incorporar en /marketing-pymes-mexicanas-2026/ una sección H2 'Marketing para PYMEs argentinas: diferencias clave con el mercado mexicano' con los datos específicos del artículo descartado. Después: redirect 301 https://faststrat.ai/marketing-pymes-argentinas-presupuesto-limitado/ → https://faststrat.ai/marketing-pymes-mexicanas-2026/.",
+      "priority": "media"
+    },
+    {
+      "kind": "add-cta",
+      "target": "/",
+      "reason": "16 eventos de clic en todo el sitio en 28 días sobre 1263 de engagement: el contenido genera lectura pero no genera ninguna intención de acción",
+      "cause": "Sin un bloque de CTA explícito dentro del cuerpo del artículo, el lector que termina el contenido no tiene un siguiente paso visible y cierra la pestaña. El problema no es el formulario ni la app —con 16 clics totales no hay suficiente volumen para diagnosticar el backend—: es que los artículos no están pidiendo nada. Los 189 eventos de scroll confirman que hay lectura real; la caída a 16 clics confirma que el contenido no convierte esa lectura en intención",
+      "evidence": "user_engagement: 1263 eventos; scroll: 189 eventos; click: 16 eventos (4 usuarios únicos); conversiones: 0 en 28 días.",
+      "sourceUrl": "",
+      "suggestion": "Añadir al final de cada artículo, antes del footer, un bloque con este contenido exacto — H3: '¿Quieres que FastStrat haga esto por ti?' / Párrafo: 'FastStrat es una plataforma de agentes de IA que ejecuta estas estrategias automáticamente para tu negocio. Sin agencia, sin curva de aprendizaje.' / Botón con texto 'Ver planes y precios' enlazado a https://faststrat.ai/get-pricing/. En artículos de más de 1500 palabras, repetir el mismo bloque también a mitad del artículo, después del segundo o tercer H2.",
+      "priority": "media"
+    },
+    {
+      "kind": "consolidate",
+      "target": "/marketing-agency-vs-diy-ai-tools-2026/",
+      "reason": "Tres URLs de FastStrat aparecen en el mismo SERP para consultas sobre agencia vs DIY, y la URL con posición 3.0 tiene solo 6 impresiones porque rankea para superficies de IA, no para búsqueda humana",
+      "cause": "Posición 3.0 con 6 impresiones es el mismo patrón de las superficies de IA que se ve en el cluster de prompt engineering: el sistema la encuentra como fuente pero no manda a nadie. La URL con 137 impresiones tiene demanda humana real y se beneficia del link equity consolidado. Confirmado en búsqueda directa: /agency-vs-diy-vs-ai-marketing-smb/, /marketing-agency-vs-diy-ai-tools-2026/ y /ai-marketing-trends-smb-2026/ aparecen las tres en el mismo SERP",
+      "evidence": "/marketing-agency-vs-diy-ai-tools-2026/: 6 impr, 0 clics, pos 3.0. /agency-vs-diy-vs-ai-marketing-smb/: 137 impr, 0 clics, pos 9.5.",
+      "sourceUrl": "https://amworldgroup.com/compare/ai-marketing-tools-vs-marketing-agency",
+      "suggestion": "Redirect 301 https://faststrat.ai/marketing-agency-vs-diy-ai-tools-2026/ → https://faststrat.ai/agency-vs-diy-vs-ai-marketing-smb/. Verificar que /ai-marketing-trends-smb-2026/ tenga un enfoque claramente distinto en el <title> y en el primer párrafo para que Google no la siga incluyendo en el mismo cluster de intención.",
+      "priority": "baja"
+    },
+    {
+      "kind": "consolidate",
+      "target": "/how-nike-turns-storytelling-into-a-branding-superpower/",
+      "reason": "La versión sin '-optimized' compite con la versión optimizada por las mismas consultas, repartiendo 326 impresiones y los 4 únicos clics de ese cluster",
+      "cause": "Google ve dos páginas con el mismo contenido base en el mismo dominio y no puede determinar cuál es la canónica; el link equity llega repartido entre ambas en lugar de concentrarse en la que tiene mejor título y metadatos",
+      "evidence": "/how-nike-turns-storytelling-into-a-branding-superpower-optimized/: 210 impr, 4 clics, pos 7.9. /how-nike-turns-storytelling-into-a-branding-superpower/: 116 impr, 0 clics, pos 16.9.",
+      "sourceUrl": "",
+      "suggestion": "Redirect 301 https://faststrat.ai/how-nike-turns-storytelling-into-a-branding-superpower/ → https://faststrat.ai/how-nike-turns-storytelling-into-a-branding-superpower-optimized/.",
+      "priority": "baja"
+    },
+    {
+      "kind": "consolidate",
+      "target": "/email-marketing-strategy-smb-zero-to-10k/",
+      "reason": "La URL de email marketing compite con la de zero-dollar marketing por consultas de marketing de bajo presupuesto para PYMEs, repartiendo 209 impresiones con 1 clic combinado",
+      "cause": "'Zero-dollar marketing strategy' es la intención más amplia que incluye email como uno de sus canales; al tener dos artículos separados, Google los posiciona para las mismas consultas y ninguno acumula autoridad suficiente. La URL con email en el nombre tiene más impresiones pero el superviviente correcto es el de intención más amplia porque puede rankear para más variantes de consulta",
+      "evidence": "/email-marketing-strategy-smb-zero-to-10k/: 145 impr, 0 clics, pos 12.6. /zero-dollar-marketing-strategy-bootstrapped-smb/: 64 impr, 1 clic, pos 13.1.",
+      "sourceUrl": "",
+      "suggestion": "Incorporar en /zero-dollar-marketing-strategy-bootstrapped-smb/ una sección H2 'Email marketing: el canal con mejor ROI a coste cero' con los datos del artículo descartado. Después: redirect 301 https://faststrat.ai/email-marketing-strategy-smb-zero-to-10k/ → https://faststrat.ai/zero-dollar-marketing-strategy-bootstrapped-smb/.",
+      "priority": "baja"
+    },
+    {
+      "kind": "consolidate",
+      "target": "/faststrat-vs-chatgpt-vs-claude-marketing/",
+      "reason": "El slug con orden de términos invertido compite con la URL principal branded, diluyendo la autoridad para una consulta de alta intención comercial",
+      "cause": "Para búsquedas de comparación branded, dos URLs con los mismos términos en diferente orden hacen que Google no sepa cuál es la canónica y posicione ambas por debajo de donde estaría una sola; para una consulta donde el usuario está evaluando comprar FastStrat, perder posición por canibalización interna es especialmente costoso",
+      "evidence": "/chatgpt-vs-claude-vs-faststrat-marketing/: 159 impr, 0 clics, pos 22.1. /faststrat-vs-chatgpt-vs-claude-marketing/: 3 impr, 0 clics, pos 22.3.",
+      "sourceUrl": "",
+      "suggestion": "Redirect 301 https://faststrat.ai/faststrat-vs-chatgpt-vs-claude-marketing/ → https://faststrat.ai/chatgpt-vs-claude-vs-faststrat-marketing/.",
+      "priority": "baja"
+    }
+  ],
+  "limits": [
+    "Cero conversiones registradas en el periodo. Sin conversiones no se puede decir qué contenido convierte, solo qué se lee.",
+    "2 recomendación(es) descartada(s) por apuntar a rutas que no están en los datos: /wp-content/uploads/, /ai-organic-marketing-for-smbs-the-2026-playbook-to-cut-cac-w/ y /ga4-setup-for-small-businesses-in-2026-step-by-step-guide-no/"
+  ],
+  "report": "## El panorama\n\n41 clics desde búsqueda, 1,867 sesiones totales, 0 conversiones en 28 días. Antes de leer cualquier otra cifra hay que corregir el denominador: el 53% de las impresiones del sitio no es demanda humana.\n\nDe las ~6,362 impresiones totales, 3,363 vienen de consultas con forma de instrucción automatizada —una en alemán comparando herramientas de IA, otras con operadores booleanos buscando casos de estudio de HubSpot para PYMEs— que los LLMs usan para extraer contenido como fuente, no personas buscando un servicio. Esas 3,363 impresiones generaron exactamente 0 clics. El CTR real sobre impresiones de búsqueda humana es 11 clics en 2,999 impresiones: **0.37%**.\n\nEsto cambia la lectura de todas las páginas con muchas impresiones. El volumen aparente de `/jasper-vs-copyai-vs-hubspot-ai-2026/` (2,857 impr), `/best-seo-tools-small-business-2026/` (2,730 impr) y `/hubspot-breeze-vs-jasper-ai-vs-copy-ai-in-2026-which-ai-tool/` (2,183 impr) está inflado por estas superficies. El sitio está siendo citado como fuente por sistemas de IA —lo cual tiene valor de autoridad— pero no convierte en visitas humanas.\n\nEl tráfico \"directo\" añade otro ruido mayor: 1,639 sesiones (92.2% del total) con 9 segundos de permanencia media y 0 conversiones. Sin datos adicionales no es posible diagnosticar el origen con certeza —puede ser tráfico interno del equipo, bots, o sesiones mal etiquetadas— pero no es accionable como canal. Lo que sí confirma el desglose por dispositivo: mobile tiene 76 sesiones con 20 segundos de permanencia, mientras desktop tiene 1,694 sesiones con 9 segundos. El usuario real lee más del doble. El volumen de escritorio está distorsionado por tráfico no humano.\n\n---\n\n## Qué está funcionando y por qué\n\n**Google orgánico** aporta 85 sesiones con 31 segundos de permanencia: el canal de mayor calidad por margen amplio. Los asistentes de IA (Gemini: 14 ses/23s, ChatGPT: 10 ses/12s) también mandan visitantes reales que leen. Que estos canales tengan permanencias razonables confirma que cuando alguien llega con intención, el contenido aguanta. El problema no es la calidad del contenido: es que casi nadie llega con intención.\n\n**`/how-much-should-smb-spend-on-marketing/`** es la página más valiosa del sitio ahora mismo. 1,823 impresiones en posición 11.6 con 25 segundos de permanencia media y 37 sesiones. Es la consulta con más demanda humana verificada del sitio y el mejor tiempo de lectura entre las páginas de alto volumen. Comprobé el SERP: FastStrat no aparece en página 1 para esa consulta; los competidores visibles (Mercury, BoomCycle, Searchlab) tienen dominios con más autoridad pero sus títulos son igualables con datos concretos. Posición 11.6 significa estar al inicio de página 2: una mejora de 4-5 posiciones puede triplicar los clics sin crear nada nuevo.\n\n**`/zero-dollar-marketing-strategy-bootstrapped-smb/`** tiene solo 64 impresiones pero genera 25 sesiones con 26 segundos de permanencia. La proporción sesiones/impresiones es anormalmente alta, lo que indica que recibe tráfico desde algún enlace externo directo además de búsqueda orgánica.\n\nLo que tienen en común las páginas que funcionan: responden una pregunta con número o con promesa específica, y la intención del buscador es humana y comparativa, no de extracción de información para un LLM.\n\n---\n\n## Qué no está funcionando y por qué\n\n### La canibalización es visible en el SERP, no solo en los datos\n\nLo más importante que encontré no está en Search Console. Busqué directamente las consultas principales y confirmé que para \"jasper vs copy.ai vs hubspot ai 2026\", **dos URLs de FastStrat aparecen en la misma página de resultados simultáneamente**. Lo mismo para \"best SEO tools small business 2026\" con otras dos URLs del sitio. Para \"agency vs DIY AI marketing SMB 2026\", aparecen **tres URLs de FastStrat** en el mismo SERP, incluyendo `/ai-marketing-trends-smb-2026/`, que no es ni el mismo tema.\n\nCuando Google ve dos páginas del mismo dominio compitiendo por la misma intención, asigna a ambas menos autoridad de la que daría a una sola URL canónica. El cluster Jasper/HubSpot suma 5,040 impresiones con 0 clics. El de SEO tools suma al menos 3,583 impresiones entre las dos URLs de herramientas, con 2 clics combinados. Hay 13 clusters de canibalización identificados: es el patrón sistemático de un proceso de publicación que no comprueba si el tema ya existe antes de publicar.\n\n### Los títulos de las páginas con más impresiones preguntan lo que la competencia responde\n\nComprobé el SERP de comparación de herramientas de IA. Los resultados que rodean a FastStrat prometen: \"10 Best Jasper AI Alternatives in 2026 (Cheaper & Better)\" y \"Copy.ai vs Jasper: Which AI Platform Fits Your Content & Marketing Workflow\". Los dos artículos de FastStrat dicen \"Which Marketing AI Wins in 2026?\" —la misma pregunta que el usuario ya tiene en la mente— sin resolver nada en el título. En un SERP de comparación, el clic va a quien promete la respuesta, no a quien formula la misma pregunta.\n\nEl artículo de SEO tools (`/best-seo-tools-small-business-2026/`) ya tiene \"12 Best\" en el título, lo que es competitivo frente a los \"10 Must-Have\" y \"9 Best\" de los competidores. El problema aquí es exclusivamente la canibalización: la URL con slug truncado comparte el SERP y divide la autoridad.\n\n### El hallazgo de 7 URLs en SEO necesita cirugía, no un redirect masivo\n\nEl hallazgo recomienda consolidar 7 URLs hacia `/seo-for-small-business-2026/`, pero esa página tiene 1,159 impresiones frente a las 2,730 de `/best-seo-tools-small-business-2026/`. Además, `/small-business-marketing-budget-2026/` y `/ab-testing-small-business-when-worth-it/` son temas genuinamente distintos que el algoritmo agrupó porque comparten \"small business\" en el slug, no por intención de búsqueda compartida. Redirigir las 7 páginas hacia la guía genérica de SEO destruiría autoridad temática construida. Lo accionable: redirigir únicamente la URL de herramientas SEO con slug truncado hacia la URL limpia del mismo tema.\n\n### La inversión del prompt engineering\n\n`/prompt-engineering-for-marketers-2026/` está en posición 2.7 con 82 impresiones y 0 clics. Una posición 2.7 con cero clics es el patrón exacto de las superficies de IA: el sistema referencia la página sin que nadie haga clic. `/prompt-engineering-for-marketers-20-prompts/` está en posición 40.7 con 556 impresiones: esa es demanda humana real enterrada en página 4. El hallazgo recomienda consolidar hacia la de 20 prompts; es correcto porque tiene más demanda real, y el link equity de la URL en posición 2.7 la empujará hacia posiciones donde sí habrá clics.\n\nComprobé el SERP de \"prompt engineering for marketers 2026\": lo dominan guías con títulos como \"AI Prompt Engineering for Marketers — Complete Guide 2026\" y \"Advanced Prompt Engineering for Digital Marketers in 2026\". El título con \"20 prompts\" y un verbo de acción inmediata (\"copia y usa\") se diferencia de esa marea de guías teóricas.\n\n### El entorno de desarrollo está indexado y los PDFs compiten con páginas web\n\n`dev.faststrat.ai` está indexado en Google. Duplica el contenido de producción y puede hacer que Google divida la señal de autoridad entre las dos versiones. Es el arreglo de menor coste con mayor urgencia: un `robots.txt` que se configura en diez minutos.\n\nLos PDFs de prensa en `/wp-content/uploads/` están indexados y compiten con las páginas web para búsquedas branded. Los PDFs no tienen CTA, no tienen navegación, no convierten. Cada impresión en un PDF es una impresión que no va a una página que puede generar un registro.\n\n### El embudo no tiene inicio\n\n1,263 eventos de `user_engagement`, 189 scrolls, 16 clics totales en todo el sitio en 28 días, 0 conversiones. La caída de engagement a clic en una proporción de 79:1 indica que el contenido genera lectura pero no genera intención de actuar. Con 16 clics totales no hay suficiente volumen para diagnosticar un problema de formulario o de app: el problema está antes del botón. El contenido no está pidiendo nada. Un botón que nadie ve no es un botón.\n\n---\n\n## Lo que yo haría, por orden de impacto\n\n1. **Redirigir la URL de HubSpot-comparison hacia la de Jasper-comparison y reescribir el título del superviviente.** Un 301 y un `<title>` nuevo. Cluster con 5,040 impresiones y 0 clics, dos URLs del sitio compartiendo el mismo SERP, y el título actual hace una pregunta mientras la competencia da la respuesta. El retorno en CTR puede notarse en días.\n\n2. **Bloquear `dev.faststrat.ai` y los PDFs de la indexación.** Dos cambios de configuración de servidor que se resuelven en menos de una hora. Son fugas de autoridad activas que no requieren escribir ni una línea de contenido.\n\n3. **Redirigir la URL de SEO tools con slug truncado hacia la URL limpia.** Elimina la segunda URL de FastStrat del SERP de herramientas SEO, que es donde hay 2,730 impresiones esperando convertirse en clics.\n\n4. **Resolver los clusters de canibalización restantes** en orden de impresiones: WhatsApp LATAM (887 impr), marketing pymes (646 impr), prompt engineering (638 impr). Todos son 301 redirects después de integrar el contenido único de cada URL descartada.\n\n5. **Mejorar el título y los links internos de `/how-much-should-smb-spend-on-marketing/`.** Es la página con más demanda humana verificada y está a un empujón de authority de entrar a página 1. El título actual no promete ningún dato, mientras que todos los competidores visibles en ese SERP sí lo hacen.\n\n6. **Añadir un bloque de CTA explícito al final de cada artículo.** Con 16 clics en 28 días sobre más de 1,200 eventos de engagement, el contenido no está generando ninguna intención de acción. Es el único cambio que puede romper la barrera entre lector y prospecto sin tocar el tráfico.",
+  "generadoEn": "2026-09-04T03:20:29.873Z"
+}
