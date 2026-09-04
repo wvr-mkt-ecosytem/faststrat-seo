@@ -2,216 +2,184 @@
 title: 'AI Website Audit Tool with Scorecard: The SMB Self-Audit Guide for 2026'
 slug: ai-website-audit-tool-scorecard-smb-self-audit-guide-2026
 excerpt: >-
-  FastStrat, WebScore.ai, y Foresight by Flow Ninja entregan scorecards de
-  auditoría de sitio web con IA de forma gratuita y en menos de dos minutos. El
-  mism
+  An AI website audit tool with a scorecard grades your site across SEO, page
+  speed, mobile usability, content quality, and, in 2026, AI discoverability,
+  the
 keywords:
   - ai website audit tool with scorecard
 lang: en
 category: SEO
 status: draft
 author: Walter Von Roestel
-date: '2026-09-04T03:23:43.386Z'
-updated: '2026-09-04T03:23:43.386Z'
+date: '2026-09-04T16:53:56.822Z'
+updated: '2026-09-04T16:53:56.822Z'
 differentiator: >-
-  Los tres primeros resultados para "ai website audit tool with scorecard" son
-  landing pages de herramientas individuales: wordlift.io/ai-audit (solo
-  accesibilidad para agentes IA, sin más), o8.agency/website-audit-tool
-  (herramienta de agencia propia, 403 al intentar acceder), y
-  flowninja.com/website-audit (10 dimensiones B2B, ninguna explicación de por
-  qué los scores divergen entre plataformas). Las tres promocionan su propia
-  herramienta y se detienen ahí. Este artículo tiene el diferencial que ninguno
-  ofrece: explica por qué el mismo sitio saca 74 en una plataforma y 52 en otra,
-  mapea qué cubre cada herramienta gratuita con verificación directa de sus
-  páginas de producto, y entrega un framework de 6 dimensiones con umbrales
-  exactos de Google—para que el lector interprete y actúe sobre cualquier
-  scorecard, no solo el del primero que haya ejecutado.
-
-
-  **Nota editorial:** el título tiene 70 caracteres; con " - faststrat.ai" el
-  `<title>` total llega a 86 y Google lo cortará en el SERP. Si se puede acortar
-  a "AI Website Audit Tool with Scorecard: SMB Guide 2026" (52 caracteres) antes
-  de publicar, el snippet queda completo.
+  The three pages currently ranking for this keyword are: **nexterwp.com**
+  (covers an AI-readiness layer but only for WordPress users, no general SMB
+  scorecard framework), **flowninja.com** (17-tool price list, no self-audit
+  methodology — it tells you what tools cost, not how to read their output or
+  what a passing grade means), and **cruelx.com** (acknowledges that one-click
+  scores are insufficient starting points, then stops at that diagnosis). None
+  of them provide the benchmark thresholds that make a scorecard actionable:
+  what LCP must clear to pass, what page speed drop costs in conversion rate,
+  what heading structure earns more AI citations and from which study. This
+  article resolves that gap by mapping each free tool to a specific audit
+  dimension, supplying exact thresholds from primary sources (web.dev, Portent,
+  AirOps 2026 State of AI Search, SparkToro), and building a step-by-step
+  30-minute workflow rather than a product list.
 keywordRationale: >-
-  Quien busca "ai website audit tool with scorecard" ya superó la fase de
-  descubrimiento: sabe lo que es una auditoría y quiere específicamente una
-  herramienta que devuelva un número interpretable y priorizado, no una lista
-  plana de errores. La intención es selectiva y evaluativa—el buscador quiere
-  elegir entre herramientas o entender el score que ya recibió. Variantes con
-  mayor volumen incluyen "free website audit tool with score", "ai seo audit
-  tool free", y "website performance scorecard"—este artículo las cubre porque
-  responde la pregunta de fondo: cómo interpretar y actuar sobre cualquier
-  resultado de auditoría, con independencia de la herramienta que se use.
-keywordTrend:
-  termino: ai website audit tool with scorecard
-  direccion: sin-volumen
-  cambioAnual: 0
-  nivelActual: 0
-  meses: 262
-  mercados:
-    US:
-      direccion: sin-volumen
-      cambioAnual: 0
-      nivelActual: 0
+  Someone searching "ai website audit tool with scorecard" is an SMB owner or
+  in-house marketer who suspects their site has a problem — in SEO, speed,
+  conversions, or all three — but lacks the technical background to audit it
+  manually and wants a structured, graded output they can act on without hiring
+  an agency. They are not comparing enterprise platforms; they want to run an
+  audit today, ideally for free, and understand what the score means. This
+  article answers that better than the current first page because it provides
+  the actual passing thresholds per dimension from primary sources (web.dev,
+  Google's developer docs, Portent's 100M-page-view study, AirOps 2026,
+  SparkToro), maps each free tool to a specific scorecard dimension, and
+  delivers a 30-minute workflow instead of a product list. Higher-volume
+  variants worth targeting in structured data and secondary headings: "free
+  website audit scorecard," "website audit checklist 2026," and "ai seo audit
+  tool free."
 ---
 # AI Website Audit Scorecard: SMB Guide 2026
 
-FastStrat, WebScore.ai, y Foresight by Flow Ninja entregan scorecards de auditoría de sitio web con IA de forma gratuita y en menos de dos minutos. El mismo dominio sale con 15–20 puntos de diferencia entre herramientas porque cada una pesa rendimiento, SEO y contenido de forma distinta.
+An AI website audit tool with a scorecard grades your site across SEO, page speed, mobile usability, content quality, and, in 2026, AI discoverability, then assigns each dimension a grade and ranks the fixes by priority. The fastest free options, including [FastStrat's website analyzer](https://faststrat.ai/free-ai-website-audit-tool/) and [seoscore.tools](https://seoscore.tools/), return a full multi-dimension report in under 60 seconds, with no account required.
 
-Ese gap de puntuación es el primer problema que resuelve esta guía. El segundo: la mayoría de los scorecards dicen qué está roto pero no cómo leer el número en contexto ni qué brecha te cuesta tráfico real. Lo que sigue es un mapa de cada herramienta gratuita con scorecard, un framework de seis dimensiones para cruzar cualquier resultado, y los umbrales exactos que Google usa para clasificar cada métrica.
+The problem is not finding an audit tool, there are dozens. The problem is knowing what to do with the score it returns. A composite 61/100 tells you something is wrong but not which dimension to fix first, what threshold you are failing against, or which free tool gives you the specific data behind that grade. That is what this guide builds.
 
-Si buscas la respuesta rápida: el mejor AI website audit tool con scorecard para PYMEs depende de qué quieres medir. FastStrat cubre 8 dimensiones incluyendo posicionamiento competitivo; WebScore.ai pesa conversión y analítica igual que SEO técnico; WordLift audita exclusivamente si los LLMs pueden leer tu contenido. Ninguna herramienta cubre las seis dimensiones completas, por eso el framework de abajo es el punto de partida, no la herramienta en sí.
+## What a scorecard actually measures
+
+A scorecard splits your site into independent dimensions so a strong score in one area cannot mask a failing score in another. Most AI audit tools in 2026 grade between six and eight dimensions:
+
+**SEO fundamentals**: title tags, meta descriptions, heading hierarchy, canonical tags, robots.txt configuration, and XML sitemap validity. These are largely binary, either present and correctly structured, or not.
+
+**Page performance**: the three Core Web Vitals, LCP (Largest Contentful Paint), INP (Interaction to Next Paint), and CLS (Cumulative Layout Shift), plus page weight and render-blocking resources. [Google publishes the passing thresholds at web.dev](https://web.dev/articles/defining-core-web-vitals-thresholds): LCP ≤2.5 seconds, INP ≤200 milliseconds, and CLS ≤0.1, all measured at the 75th percentile of real Chrome user sessions.
+
+**Mobile usability**: viewport configuration, touch target sizes, minimum 16px font legibility, and absence of intrusive interstitials.
+
+**Content quality**: word count per page, CTA presence and placement, reading level, keyword relevance, and internal linking depth.
+
+**Branding consistency**: logo visibility, color usage, font consistency, and brand voice signals across pages.
+
+**Technical stack**: CMS platform, JavaScript frameworks, analytics and tag manager scripts installed, or missing.
+
+**Social and off-site signals**: Open Graph tags, Twitter/X Card metadata, and link validity for social profile URLs.
+
+**AI discoverability (AEO/GEO)**: structured data (schema markup), FAQ sections, E-E-A-T signals, sequential heading hierarchy, and content formatted for LLM extraction. This is the dimension that most audit tools built before 2025 skip entirely, and it is the one that now determines whether ChatGPT, Perplexity, or Google's AI Overviews cite your page or a competitor's.
+
+That last dimension is moving quickly. [Conductor's 2026 AEO/GEO Benchmarks Report](https://www.conductor.com/academy/aeo-geo-benchmarks-report/) found that 25.11% of analyzed Google searches now trigger AI Overview results, with AI referral traffic growing at roughly 1% month-over-month across industries.
+
+## The benchmarks every SMB needs before reading a score
+
+A grade without a threshold is decoration. Here are the numbers that make each dimension actionable:
+
+Core Web Vitals: [Google's documentation](https://developers.google.com/search/docs/appearance/core-web-vitals) confirms Core Web Vitals as part of its core ranking systems, with passing thresholds of LCP ≤2.5 s, INP ≤200 ms, and CLS ≤0.1. The business cost of failing them is measurable in revenue, not just rankings: Portent's analysis of 20 websites and over 100 million page views found that [B2B lead-generation sites loading in 1 second convert at 3x the rate of sites loading in 5 seconds](https://portent.com/blog/analytics/research-site-speed-hurting-everyones-revenue.htm).
+
+AI citation rate: Three pieces of research define what moves AI visibility. The Aggarwal et al. study (Princeton/Georgia Tech/IIT Delhi, [published at ACM KDD 2024](https://www.omnibound.ai/blog/answer-engine-optimization-aeo-statistics)) found that adding statistics with sources to a page produces a +41% AI visibility lift. The [AirOps 2026 State of AI Search Report](https://www.omnibound.ai/blog/answer-engine-optimization-aeo-statistics) found that sequential heading structure (H2 → H3 → H4) produces a 2.8x citation lift compared to unstructured content, and that pages not refreshed quarterly are 3x more likely to lose citations. [SparkToro's January 2026 content analysis](https://www.omnibound.ai/blog/answer-engine-optimization-aeo-statistics) found that 44.2% of all AI citations pull from the first 30% of a page.
+
+Those numbers define what a failing AEO/GEO score actually means in practice: your page likely buries its answers, uses flat heading structure, and hasn't been updated recently enough for AI models to prefer it over fresher competitors.
+
+## Which tool covers which dimension
+
+No single free tool audits all eight dimensions with equal depth. This table shows what each one actually handles, with prices confirmed from each platform's own pricing page:
+
+| Dimension | Free option | Paid option |
+|---|---|---|
+| Technical SEO + crawl errors | [Google Search Console](https://search.google.com/search-console/about) | [Screaming Frog](https://www.screamingfrog.co.uk/seo-spider/) (£199/yr) |
+| Core Web Vitals | [PageSpeed Insights](https://pagespeed.web.dev/) | [SE Ranking Core](https://seranking.com/pricing.html) ($129/mo) |
+| Full-site crawl, verified domains | [Ahrefs Webmaster Tools](https://ahrefs.com/webmaster-tools) | [Ahrefs Lite](https://ahrefs.com/pricing) ($129/mo) |
+| AEO + GEO visibility scores | [seoscore.tools](https://seoscore.tools/), 260+ checks | [Semrush](https://www.semrush.com/pricing/) (from $139/mo) |
+| 8-dimension composite + fix ranking | [FastStrat website analyzer](https://faststrat.ai/free-ai-website-audit-tool/) |, |
+| White-label PDF reporting | SEOptimer free tier | [SEOptimer paid plans](https://www.seoptimer.com/pricing) |
+
+What the table does not show:
+
+**Google Search Console** is the most consistently underused free tool in this stack. Its Core Web Vitals report draws from real user data (Chrome UX Report), not a synthetic test. When Search Console disagrees with PageSpeed Insights, trust Search Console, it reflects your actual visitors.
+
+**Screaming Frog's free version** crawls up to 500 URLs, which is enough for most SMB sites. The paid license at £199/year (confirmed from [Screaming Frog's site](https://www.screamingfrog.co.uk/seo-spider/)) removes the URL cap and adds JavaScript rendering, direct Search Console integration, and scheduled crawls.
+
+**seoscore.tools** splits its 260+ checks into three distinct scores: 68 SEO checks, 50 AEO checks for AI assistant discoverability, and 55 GEO checks for Google AI Overview inclusion. It exports to PDF without a login.
+
+**FastStrat's analyzer** gives you the composite view fastest, paste a URL and get an 8-dimension score with sub-grades (Excellent / Good / Poor / Critical) and priority-ranked recommendations in about 30 seconds. Use it alongside seoscore.tools to get both the composite picture and the AEO/GEO detail.
+
+## How to run a 30-minute self-audit
+
+This workflow uses only free tools and produces a scorecard row you can track over time.
+
+### Minutes 1–5: composite and AI visibility scores
+
+Open [FastStrat's website analyzer](https://faststrat.ai/free-ai-website-audit-tool/) and [seoscore.tools](https://seoscore.tools/) in two tabs and submit your URL in both simultaneously. While they process, create a simple table with your eight dimension rows. Record every sub-grade that comes back Poor or Critical, those are your priorities.
+
+### Minutes 6–12: verify performance at the source
+
+Run your homepage through [Google PageSpeed Insights](https://pagespeed.web.dev/). Record LCP, INP, and CLS. Compare each against Google's thresholds above. Any metric that fails, regardless of the composite score, rises to the top of your fix list, the Portent data shows the conversion cost is measurable even at moderate load time differences.
+
+### Minutes 13–20: crawl and index health
+
+Open [Google Search Console](https://search.google.com/search-console/about) and filter the Pages report for "Not indexed" and "Crawled – currently not indexed." Then check the Core Web Vitals report in the Experience section. If you have Screaming Frog installed, run a parallel crawl filtered to errors: broken internal links, missing title tags, and duplicate meta descriptions. Each error in that list is a specific findable problem that composite tools typically merge into a single dropped point without telling you which URL it lives on.
+
+### Minutes 21–26: AEO and GEO sub-scores
+
+In your seoscore.tools report, look at the AEO score (0–100) and GEO score (0–100) separately from the overall SEO score. The most common failures below 60 on either are: no FAQ section on the page, missing schema markup, answers buried after the second heading, and no cited statistics in the copy. Those are also the highest-impact content fixes based on the AirOps and SparkToro data above.
+
+### Minutes 27–30: record your scorecard row
+
+| Date | SEO | Performance | Mobile | Content | AEO/GEO | Top priority fix |
+|---|---|---|---|---|---|---|
+| | | | | | | |
+
+Anything graded Critical gets addressed before the next audit run. Re-run both tools in 30 days and fill in the next row.
+
+## The AEO/GEO layer: the audit most SMBs skip
+
+If your audit tool produces a single composite score with no AEO or GEO breakdown, it is evaluating your site against a 2023 definition of SEO. The question has changed: it is no longer only "can Google crawl this page?" but also "can a language model extract a clean, attributable answer from this page?"
+
+The signals that actually move AI citation rates, per the research cited above:
+
+1. **Statistics with cited sources**: +41% AI visibility ([Aggarwal et al., ACM KDD 2024](https://arxiv.org/abs/2311.09735))
+2. **Sequential heading hierarchy** (H2 → H3 → H4): 2.8x citation rate versus unstructured pages ([AirOps 2026](https://www.omnibound.ai/blog/answer-engine-optimization-aeo-statistics))
+3. **Answers in the first 30% of content**: 44.2% of citations pull from this zone ([SparkToro, January 2026](https://www.omnibound.ai/blog/answer-engine-optimization-aeo-statistics))
+4. **Quarterly content refreshes**: pages not updated quarterly are 3x more likely to lose citations ([AirOps 2026](https://www.omnibound.ai/blog/answer-engine-optimization-aeo-statistics))
+
+None of these require a CMS change or a developer. They are content decisions: where you place the answer, whether you back claims with numbers, how you structure your headings, and how often you revisit the page. A page that opens with a direct answer under a clear H2, includes at least one cited statistic, and was updated in the last 90 days fits the pattern AI models extract from most reliably.
+
+seoscore.tools' AEO and GEO scores tell you, check by check, where your pages deviate from that pattern. It is the only tool in the free tier that scores this dimension at all.
+
+## Reading your scorecard: what to fix in what order
+
+When every dimension flags something, the sequence determines how fast results compound.
+
+Critical technical errors first. Google cannot pass ranking value to a page it cannot crawl. Broken internal links, noindex tags on pages that should be indexed, and misconfigured robots.txt sit at the top of every fix sequence, they block every other optimization underneath.
+
+Core Web Vitals before on-page optimization. Google's documentation confirms them as a ranking signal, and the Portent research shows the conversion impact is direct, a site loading in 5 seconds is not just slower than one loading in 1 second, it converts at one-third the rate for B2B lead gen.
+
+Content structure before backlinks. Heading hierarchy, front-loaded answers, and statistics-backed claims affect Google rankings and AI citation rates at the same time. That dual return makes it the highest-return content investment before any link-building spend.
+
+AEO/GEO signals as an ongoing habit, not a one-time task. AI citation patterns shift as models update and as competitors refresh their content. The 3x freshness penalty for unrefreshed pages is not a one-time cost, it compounds every quarter you leave a page untouched.
+
+## FAQ
+
+### Is there a completely free AI website audit tool with a scorecard?
+
+Yes. [FastStrat's website analyzer](https://faststrat.ai/free-ai-website-audit-tool/) produces an 8-dimension composite scorecard at no cost. [seoscore.tools](https://seoscore.tools/) runs 260+ checks across SEO, AEO, and GEO and exports to PDF. Neither requires a credit card or account creation.
+
+### What is a good score on an AI website audit?
+
+It depends on the tool's scale. On seoscore.tools' 0–100 range, 80+ per category is a reasonable target. On FastStrat's Excellent/Good/Poor/Critical rubric, no dimension should read Critical, and fewer than two should read Poor before you run any paid traffic. A site with one Critical dimension hidden inside a passing composite average is in worse shape than a lower overall score with no Critical items, the average is misleading you.
+
+### How often should I run a website audit?
+
+Monthly is the practical minimum for most SMBs. Run an audit after any significant site change, plugin upgrades, template switches, content migrations. The AEO/GEO dimension moves faster than traditional SEO; a content structure change or a competitor refresh can shift your citation standing between audit cycles.
+
+### Do I need a paid tool to audit a site larger than 500 pages?
+
+Not necessarily. Ahrefs Webmaster Tools is free for verified domains and covers most small business sites. Google Search Console and PageSpeed Insights have no page caps at all. Screaming Frog's free version stops at 500 URLs, but the £199/year paid license is often the correct decision before committing to a [$129/month](https://ahrefs.com/pricing) platform.
 
 ---
 
-## Por qué dos herramientas dan scores distintos para el mismo sitio
-
-Cuando corres la misma URL en FastStrat y en WebScore.ai y obtienes un 74 en uno y un 52 en el otro, ninguna está equivocada. Los pesos de cada dimensión son distintos por diseño.
-
-FastStrat divide su modelo en 8 dimensiones: SEO, rendimiento, mobile, contenido, branding, social, tech stack y landscape competitivo. Eso significa que una marca sin ficha en Google Business Profile o sin etiquetas Open Graph arrastra el composite score, aunque su velocidad de carga sea impecable. WebScore.ai reparte en 6 dimensiones con peso igual, así que un sitio con rendimiento perfecto y sin pixel de Analytics empatado con uno lento pero bien instrumentado. WordLift no mide ninguno de esos factores: su auditoría de 7 dimensiones se concentra exclusivamente en si los agentes de IA pueden leer y citar tu contenido.
-
-**El dato que importa no es el composite.** Lo que debes anotar es qué dimensiones salen etiquetadas "Critical" o "High Priority" en la herramienta que usas. Ese flag está calibrado contra el peso que esa herramienta asigna a la categoría, y un Critical en rendimiento de FastStrat significa casi siempre lo mismo que un rojo en PageSpeed Insights.
-
----
-
-## Las seis dimensiones que debe cubrir cualquier scorecard de PYME
-
-Estas seis están presentes en alguna forma en cada herramienta gratuita de este listado. Para cada una, aquí está el umbral que separa verde de amarillo.
-
-### Rendimiento
-
-Medido por Core Web Vitals, cuyos umbrales publica Google en [developers.google.com](https://developers.google.com/speed/docs/insights/v5/about):
-
-- **LCP** (qué tan rápido carga el contenido principal): bueno = menos de 2,5 s; necesita mejora = 2,5–4 s; malo = más de 4 s.
-- **INP** (qué tan rápido responde la página a los clics): bueno = menos de 200 ms; necesita mejora = 200–500 ms.
-- **CLS** (cuánto salta el layout mientras carga): bueno = menos de 0,1.
-
-Solo el 42 % de los sitios web pasan los tres Core Web Vitals, según [Searchlab's 2026 Technical SEO Statistics](https://searchlab.nl/en/statistics/technical-seo-statistics-2026). El rendimiento es la categoría con más fallos en auditorías: el 71,2 % de los sitios falla al menos una verificación de rendimiento, de acuerdo con el [análisis de SEOmator sobre 100.000+ sitios auditados en H1 2026](https://seomator.com/blog/seo-audits-statistical-breakdown). Los sitios que cargan en menos de 2 segundos reciben un 27 % más de tráfico orgánico que los que tardan más de 4 segundos ([Searchlab, 2026](https://searchlab.nl/en/statistics/technical-seo-statistics-2026)).
-
-### SEO técnico
-
-Rastreo, indexación, etiquetas canónicas, robots.txt y cadenas de redirección. Los tres problemas más frecuentes según [Searchlab](https://searchlab.nl/en/statistics/technical-seo-statistics-2026): contenido duplicado sin canonical (52 % de sitios), robots.txt incorrecto o ausente (38 %), y enlaces internos rotos con 404 (35 %).
-
-La fuente de referencia para esta dimensión es [Google Search Console](https://search.google.com/search-console/about), gratuita, porque es la única que muestra el estado de indexación real, no estimaciones de un crawler externo.
-
-### On-page y contenido
-
-Páginas delgadas (menos de 300 palabras indexables), H1 ausentes, title tags duplicadas, y alt text faltante en imágenes. El 63,5 % de los sitios tiene alt text ausente; las meta descriptions duplicadas o faltantes afectan al 52,4 % ([SEOmator, 2026](https://seomator.com/blog/seo-audits-statistical-breakdown)). Un dato que sorprende en 2026: solo el 67,2 % de las páginas mobile tienen meta description, según [SchemaWriter's Technical SEO Statistics](https://schemawriter.ai/technical-seo-statistics/). Esta dimensión tiene el mejor ratio esfuerzo-resultado: un redactor puede cerrar la mayoría de los gaps en una jornada una vez sabe cuáles son.
-
-### Mobile y UX
-
-Tamaños de tap target, renderizado en pantallas pequeñas, legibilidad y layout shift en mobile. Una puntuación por debajo de 70 en esta dimensión en cualquier herramienta merece atención antes que cualquier otra optimización. El 48 % de los sitios mobile pasan los Core Web Vitals en 2025, frente al 56 % en desktop ([SchemaWriter, 2026](https://schemawriter.ai/technical-seo-statistics/)), la brecha mobile-desktop sigue abierta para la mayoría de PYMEs.
-
-### AI y GEO readiness
-
-Si ChatGPT, Claude o Perplexity pueden leer tu contenido y citarlo con precisión. Esto requiere datos estructurados (Schema.org), HTML semántico, y que el contenido clave no dependa solo de JavaScript para renderizarse. Solo el 39 % de los sitios implementa datos estructurados, pero su adopción correlaciona con un 40 % más de click-through desde los resultados de búsqueda ([Searchlab, 2026](https://searchlab.nl/en/statistics/technical-seo-statistics-2026)). El 54,6 % de los sitios todavía falla en AI/GEO readiness, aunque la tasa bajó de 58,1 % en enero de 2026 a 52,8 % en julio ([SEOmator, 2026](https://seomator.com/blog/seo-audits-statistical-breakdown)).
-
-### Trust y seguridad
-
-HTTPS, cookie consent, política de privacidad, señales de confianza visibles. **HTTPS es la línea de base**: el 95,6 % de las páginas en el top 10 de Google la usan ([Searchlab, 2026](https://searchlab.nl/en/statistics/technical-seo-statistics-2026)). Un sitio sin HTTPS no recibe revisión técnica antes de activar HTTPS.
-
----
-
-## AI website audit tools con scorecard: qué cubre cada una
-
-| Herramienta | Dimensiones | Tiempo | Enfoque principal | Coste |
-|---|---|---|---|---|
-| [FastStrat](https://faststrat.ai/free-ai-website-audit-tool/) | 8 (SEO, rendimiento, mobile, contenido, branding, social, tech stack, competitivo) | ~30 s | SMB amplio | Gratis |
-| [WebScore.ai](https://webscore.ai/) | 6 (rendimiento, SEO, UX, conversión, analítica, seguridad) | ~30 s | Conversión y tracking | Gratis |
-| [Foresight by Flow Ninja](https://www.flowninja.com/website-audit) | 10 (incluye posicionamiento y branding) | <2 min | B2B estratégico | Gratis |
-| [WordLift AI Audit](https://wordlift.io/ai-audit/) | 7 (agentic readiness exclusivamente) | ~30 s | Visibilidad en LLMs | Gratis |
-| [Google PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/) | 1 (rendimiento) | <1 min | Core Web Vitals | Gratis |
-
-Cuál ejecutar primero según tu objetivo:
-
-- Tráfico orgánico: empieza con FastStrat o WebScore.ai para cubrir SEO técnico y rendimiento en una pasada. Luego abre Google PageSpeed Insights para el detalle de Core Web Vitals con datos reales de campo (CrUX).
-- Aparecer citado en respuestas de IA: WordLift es la única herramienta de esta lista que verifica si los agentes de IA pueden leer y extraer tu contenido. Ejecútala por separado; los demás no detectan ese tipo de fallo.
-- Conversión B2B: Foresight de Flow Ninja tiene las únicas dimensiones de posicionamiento y diferenciación del listado, útil si el problema no es el tráfico sino que la gente llega y no convierte.
-
-Ninguna herramienta reemplaza [Google Search Console](https://search.google.com/search-console/about) para indexación real ni Google PageSpeed Insights para datos de campo. Córrelas en paralelo.
-
----
-
-## Cómo ejecutar tu self-audit en menos de una hora
-
-Este proceso usa únicamente herramientas gratuitas.
-
-### Paso 1 – Baseline de rendimiento (10 min)
-
-Pasa tu home page y tu landing page de mayor tráfico por [Google PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/). Anota LCP, INP y CLS en mobile. Si el LCP supera 2,5 s, ese único problema tiene más impacto en ranking que cualquier otra mejora de la lista.
-
-### Paso 2 – Scorecard de IA (5 min)
-
-Corre las mismas dos URLs en la [auditoría gratuita de FastStrat](https://faststrat.ai/free-ai-website-audit-tool/). Ignora el número compuesto. Anota cada ítem marcado como "Critical" o "High Priority" por dimensión.
-
-### Paso 3 – Revisión técnica (15 min)
-
-Abre Google Search Console > Cobertura > Errores. Para sitios de menos de 500 páginas, [Screaming Frog](https://www.screamingfrog.co.uk/seo-spider/) en su versión gratuita cubre ese límite y devuelve 4XX, cadenas de redirección, páginas sin title tag y páginas sin meta description.
-
-### Paso 4 – GEO readiness (5 min)
-
-Corre tu home por la [auditoría de WordLift](https://wordlift.io/ai-audit/). Si el score de datos estructurados sale por debajo de 50, el primer paso es agregar schema de tipo Organization, WebPage y BreadcrumbList, tres tipos que cierran la mayoría de la brecha.
-
-### Paso 5 – Ensambla tu scorecard
-
-Crea una tabla con seis filas, una por dimensión, y tres columnas: métrica o puntuación obtenida, herramienta usada, estado (Verde / Amarillo / Rojo según umbrales de cada sección de arriba). Ordena las filas por impacto en tu negocio: una tienda online pone rendimiento primero; un SaaS B2B pone GEO readiness y conversión antes.
-
-| Dimensión | Métrica / score | Herramienta | Estado |
-|---|---|---|---|
-| Rendimiento | LCP: ___ / INP: ___ / CLS: ___ | Google PSI | |
-| SEO técnico | Errores 4XX: ___ / Canonicals: ___ | GSC + SF | |
-| On-page y contenido | Alt text faltante: ___ / H1 ausentes: ___ | FastStrat | |
-| Mobile y UX | Score mobile: ___ | Google PSI | |
-| AI y GEO readiness | Score agentic: ___ | WordLift | |
-| Trust y seguridad | HTTPS: ___ / Score seguridad: ___ | WebScore.ai | |
-
----
-
-## Cuándo una herramienta gratuita no alcanza
-
-Las herramientas gratuitas detectan problemas pero no los rastrean en el tiempo, no rastrean regresiones automáticamente, y no conectan los errores de auditoría con impacto en ranking ni con datos de competencia.
-
-Tres señales de que es momento de pagar:
-
-### Multi-sitio o agencia
-
-[Screaming Frog](https://www.screamingfrog.co.uk/seo-spider/pricing/) cuesta $279/año por licencia e incluye crawls ilimitados sin límite de páginas, útil para cualquier negocio que gestione más de un dominio o necesite programar auditorías periódicas.
-
-### Auditoría + ranking juntos
-
-SE Ranking Core a [$103,20/mes en facturación anual](https://seranking.com/subscription.html) combina auditorías de hasta 250.000 páginas con seguimiento de posiciones y visibilidad en AI Search (ChatGPT, Perplexity, Google AI Overviews), además de 100 prompts GEO al día. Es el punto de entrada más completo por debajo de $120/mes.
-
-### Backlinks + auditoría técnica
-
-[Semrush](https://www.semrush.com/pricing/) desde $117,33/mes (anual) y [Ahrefs](https://ahrefs.com/pricing) Lite a $129/mes incluyen site audit en sus planes base y añaden el índice de backlinks, irreemplazable si tu problema de ranking tiene raíces en autoridad de dominio, no en técnica.
-
-Para diagnóstico profundo sin herramienta propia, una auditoría profesional de agencia cuesta entre $750 y $2.500 para una PYME típica, según la [guía de precios 2026 de SEOProfy](https://seoprofy.com/blog/seo-audit-pricing/) (dato publicado por una agencia del sector, no de fuente independiente), útil cuando ya corregiste los fallos obvios y necesitas diagnóstico estructural.
-
-El sitio mediano puntúa 71/100 en auditorías ([SEOmator, 2026](https://seomator.com/blog/seo-audits-statistical-breakdown)). La mayoría de los problemas que bajan ese número son corregibles con herramientas gratuitas y unas horas de trabajo antes de que tenga sentido pagar.
-
----
-
-## Preguntas frecuentes
-
-**¿Cuál es el mejor AI website audit tool con scorecard para PYMEs?**
-
-Para cobertura amplia, FastStrat cubre 8 dimensiones y entrega recomendaciones priorizadas en 30 segundos. Para GEO readiness específicamente, WordLift es la única herramienta gratuita de este listado que verifica si los modelos de lenguaje pueden citar tu contenido, algo que las demás no miden.
-
-**¿Por qué mi sitio sacó scores tan distintos en dos herramientas distintas?**
-
-Cada herramienta asigna pesos diferentes a las dimensiones: una que ponga, por ejemplo, el 30 % del score en rendimiento da un resultado distinto a una que divide 6 dimensiones en partes iguales. El score compuesto importa menos que las dimensiones marcadas como Critical o High Priority, esas son consistentes entre plataformas aunque el número final cambie.
-
-**¿Con qué frecuencia debo auditar mi sitio?**
-
-Los sitios bajo monitoreo continuo puntúan una mediana de 71/100, frente a 63/100 para sitios auditados solo con herramientas puntuales, una diferencia de 8 puntos que refleja el valor de revisiones regulares ([SEOmator, 2026](https://seomator.com/blog/seo-audits-statistical-breakdown)). Una pasada mensual es suficiente para la mayoría de PYMEs; sitios con actualización de contenido frecuente se benefician de revisiones semanales automatizadas.
-
-**¿Necesito datos estructurados para aparecer en respuestas de IA?**
-
-No es obligatorio, pero el impacto es medible: solo el 39 % de los sitios implementa structured data, y su adopción correlaciona con un 40 % más de click-through desde resultados de búsqueda ([Searchlab, 2026](https://searchlab.nl/en/statistics/technical-seo-statistics-2026)). La auditoría gratuita de WordLift te dice exactamente qué tipos de schema faltan en cada página.
-
----
-
-El lunes: abre [la auditoría gratuita de FastStrat](https://faststrat.ai/free-ai-website-audit-tool/) y Google PageSpeed Insights en paralelo con tu home page. Anota todo lo marcado Critical o con LCP por encima de 2,5 s. Elige el problema que afecta a la página con más tráfico y corríjelo antes del viernes. Lo demás es backlog, y ahora tienes el scorecard para medir si mejoró el mes que viene.
+This Monday: paste your URL into [FastStrat's website analyzer](https://faststrat.ai/free-ai-website-audit-tool/) and seoscore.tools at the same time. Record any dimension graded Critical or scoring below 60. Open PageSpeed Insights for your homepage and check LCP, INP, and CLS against Google's thresholds. You now have a prioritized list, fix Critical technical issues first, then performance, then content structure and AI signals. Re-run both tools in 30 days and fill in the next row of your scorecard.
 
 ---
 
