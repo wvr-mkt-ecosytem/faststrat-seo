@@ -21,6 +21,7 @@ import { INSTRUCCION_DIFERENCIAL, INSTRUCCION_KEYWORD, partir } from "@/lib/dife
 import { tendenciaEnVarios, describir } from "@/lib/trends";
 import { INSTRUCCION_LEGIBILIDAD } from "@/lib/legibilidad";
 import { dejarPublicable } from "@/lib/publicable";
+import { conUnReintento, defectoDeRaiz, type Defecto } from "@/lib/reintento";
 import { persistChanges } from "@/lib/persist";
 import { CONTEXTO_CLIENTE, conCta, geosDe } from "@/lib/cliente";
 import { apuntar } from "@/lib/duraciones";
@@ -316,37 +317,70 @@ Después, en una línea nueva, el bloque <<<DIFERENCIAL>>> y luego <<<ARTICULO>>
           };
         }
       }
-      const crudo = await runClaude({
-        model: "sonnet",
-        system: WRITER_SYSTEM,
-        // El escritor busca en la web. Sin esto se le exigía que toda cifra
-        // llevara fuente enlazada y no se le daba con qué encontrarla, así que
-        // sus dos únicas salidas eran inventar el dato u omitirlo. Inventaba, y
-        // la compuerta lo bloqueaba después: 440 hallazgos en 17 artículos
-        // salieron de esta contradicción, no de cómo estaban redactadas las
-        // reglas. El corrector sí tenía búsqueda; el escritor no.
-        allowedTools: ["WebSearch", "WebFetch"],
-        // El idioma se dice PRIMERO y EN el idioma pedido.
-        //
-        // Antes era una línea en español —"Idioma: inglés."— dentro de un
-        // prompt de cien líneas en español. El 4 de septiembre el agente
-        // devolvió un artículo con título en inglés y las 2.221 palabras del
-        // cuerpo en español, y nada lo detectó. Una instrucción en minoría
-        // frente al idioma del resto del prompt no se sostiene.
-        prompt: `${
-          lang === "es"
-            ? "ESCRIBE TODO EL ARTÍCULO EN ESPAÑOL, natural de LATAM, no traducido del inglés."
-            : "WRITE THE ENTIRE ARTICLE IN ENGLISH. Every heading, paragraph, table, FAQ and call to action must be in English. Do not write any part of the body in Spanish, even though these instructions are in Spanish."
-        }
+      // Si sale mal de raíz, se vuelve a PEDIR, no se parchea.
+      //
+      // El corrector edita, y hay fallos que no se arreglan editando: un
+      // artículo entero en el idioma equivocado, uno de doscientas palabras,
+      // uno con los marcadores del formato dentro. El 4 de septiembre salieron
+      // 2.221 palabras en español cuando se pidió inglés, y el único camino era
+      // mandárselas al parcheador para que las tradujera.
+      //
+      // Un reintento y no más: esto es un fallo de muestreo. Si sale igual dos
+      // veces con el mismo prompt, el problema no es la suerte.
+      const { resultado: partes, intentos, descartado } = await conUnReintento(
+        async (_intento: number, defectoAnterior: Defecto | null) => {
+        const crudo = await runClaude({
+          model: "sonnet",
+          system: WRITER_SYSTEM,
+          // El escritor busca en la web. Sin esto se le exigía que toda cifra
+          // llevara fuente enlazada y no se le daba con qué encontrarla, así que
+          // sus dos únicas salidas eran inventar el dato u omitirlo. Inventaba, y
+          // la compuerta lo bloqueaba después: 440 hallazgos en 17 artículos
+          // salieron de esta contradicción, no de cómo estaban redactadas las
+          // reglas. El corrector sí tenía búsqueda; el escritor no.
+          allowedTools: ["WebSearch", "WebFetch"],
+          // El idioma se dice PRIMERO y EN el idioma pedido.
+          //
+          // Antes era una línea en español —"Idioma: inglés."— dentro de un
+          // prompt de cien líneas en español. El 4 de septiembre el agente
+          // devolvió un artículo con título en inglés y las 2.221 palabras del
+          // cuerpo en español, y nada lo detectó. Una instrucción en minoría
+          // frente al idioma del resto del prompt no se sostiene.
+          prompt: `${
+            lang === "es"
+              ? "ESCRIBE TODO EL ARTÍCULO EN ESPAÑOL, natural de LATAM, no traducido del inglés."
+              : "WRITE THE ENTIRE ARTICLE IN ENGLISH. Every heading, paragraph, table, FAQ and call to action must be in English. Do not write any part of the body in Spanish, even though these instructions are in Spanish."
+          }
 
-Escribe el artículo completo siguiendo TODOS los estándares de calidad.
-Título del artículo (es el H1, no lo repitas): "${title}"
-Keyword principal a posicionar: "${keyword ?? title}"
-Idioma del artículo: ${lang === "es" ? "español (natural de LATAM, no traducido)" : "inglés — TODO el cuerpo"}.
-Audiencia: dueños de PYMEs y marketers que buscan resultados prácticos.
-La extensión la marca el tema, no una cuota. No hay mínimo de palabras.${contextoDemanda}`,
-      });
-      const partes = partir(crudo);
+  Escribe el artículo completo siguiendo TODOS los estándares de calidad.
+  Título del artículo (es el H1, no lo repitas): "${title}"
+  Keyword principal a posicionar: "${keyword ?? title}"
+  Idioma del artículo: ${lang === "es" ? "español (natural de LATAM, no traducido)" : "inglés — TODO el cuerpo"}.
+  Audiencia: dueños de PYMEs y marketers que buscan resultados prácticos.
+  La extensión la marca el tema, no una cuota. No hay mínimo de palabras.${contextoDemanda}${
+            // En el reintento se le DICE qué pasó con lo anterior. Repetir el
+            // mismo prompt confía en que la moneda caiga del otro lado;
+            // nombrar el defecto cambia lo que se le pide.
+            defectoAnterior
+              ? `
+
+ATENCIÓN: tu respuesta anterior se descartó por esto: ${defectoAnterior.motivo}
+No lo repitas.`
+              : ""
+          }`,
+        });
+          return partir(crudo);
+        },
+        (p: ReturnType<typeof partir>) => defectoDeRaiz(p.markdown, { lang, title, minimoPalabras: 400 }),
+      );
+      if (descartado) {
+        // Se DICE que hubo un descarte. Un reintento silencioso esconde
+        // exactamente la información que dice si el prompt está fallando.
+        console.warn(
+          `[escribir] primera salida descartada (${descartado.regla}): ${descartado.motivo.slice(0, 140)}`,
+        );
+      }
+      void intentos;
       diferencial = partes.diferencial;
       porqueKeyword = partes.keyword;
       markdown = partes.markdown;

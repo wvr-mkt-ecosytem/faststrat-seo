@@ -7,7 +7,13 @@
 //   node scripts/probar-cache-trends.mjs
 import { guardar, guardado, estado, clave, PLAZO_MS } from "../lib/trends-cache.ts";
 
-const T = "__prueba_cache__";
+// La clave es distinta en cada corrida.
+//
+// Era fija, y la prueba escribe en el caché sin limpiar: a partir de la SEGUNDA
+// vez que se ejecutaba, 'una keyword nunca vista no está en caché' fallaba
+// porque la había dejado ahí la corrida anterior. Una prueba que depende del
+// estado que ella misma deja no mide lo que dice medir.
+const T = `__prueba_cache_${Date.now()}__`;
 const falsa = { termino: T, direccion: "baja", cambioAnual: -42, nivelActual: 13, meses: 60 };
 
 let fallos = 0;

@@ -321,16 +321,37 @@ Da las recomendaciones en JSON.`;
 
   // El fallo del agente se nombra como lo que es. Sin esto, un token de
   // Claude revocado se reportaba como un problema de acceso a Google.
-  let raw: string;
+  let raw = "";
   try {
     // Búsqueda web, y solo búsqueda: son herramientas de lectura, así que el
     // agente no recibe permiso de escritura por pedirlas.
-    raw = await runClaude({
-      system: SYSTEM,
-      prompt,
-      model: "sonnet",
-      allowedTools: ["WebSearch", "WebFetch"],
-    });
+    // Una salida inservible se vuelve a PEDIR, una vez.
+    //
+    // El 3 de septiembre esto corrió 12,5 minutos, el agente devolvió algo que
+    // no era JSON válido y el informe se guardó vacío: sin texto y sin una sola
+    // recomendación. Doce minutos pagados por nada, y no había reintento porque
+    // el error se capturaba más abajo, cuando el resultado ya se daba por
+    // definitivo.
+    //
+    // Una sola vez: si sale igual dos veces, el problema no es la suerte.
+    const util = (t: string) =>
+      t.includes("<<<INFORME>>>") || t.includes("<<<ACCIONES>>>");
+    for (let intento = 1; intento <= 2; intento++) {
+      raw = await runClaude({
+        system: SYSTEM,
+        prompt:
+          intento === 1
+            ? prompt
+            : prompt +
+              "\n\nATENCIÓN: tu respuesta anterior no traía ni <<<INFORME>>> ni <<<ACCIONES>>>, " +
+              "así que no se pudo usar nada de los doce minutos de trabajo. " +
+              "Devuelve las DOS secciones, cada una con su marcador.",
+        model: "sonnet",
+        allowedTools: ["WebSearch", "WebFetch"],
+      });
+      if (util(raw)) break;
+      if (intento === 1) console.warn("[analista] la primera salida no traía marcadores; se pide otra vez.");
+    }
   } catch (e) {
     const msg = String((e as Error)?.message ?? e);
     if (/revoked|401|unauthorized|authenticate/i.test(msg)) {
