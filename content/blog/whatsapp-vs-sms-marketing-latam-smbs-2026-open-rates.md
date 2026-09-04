@@ -466,7 +466,7 @@ Yes, the standard architecture for LATAM SMBs is WhatsApp as the primary channel
 
 Map your top three customer touchpoints this week, sales inquiry, abandoned cart, post-purchase support, and decide which one can move to a WhatsApp automated flow first. A single sequence running on an opted-in list is where the channel difference shows up in revenue.
 
-[FastStrat's marketing automation tools](https://faststrat.ai/marketing-automation) let you manage WhatsApp and SMS from one dashboard, with the API connection, broadcast segmentation, and automated sequences already configured.
+[FastStrat's AI marketing team](https://faststrat.ai/ai-team/) let you manage WhatsApp and SMS from one dashboard, with the API connection, broadcast segmentation, and automated sequences already configured.
 
 ---
 
