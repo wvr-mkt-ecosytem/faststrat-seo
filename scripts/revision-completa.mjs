@@ -184,10 +184,15 @@ await comprobar("El catálogo ve los artículos publicados", async () => {
 });
 
 await comprobar("Google Trends responde", async () => {
-  const { tendencia } = await import("@/lib/trends");
-  const t = await tendencia("whatsapp business", { geo: "CO" });
+  const { tendencia, describir } = await import("@/lib/trends");
+  // El segundo parámetro es el país, un STRING. La primera versión de esto le
+  // pasaba { geo: "CO" }, un objeto, y la función devolvía null: durante una
+  // revisión entera pareció que Google Trends estaba caído cuando lo que estaba
+  // mal era la llamada. Los scripts son .mjs y se saltan TypeScript, así que
+  // aquí nadie avisa.
+  const t = await tendencia("whatsapp business", "CO");
   exige(t, "sin respuesta (el endpoint no es oficial y limita el ritmo)");
-  return `${t.direccion} · ${t.cambioAnual}%`;
+  return describir(t);
 }, { critico: false });
 
 await comprobar("Autocomplete responde", async () => {

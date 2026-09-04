@@ -165,6 +165,22 @@ export async function tendenciaEnVarios(termino: string, geos: string[]): Promis
  * Devuelve null si algo falla, siempre. Nunca lanza.
  */
 export async function tendencia(termino: string, geo = ""): Promise<Tendencia | null> {
+  // El país es un string, y llamarlo mal tiene que doler.
+  //
+  // Una revisión del sistema llamó a esto con { geo: "CO" } en vez de "CO". La
+  // función devolvió null —igual que cuando Google no responde— y el informe
+  // dijo "Google Trends no responde" durante toda una investigación. Trends
+  // funcionaba perfectamente; la llamada estaba mal.
+  //
+  // TypeScript lo habría cazado, pero todo scripts/ es .mjs y no pasa por el
+  // compilador. Un error de quien llama no puede tener el mismo síntoma que un
+  // fallo de la fuente: eso convierte cada diagnóstico en una trampa.
+  if (typeof geo !== "string") {
+    throw new TypeError(
+      `tendencia(termino, geo) espera el país como texto, por ejemplo "CO". Llegó ${typeof geo}: ${JSON.stringify(geo)}`,
+    );
+  }
+
   // Lo guardado vale si no ha caducado. La serie que devuelve Trends con
   // "today 5-y" es MENSUAL, así que consultar dos veces la misma semana da lo
   // mismo y solo sirve para acercar el 429.

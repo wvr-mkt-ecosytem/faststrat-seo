@@ -339,14 +339,34 @@
     },
     "cuando": "2026-08-31T20:35:20.825Z"
   },
-  "US|ai website audit tool with scorecard": {
+  "CO|whatsapp business": {
     "t": {
-      "termino": "ai website audit tool with scorecard",
-      "direccion": "sin-volumen",
+      "termino": "whatsapp business",
+      "direccion": "estable",
       "cambioAnual": 0,
-      "nivelActual": 0,
+      "nivelActual": 88,
       "meses": 262
     },
-    "cuando": "2026-09-04T03:06:05.132Z"
+    "cuando": "2026-09-04T03:18:17.740Z"
+  },
+  "US|whatsapp marketing": {
+    "t": {
+      "termino": "whatsapp marketing",
+      "direccion": "baja",
+      "cambioAnual": -43,
+      "nivelActual": 31,
+      "meses": 262
+    },
+    "cuando": "2026-09-04T03:18:20.875Z"
+  },
+  "MX|ai marketing": {
+    "t": {
+      "termino": "ai marketing",
+      "direccion": "baja",
+      "cambioAnual": -34,
+      "nivelActual": 45,
+      "meses": 262
+    },
+    "cuando": "2026-09-04T03:18:24.028Z"
   }
 }
