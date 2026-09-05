@@ -1,21 +1,28 @@
-// Vuelve a subir los artículos publicados con el color de texto escrito dentro.
+// Repinta el texto de los artículos YA publicados.
 //
 // POR QUÉ: el tema del sitio mete el artículo entero en un contenedor con
-// `.fs-hero * { color:#fff !important }`. Alguien parcheó párrafos y
-// encabezados y se olvidó de las tablas, así que las tablas salían BLANCAS
-// sobre fondo claro. Medido en el artículo del 4 de septiembre: párrafos
-// rgb(17,17,17), celdas rgb(255,255,255).
+// `.fs-hero * { color:#fff !important }`, pensado para una cabecera oscura.
+// Alguien parcheó párrafos y encabezados y se olvidó de las tablas, así que las
+// tablas salían BLANCAS sobre fondo claro. Medido en tres artículos
+// publicados, uno de agosto: párrafos rgb(17,17,17), celdas rgb(255,255,255).
 //
-// Los artículos NUEVOS ya salen bien: renderHtml escribe el color. Esto es para
-// los que ya estaban publicados antes del arreglo.
+// Los artículos NUEVOS ya nacen bien: renderHtml escribe el color. Esto es para
+// los que se publicaron antes.
 //
-// Solo toca el HTML del cuerpo. No cambia título, slug, fecha, estado ni autor:
-// un repintado no es una republicación.
+// TRABAJA DESDE WORDPRESS, no desde los markdown locales. La primera versión
+// leía content/blog/ y solo veía 26 artículos de los 111 publicados: el resto
+// se escribió antes de este sistema y no tiene fichero local.
+//
+// LO QUE NO TOCA:
+//   · Los artículos con bloques de Gutenberg (`<!-- wp:`). Meter un estilo
+//     dentro de un bloque lo invalida en el editor, y arreglar el color a costa
+//     de romper la edición no es un arreglo. Para esos, la regla de CSS.
+//   · Nada que no sea el contenido: ni título, ni slug, ni fecha, ni estado, ni
+//     autor. Un repintado no es una republicación.
 //
 //   node scripts/repintar-publicados.mjs            (enseña qué haría)
 //   node scripts/repintar-publicados.mjs --aplicar
 import fs from "node:fs";
-import path from "node:path";
 import { register } from "node:module";
 import { pathToFileURL } from "node:url";
 
@@ -42,9 +49,9 @@ register(
 );
 
 const APLICAR = process.argv.includes("--aplicar");
-const matter = (await import("gray-matter")).default;
-const { renderHtml } = await import("@/lib/blog");
+const { conColor } = await import("@/lib/blog");
 const { CLIENTE } = await import("@/lib/cliente");
+const COLOR = CLIENTE.colorTexto;
 
 const auth =
   "Basic " +
@@ -53,50 +60,69 @@ const wp = (ruta, init = {}) =>
   fetch(`${process.env.WP_URL}/wp-json/wp/v2/${ruta}`, {
     ...init,
     headers: { Authorization: auth, "Content-Type": "application/json", ...(init.headers ?? {}) },
-    signal: AbortSignal.timeout(90000),
+    signal: AbortSignal.timeout(120000),
   });
 
-const dir = path.join(process.cwd(), "content", "blog");
-const ficheros = fs.readdirSync(dir).filter((f) => f.endsWith(".md"));
-console.log(`${ficheros.length} artículos locales · color objetivo ${CLIENTE.colorTexto}\n`);
-
-let yaEstaban = 0;
-const aRepintar = [];
-const sinPublicar = [];
-
-for (const f of ficheros) {
-  const slug = f.replace(/\.md$/, "");
-  const { data, content } = matter(fs.readFileSync(path.join(dir, f), "utf8"));
-
-  const r = await wp(`posts?slug=${encodeURIComponent(slug)}&_fields=id,status,link,title`);
-  const encontrados = await r.json().catch(() => []);
-  const post = Array.isArray(encontrados) ? encontrados[0] : null;
-  if (!post) {
-    sinPublicar.push(slug);
-    continue;
+/** Todos los publicados, con su contenido en crudo. */
+async function publicados() {
+  const out = [];
+  for (let pagina = 1; pagina <= 10; pagina++) {
+    const r = await wp(
+      `posts?per_page=100&page=${pagina}&status=publish&context=edit&_fields=id,slug,link,content,modified`,
+    );
+    if (!r.ok) break;
+    const j = await r.json();
+    if (!Array.isArray(j) || j.length === 0) break;
+    out.push(...j);
+    if (j.length < 100) break;
   }
-
-  const html = renderHtml({ ...data, markdown: content });
-  // Si el HTML que produciríamos ya lleva el color, no hay nada que subir.
-  // Se compara con lo que HAY publicado, no con lo que generamos: subir un
-  // artículo idéntico gasta una petición y ensucia el historial de WordPress.
-  const actual = await (await wp(`posts/${post.id}?_fields=content`)).json().catch(() => ({}));
-  const yaTiene = (actual?.content?.rendered ?? "").includes(`color:${CLIENTE.colorTexto}`);
-  if (yaTiene) {
-    yaEstaban++;
-    continue;
-  }
-
-  const tablas = (content.match(/^\|/gm) ?? []).length;
-  aRepintar.push({ slug, id: post.id, estado: post.status, tablas, html });
+  return out;
 }
 
-console.log(`ya tienen el color:   ${yaEstaban}`);
-console.log(`hay que repintar:     ${aRepintar.length}`);
-console.log(`no están en WordPress: ${sinPublicar.length}\n`);
+const todos = await publicados();
+console.log(`${todos.length} artículos publicados · color objetivo ${COLOR}\n`);
 
-for (const a of aRepintar) {
-  console.log(`  [${a.estado}] ${a.slug.slice(0, 62)}${a.tablas ? `  · ${a.tablas} filas de tabla` : ""}`);
+const gutenberg = [];
+const yaEstaban = [];
+const sinTabla = [];
+const aRepintar = [];
+
+for (const p of todos) {
+  const raw = p.content?.raw ?? "";
+
+  // Un bloque de Gutenberg valida su propio HTML contra lo que guardó. Si se le
+  // mete un atributo, el editor lo marca como "contenido inesperado" y ofrece
+  // recuperarlo, que es peor que la tabla blanca.
+  if (/<!--\s*wp:/.test(raw)) {
+    if (/<table/i.test(raw)) gutenberg.push(p.slug);
+    continue;
+  }
+
+  // Solo importan los que tienen tabla: es lo único que el tema pinta mal.
+  // Repintar los demás sería tocar artículos publicados para nada.
+  if (!/<table/i.test(raw)) {
+    sinTabla.push(p.slug);
+    continue;
+  }
+
+  // Solo las tablas: es lo único que el tema pinta mal en lo ya publicado.
+  const nuevo = conColor(raw, COLOR, { soloTablas: true });
+  if (nuevo === raw) {
+    yaEstaban.push(p.slug);
+    continue;
+  }
+  aRepintar.push({ ...p, nuevo, filas: (raw.match(/<tr/gi) ?? []).length });
+}
+
+console.log(`sin tabla, no hace falta:        ${sinTabla.length}`);
+console.log(`ya tienen el color:              ${yaEstaban.length}`);
+console.log(`con tabla y bloques (no se toca): ${gutenberg.length}`);
+console.log(`A REPINTAR:                      ${aRepintar.length}\n`);
+
+for (const a of aRepintar) console.log(`  ${a.slug.slice(0, 64).padEnd(66)} ${a.filas} filas`);
+if (gutenberg.length) {
+  console.log("\nEstos necesitan la regla de CSS, no se pueden repintar sin romper el editor:");
+  for (const s of gutenberg) console.log(`  - ${s}`);
 }
 
 if (!APLICAR) {
@@ -108,16 +134,16 @@ console.log("\nSubiendo…");
 let ok = 0;
 const fallos = [];
 for (const a of aRepintar) {
-  // Solo el contenido. Mandar más campos arriesga cambiar la fecha o el estado
-  // sin querer, y eso en un artículo publicado se nota en Google.
-  const r = await wp(`posts/${a.id}`, { method: "POST", body: JSON.stringify({ content: a.html }) });
+  // Solo `content`. Mandar más campos arriesga mover la fecha o el estado de un
+  // artículo publicado, y eso sí se nota en Google.
+  const r = await wp(`posts/${a.id}`, { method: "POST", body: JSON.stringify({ content: a.nuevo }) });
   if (r.ok) {
     ok++;
-    console.log(`  ok   ${a.slug.slice(0, 62)}`);
+    console.log(`  ok   ${a.slug.slice(0, 64)}`);
   } else {
     const j = await r.json().catch(() => ({}));
     fallos.push(`${a.slug}: ${r.status} ${j.message ?? ""}`);
-    console.log(`  MAL  ${a.slug.slice(0, 62)} · ${r.status}`);
+    console.log(`  MAL  ${a.slug.slice(0, 64)} · ${r.status}`);
   }
 }
 

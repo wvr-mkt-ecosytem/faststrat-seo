@@ -438,5 +438,15 @@
       "meses": 60
     },
     "cuando": "2026-09-05T14:30:14.004Z"
+  },
+  "|__prueba_cache_1788619122871__": {
+    "t": {
+      "termino": "__prueba_cache_1788619122871__",
+      "direccion": "baja",
+      "cambioAnual": -42,
+      "nivelActual": 13,
+      "meses": 60
+    },
+    "cuando": "2026-09-05T14:38:42.879Z"
   }
 }

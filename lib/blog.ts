@@ -133,9 +133,18 @@ export function renderHtml(post: BlogPost): string {
   return conColor(html, CLIENTE.colorTexto);
 }
 
-/** Escribe el color en las etiquetas que el tema puede pintar mal. */
-export function conColor(html: string, color: string): string {
-  const CON_TEXTO = /<(p|h1|h2|h3|h4|h5|h6|li|td|th|table|thead|tbody|tr|blockquote|strong|em)(\s[^>]*)?>/gi;
+/**
+ * Escribe el color en las etiquetas que el tema puede pintar mal.
+ *
+ * `soloTablas` es para los artículos YA publicados: allí lo único roto son
+ * las tablas, y pintar además cada párrafo y cada encabezado hacía crecer el
+ * HTML un 38% para arreglar algo que ya estaba bien. En un artículo nuevo se
+ * pinta todo, que es lo que lo vuelve independiente del tema del cliente.
+ */
+export function conColor(html: string, color: string, opciones: { soloTablas?: boolean } = {}): string {
+  const CON_TEXTO = opciones.soloTablas
+    ? /<(td|th|table|thead|tbody|tr)(\s[^>]*)?>/gi
+    : /<(p|h1|h2|h3|h4|h5|h6|li|td|th|table|thead|tbody|tr|blockquote|strong|em)(\s[^>]*)?>/gi;
   return html.replace(CON_TEXTO, (todo, etiqueta: string, attrs: string = "") => {
     // Si ya trae un color propio, no se toca: puede venir de una corrección
     // hecha a mano y pisarla sería peor que el problema original.
