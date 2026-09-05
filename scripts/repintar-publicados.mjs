@@ -70,7 +70,16 @@ async function publicados() {
     const r = await wp(
       `posts?per_page=100&page=${pagina}&status=publish&context=edit&_fields=id,slug,link,content,modified`,
     );
-    if (!r.ok) break;
+    // Un fallo de credenciales NO es "no hay nada que hacer".
+    //
+    // Con `if (!r.ok) break`, una contraseña mal puesta devolvía 401 en la
+    // primera página, la lista quedaba vacía y el script imprimía
+    // "0 artículos publicados · A REPINTAR: 0" y salía con código 0. Un fallo
+    // indistinguible del éxito es peor que un fallo.
+    if (!r.ok) {
+      const j = await r.json().catch(() => ({}));
+      throw new Error(`WordPress devolvió ${r.status} al listar (página ${pagina}): ${j.message ?? "sin detalle"}`);
+    }
     const j = await r.json();
     if (!Array.isArray(j) || j.length === 0) break;
     out.push(...j);
@@ -139,14 +148,24 @@ const fallos = [];
 for (const a of aRepintar) {
   // Solo `content`. Mandar más campos arriesga mover la fecha o el estado de un
   // artículo publicado, y eso sí se nota en Google.
-  const r = await wp(`posts/${a.id}`, { method: "POST", body: JSON.stringify({ content: a.nuevo }) });
-  if (r.ok) {
-    ok++;
-    console.log(`  ok   ${a.slug.slice(0, 64)}`);
-  } else {
-    const j = await r.json().catch(() => ({}));
-    fallos.push(`${a.slug}: ${r.status} ${j.message ?? ""}`);
-    console.log(`  MAL  ${a.slug.slice(0, 64)} · ${r.status}`);
+  // Una caída a mitad no puede llevarse el resumen.
+  //
+  // Sin este try, un TimeoutError en el artículo 20 mataba el proceso con una
+  // excepción sin capturar: ni resumen, ni lista de fallos, y sin saber cuáles
+  // de los 39 se habían subido ya.
+  try {
+    const r = await wp(`posts/${a.id}`, { method: "POST", body: JSON.stringify({ content: a.nuevo }) });
+    if (r.ok) {
+      ok++;
+      console.log(`  ok   ${a.slug.slice(0, 64)}`);
+    } else {
+      const j = await r.json().catch(() => ({}));
+      fallos.push(`${a.slug}: ${r.status} ${j.message ?? ""}`);
+      console.log(`  MAL  ${a.slug.slice(0, 64)} · ${r.status}`);
+    }
+  } catch (e) {
+    fallos.push(`${a.slug}: ${e?.message ?? e}`);
+    console.log(`  MAL  ${a.slug.slice(0, 64)} · ${String(e?.message ?? e).slice(0, 60)}`);
   }
 }
 

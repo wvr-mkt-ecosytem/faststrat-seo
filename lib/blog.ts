@@ -142,26 +142,33 @@ export function renderHtml(post: BlogPost): string {
  * pinta todo, que es lo que lo vuelve independiente del tema del cliente.
  */
 export function conColor(html: string, color: string, opciones: { soloTablas?: boolean } = {}): string {
-  const CON_TEXTO = opciones.soloTablas
-    ? /<(td|th|table|thead|tbody|tr)(\s[^>]*)?>/gi
-    : /<(p|h1|h2|h3|h4|h5|h6|li|td|th|table|thead|tbody|tr|blockquote|strong|em)(\s[^>]*)?>/gi;
+  const ETIQUETAS = opciones.soloTablas
+    ? "td|th|table|thead|tbody|tr"
+    : "p|h1|h2|h3|h4|h5|h6|li|td|th|table|thead|tbody|tr|blockquote|strong|em";
 
-  // Las DOS propiedades, y la segunda es la que de verdad decide.
+  // La etiqueta se lee respetando las COMILLAS.
   //
-  // El tema pone `-webkit-text-fill-color: #fff !important`, que pinta el texto
-  // POR ENCIMA de `color`. Con solo `color`, el navegador informaba
-  // rgb(17,17,17) —y todas mis comprobaciones daban el arreglo por bueno—
-  // mientras en pantalla el texto seguía blanco. Medir la propiedad equivocada
-  // es indistinguible de que funcione, y costó dos rondas enteras.
+  // Antes era `<(td|th|...)(\s[^>]*)?>`, que corta en el primer ">" esté donde
+  // esté. Con `<td title="a > b">` partía el atributo por la mitad y el resto
+  // (`b">x`) salía como texto visible en la página. Y como el script repinta
+  // artículos EN VIVO, eso era corromper contenido publicado sin vuelta atrás.
+  //
+  // Ninguno de los 111 artículos tenía ese caso, así que no rompió nada. Fue
+  // suerte, no diseño.
+  const ABRE = new RegExp(`<(${ETIQUETAS})((?:[^>"']|"[^"]*"|'[^']*')*)>`, "gi");
+
   const ESTILO = `color:${color} !important;-webkit-text-fill-color:${color} !important`;
 
-  return html.replace(CON_TEXTO, (todo, etiqueta: string, attrs: string = "") => {
-    const style = /style\s*=\s*"([^"]*)"/i.exec(attrs);
-    const previo = style?.[1] ?? "";
-    const color_previo = /(?:^|;)\s*color\s*:\s*([^;]+)/i.exec(previo)?.[1]?.trim() ?? "";
+  return html.replace(ABRE, (todo, etiqueta: string, attrs: string = "") => {
+    // Comillas dobles Y simples. Solo se contemplaban las dobles, así que un
+    // `style='...'` producía DOS atributos style: el navegador se queda con el
+    // primero, el arreglo no hacía nada, y el script lo contaba como aplicado.
+    const style = /style\s*=\s*("([^"]*)"|'([^']*)')/i.exec(attrs);
+    const previo = style ? (style[2] ?? style[3] ?? "") : "";
+    const colorPrevio = /(?:^|;)\s*color\s*:\s*([^;]+)/i.exec(previo)?.[1]?.trim() ?? "";
 
     // Un color puesto a mano manda: pisarlo sería peor que el problema.
-    if (color_previo && !color_previo.toLowerCase().startsWith(color.toLowerCase())) return todo;
+    if (colorPrevio && !colorPrevio.toLowerCase().startsWith(color.toLowerCase())) return todo;
 
     // Lo que no sea color se conserva (márgenes, anchos, alineación).
     const resto = previo
@@ -169,7 +176,7 @@ export function conColor(html: string, color: string, opciones: { soloTablas?: b
       .filter((d) => d.trim() && !/^\s*(?:-webkit-text-fill-)?color\s*:/i.test(d))
       .join(";");
 
-    const sinStyle = attrs.replace(/\s*style\s*=\s*"[^"]*"/i, "");
+    const sinStyle = attrs.replace(/\s*style\s*=\s*("[^"]*"|'[^']*')/i, "");
     return `<${etiqueta}${sinStyle} style="${ESTILO}${resto ? ";" + resto : ""}">`;
   });
 }

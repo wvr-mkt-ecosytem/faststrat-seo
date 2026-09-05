@@ -461,13 +461,19 @@ No lo repitas.`
     // perdido que además ensucia el repositorio, así que se para antes.
     // La línea CADUCA sale del artículo y pasa a ser un campo.
     //
+    // Los asteriscos van como `\*{0,2}`. Estaban como `\\*\\*`, que en una
+    // expresión regular significa "cero o más barras invertidas", no dos
+    // asteriscos: no casaba con **CADUCA**, que es como el modelo escribe una
+    // línea de cierre en Markdown. La línea se publicaba dentro del artículo y
+    // la caducidad se perdía sin que nada lo dijera.
+    //
     // Va en el cuerpo porque es donde el agente puede escribirla sin inventarse
     // un formato, pero publicarla sería absurdo: al lector no le importa cuándo
     // tenemos que revisar el texto. Ver lib/caducidad.ts.
     let caduca: string | undefined;
     let motivoCaducidad: string | undefined;
     markdown = markdown.replace(
-      /^[ \t]*(?:\\*\\*)?CADUCA(?:\\*\\*)?[ \t]*:[ \t]*(\d{4}-\d{2}-\d{2})[ \t]*(?:[-–—][ \t]*(.*))?$/gim,
+      /^[ \t]*\*{0,2}CADUCA\*{0,2}[ \t]*:[ \t]*(\d{4}-\d{2}-\d{2})[ \t]*(?:[-–—][ \t]*([^*]*))?\*{0,2}[ \t]*$/gim,
       (_todo, fecha: string, motivo?: string) => {
         caduca = new Date(`${fecha}T00:00:00Z`).toISOString();
         motivoCaducidad = motivo?.trim() || undefined;

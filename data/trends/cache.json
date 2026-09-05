@@ -458,5 +458,25 @@
       "meses": 60
     },
     "cuando": "2026-09-05T15:07:47.917Z"
+  },
+  "|__prueba_cache_1788621771568__": {
+    "t": {
+      "termino": "__prueba_cache_1788621771568__",
+      "direccion": "baja",
+      "cambioAnual": -42,
+      "nivelActual": 13,
+      "meses": 60
+    },
+    "cuando": "2026-09-05T15:22:51.575Z"
+  },
+  "|__prueba_cache_1788622474100__": {
+    "t": {
+      "termino": "__prueba_cache_1788622474100__",
+      "direccion": "baja",
+      "cambioAnual": -42,
+      "nivelActual": 13,
+      "meses": 60
+    },
+    "cuando": "2026-09-05T15:34:34.106Z"
   }
 }

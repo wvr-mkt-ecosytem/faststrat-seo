@@ -50,12 +50,23 @@ export function caducidadDe(post: {
   caduca?: string;
   motivoCaducidad?: string;
 }): Caducidad {
-  const declarada = post.caduca ? new Date(post.caduca) : null;
-  const nacimiento = new Date(post.publishAt ?? post.date ?? Date.now());
-  const cuando =
-    declarada && !Number.isNaN(declarada.getTime())
-      ? declarada
-      : new Date(nacimiento.getTime() + VIDA_POR_DEFECTO * DIA);
+  /** Una fecha, o null si no se puede leer. */
+  const leer = (v?: string): Date | null => {
+    if (!v) return null;
+    const d = new Date(v);
+    return Number.isNaN(d.getTime()) ? null : d;
+  };
+
+  // La fecha de nacimiento TAMBIÉN puede estar mal escrita.
+  //
+  // `caduca` sí se protegía; `date` y `publishAt` no, y salen del frontmatter
+  // de un fichero que edita una persona. Un `date: 2026-13-01` producía un
+  // Invalid Date, y `toISOString()` sobre eso lanza RangeError: como porRevisar
+  // recorre TODOS los artículos, un solo frontmatter mal escrito tumbaba
+  // /api/caducidad entera. No es que faltara ese artículo: no salía ninguno.
+  const declarada = leer(post.caduca);
+  const nacimiento = leer(post.publishAt) ?? leer(post.date) ?? new Date();
+  const cuando = declarada ?? new Date(nacimiento.getTime() + VIDA_POR_DEFECTO * DIA);
 
   const dias = Math.round((cuando.getTime() - Date.now()) / DIA);
   return {

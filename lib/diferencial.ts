@@ -193,7 +193,7 @@ export function partir(raw: string): {
     // lo que Google enseña bajo el resultado. Se quitan tantas como haya:
     // suelen venir en bloque (Título, Keyword, Idioma).
     .replace(
-      /^(?:\*\*)?(?:t[íi]tulo|title|keyword|idioma|language|audiencia|audience)(?:\*\*)?\s*:.*(?:\r?\n)+/gi,
+      /^(?:\*\*)?(?:t[íi]tulo|title|keyword|idioma|language|audiencia|audience)(?:\*\*)?\s*:.*(?:\r?\n)+/gim,
       "",
     )
     .trim();

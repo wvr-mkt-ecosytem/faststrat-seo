@@ -5,6 +5,7 @@ import { apiRoute } from "@/lib/google-auth-state";
 import { getBlogPosts, getBlogPost, renderHtml, type BlogPost } from "@/lib/blog";
 import { publishPost } from "@/lib/wordpress";
 import { runQa } from "@/lib/qa";
+import { CASA } from "@/lib/publicable";
 import { generateCover } from "@/lib/cover";
 import { CLIENTE } from "@/lib/cliente";
 import { revisarTitulo, explicar } from "@/lib/catalogo";
@@ -18,7 +19,20 @@ import { emparejarEnWordpress } from "@/lib/wordpress";
 // sistema llegó a WordPress sin él, porque los 109 posts vivos lo tenían por un
 // script y el escritor nunca lo añadía. Con 1.784 sesiones y cero conversiones,
 // un artículo que atrae y no ofrece a dónde ir es esa cifra repetida.
-const HOUSE = { noEmDash: true, urlProducto: CLIENTE.dominioApp } as const;
+// La compuerta es LA MISMA que usa el escritor. No una copia.
+//
+// Aquí había un objeto propio, `{ noEmDash, urlProducto }`, al que le faltaban
+// tres campos: categoriaProhibida, fuentesPrimarias y lang. Y las reglas de
+// qa.ts se apagan solas cuando el dato no llega, así que en el ÚNICO camino que
+// publica en vivo estaban muertas anchor-off-category, wrong-language y
+// pricing-not-from-primary-source.
+//
+// Peor: un artículo que el escritor dejó de borrador PRECISAMENTE por esos
+// bloqueos pasaba limpio al pulsar Publicar, y como qa.blocking quedaba a cero
+// no se registraba ningún salto de compuerta. Nadie se enteraba.
+//
+// Una regla de seguridad copiada no son dos capas: son dos versiones que se
+// separan a la primera corrección. Se importa de un solo sitio.
 
 const EYEBROW: Record<string, string> = { en: "2026 Guide", es: "Guía 2026" };
 
@@ -83,7 +97,7 @@ export const POST = apiRoute(async (request: NextRequest) => {
     .filter((p): p is BlogPost => Boolean(p))
     .map((p) => ({
       slug: p.slug,
-      qa: runQa({ title: p.title, metaDescription: p.excerpt, markdown: p.markdown, house: HOUSE }),
+      qa: runQa({ title: p.title, metaDescription: p.excerpt, markdown: p.markdown, house: CASA, lang: p.lang }),
     }))
     .filter((r) => !r.qa.ok);
 
@@ -102,7 +116,13 @@ export const POST = apiRoute(async (request: NextRequest) => {
   const results: unknown[] = [];
   for (const post of targets) {
     if (!post) continue;
-    const qa = runQa({ title: post.title, metaDescription: post.excerpt, markdown: post.markdown, house: HOUSE });
+    const qa = runQa({
+      title: post.title,
+      metaDescription: post.excerpt,
+      markdown: post.markdown,
+      house: CASA,
+      lang: post.lang,
+    });
 
     // La canibalización se decide AQUÍ, no al escribir.
     //

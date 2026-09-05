@@ -348,7 +348,18 @@ export function runQa(input: QaInput): QaResult {
 
   // Un artículo sin un solo enlace externo no es verificable. Es aviso y no
   // bloqueo porque hay piezas legítimas sin fuente externa, pero merece mirada.
-  if (!new RegExp(`https?://(?!(?:www\\.)?${dom})`, "i").test(markdown)) {
+  // Los dominios PROPIOS no cuentan como fuente externa, y el del producto
+  // tampoco.
+  //
+  // La expresión solo excluía el dominio del contenido, así que el enlace del
+  // CTA a app.<dominio> —obligatorio en todos los artículos— contaba como
+  // enlace externo y silenciaba la regla SIEMPRE. Comprobado: un artículo sin
+  // una sola fuente, cuyo único enlace era el CTA, salía sin este aviso. Es el
+  // fallo del 30 de julio que la regla existe para atrapar.
+  const externos = [...markdown.matchAll(/https?:\/\/([^/\s)"']+)/gi)]
+    .map((m) => m[1].toLowerCase())
+    .filter((h) => !propios.some((d) => h === d.toLowerCase() || h === `www.${d.toLowerCase()}`));
+  if (externos.length === 0) {
     findings.push({
       severity: "warn",
       rule: "no-external-links",
@@ -498,7 +509,10 @@ export function runQa(input: QaInput): QaResult {
       // Blueticks" también nombra a Blueticks. Así que los anchors que van
       // detrás de una fórmula de cita se borran con ella: quien atribuye no es
       // quien cobra.
-      const CITA = /seg[úu]n|according to|per|via|v[íi]a|fuente|source|datos de|data from/i;
+      // Con límite de palabra: `per` casaba dentro de Perplexity, Performance y
+      // super, y el enlace se borraba como si fuera una fórmula de cita. Eso
+      // convertía la marca que SÍ publica su precio en un aviso falso.
+      const CITA = /\b(?:seg[úu]n|according to|per|via|v[íi]a|fuente|source|datos de|data from)\b/i;
       const textoPlano = parrafo
         // La fórmula de cita puede ir ANTES del enlace…
         .replace(new RegExp(`(?:${CITA.source})\\s*:?\\s*\\[[^\\]]*\\]\\([^)]*\\)`, "gi"), " ")
@@ -534,7 +548,9 @@ export function runQa(input: QaInput): QaResult {
   // así que solo salta cuando el idioma equivocado GANA.
   if (input.lang) {
     const cuenta = (re: RegExp) => (markdown.match(re) ?? []).length;
-    const enES = cuenta(/\b(el|la|los|las|de|del|que|para|con|una|más|está|pero|cuando|donde|tus?|cada|sitio|porque)\b/gi);
+    // `está` va sin \b final: en JS \b es ASCII y `á` no cuenta como letra, así
+    // que `está\b` exigía que SIGUIERA una letra y solo casaba con `estás`.
+    const enES = cuenta(/\b(?:el|la|los|las|de|del|que|para|con|una|más|pero|cuando|donde|tus?|cada|sitio|porque)\b|\bestá/gi);
     const enEN = cuenta(/\b(the|and|for|with|that|this|your|from|have|are|will|which|about|each|because)\b/gi);
     const pedido = input.lang === "es" ? "español" : "inglés";
     const escrito = enES > enEN ? "español" : "inglés";

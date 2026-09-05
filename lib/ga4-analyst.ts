@@ -156,6 +156,10 @@ export async function analyse(days = 28): Promise<AnalystResult> {
   // el resultado era cero páginas y el agente analizaba la nada y aun así
   // devolvía recomendaciones. Un fallo de red se leía como "no hay tráfico",
   // que es la conclusión contraria y la que peor decisión provoca.
+  /** Las fuentes de datos que se cayeron. Se dicen en los límites del informe. */
+  const cayeron: string[] = [];
+  const msg = (e: unknown) => String((e as Error)?.message ?? e).slice(0, 90);
+
   const [ga, gscRes, queryRes, fuentes, dispositivos, listaEventos] = await Promise.all([
     pageStats(days),
     queryAnalytics("page", days),
@@ -163,13 +167,30 @@ export async function analyse(days = 28): Promise<AnalystResult> {
     // volumen humano del que llega de superficies de IA, y ese reparto cambia
     // la lectura de todo lo demás: con la mayoría de las impresiones viniendo
     // de prompts, el CTR medio del sitio no significa nada.
-    queryAnalytics("query", days, 1000).catch(() => ({ rows: [] })),
+    queryAnalytics("query", days, 1000).catch((e) => {
+      cayeron.push(`las consultas de Search Console (${msg(e)})`);
+      return { rows: [] };
+    }),
     // Las tres dimensiones que faltaban. Con catch porque son un extra: si
-    // fallan, el análisis pierde profundidad pero no se cae entero, y el fallo
-    // se dice en los límites en vez de callarse.
-    trafficSources(days).catch(() => []),
-    deviceBreakdown(days).catch(() => []),
-    eventos(days).catch(() => []),
+    // fallan, el análisis pierde profundidad pero no se cae entero.
+    //
+    // Pero el fallo se APUNTA. El comentario decía "se dice en los límites" y
+    // no lo hacía nadie: si trafficSources fallaba, la lista quedaba vacía y el
+    // informe afirmaba "NINGUNA sesión desde un asistente de IA" como hecho
+    // medido. "La API falló" y "medimos y hay cero" llevan a decisiones
+    // opuestas, y la segunda es la que se escribía.
+    trafficSources(days).catch((e) => {
+      cayeron.push(`las fuentes de tráfico (${msg(e)})`);
+      return [];
+    }),
+    deviceBreakdown(days).catch((e) => {
+      cayeron.push(`el reparto por dispositivo (${msg(e)})`);
+      return [];
+    }),
+    eventos(days).catch((e) => {
+      cayeron.push(`la lista de eventos (${msg(e)})`);
+      return [];
+    }),
   ]);
 
   const gsc = (gscRes.rows ?? []).map((r) => ({
@@ -281,6 +302,10 @@ export async function analyse(days = 28): Promise<AnalystResult> {
   const limits: string[] = [];
   if (!gsc.length) limits.push("Search Console no devolvió filas: el análisis va solo con GA4.");
   if (!ga.length) limits.push("GA4 no devolvió filas: el análisis va solo con Search Console.");
+  // Lo que NO se pudo medir se dice, en vez de pasar por un cero medido.
+  for (const q of cayeron) {
+    limits.push(`No se pudo consultar ${q}. Lo que dependa de ese dato no está medido: es desconocido, no cero.`);
+  }
   if (totals.conversions === 0) {
     limits.push(
       "Cero conversiones registradas en el periodo. Sin conversiones no se puede decir qué contenido convierte, solo qué se lee.",
