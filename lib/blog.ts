@@ -109,8 +109,43 @@ export function getBlogPost(slug: string): BlogPost | undefined {
 }
 
 /** Converts a post's markdown body to HTML ready for WordPress. */
+/**
+ * El markdown del artículo, en HTML listo para WordPress.
+ *
+ * Lleva el color del texto ESCRITO en cada elemento, con !important.
+ *
+ * POR QUÉ: el tema del sitio mete el artículo entero dentro de un contenedor
+ * con `.fs-hero * { color:#fff !important }`, pensado para una cabecera oscura.
+ * Alguien parcheó los párrafos y los encabezados y se olvidó de las tablas, así
+ * que las tablas salían en BLANCO sobre fondo claro: invisibles. Comprobado en
+ * el artículo publicado: párrafos rgb(17,17,17), celdas rgb(255,255,255).
+ *
+ * Una regla de CSS en el sitio lo arreglaría más limpio, pero solo sirve para
+ * ESE sitio. Esto viaja con el contenido, así que el sistema replicado a otro
+ * cliente no depende de que su tema se porte bien. El color sale de la
+ * configuración, no está escrito aquí.
+ *
+ * Va con !important porque la regla del tema también lo lleva: un estilo en
+ * línea sin él pierde. Medido antes de escribirlo.
+ */
 export function renderHtml(post: BlogPost): string {
-  return marked.parse(post.markdown, { async: false }) as string;
+  const html = marked.parse(post.markdown, { async: false }) as string;
+  return conColor(html, CLIENTE.colorTexto);
+}
+
+/** Escribe el color en las etiquetas que el tema puede pintar mal. */
+export function conColor(html: string, color: string): string {
+  const CON_TEXTO = /<(p|h1|h2|h3|h4|h5|h6|li|td|th|table|thead|tbody|tr|blockquote|strong|em)(\s[^>]*)?>/gi;
+  return html.replace(CON_TEXTO, (todo, etiqueta: string, attrs: string = "") => {
+    // Si ya trae un color propio, no se toca: puede venir de una corrección
+    // hecha a mano y pisarla sería peor que el problema original.
+    if (/style\s*=\s*"[^"]*color\s*:/i.test(attrs)) return todo;
+    const estilo = `color:${color} !important`;
+    if (/style\s*=\s*"/i.test(attrs)) {
+      return `<${etiqueta}${attrs.replace(/style\s*=\s*"/i, `style="${estilo};`)}>`;
+    }
+    return `<${etiqueta}${attrs} style="${estilo}">`;
+  });
 }
 
 export { slugify } from "@/lib/slug";

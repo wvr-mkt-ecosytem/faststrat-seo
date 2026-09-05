@@ -127,6 +127,39 @@ comprobar(
   precio("WhatsApp cuesta $0.0625, [según Blueticks](https://blueticks.co/p).").length === 1,
 );
 
+console.log("");
+console.log("COLOR DEL TEXTO PUBLICADO");
+{
+  // El tema del sitio pinta las tablas de BLANCO sobre fondo claro: el
+  // artículo cae dentro de un contenedor con `.fs-hero * { color:#fff
+  // !important }`. Medido en tres artículos publicados, uno de ellos de agosto:
+  // párrafos y listas rgb(17,17,17), celdas rgb(255,255,255).
+  //
+  // El color se escribe en el HTML para no depender del tema del cliente, que
+  // es lo que permite replicar el sistema a otra empresa.
+  const { conColor } = await import("@/lib/blog");
+  const { CLIENTE } = await import("@/lib/cliente");
+  const c = CLIENTE.colorTexto;
+  comprobar("pinta las celdas de tabla", conColor("<td>x</td>", c).includes(`color:${c} !important`));
+  comprobar("pinta los párrafos", conColor("<p>x</p>", c).includes(`color:${c}`));
+  comprobar(
+    "respeta un color puesto a mano",
+    conColor('<p style="color:red">x</p>', c) === '<p style="color:red">x</p>',
+  );
+  comprobar(
+    "conserva los demás estilos",
+    (() => {
+      const r = conColor('<p style="margin:0">x</p>', c);
+      return r.includes("margin:0") && r.includes(`color:${c}`);
+    })(),
+  );
+  comprobar(
+    "no toca los enlaces, que llevan su propio color",
+    !/\<a[^>]*color:/.test(conColor('<p>ver <a href="https://x.com">esto</a></p>', c)),
+  );
+  comprobar("va con !important, o el tema gana", conColor("<th>x</th>", c).includes("!important"));
+}
+
 console.log("\nEL ARTÍCULO QUE PROVOCÓ TODO ESTO");
 const ruta = "content/blog/whatsapp-vs-sms-marketing-latam-smbs-2026-open-rates.md";
 if (fs.existsSync(ruta)) {

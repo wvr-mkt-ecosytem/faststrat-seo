@@ -79,6 +79,19 @@ export interface Cliente {
   encabezados: "libre" | "minusculas" | "titulo";
   /** La línea bajo el logo en las portadas generadas. En mayúsculas. */
   tagline: string;
+  /**
+   * El color del texto de los artículos publicados.
+   *
+   * El tema de WordPress pintaba las tablas de BLANCO sobre fondo claro, porque
+   * el artículo entero cae dentro de un contenedor con `.fs-hero *
+   * { color:#fff !important }`. Los párrafos ya tenían parche; las tablas no, y
+   * quedaban ilegibles.
+   *
+   * Se escribe en el HTML que publicamos en vez de depender del CSS del sitio:
+   * así el mismo sistema funciona en otro cliente con otro tema, que es de lo
+   * que va todo esto.
+   */
+  colorTexto: string;
   /** Los colores de la marca, para las portadas generadas. */
   colorPrincipal: string;
   colorFondo: string;
@@ -116,6 +129,7 @@ export const CLIENTE: Cliente = {
   // Los valores por defecto son los que ya usaban las portadas publicadas. Si
   // se cambian sin querer, las portadas nuevas dejan de parecerse a las 109 que
   // ya están en el sitio.
+  colorTexto: env("CLIENTE_COLOR_TEXTO", "#111111"),
   colorPrincipal: env("CLIENTE_COLOR", "#5A1A1A"),
   colorFondo: env("CLIENTE_COLOR_FONDO", "#F7F2E9"),
 };
