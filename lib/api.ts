@@ -79,6 +79,31 @@ export async function postJson<T = unknown>(
   if ([502, 503, 504].includes(res.status)) {
     const segundos = (Date.now() - arrancoEn) / 1000;
 
+    // Un 502 CON explicación es nuestro, no de la plataforma.
+    //
+    // Render devuelve 502 cuando la instancia no contesta, y nuestras rutas
+    // también lo devuelven cuando un servicio de fuera les falla. Se veían
+    // igual: el botón Escribir mostraba "El servidor estaba despertando,
+    // espera 30 segundos" cuando la respuesta traía literalmente escrito
+    // "GitHub no aceptó el trabajo (401): Bad credentials".
+    //
+    // El síntoma decía "espera"; la causa decía "cambia un token". Reintentar
+    // no lo iba a arreglar nunca. Un cuerpo con JSON solo lo escribe nuestro
+    // código: el proxy de Render devuelve HTML.
+    const cuerpo = await res.clone().text().catch(() => "");
+    try {
+      const j = JSON.parse(cuerpo) as { error?: string; comoSeguir?: string; detalle?: string };
+      if (j?.error) {
+        throw new ApiError(
+          [j.error, j.comoSeguir].filter(Boolean).join(" ") +
+            " (Esto no es que el servidor estuviera dormido: reintentar no lo arregla.)",
+        );
+      }
+    } catch (e) {
+      if (e instanceof ApiError) throw e;
+      // No era JSON: entonces sí es la plataforma, y sigue el camino de abajo.
+    }
+
     if (segundos < 60 && !opts.retriedOnWake) {
       await wake();
       await new Promise((r) => setTimeout(r, 12000));
