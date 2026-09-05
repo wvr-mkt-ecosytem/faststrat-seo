@@ -145,15 +145,32 @@ export function conColor(html: string, color: string, opciones: { soloTablas?: b
   const CON_TEXTO = opciones.soloTablas
     ? /<(td|th|table|thead|tbody|tr)(\s[^>]*)?>/gi
     : /<(p|h1|h2|h3|h4|h5|h6|li|td|th|table|thead|tbody|tr|blockquote|strong|em)(\s[^>]*)?>/gi;
+
+  // Las DOS propiedades, y la segunda es la que de verdad decide.
+  //
+  // El tema pone `-webkit-text-fill-color: #fff !important`, que pinta el texto
+  // POR ENCIMA de `color`. Con solo `color`, el navegador informaba
+  // rgb(17,17,17) —y todas mis comprobaciones daban el arreglo por bueno—
+  // mientras en pantalla el texto seguía blanco. Medir la propiedad equivocada
+  // es indistinguible de que funcione, y costó dos rondas enteras.
+  const ESTILO = `color:${color} !important;-webkit-text-fill-color:${color} !important`;
+
   return html.replace(CON_TEXTO, (todo, etiqueta: string, attrs: string = "") => {
-    // Si ya trae un color propio, no se toca: puede venir de una corrección
-    // hecha a mano y pisarla sería peor que el problema original.
-    if (/style\s*=\s*"[^"]*color\s*:/i.test(attrs)) return todo;
-    const estilo = `color:${color} !important`;
-    if (/style\s*=\s*"/i.test(attrs)) {
-      return `<${etiqueta}${attrs.replace(/style\s*=\s*"/i, `style="${estilo};`)}>`;
-    }
-    return `<${etiqueta}${attrs} style="${estilo}">`;
+    const style = /style\s*=\s*"([^"]*)"/i.exec(attrs);
+    const previo = style?.[1] ?? "";
+    const color_previo = /(?:^|;)\s*color\s*:\s*([^;]+)/i.exec(previo)?.[1]?.trim() ?? "";
+
+    // Un color puesto a mano manda: pisarlo sería peor que el problema.
+    if (color_previo && !color_previo.toLowerCase().startsWith(color.toLowerCase())) return todo;
+
+    // Lo que no sea color se conserva (márgenes, anchos, alineación).
+    const resto = previo
+      .split(";")
+      .filter((d) => d.trim() && !/^\s*(?:-webkit-text-fill-)?color\s*:/i.test(d))
+      .join(";");
+
+    const sinStyle = attrs.replace(/\s*style\s*=\s*"[^"]*"/i, "");
+    return `<${etiqueta}${sinStyle} style="${ESTILO}${resto ? ";" + resto : ""}">`;
   });
 }
 

@@ -158,6 +158,19 @@ console.log("COLOR DEL TEXTO PUBLICADO");
     !/\<a[^>]*color:/.test(conColor('<p>ver <a href="https://x.com">esto</a></p>', c)),
   );
   comprobar("va con !important, o el tema gana", conColor("<th>x</th>", c).includes("!important"));
+  comprobar(
+    "escribe -webkit-text-fill-color, que es la que SE VE",
+    conColor("<td>x</td>", c).includes(`-webkit-text-fill-color:${c}`),
+    "el tema la pone en blanco por encima de color; medir solo color daba el arreglo por bueno con el texto aun blanco",
+  );
+  comprobar(
+    "completa una celda que solo tenia color",
+    conColor(`<td style="color:${c} !important">x</td>`, c).includes("-webkit-text-fill-color"),
+  );
+  comprobar(
+    "aplicarlo dos veces da lo mismo",
+    conColor(conColor("<td>x</td>", c), c) === conColor("<td>x</td>", c),
+  );
 }
 
 console.log("\nEL ARTÍCULO QUE PROVOCÓ TODO ESTO");

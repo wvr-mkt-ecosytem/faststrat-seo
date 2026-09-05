@@ -106,6 +106,9 @@ for (const p of todos) {
   }
 
   // Solo las tablas: es lo único que el tema pinta mal en lo ya publicado.
+  // Se compara con el resultado, no con la presencia de "color:": los
+  // artículos repintados en el intento anterior ya lo tienen y les falta
+  // -webkit-text-fill-color, que es lo que de verdad se ve.
   const nuevo = conColor(raw, COLOR, { soloTablas: true });
   if (nuevo === raw) {
     yaEstaban.push(p.slug);
