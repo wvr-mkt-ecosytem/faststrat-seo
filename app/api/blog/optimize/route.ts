@@ -104,7 +104,10 @@ export const POST = apiRoute(async (request: NextRequest) => {
 
     // La compuerta, que esta ruta se saltaba entera. El artículo que produjo
     // llegó con 47 bloqueos porque nadie comprobaba nada antes de guardarlo.
-    const revisado = await dejarPublicable(local ? `${title} (optimized)` : title, newMarkdown, { metaDescription: excerpt });
+    const revisado = await dejarPublicable(local ? `${title} (optimized)` : title, newMarkdown, {
+      metaDescription: excerpt,
+      lang: lang,
+    });
 
     const post = createBlogPost({
       title: local ? `${title} (optimized)` : title,

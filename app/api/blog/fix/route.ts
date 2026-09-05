@@ -138,6 +138,10 @@ export const POST = apiRoute(async (request: NextRequest) => {
     metaDescription: post.excerpt,
     markdown: markdownBase,
     house: HOUSE,
+    // El idioma del post, para que wrong-language también valga aquí. El
+    // corrector reescribe el texto: sin esto podría devolverlo en otro idioma
+    // y guardarse sin que nada lo notara.
+    lang: post.lang,
   });
 
   if (antes.ok) {
@@ -206,6 +210,10 @@ Devuelve el artículo entero corregido en Markdown.`,
     metaDescription: post.excerpt,
     markdown: limpio,
     house: HOUSE,
+    // El idioma del post, para que wrong-language también valga aquí. El
+    // corrector reescribe el texto: sin esto podría devolverlo en otro idioma
+    // y guardarse sin que nada lo notara.
+    lang: post.lang,
   });
 
   const mejora = despues.blocking.length < antes.blocking.length;

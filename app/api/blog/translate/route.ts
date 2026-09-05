@@ -125,6 +125,12 @@ export const POST = apiRoute(async (request: NextRequest) => {
     const revisado = await dejarPublicable(title, conCierre, {
       differentiator: partes.diferencial,
       exigirDiferencial: true,
+      // El idioma de DESTINO, que es el trabajo de esta ruta.
+      //
+      // Era la que más lo necesitaba y la única que no lo tenía: traduce a otro
+      // idioma y no comprobaba el idioma del resultado. Si el agente devolvía
+      // el original sin traducir, se guardaba como si fuera la traducción.
+      lang: destino,
     });
 
     const esEtiqueta = (l: string) =>

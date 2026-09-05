@@ -65,7 +65,11 @@ Devuelve el artículo completo reescrito en Markdown.`,
 
     // Editar también es escribir: una instrucción del usuario puede meter una
     // cifra sin fuente o una raya larga igual que el escritor.
-    const revisado = await dejarPublicable(post.title, newMarkdown, { metaDescription: post.excerpt });
+    // El idioma del post ORIGINAL: editar no puede cambiarlo.
+    const revisado = await dejarPublicable(post.title, newMarkdown, {
+      metaDescription: post.excerpt,
+      lang: post.lang,
+    });
     const updated = updateBlogMarkdown(slug, revisado.markdown);
     await persistChanges(`edit blog: ${updated.slug}`, [
       path.join(process.cwd(), "content", "blog", updated.file),

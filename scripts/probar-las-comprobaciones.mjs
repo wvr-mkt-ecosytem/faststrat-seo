@@ -150,6 +150,31 @@ console.log("\nLAS REGLAS DE LA COMPUERTA, CONTRA SU PROPIO CASO MALO");
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+console.log("");
+console.log("TODA RUTA QUE TOCA UN ARTÍCULO PASA EL IDIOMA");
+{
+  // La regla wrong-language solo actúa si quien llama le da el idioma. Se
+  // añadió al escritor y se quedó muerta en las otras CUATRO rutas que
+  // modifican artículos: editar, corregir, optimizar y —la peor— traducir,
+  // cuyo trabajo es justamente producir otro idioma.
+  //
+  // Se comprueba leyendo el código, porque el fallo no era que la regla
+  // estuviera mal: era que nadie la llamaba. Una regla apagada pasa todas
+  // sus propias pruebas.
+  const rutas = [
+    "app/api/blog/edit/route.ts",
+    "app/api/blog/fix/route.ts",
+    "app/api/blog/optimize/route.ts",
+    "app/api/blog/translate/route.ts",
+  ];
+  for (const r of rutas) {
+    const src = fs.readFileSync(r, "utf8");
+    const llama = /dejarPublicable\(|runQa\(/.test(src);
+    const pasa = /\blang:/.test(src);
+    comprobar(`${r.split("/").slice(-2)[0]} pasa el idioma a la compuerta`, !llama || pasa);
+  }
+}
+
 console.log("\nEL REINTENTO");
 {
   const { defectoDeRaiz, conUnReintento } = await import("@/lib/reintento");
