@@ -35,3 +35,4 @@ next-env.d.ts
 # generated query dumps
 /scripts/gsc-queries.json
 RENDER-ENV.txt
+.respaldos/
