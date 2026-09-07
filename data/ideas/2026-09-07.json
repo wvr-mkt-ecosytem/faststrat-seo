@@ -1,0 +1,228 @@
+{
+  "weekOf": "2026-09-07",
+  "generatedAt": "2026-09-07T15:30:35.671Z",
+  "source": "auto-weekly",
+  "summary": "Ten clearly differentiated angles spanning agentic content pipelines, live commerce for LATAM, AI brand governance, cross-border US expansion, agency-side pricing, and a plain-English SMB agent explainer—none repeating a published or proposed title.",
+  "research": {
+    "competitors": [
+      "Jasper's 2026 content positioning has migrated from 'AI copywriting tool' to 'brand governance platform'—their blog emphasizes preventing brand drift for teams producing 50+ pieces per week; no FastStrat article yet addresses the governance problem (enforcing voice after AI is already deployed), only the setup problem.",
+      "Copy.ai is betting its 2026 narrative on GTM Workflows—sales-to-marketing pipeline automation that bridges two departments in one agentic layer; no competitor has published a head-to-head comparing specifically Copy.ai Workflows vs. Jasper Brand Studio (as workflow products, not general tools), leaving a clear comparison gap.",
+      "HubSpot Breeze content dominates informational queries by framing AI around CRM-data integration; their visible gap is LATAM-specific content and agency pricing models—neither appears in their editorial calendar, and both are territories FastStrat can own with localized depth.",
+      "Writesonic is aggressively publishing on multimodal content creation (Chatsonic + Photosonic + Audiosonic), yet no competitor has published a practical SMB workflow guide that chains text, image, and video prompting in a single campaign pipeline—the format SMB marketers actually need to adopt the multimodal shift."
+    ],
+    "trends": [
+      "Agentic AI crossed the SMB adoption threshold: 45% of marketing teams now use at least one agentic system (up from 15% in 2024), shifting the content opportunity from 'should you try AI?' to 'where does your current deployment fail?'—the anti-patterns and failure modes angle is almost entirely unpublished.",
+      "Google AI Overviews appear in 18–21% of all searches in 2026; structured data freshness is the #1 technical lever local SMBs control directly to appear in those snippets, yet most SMB SEO guides still stop at 'claim your GBP' without touching JSON-LD schema implementation.",
+      "Live commerce in LATAM is growing 30%+ annually with 10–20% of all e-commerce sales projected to come from live shopping by end of 2026; average conversion during live sessions hits 12–18% (10x standard e-commerce), but no practical first-event guide exists targeting LATAM SMBs with platform-specific nuance (TikTok vs. Instagram vs. Mercado Libre Clips).",
+      "Cold email is not dying but being rebuilt: AI-personalized signal-based outreach achieves 15–25% reply rates (5x over generic), 65% of B2B sales teams now use AI for outreach personalization, yet Google/Yahoo 2026 sender guidelines have tightened spam thresholds—creating a deliverability-first strategy need no one is publishing for the agency-selling-to-SMB use case.",
+      "Cross-border LATAM–US e-commerce is growing at 34% vs. 25% domestic; Mexico alone has 100M+ internet users and USMCA proximity, making it the natural first market for US brands—and the reverse (LATAM SMBs acquiring US customers with AI marketing) is an entirely uncovered angle despite $191B in market opportunity."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "TikTok Shop for LATAM SMBs: Why 82% of Sellers Lose Money — and the 5 Operational Moves That Actually Work in 2026",
+      "slug": "tiktok-shop-latam-smbs-why-82-sellers-lose-money-5",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "tiktok shop latam small business 2026",
+      "intent": "Commercial investigation — LATAM SMB owner or agency evaluating TikTok Shop before committing inventory or creator budget, actively looking for failure data and evidence-based strategy.",
+      "rationale": "Differentiates from the proposed 'Mexico's $55 Billion Social Commerce Boom' (broad market overview) by centering the 82% failure rate as the lede and delivering the specific operational fixes that separate profitable LATAM sellers from the majority—actionable diagnosis, not market narrative.",
+      "keywordRationale": "Someone searching this has heard TikTok Shop success stories and wants to know if the risk is worth it for their LATAM business before they spend on inventory, creator deals, or a GMV Max campaign—they need the unfiltered failure data, not the platform pitch. Current results are either global market reports with no LATAM operational nuance or brand-published 'how to start' guides that skip the 82% loss-rate reality entirely and offer no turnaround framework.",
+      "outline": [
+        "Why Most LATAM SMBs Are Losing Money on TikTok Shop in 2026 (It Is Not the Algorithm)",
+        "The 5 Operational Moves That Separate Profitable LATAM Sellers From the 82%",
+        "GMV Max in 2026: What the Mandatory Campaign Shift Means for LATAM SMB Ad Spend",
+        "TikTok Live vs. Mercado Libre Clips vs. Instagram Live: Which Platform Converts Best by Product Category",
+        "Your 30-Day TikTok Shop Launch Checklist for LATAM SMBs: From First Post to First Sale"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "The SMB Home Page Checklist in 2026: 28 AI-Ready Elements That Turn First-Time Visitors Into Leads",
+      "slug": "smb-home-page-checklist-2026-28-ai-ready-elements-turn-first",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "smb home page checklist 2026",
+      "intent": "Informational with commercial lean — small business owner or web designer auditing a live home page for conversion readiness, structured data compliance, and AI search visibility.",
+      "rationale": "Differentiates from the published 'The Ultimate Landing Page Checklist for 2026: 47 Elements That Actually Convert' by targeting the home page specifically—a fundamentally different asset with different conversion goals (trust-building, navigation, brand clarity, GEO signals) that the autocomplete gap 'home page checklist' in our own GSC data confirms is being searched independently.",
+      "keywordRationale": "People searching 'home page checklist' are not looking for landing page advice—they have a full website and want to audit the entry point most visitors hit first, which has different jobs than a campaign-specific landing page (it must build trust, signal brand, and route users, not just convert a single offer). Current top results either conflate home pages with landing pages or are generic UX checklists that ignore AI-generated copy audits, structured data for AI Overviews, or E-E-A-T signals—all gaps FastStrat can fill with depth.",
+      "outline": [
+        "Home Page vs. Landing Page: Why the Same Checklist Fails Both (and What Each Asset Actually Needs to Do)",
+        "Above-the-Fold Essentials: The 8 Hero-Section Elements Every SMB Home Page Must Have in 2026",
+        "Trust Signals, Social Proof, and E-E-A-T: What AI Search Engines and Human Visitors Both Need to See Immediately",
+        "Navigation, Core Web Vitals, and Structured Data: The Technical Checklist Most SMBs Skip",
+        "The 30-Minute Self-Audit: How to Run This 28-Point Checklist on Your Live Home Page With Free Tools"
+      ],
+      "trend": {
+        "direccion": "baja",
+        "cambioAnual": -100,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "How AI Marketing Agencies Are Pricing Their Services in 2026: Per-Client Benchmarks, Ad-Spend Percentages, and Retainer Structures",
+      "slug": "how-ai-marketing-agencies-pricing-their-services-2026-per",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "ai marketing agency pricing models 2026",
+      "intent": "Commercial — agency owner or freelancer building a pricing deck for AI-powered marketing services, or SMB owner trying to evaluate whether a proposal they received is reasonable.",
+      "rationale": "No published or proposed article covers the agency-side pricing question; every existing piece ('How Much Should SMB Spend On Marketing,' 'Small Business Marketing Budget,' 'How Much Does a Landing Page Cost') targets the SMB buyer—this flips to the seller and supplier side, directly matching the GSC striking-distance query 'ai marketing saas pricing per client smb 2026 percentage of ad spend' at position 7.0.",
+      "keywordRationale": "The person typing this query is either an agency trying to build a defensible pricing deck or an SMB owner trying to decode a proposal they just received—both want real benchmark numbers for 2026, not philosophical frameworks about value-based pricing. Results currently ranking mix generic freelance pricing guides from 2023 with SaaS subscription pages; no source has published 2026-specific data on what AI marketing agencies actually charge per client across different service tiers and what percentage of ad spend is market rate.",
+      "outline": [
+        "The Three Dominant AI Marketing Agency Pricing Models in 2026 (and Which Client Profile Each Fits)",
+        "Per-Client SaaS Seat Pricing: What Agencies Are Charging and How to Structure Tool Cost Pass-Through",
+        "Percentage-of-Ad-Spend Models: 2026 Benchmarks and Why the Standard Percentage Is Shifting as AI Reduces Labor",
+        "Outcome-Based Retainers: How to Price on Results When AI Makes Attribution More Complex",
+        "Red Flags in Agency Proposals: What SMBs Should Watch For When Evaluating AI Marketing Quotes in 2026"
+      ],
+      "trend": {
+        "direccion": "sube",
+        "cambioAnual": 100,
+        "nivelActual": 1
+      }
+    },
+    {
+      "title": "Copy.ai GTM Workflows vs. Jasper Brand Studio in 2026: Which Agentic Content Pipeline Actually Wins for Lean SMB Teams",
+      "slug": "copy-ai-gtm-workflows-vs-jasper-brand-studio-2026-which",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "copy.ai gtm workflows vs jasper brand studio 2026",
+      "intent": "Commercial investigation — SMB marketer or solo operator already using one of these platforms who wants to know if the agentic workflow upgrade is worth the cost, or who is choosing between the two specifically for pipeline automation.",
+      "rationale": "Differentiates from the published 'HubSpot Breeze vs Jasper AI vs Copy.ai in 2026: Which AI Tool Wins for SMBs?' and 'Jasper vs. Copy.ai vs. HubSpot AI: Which Marketing AI Wins in 2026?' by comparing not general tool features but specifically the agentic workflow layers both platforms launched in 2026—Copy.ai GTM Workflows (sales-to-marketing automation) vs. Jasper Brand Studio (governance and brand consistency)—a head-to-head that does not exist anywhere in current content.",
+      "keywordRationale": "Someone searching this has moved past 'what is AI copywriting' and is evaluating which platform's automation layer will replace their current manual content pipeline—they want workflow depth, integration support, and real SMB setup time, not another feature comparison that treats both tools as text generators. Existing content either repeats the same general Jasper vs. Copy.ai roundup from 2024–2025 or covers only text generation features, entirely ignoring the agentic and workflow differentiation that defines both products' 2026 positioning.",
+      "outline": [
+        "How Copy.ai GTM Workflows Work: Sales-to-Marketing Automation Explained for Teams Without a RevOps Hire",
+        "How Jasper Brand Studio Works: Governance Layers, Template Enforcement, and Team-Level Brand Consistency",
+        "Head-to-Head: Workflow Depth, Native Integrations, and Realistic SMB Setup Time for Each Platform",
+        "Pricing Reality Check: What You Are Actually Paying for When You Upgrade to the Agentic Tier on Each Tool",
+        "Decision Matrix: Which Platform Wins for Lean SMB Teams, Small Agencies, and Solo Operators"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Live Commerce for LATAM SMBs: How to Run Your First TikTok Live or Instagram Live Shopping Event in 2026",
+      "slug": "live-commerce-latam-smbs-how-run-your-first-tiktok-live",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "live commerce latam small business how to 2026",
+      "intent": "Informational with strong commercial lean — LATAM SMB owner selling physical products who has watched competitors go live and wants a step-by-step operational guide before attempting their first live shopping event.",
+      "rationale": "Completely new territory not covered in any published or proposed article; distinct from the proposed 'Agentic Commerce on WhatsApp' (conversational AI-driven channel) and 'Mexico's $55 Billion Social Commerce Boom' (market analysis) by focusing on the live-event format specifically—the setup, execution, and post-event repurposing that a first-timer needs, with LATAM platform nuance (TikTok vs. Instagram vs. Mercado Libre Clips).",
+      "keywordRationale": "People searching live commerce for LATAM are typically product sellers who've seen competitors go live and want the operational instructions—optimal stream length, product presentation script, payment link setup, comment moderation—not another market size statistic. Current results are either US-centric creator economy guides or academic reports citing the 30%+ annual growth; no practical 'first live event' walkthrough exists targeting LATAM SMBs at the platform-selection and execution level.",
+      "outline": [
+        "Why Live Commerce Converts 10–18x Better Than Static Posts — and What LATAM Audiences Specifically Respond To",
+        "Platform Selection: TikTok Live vs. Instagram Live vs. Mercado Libre Clips — What to Choose by Product Type and Audience Size",
+        "Pre-Event Setup: Products, Lighting, AI-Generated Talking Points, Payment Links, and the 48-Hour Promotion Plan",
+        "Running the Event: Real-Time Engagement Tactics, Objection Handling, and Same-Session Order Management",
+        "Post-Event Playbook: Repurposing the Stream Into Clips, Retargeting Ads, and Follow-Up Sequences"
+      ]
+    },
+    {
+      "title": "AI Brand Voice Governance for SMBs: 7 Guardrails That Prevent Brand Drift When Every Team Member Prompts AI",
+      "slug": "ai-brand-voice-governance-smbs-7-guardrails-prevent-brand",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "ai brand voice governance small business 2026",
+      "intent": "Informational — marketing manager or SMB owner who already has AI tools deployed across the team and is noticing tone inconsistency and messaging drift across outputs from different team members.",
+      "rationale": "Differentiates from the proposed 'How to Build a Consistent AI Brand Voice Across Every Marketing Channel (2026 SMB Guide)' by assuming the voice already exists and addressing the harder downstream problem: how to enforce it operationally at the prompt level when multiple people and AI agents are generating content independently—the governance layer, not the setup layer.",
+      "keywordRationale": "The person searching this has already built an AI content workflow and is now experiencing the breakdown: every team member's prompts produce slightly different output, and the brand sounds inconsistent across email, social, and ads. Existing results focus on 'how to define your brand voice' (top of the problem) rather than 'how to enforce it without killing team speed' (where the actual failure happens once AI is already in use across the org).",
+      "outline": [
+        "Why Brand Voice Breaks Down at Scale: The Prompt Variation Problem Nobody Warns You About After Deployment",
+        "The 7 Guardrails: From Shared System Prompts to Brand Wikis to Tiered Output Review Workflows",
+        "How to Build a Prompt Library That Enforces Voice Without Turning Into a Bureaucratic Bottleneck",
+        "Jasper Brand Studio vs. Custom GPTs vs. Notion AI: Which Governance Layer Fits Your Team Size and Budget",
+        "The Monthly Brand Consistency Audit: A 30-Minute Scorecard Your Team Can Run Without a Brand Manager"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "What Is an SMB Agent? Plain-English Definition, 5 Real Deployments, and What to Expect Before You Build One in 2026",
+      "slug": "what-smb-agent-plain-english-definition-5-real-deployments",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "smb agent what is 2026",
+      "intent": "Informational — small business owner or agency at the very start of their agentic AI research, trying to form a mental model of what an SMB agent is before committing to any platform, vendor, or implementation.",
+      "rationale": "Differentiates from the proposed 'The SMB Agent Playbook: How to Integrate and Manage AI Agents' and 'The SMB Guide to AI Marketing Agents in 2026' (both assume deployment intent) by targeting the earlier definitional stage—which is exactly where the GSC head keyword 'smb agent' (pos 5.1, 27 impressions) sits: exploratory, not deployment-ready.",
+      "keywordRationale": "Someone typing 'smb agent' without qualifiers is still forming their mental model—they are not ready for a deployment playbook, they need a clear definition with concrete examples they can recognize from their own business context. Current results mix enterprise AI agent platforms with real estate 'SMB sales agents' and generic chatbot descriptions, creating a definitional vacuum that a focused, plain-English explainer from a PYME-focused brand can own with minimal competition.",
+      "outline": [
+        "What Is an SMB Agent? One Paragraph That Cuts Through the Hype Without the Jargon",
+        "Chatbot vs. AI Copilot vs. AI Agent: The Spectrum Explained and Why the Difference Matters for Small Businesses",
+        "5 Real SMB Agent Deployments Running in 2026 — With Exactly What Each One Does Day-to-Day",
+        "What You Need Before You Deploy: Data Readiness, Tool Stack, Realistic Budget, and Timeline Expectations",
+        "Three Questions to Ask Any AI Agent Platform Before You Sign a Contract or Start a Trial"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Multimodal Prompting for SMB Marketers: How to Generate Text, Image, and Video Assets From One Unified Workflow in 2026",
+      "slug": "multimodal-prompting-smb-marketers-how-generate-text-image",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "multimodal prompting marketing workflow 2026",
+      "intent": "Informational with commercial lean — SMB marketer or content manager who already uses AI for text generation and wants to expand into image and video production without managing five disconnected tools.",
+      "rationale": "Differentiates from the published 'Prompt Engineering for Marketers: The Blueprint for SEO & Content' (text-only, keyword research focus) and the proposed 'The SMB Marketer's Prompt Engineering Playbook' (also text-centric) by covering the multimodal shift—combining text, image, and video prompting in a single pipeline—which is the 2026 enterprise standard that all existing FastStrat prompt content entirely misses.",
+      "keywordRationale": "The person searching this is past the 'write me a caption' phase and is trying to build an efficient cross-format production workflow—they want to know which tools chain together natively, how to write a prompt brief that feeds both a copy draft and a visual direction, and how to do it without an agency or a developer. Current top results are either Sora and Imagen launch announcements (production-focused, not SMB-actionable) or academic prompt engineering papers with no practical workflow instructions for solo operators.",
+      "outline": [
+        "Why Multimodal Prompting Became the 2026 Marketing Standard — and What It Means for Teams Without a Design Budget",
+        "The Four Tools That Actually Chain Together: Text to Image to Video to Distribution Without Manual Handoffs",
+        "Writing a Multimodal Prompt Brief: The One-Page Template That Feeds Your Entire Campaign Asset Set",
+        "Three Real SMB Workflows Built Multimodally: Product Launch, Seasonal Promo, and Ongoing Social Series",
+        "Quality Control Before You Publish: How to Audit AI-Generated Visuals and Video for Brand Consistency"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "How LATAM SMBs Can Acquire US Customers With AI Marketing in 2026: The Cross-Border Growth Playbook",
+      "slug": "how-latam-smbs-can-acquire-us-customers-ai-marketing-2026",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "latam small business us market ai marketing 2026",
+      "intent": "Commercial investigation — LATAM SMB owner or agency that sells products or services and wants to expand into the US market using AI marketing tools without a US office, US team, or agency retainer.",
+      "rationale": "Completely new angle not covered in any published or proposed article; the entire catalog addresses either LATAM-to-LATAM marketing or US SMBs using AI—this reverses the direction, targeting LATAM businesses as exporters of value to US consumers, a $191B cross-border opportunity rising at 34% annually that no existing FastStrat content touches and that the 'pymes en mexico 2026' query (pos 6.4, +100% YoY) signals as a growing audience.",
+      "keywordRationale": "Someone searching this is a LATAM business owner who already has a product or service that sells locally and wants to reach US buyers—they want practical channel strategy, language localization with AI, platform selection, and payment infrastructure, not another market overview. Existing results are either guides targeting US brands expanding into LATAM (the reverse direction) or academic reports on cross-border e-commerce projections without SMB-level operational instructions.",
+      "outline": [
+        "Why 2026 Is the First Year LATAM SMBs Can Realistically Acquire US Customers Without a US Office",
+        "Channel Selection: Which US Platforms Convert Best for LATAM Products (Meta, Google, Amazon, TikTok Shop)",
+        "AI Localization at Scale: How to Adapt Copy, Visuals, and Offers for US Audiences Without Losing Your Brand",
+        "Payment, Logistics, and Trust Signals: The Three Infrastructure Pieces US Buyers Require Before Converting",
+        "30-Day Cross-Border Launch Plan: From First Ad to First US Sale Using AI Marketing Tools Under $500/Month"
+      ]
+    },
+    {
+      "title": "Cold Email Outreach to SMBs in 2026: AI-Personalized Templates That Get Replies Without Getting Flagged as Spam",
+      "slug": "cold-email-outreach-smbs-2026-ai-personalized-templates-get",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "cold email outreach to smbs 2026 ai personalization",
+      "intent": "Commercial — agency, SaaS vendor, or consultant building a B2B prospecting sequence targeting small business owners, looking for AI-personalized templates and deliverability tactics that work under 2026 Google and Yahoo sender guidelines.",
+      "rationale": "Addresses the 'smb emails' GSC signal (pos 12.9, 22 impressions) from the seller-to-SMB angle—B2B prospecting directed at SMB decision-makers—which no published or proposed article has covered; every existing FastStrat email piece targets SMBs sending emails to their own customers, not agencies or vendors reaching SMB owners as prospects.",
+      "keywordRationale": "The person searching 'smb emails' from an outreach angle is an agency or tool vendor trying to build a cold sequence targeting business owners and needs templates calibrated to the SMB persona: short attention spans, high inbox volume, immediate-value expectation, and skepticism of AI-sounding copy. Nothing currently ranking addresses the specific challenge of personalizing at scale with signal-based AI (LinkedIn activity, funding rounds, job changes) for SMB personas while maintaining deliverability under 2026 Google and Yahoo spam thresholds.",
+      "outline": [
+        "Why SMB Decision-Makers Delete 90% of Cold Emails — and What the 10% That Get Replies Have in Common",
+        "Signal-Based AI Personalization: How to Use Firmographic and Behavioral Data to Write Emails That Feel Human",
+        "Five Proven Cold Email Templates for Reaching SMB Owners in 2026 (With Subject Line and Preview Text Variants)",
+        "Deliverability in 2026: Domain Warming, Mailbox Rotation, SPF/DKIM/DMARC, and What Changed With Google and Yahoo Rules",
+        "Sequence Architecture: How Many Touches, What Cadence, and When to Let AI Decide the Next Step"
+      ]
+    }
+  ]
+}
