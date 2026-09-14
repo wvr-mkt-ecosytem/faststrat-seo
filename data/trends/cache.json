@@ -173,11 +173,11 @@
     "t": {
       "termino": "landing page checklist",
       "direccion": "baja",
-      "cambioAnual": -56,
-      "nivelActual": 14,
+      "cambioAnual": -82,
+      "nivelActual": 9,
       "meses": 262
     },
-    "cuando": "2026-08-31T20:27:30.693Z"
+    "cuando": "2026-09-14T16:01:41.396Z"
   },
   "US|best whatsapp bsp latam": {
     "t": {
@@ -202,12 +202,12 @@
   "US|best ai seo tools for small businesses 2026": {
     "t": {
       "termino": "best ai seo tools for small businesses 2026",
-      "direccion": "baja",
-      "cambioAnual": -100,
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-08-31T20:27:35.568Z"
+    "cuando": "2026-09-14T16:01:42.940Z"
   },
   "US|aylesbury seo": {
     "t": {
@@ -217,7 +217,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-08-31T20:27:37.201Z"
+    "cuando": "2026-09-14T16:01:44.405Z"
   },
   "US|pymes en mexico 2026": {
     "t": {
@@ -253,21 +253,21 @@
     "t": {
       "termino": "seo tools 2026",
       "direccion": "baja",
-      "cambioAnual": -67,
-      "nivelActual": 25,
+      "cambioAnual": -73,
+      "nivelActual": 18,
       "meses": 262
     },
-    "cuando": "2026-08-31T20:27:43.956Z"
+    "cuando": "2026-09-14T16:01:49.047Z"
   },
   "US|claude vs chatgpt for marketing": {
     "t": {
       "termino": "claude vs chatgpt for marketing",
       "direccion": "baja",
-      "cambioAnual": -94,
-      "nivelActual": 1,
+      "cambioAnual": -98,
+      "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-08-31T20:27:51.065Z"
+    "cuando": "2026-09-14T16:01:59.918Z"
   },
   "US|whatsapp ai sales agent small business latam 2026": {
     "t": {
@@ -482,12 +482,12 @@
   "US|best ai seo tools for small businesses": {
     "t": {
       "termino": "best ai seo tools for small businesses",
-      "direccion": "baja",
-      "cambioAnual": -100,
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-09-07T15:21:58.537Z"
+    "cuando": "2026-09-14T16:01:53.767Z"
   },
   "US|ai marketing platforms hubspot jasper copy.ai market share": {
     "t": {
@@ -568,5 +568,55 @@
       "meses": 262
     },
     "cuando": "2026-09-07T15:30:31.219Z"
+  },
+  "US|best geo seo tools for small business 2026": {
+    "t": {
+      "termino": "best geo seo tools for small business 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-09-14T16:01:46.040Z"
+  },
+  "US|claude vs chatgpt for marketing ads 2026": {
+    "t": {
+      "termino": "claude vs chatgpt for marketing ads 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-09-14T16:08:18.679Z"
+  },
+  "US|smb email automation workflows 2026": {
+    "t": {
+      "termino": "smb email automation workflows 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-09-14T16:08:20.302Z"
+  },
+  "US|digital marketing mexico 2026 strategy rules": {
+    "t": {
+      "termino": "digital marketing Mexico 2026 strategy rules",
+      "direccion": "sube",
+      "cambioAnual": 100,
+      "nivelActual": 4,
+      "meses": 262
+    },
+    "cuando": "2026-09-14T16:08:28.973Z"
+  },
+  "US|ai customer retention small business 2026": {
+    "t": {
+      "termino": "ai customer retention small business 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-09-14T16:08:30.546Z"
   }
 }

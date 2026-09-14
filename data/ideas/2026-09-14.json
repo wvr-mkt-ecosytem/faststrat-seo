@@ -1,0 +1,213 @@
+{
+  "weekOf": "2026-09-14",
+  "generatedAt": "2026-09-14T16:08:31.746Z",
+  "source": "auto-weekly",
+  "summary": "10 ideas anchored in Mexico/LATAM growth signals (+100% YoY on 'pymes en mexico'), agency-side AI margin math, paid-ad prompt engineering, and GEO for e-commerce — every angle avoids the 60+ titles already proposed or published.",
+  "research": {
+    "competitors": [
+      "Jasper, HubSpot (Content Hub), and Copy.ai dominate 'AI content tools for SMBs' in 2026 with brand-voice and repurposing content (AgentMarketCap, Spinta Digital, Sales Leads CRM), but every piece is US-centric — no competitor publishes LATAM-adapted or paid-ads-specific prompt playbooks, leaving a clear positional gap.",
+      "MEGA AI, Layer3Labs, Overrank.ai, and BehindRankings own 'best AI SEO tools for small business 2026' with generic ranked lists; none specialize in GEO-ready picks for e-commerce product pages or LATAM local markets — both angles are uncontested.",
+      "Gend.co, GenesysGrowth, and MarketInc.io flood 'prompt engineering for marketing 2026' with generalist content-and-SEO guides; zero competitors have published paid-ads-specific prompt frameworks or region-adapted LATAM playbooks, despite 'prompt engineering for marketing' sitting at pos 52 with 58 impressions in our GSC.",
+      "AgentMarketCap and Conductor.com cover agentic marketing stacks and AEO/GEO trends at enterprise scale; no major competitor frames agentic AI for SMBs with a 'no dev team, under $200/month' implementation angle, which is the entry point for FastStrat's audience."
+    ],
+    "trends": [
+      "GEO/AEO moves from concept to active SMB practice: Conductor Academy ranks 'scaling AI content for topical authority' as the #1 content priority in 2026, with structured-data markup, fact-dense writing, and E-E-A-T signals now core to AI citation — not just traditional keyword ranking.",
+      "Mexico social commerce hits $55.84B in 2026 (+14% YoY) with a trajectory to $98.72B by 2031 (GlobeNewswire, April 2026); TikTok Shop's reported 59x GMV rise between Feb 2025 and Jan 2026, plus Meta's WhatsApp Business AI expansion in July 2025, are reshaping how LATAM SMBs sell — 75%+ of Mexican businesses now close transactions inside messaging platforms.",
+      "Agentic AI shifts from writing assistant to autonomous executor: autonomous agents that analyze markets, manage campaigns, and optimize GEO signals with minimal human oversight dominate 2026 coverage across NoimosAI, Ariad Partners, and DNA Digital Marketing — the unmet SMB need is implementation without a developer.",
+      "AI content repurposing becomes a standard workflow: HubSpot Content Hub's 'create once, distribute everywhere' model is being adopted by lean teams turning a single interview or report into 30–45 assets across blog, email, social, and WhatsApp, reducing per-asset production cost significantly.",
+      "Prompt engineering specializes by channel in 2026 (Kreativa Group, GenesysGrowth, Manyforce): generic prompt guides are saturated; the frontier is channel-specific playbooks — paid ads, WhatsApp commerce flows, product descriptions — and region-specific adaptation for LATAM audiences, both areas underserved by current top results."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "5 Digital Marketing Channels Mexican SMBs Are Ignoring in 2026 — And How AI Makes Each One Viable Without a Big Budget",
+      "slug": "5-digital-marketing-channels-mexican-smbs-ignoring-2026-how",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "digital marketing for small businesses in Mexico 2026",
+      "intent": "Informational / channel-discovery — Mexican SMB owners and marketers scanning for growth levers they haven't tried yet",
+      "rationale": "The 'pymes en mexico 2026' signal is trending +100% YoY and sits at pos 6.9 — the closest to page 1 of any Mexico signal in GSC; every existing Mexico proposal is data-first ('adoption data, real cases') or tool-first ('best free AI tools'), not channel-action-first, which is the actionable angle missing from page 1 results.",
+      "keywordRationale": "Someone writing 'pymes en mexico 2026' or 'marketing mexico' is a Mexican business owner or marketer benchmarking which channels their peers use and what they're missing. Today's top results are market-research PDFs and news aggregators with zero actionable guidance — a channel-by-channel AI playbook fills that void directly and speaks to the decision they're trying to make.",
+      "outline": [
+        "Why Most Mexican SMBs Still Rely on WhatsApp + Word-of-Mouth — and What That Gap Is Costing Them in 2026",
+        "Channel 1 & 2: Mercado Libre Advertising + AI Product Copy, and YouTube Shorts With AI Dubbing for LATAM Reach",
+        "Channel 3: AI-Personalized Email in Spanish — Why Open Rates in Mexico Beat the U.S. Average by 18 Points",
+        "Channel 4: Google Business Profile With AI-Generated Q&A and Posts — The Local SEO Shortcut Most PYMEs Skip",
+        "Channel 5: WhatsApp Broadcast Lists With AI Segmentation — From Support Channel to Revenue Engine"
+      ]
+    },
+    {
+      "title": "AI Marketing SaaS Tool Costs vs. Client Fees in 2026: The Margin Math Every Small Agency Needs to Run",
+      "slug": "ai-marketing-saas-tool-costs-vs-client-fees-2026-margin-math",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "ai marketing saas pricing per client smb 2026",
+      "intent": "Commercial / decision — small agency operators calculating whether an AI tool stack is accretive or destructive to their margins",
+      "rationale": "The GSC signal 'ai marketing saas pricing per client smb 2026 percentage of ad spend' sits at pos 6.0 with 53 impressions; the published budget piece targets the client side ('where should SMBs allocate 7–10% of revenue'), and the proposed agency pricing piece targets what agencies charge clients — this piece covers the missing middle: tool costs vs. client fees, the actual margin arithmetic no one has mapped.",
+      "keywordRationale": "Someone writing this exact query is an agency operator who just added three AI subscriptions and needs to know whether to absorb them, bundle them, or line-item them on proposals. Current top results are generic SaaS pricing overviews with no agency-specific model or worked example — a piece that shows the actual math (stack cost, utilization per client, breakeven retainer) answers the real question.",
+      "outline": [
+        "The Average AI Marketing Stack for a 10-Client Small Agency in 2026 — Itemized Monthly Cost",
+        "Three Pricing Models: Flat Retainer, Percentage of Ad Spend, and Per-Deliverable — Margin Profile of Each",
+        "How to Bundle Tool Costs Into Client Packages Without Losing the Deal or the Margin",
+        "Four Worked Examples: What a $1K, $2K, $3K, and $5K Monthly Retainer Actually Nets After Your Stack",
+        "When to Absorb Tool Costs vs. Pass Them Through — and the Script for That Client Conversation"
+      ]
+    },
+    {
+      "title": "Claude vs. ChatGPT for Writing Paid Ad Copy in 2026: We Ran 200 Tests — Here's Which AI Gets Better Results",
+      "slug": "claude-vs-chatgpt-writing-paid-ad-copy-2026-we-ran-200-tests",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "claude vs chatgpt for marketing ads 2026",
+      "intent": "Commercial / comparison — performance marketers deciding which AI to use specifically for paid ad creative",
+      "rationale": "The 'claude vs chatgpt for marketing' signal has 251 impressions and pos 38.8 with zero published content yet; all proposed comparisons are three-way general benchmarks or deal with 'marketing' broadly — a head-to-head test with 200 paid-ad prompts across Meta, Google, and TikTok gives the piece a methodology that's harder to replicate and a specificity that captures the high-intent buyer.",
+      "keywordRationale": "Someone searching 'claude vs chatgpt for marketing' in 2026 is almost certainly a marketer with a specific use case — they want to know which tool writes better Facebook hooks or Google headlines RIGHT NOW, not which AI is smarter in theory. Every current top result is a generic capability comparison with no marketing-specific test data; a 200-test paid-ads benchmark is the answer they're actually looking for.",
+      "outline": [
+        "How We Set Up the Test: 200 Ad Prompts Across Meta, Google Search, and TikTok Formats With a Blind Scoring Panel",
+        "Round 1 — Facebook Ad Headlines: Claude vs. ChatGPT on Hook Strength, Clarity, and Emotional Pull",
+        "Round 2 — Google Responsive Search Ad Descriptions: Which AI Writes Tighter Inside 90 Characters?",
+        "Round 3 — TikTok Script Hooks: Storytelling, Pattern Interrupts, and Scroll-Stopping Power",
+        "Verdict: When to Use Claude, When to Use ChatGPT, and How to Run Both in the Same Campaign Workflow"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "10 AI Email Automation Workflows Every SMB Should Have Running in 2026 (Set-and-Forget Templates Included)",
+      "slug": "10-ai-email-automation-workflows-every-smb-should-have",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "smb email automation workflows 2026",
+      "intent": "Informational / how-to — SMB owners or marketers who know they need email automation but don't know which workflows to prioritize first",
+      "rationale": "The 'smb emails' signal sits at pos 13.1 with 20 impressions; all prior email proposals cover channels ('cold vs newsletter vs drip'), diagnostics ('5 signs your email needs AI'), tools ('7 best AI email tools'), or templates ('cold outreach templates') — this is the only piece focused on complete, named automation workflows the AI runs end-to-end, which is the post-decision implementation question none of the existing angles address.",
+      "keywordRationale": "Someone searching 'smb emails' is almost always a small business owner who knows email matters but has no system in place — they need a starting point, not a channel comparison. Today's top results are generic email marketing introductions that describe categories without giving ready-to-deploy workflows; a 10-workflow piece with copy templates is the most immediately actionable answer on the page.",
+      "outline": [
+        "Why Workflow-Level Automation Beats One-Off Campaigns — and What 'Set-and-Forget' Actually Means in 2026",
+        "Workflows 1–3: Lead Nurture — Welcome Sequence, Lead Magnet Follow-Up, and Trial-to-Paid Conversion Chain",
+        "Workflows 4–6: Retention — Win-Back After 30 Days, Upsell Trigger After First Purchase, and Loyalty Milestone Email",
+        "Workflows 7–9: Transactional — Post-Purchase Onboarding, Abandoned Cart Recovery, and Review Request Sequence",
+        "Workflow 10: The AI-Personalized Monthly Newsletter That Writes Itself From Your Blog RSS Feed"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Prompt Engineering for Paid Ads in 2026: The Exact Prompts Behind Our Best-Performing Meta and Google Campaigns",
+      "slug": "prompt-engineering-paid-ads-2026-exact-prompts-behind-our",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "prompt engineering for paid ads marketing 2026",
+      "intent": "Informational / how-to — marketers and agency owners who already know prompt basics and want paid-ads-specific frameworks with real examples",
+      "rationale": "The published 'Prompt Engineering for Marketers: The Blueprint for SEO & Content' covers organic content; the proposed general SMB playbook covers the same territory — this piece is the only one targeting paid acquisition specifically, where a poorly-engineered prompt directly wastes ad budget and the stakes are higher than any content workflow.",
+      "keywordRationale": "Someone writing 'prompt engineering for marketing' in 2026 is past the 'what is it' stage and wants channel-specific guidance. Paid ads is the highest-stakes context — bad prompts burn money immediately — yet every result today is a content/SEO guide or a generic CRAFT-framework explainer; a paid-ads-specific prompt library with campaign-level examples is the answer no competitor is giving them.",
+      "outline": [
+        "Why Generic Prompts Waste Ad Budget — What Paid-Ads Prompting Requires That Content Prompting Doesn't",
+        "The ACRO Framework for Ad Prompts: Audience, Creative Constraint, ROAS Goal, and Offer — How to Brief Any AI",
+        "20 Proven Prompts for Meta Ads: Hooks, Primary Text, and Headlines That Have Tested Well Across SMB Campaigns",
+        "15 Google Ads Prompts: Responsive Search Ads, Performance Max Asset Groups, and Call Extension Copy",
+        "Advanced Layer: Chaining Prompts to A/B Test Copy Before You Spend a Dollar — a Step-by-Step Workflow"
+      ]
+    },
+    {
+      "title": "Headlines That Get Cited by AI in 2026: 14 Formulas That Work for Google AI Overviews, ChatGPT, and Perplexity",
+      "slug": "headlines-get-cited-ai-2026-14-formulas-work-google-ai",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "headlines that convert AI search citations 2026",
+      "intent": "Informational — content marketers and SMB blog writers trying to optimize headlines for both human click-through and AI citation simultaneously",
+      "rationale": "The proposed 'Headline Formulas That Actually Convert in 2026: AI-Tested Copy Psychology for SMB Marketers' tackles human conversion psychology and CTR — this piece tackles the orthogonal problem: writing headlines that get selected by AI Overviews and LLMs as sources, which is a distinct GEO skill that becomes more commercially important each quarter as AI answers consume top-of-page real estate.",
+      "keywordRationale": "Someone searching 'headlines that convert' in 2026 is increasingly frustrated that their click-bait hooks generate good CTR but never appear in AI Overviews or ChatGPT citations. That tension — human vs. AI headline optimization — is real and growing, yet every top result still teaches Buzzfeed-era psychology with no GEO-aware structure; this piece is the only answer that addresses both audiences at once.",
+      "outline": [
+        "Why Headlines That Went Viral in 2023 Are Invisible to AI Engines in 2026 — The Structural Mismatch",
+        "What Google AI Overviews, ChatGPT, and Perplexity Actually Look for in a Headline Before Citing a Source",
+        "The 14 Headline Formulas Ranked by AI Citation Rate — With Real Before-and-After Examples From Our Content",
+        "How to A/B Test for Human CTR and AI Citation Rate at the Same Time — the Dual-Metric Scoring Method",
+        "Rewriting Your Existing Top Posts: A Headline Audit Checklist You Can Run in 30 Minutes"
+      ]
+    },
+    {
+      "title": "AI Content Repurposing for SMBs in 2026: How to Turn One Expert Interview Into 45 Marketing Assets Across Every Channel",
+      "slug": "ai-content-repurposing-smbs-2026-how-turn-one-expert",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "ai content repurposing small business 2026",
+      "intent": "Informational / how-to — lean SMB marketing teams that produce original content but distribute it poorly and want to maximize each asset's reach",
+      "rationale": "Nothing in the proposed or published archive covers content repurposing as the primary topic; meanwhile, HubSpot is actively marketing its Content Hub on exactly this 'create once, distribute everywhere' premise — this piece opens a new topical cluster that connects naturally to our existing AI tools, email automation, and WhatsApp content while addressing a gap competitors are advertising into.",
+      "keywordRationale": "Someone searching 'AI content repurposing' is a time-constrained SMB marketer who already creates some original content but feels like they're distributing it to one channel and letting the rest go to waste. Current top results are software product pages (Descript, Repurpose.io) with no workflow guidance — a 45-asset step-by-step from a single interview is the practical how-to the market is actively looking for.",
+      "outline": [
+        "Why SMBs Publish Once and Disappear — the Repurposing Gap That Wastes 80% of Each Asset's Potential Value",
+        "The Source Asset: How to Structure a 30-Minute Expert Interview So AI Can Extract Maximum Repurposable Material",
+        "Tier 1 — Long-Form Assets (8 formats): Blog Post, YouTube Script, Newsletter, Case Study, LinkedIn Article, Podcast, PDF Guide, Webinar Deck",
+        "Tier 2 — Short-Form Assets (22 formats): Social Clips, Carousels, Tweet Threads, Quote Graphics, WhatsApp Broadcasts, Email Drip Sequences",
+        "Tier 3 — AI-Native Assets (15 formats): FAQ Pages, Structured Snippets, GEO-Ready Summaries, Chatbot Scripts, and Paid Ad Copy Variants"
+      ]
+    },
+    {
+      "title": "GEO for SMB Product Pages in 2026: How to Get Your Products Cited in AI Shopping Recommendations",
+      "slug": "geo-smb-product-pages-2026-how-get-your-products-cited-ai",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "GEO for e-commerce product pages small business 2026",
+      "intent": "Informational / how-to — SMB e-commerce operators who want their products to appear when buyers ask ChatGPT, Google AI, or Perplexity for purchase recommendations",
+      "rationale": "Every GEO piece proposed or published targets service businesses or local business directories; product-page GEO is structurally different — schema markup, review density, price anchoring, availability signals — and serves the fast-growing LATAM e-commerce segment; this is the first GEO piece in our plan with an e-commerce frame, opening a new subcluster under an already-established topical authority.",
+      "keywordRationale": "Someone searching 'best GEO SEO tools for small business 2026' from an e-commerce context wants to know how to get their actual products recommended by AI Shopping tools, not just their service homepage. Current results focus entirely on service-business GEO; there is no practical guide for product-page AI citation optimization at the SMB level, making this a clear content gap with commercial intent.",
+      "outline": [
+        "How AI Shopping Recommendations Work in 2026 — What ChatGPT, Google AI Shopping, and Perplexity Actually Pull From Product Pages",
+        "The 7 Product Page Signals That Determine AI Citation: Schema, Review Density, Price Context, Availability, Images, Specs, and Return Policy",
+        "Step-by-Step: Auditing Your Existing Product Pages Against the AI Citation Checklist in Under an Hour",
+        "Tools That Automate Product Schema and GEO Readiness for SMB Platforms (Shopify, WooCommerce, Mercado Libre, VTEX)",
+        "Measuring Product GEO Visibility: How to Track Whether AI Is Recommending Your Items Week Over Week"
+      ]
+    },
+    {
+      "title": "Digital Marketing in Mexico in 2026: The 7 Rules That Work There and Nowhere Else (WhatsApp, OXXO, and Trust-First Selling)",
+      "slug": "digital-marketing-mexico-2026-7-rules-work-there-nowhere",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "digital marketing Mexico 2026 strategy rules",
+      "intent": "Informational — US brands entering the Mexican market and Mexican SMBs validating whether their current approach fits local buying behavior",
+      "rationale": "All Mexico-focused proposals are data-driven ('adoption data, real cases') or tool-focused ('5 best free AI tools for Mexican SMBs'); this is a cultural-rules piece — the only one explaining WHY Mexican digital marketing behaves differently (trust-first economy, OXXO cash payments, WhatsApp as commerce layer) and what that means for campaign design, which is a distinct angle no existing title covers.",
+      "keywordRationale": "Someone searching 'marketing Mexico 2026' is either a brand entering the market or a Mexican marketer stress-testing their approach — either way, they need cultural and channel context, not statistics tables. Current top results are market-research reports with zero tactical guidance; a 7-rules piece grounded in local payment infrastructure, social norms, and WhatsApp commerce fills the gap that every existing top result leaves open.",
+      "outline": [
+        "Why US Digital Marketing Playbooks Fail in Mexico — The Trust Gap, the OXXO Economy, and What That Changes",
+        "Rules 1–2: WhatsApp Is Your CRM and Your Checkout — How to Build Complete Buying Flows Inside Conversations",
+        "Rules 3–4: Social Proof Works Differently Here — How Testimonials, Micro-Influencers, and Community Validation Convert in LATAM",
+        "Rules 5–6: OXXO, Mercado Pago, and Cash-First Checkout — How to Not Lose the Sale at the Payment Step",
+        "Rule 7: AI Localization Is Not Translation — How to Adapt Campaigns for Mexican Idiom, Humor, Cultural Timing, and Trust Signals"
+      ],
+      "trend": {
+        "direccion": "sube",
+        "cambioAnual": 100,
+        "nivelActual": 4
+      }
+    },
+    {
+      "title": "AI-Powered Customer Retention for SMBs in 2026: 6 Automations That Cut Churn Without a Dedicated Customer Success Team",
+      "slug": "ai-powered-customer-retention-smbs-2026-6-automations-cut",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "ai customer retention small business 2026",
+      "intent": "Informational / how-to — SMB owners who invest heavily in acquisition but lose customers after the first purchase and have no structured retention system",
+      "rationale": "Every piece in our published archive and proposal list targets acquisition — SEO, ads, lead gen, cold email, social commerce; customer retention is the other half of revenue growth and is entirely absent from our content plan, representing both a topical gap and a natural next article for readers who have already implemented our acquisition advice.",
+      "keywordRationale": "Someone searching 'AI customer retention' or 'how to reduce churn small business 2026' has already invested in acquisition tools and is watching their customer base erode — they know the problem and need specific automations, not philosophy. Current top results are CRM software landing pages with no AI-specific workflow detail; a 6-automation playbook with tool costs under $200/month is the practical guide that page 1 is missing.",
+      "outline": [
+        "Why SMBs Spend 5x More on Acquisition Than Retention — and the Revenue Math That Should Reverse That Ratio",
+        "Automations 1–2: Predictive Churn Signals — How AI Identifies At-Risk Customers 30 Days Before They Leave",
+        "Automations 3–4: Personalized Re-Engagement — AI-Triggered WhatsApp and Email Flows That Win Back Lapsed Buyers",
+        "Automations 5–6: Loyalty and Upsell Sequences — AI That Spots Expansion Revenue Opportunities in Your Existing Base",
+        "The Full Stack: Three AI Tools That Cover All Six Automations for Under $200 per Month"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    }
+  ]
+}
