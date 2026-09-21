@@ -1,0 +1,233 @@
+{
+  "weekOf": "2026-09-21",
+  "generatedAt": "2026-09-21T16:12:33.995Z",
+  "source": "auto-weekly",
+  "summary": "Ten angles anchored in September 2026 competitor research: HubSpot UNBOUND agentic launches, Copy.ai's ASO concept, Jasper's ROI-confidence collapse data, and a Local GEO blind spot — filling angles left open by all 63 prior published and proposed titles.",
+  "research": {
+    "competitors": [
+      "Jasper's State of AI Marketing 2026 (1,400-marketer survey) dominates informational queries on AI marketing trends but addresses only enterprise concerns — governance frameworks, cross-functional blocker management, content-at-scale infrastructure — with no SMB-accessible action plan anywhere on their blog.",
+      "Copy.ai coined 'Agent Search Optimization' in a July 2026 post targeting GTM/sales teams, creating a first-mover vacuum for SMB marketers who want to be discovered by AI agents that autonomously shop, book, or plan on behalf of consumers.",
+      "HubSpot launched Campaign Agent, Content Agent, and Nurture Agent at UNBOUND on September 16, 2026; current SERP for related queries is filled only with agency partner press releases and HubSpot's own marketing copy — no independent SMB value-vs-cost verdict exists yet.",
+      "Writesonic is the most aggressive publisher on GEO tool roundups and ranks well for 'best GEO tools 2026', but produces no local-specific or B2B-vertical GEO content — leaving the 'why am I invisible in AI search?' diagnostic angle wide open for local and service-area businesses."
+    ],
+    "trends": [
+      "Agentic AI adoption gap: only 7% of SMBs run production agents vs. 34% of enterprises (Upwork State of AI in SMBs 2026), creating a catch-up wave that will drive search demand for SMB-specific implementation guides through Q4 2026 and into 2027.",
+      "AI Overviews now appear in 47–64% of all Google queries (up from ~25% in 2024), driving a 58% average CTR decline — local brick-and-mortar businesses are disproportionately harmed and urgently searching for Local GEO fixes rather than tool roundups.",
+      "Agent Search Optimization (ASO) is emerging as the discoverability layer beyond GEO: AI agents that autonomously book, buy, and plan for consumers surface businesses based on structured inventory, pricing, and availability signals — not keyword match — requiring SMBs to rethink product data architecture.",
+      "Legal and compliance is now the #1 AI marketing adoption blocker per Jasper's 2026 survey, up 3.4× year-over-year — yet SMB-accessible legal guides covering FTC AI disclosure rules, AI-generated copyright exposure, and client-contract protection are virtually nonexistent in the content ecosystem.",
+      "HubSpot's UNBOUND September 2026 launches signal the mainstreaming of fully autonomous marketing execution (Campaign Agent auto-generates plans and assets; Nurture Agent personalizes each email send in real time), raising the bar for what SMBs expect from any marketing stack they pay for."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "Agent Search Optimization in 2026: How SMBs Get Found by AI Agents That Buy, Book, and Decide for Customers",
+      "slug": "agent-search-optimization-2026-how-smbs-get-found-ai-agents",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "agent search optimization for small business",
+      "intent": "informational — SMB owner or marketer who just encountered the ASO concept and wants to understand whether and how it applies to their specific business",
+      "rationale": "Copy.ai introduced ASO in July 2026 exclusively for enterprise GTM teams; no SMB-focused guide exists anywhere — this is a genuine first-mover window on a concept that will define a new layer of discoverability over the next 12 months, with no overlap with any published or proposed title in our library.",
+      "keywordRationale": "The searcher has likely encountered 'agent search optimization' in a newsletter or vendor blog and is trying to determine whether it is real or hype, and what it means for their actual business operations. Every current result is either Copy.ai's own definition piece (biased, GTM-sales-focused) or thin rewrites of it — there is no independent, practical, SMB-level explanation that answers the real question: what do I actually need to change?",
+      "outline": [
+        "What Is Agent Search Optimization — and How It Differs from GEO and Traditional SEO",
+        "Which AI Agents Are Already Buying and Booking for Consumers in 2026 (and What Data They Look For)",
+        "The 5 Structured Data Signals That Get SMBs Surfaced by Shopping and Planning Agents",
+        "How to Format Your Product Listings, Pricing, and Availability for AI Agent Discoverability",
+        "Measuring ASO: How to Know Whether AI Agents Are Actually Recommending Your Business"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "HubSpot Campaign Agent, Content Agent & Nurture Agent in 2026: What SMBs Actually Get — and What They Don't",
+      "slug": "hubspot-campaign-agent-content-agent-nurture-agent-2026-what",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "HubSpot Campaign Agent 2026 small business",
+      "intent": "commercial investigation — current or prospective HubSpot customer evaluating whether the new agentic features justify the cost or tier upgrade",
+      "rationale": "HubSpot launched three new agents at UNBOUND on September 16, 2026, generating immediate search intent that no independent review has captured yet; this is explicitly different from our published 'HubSpot Breeze vs Jasper AI vs Copy.ai in 2026,' which was a general platform comparison written before these specific agentic products existed.",
+      "keywordRationale": "Searches for 'HubSpot Campaign Agent' and related queries spiked after UNBOUND, but every result is either HubSpot's own product page or an agency partner recap written to attract upgrade commissions — there is no honest, budget-conscious SMB perspective that answers the real question: is it worth paying more for this?",
+      "outline": [
+        "What Launched at UNBOUND 2026: Campaign Agent, Content Agent, and Nurture Agent Explained in Plain English",
+        "Which HubSpot Tier Unlocks Which Agent — and What It Actually Costs for a 10-Person SMB",
+        "What Campaign Agent Can Automate in One Hour vs. What You Still Have to Do Yourself",
+        "Nurture Agent vs. Standard Automated Sequences: Is Real-Time Personalization Actually Better?",
+        "Verdict: When HubSpot Agent Hub Pays Off for SMBs — and When a Leaner Stack Still Wins"
+      ]
+    },
+    {
+      "title": "Agentic CRO in 2026: How Small Businesses Can Run Continuous Landing Page Tests Without a Conversion Specialist",
+      "slug": "agentic-cro-2026-how-small-businesses-can-run-continuous",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "agentic CRO for small business 2026",
+      "intent": "informational — SMB owner frustrated with static landing pages who wants to know whether autonomous testing is accessible without a developer or a dedicated CRO budget",
+      "rationale": "This is distinct from our published 'AI-Generated Landing Pages vs. Human-Written' (which tested creation quality) and 'Does AI-Managed Ad Spend Actually Outperform?' (which covered campaign-level optimization) — agentic CRO addresses the continuous, post-launch, autonomous testing lifecycle that neither prior piece touches.",
+      "keywordRationale": "Searchers behind GSC signals like 'is ai-managed ad spend actually better than doing it yourself?' (pos 9.2, 43 impressions) are asking a broader question: can AI run my marketing operations better than I currently do? This piece answers the landing page optimization half of that question — and every current result for any 'AI CRO' query assumes a developer, a specialist tool budget, or an agency on retainer.",
+      "outline": [
+        "What Agentic CRO Is — and Why It Is Different From the A/B Testing Tools You Already Know",
+        "The 4 Page Types Worth Running Autonomous Tests On (and the 2 to Leave Alone)",
+        "Best Agentic CRO Tools in 2026: What Small Businesses Can Actually Afford",
+        "Setting Up Your First Autonomous Test Without a Developer: Step-by-Step",
+        "When to Override the AI: The Non-Negotiable Human Guardrails You Must Keep"
+      ]
+    },
+    {
+      "title": "Why Your Local Business Doesn't Show Up in AI Search Results in 2026 — And the 6 Local GEO Fixes That Actually Work",
+      "slug": "why-your-local-business-doesn-t-show-up-ai-search-results",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "local GEO for small business 2026",
+      "intent": "informational — local business owner who noticed a sharp drop in Google click traffic and suspects AI Overviews are the cause but does not know how to respond",
+      "rationale": "This differentiates from our published 'Best GEO Tools for Small Businesses in 2026' (tool roundup), 'The 2026 GEO Readiness Audit: 15 Checks Every Local Small Business Must Run' (self-audit checklist format), and proposed 'GEO Citation Monitoring for SMBs in 2026' (monitoring workflows) — this piece leads with diagnosis and is scoped exclusively to local and service-area businesses, which face distinct GEO challenges that no prior piece addresses.",
+      "keywordRationale": "The searcher behind 'best geo seo tools small business 2026' (pos 16.6, 61 impressions in GSC) is typically a local business owner who just saw click-through rates collapse and is trying to understand what happened before choosing a tool. Every top result today is a tool listicle — none explain why local businesses are specifically disadvantaged in AI Overview results or what the ordered fix sequence looks like.",
+      "outline": [
+        "The Real Reason AI Overviews Don't Mention Your Local Business (It Is Not Just About Content Volume)",
+        "How Google AI Overviews Work for Local Queries — and the 3 Signals That Control Who Gets Named",
+        "Fixes 1–3: Google Business Profile Completeness, Local Schema Markup, and Review Velocity",
+        "Fixes 4–6: Hyperlocal Content Pages, NAP Citation Consistency, and Entity Disambiguation",
+        "Realistic Timelines: How Long Local GEO Takes and What Metrics to Track Month by Month"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "How to Set Up Autonomous AI Ad Management as an SMB in 2026: A Step-by-Step Guide for Monthly Budgets Under $10,000",
+      "slug": "how-set-up-autonomous-ai-ad-management-smb-2026-step-by-step",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "autonomous AI ad management SMB 2026",
+      "intent": "informational/commercial — SMB owner who has decided autonomous ad management is worth trying and now needs a concrete, non-technical implementation guide",
+      "rationale": "Our published 'Does AI-Managed Ad Spend Actually Outperform Human Campaigns? SMB Benchmark Data 2026' answered 'should I?' with data, and 'Meta Ads Agency vs DIY AI Tools: The True Cost Breakdown for SMBs in 2026' answered 'what does it cost?' — this piece answers 'how do I implement it?' which is the natural next reader journey step that neither prior article covers.",
+      "keywordRationale": "Searchers behind 'is ai-managed ad spend actually better than doing it yourself?' (pos 9.2, 43 impressions in GSC) already suspect the answer is yes — they are searching for how to make the switch. Current results either stay at the conceptual comparison level or assume a developer and enterprise tools; no step-by-step setup guide exists for non-technical SMB owners managing a $3K–$10K monthly ad budget.",
+      "outline": [
+        "What 'Autonomous AI Ad Management' Actually Means for an SMB — and What You Still Control",
+        "The Monthly Budget Threshold Where Autonomous AI Consistently Outperforms Manual Management",
+        "The 4 Best Autonomous Ad Management Tools for SMBs Under $10,000 per Month",
+        "Step-by-Step: Setting Up Your First Autonomous Campaign on Meta and Google",
+        "The 5 Non-Negotiable Guardrails to Keep in Place Even When AI Is Running Your Ads"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "What the State of AI in Marketing 2026 Report Actually Means for SMBs: 6 Enterprise Findings Translated Into Small-Business Action",
+      "slug": "what-state-ai-marketing-2026-report-actually-means-smbs-6",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "state of AI marketing 2026 small business takeaways",
+      "intent": "informational — SMB owner or solo marketer trying to benchmark their AI adoption against industry data without wading through a 30-page enterprise-focused report",
+      "rationale": "Jasper's 1,400-marketer study is the most-cited AI marketing research of 2026 but is written entirely for enterprise and mid-market teams; no piece in our library translates its findings for small businesses, and this commentary-on-research format earns GEO citations as a secondary authority source — a content type we have not yet used.",
+      "keywordRationale": "Searchers looking for 'state of AI marketing 2026' and related trend queries want to benchmark whether they are behind or ahead — but they land on a dense PDF written for teams with legal departments and AI transformation leads. They are Googling for the shorter, actionable version; that version does not exist for the SMB segment yet.",
+      "outline": [
+        "The 6 Numbers From Jasper's 2026 AI Marketing Report That Actually Matter for Small Businesses",
+        "Why 91% Adoption Plus 41% ROI Confidence Is the Specific Problem for Solo and Lean-Team Owners",
+        "Governance as the Number One Blocker: What a Lightweight AI Policy Looks Like for a Three-Person Team",
+        "The SMB Version of Content at Scale: What Building Repeatable AI Systems Means When You Are a Team of Two",
+        "Three Actions High-Performing SMBs Should Take This Quarter Based on What the Data Shows"
+      ],
+      "trend": {
+        "direccion": "sube",
+        "cambioAnual": 100,
+        "nivelActual": 8
+      }
+    },
+    {
+      "title": "Prompt Engineering for Agentic Marketing Systems in 2026: How to Build Campaigns That Run Without Daily Supervision",
+      "slug": "prompt-engineering-agentic-marketing-systems-2026-how-build",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "prompt engineering for agentic marketing systems 2026",
+      "intent": "informational — marketer who is past basic prompting and wants to build repeatable, multi-step automated marketing workflows using prompt architecture rather than code",
+      "rationale": "Explicitly separate from our published 'Prompt Engineering for Marketers: The Blueprint for SEO & Content,' which focused on writing better copy and content briefs — this piece targets using prompt engineering to orchestrate agentic systems: defining agent personas, chaining tasks, handling fallbacks, and building pipelines that run without daily input, a fundamentally different job that none of our prior content addresses.",
+      "keywordRationale": "Searchers behind 'prompt engineering for marketing' (pos 51.9, 59 impressions in GSC) in late 2026 are no longer beginners asking how to write a good prompt — they already know that. They are asking how to turn their ad-hoc AI usage into automated workflows that do not require constant babysitting. Every result currently ranking for this query is a basic 2024-era intro guide; the agentic-systems version for practicing marketers is completely open.",
+      "outline": [
+        "Why Basic Prompting Is No Longer Enough: The Shift From Single Prompts to Prompt Systems",
+        "The 4 Layers of an Effective Agentic Marketing Prompt: Persona, Task, Context, and Constraints",
+        "How to Build a Campaign Brief Agent Using Only Prompts — No Code Required",
+        "Chaining Agents: The Multi-Step Prompt Architecture Behind Full Marketing Workflow Automation",
+        "Maintaining and Debugging Your Prompt Systems When AI Output Breaks or Drifts"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "5 Free AI Marketing Audits Every SMB Should Run in 2026: Email, SEO, Paid Ads, Social Media, and Website",
+      "slug": "5-free-ai-marketing-audits-every-smb-should-run-2026-email",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "free AI marketing audit small business 2026",
+      "intent": "informational/commercial — SMB owner who suspects their marketing is underperforming but cannot afford an agency audit and wants free diagnostic tools across all channels",
+      "rationale": "Our published 'AI Website Audit Tool with Scorecard: The SMB Self-Audit Guide for 2026' covers website only; this piece expands to five channels using genuinely free tools — a direct complement, not a repeat — that captures the broader segment of the 'free ai audits' GSC signal (pos 14.7, 24 impressions) who are not just looking for a website check.",
+      "keywordRationale": "A searcher typing 'free ai audits' is an SMB owner who suspects something in their marketing is broken but has no budget to diagnose what. Every top result today is either a paid-tool free trial framed as a free audit, or a single-channel SEO diagnostic — nobody has built a genuinely free, multi-channel guide that walks through email, ads, social, and website together in one place.",
+      "outline": [
+        "Why Auditing Your Full Marketing Stack at Once Beats Fixing One Channel at a Time",
+        "Free AI SEO Audit: The Three Signals That Actually Predict Organic Performance",
+        "Free AI Email Audit: Deliverability Score, Open Rate Diagnosis, and Subject Line Quality Check",
+        "Free AI Audits for Paid Ads and Social Media: What These Tools Can and Cannot Tell You",
+        "How to Turn Five Audit Outputs Into a Prioritized 30-Day Fix Plan Using AI"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "B2B Marketing in Mexico in 2026: Why AI Playbooks Built for US Markets Fail — and What Actually Closes Deals",
+      "slug": "b2b-marketing-mexico-2026-why-ai-playbooks-built-us-markets",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "B2B marketing Mexico 2026",
+      "intent": "informational — Mexican SMB owner or LATAM-focused agency trying to adapt AI marketing tools and US-style B2B tactics to a relationship-driven, high-trust sales culture",
+      "rationale": "Every prior Mexico piece in our library — WhatsApp as sales funnel, TikTok Shop for LATAM, $55B social commerce, digital marketing 7 cultural rules — is B2C-focused; Mexico's B2B market, where enterprise sales run on referrals, in-person trust, and executive relationships, operates under completely different dynamics that no published or proposed title addresses, making this a clean new segment, not a repeated angle.",
+      "keywordRationale": "Searchers behind 'marketing mexico' (pos 18.9, 21 impressions) and 'pymes en mexico 2026' (pos 7.3, 50 impressions) include a significant share of B2B SMBs trying to find or serve business clients — not end consumers. Nothing on the current first page addresses B2B Mexico specifically; every result is a generic digital marketing overview or a consumer channel guide, leaving an obvious audience segment unserved.",
+      "outline": [
+        "Why US-Style B2B Marketing Systematically Breaks in Mexico: The 3 Cultural Gaps AI Cannot Automate",
+        "The Mexican B2B Trust Stack: How Purchasing Decisions Actually Get Made in 2026",
+        "AI-Assisted Relationship Selling: Using AI for Research and Personalization Without Feeling Transactional",
+        "The Right B2B Channel Mix for Mexico: WhatsApp, LinkedIn, and In-Person — and When to Use Each",
+        "The Content Formats That Build Credibility With Mexican Business Decision-Makers in 2026"
+      ],
+      "trend": {
+        "direccion": "baja",
+        "cambioAnual": -82,
+        "nivelActual": 5
+      }
+    },
+    {
+      "title": "AI Marketing Legal Risks Every SMB Must Understand in 2026: Copyright, FTC Disclosures, and How to Protect Your Business",
+      "slug": "ai-marketing-legal-risks-every-smb-must-understand-2026",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "AI marketing legal risks small business 2026",
+      "intent": "informational — SMB owner or small agency principal actively using AI for client-facing marketing and worried about legal exposure they do not fully understand",
+      "rationale": "Jasper's 2026 report flags legal and compliance as the number-one AI adoption blocker (up 3.4× year-over-year), yet our entire content library has zero legal coverage — no published or proposed piece mentions copyright exposure, FTC AI disclosure requirements, or client contract risk; this is both a genuine content gap and the strongest E-E-A-T credibility signal we have not yet used.",
+      "keywordRationale": "SMB owners and small agency principals are increasingly receiving legal questions from their own clients about AI use in campaigns and are Googling their exposure in response. Current top results are either law firm articles written to acquire clients (too technical) or enterprise compliance frameworks (wrong scale) — no practical, SMB-level guide translates the actual 2026 rules into a one-page policy a two-person team can implement today.",
+      "outline": [
+        "The 3 Legal Exposure Areas AI Marketing Creates for SMBs: Copyright, Disclosure, and Data Privacy",
+        "FTC AI Disclosure Rules in 2026: What You Must Include in AI-Assisted Ads, Social Posts, and Emails",
+        "Copyright and AI-Generated Content: What Is Actually Protected — and Where Your Business Is Exposed",
+        "How to Protect Yourself in Client Contracts When You Use AI Tools on Their Campaigns",
+        "The One-Page AI Use Policy That Covers Your SMB's Legal Basics (Template Included)"
+      ],
+      "trend": {
+        "direccion": "baja",
+        "cambioAnual": -100,
+        "nivelActual": 0
+      }
+    }
+  ]
+}
