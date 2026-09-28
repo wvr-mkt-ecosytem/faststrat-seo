@@ -1,0 +1,218 @@
+{
+  "weekOf": "2026-09-28",
+  "generatedAt": "2026-09-28T17:58:26.319Z",
+  "source": "auto-weekly",
+  "summary": "Ten differentiated ideas anchored to striking-distance signals and unexploited gaps: counter-narratives on AI SEO tools, a free-tier GEO monitoring guide, a Claude-vs-ChatGPT email face-off with test data, an AI hallucination brand-risk piece, and vertical-specific plays on Mexican paid advertising and local-service GEO.",
+  "research": {
+    "competitors": [
+      "HubSpot Blog dominates generic SMB how-to content with high DA; their GEO/AEO coverage is thin and US-centric with no LATAM-specific or local-service-vertical pieces — a structural gap FastStrat can own at the category level.",
+      "Jasper Blog pivoted to 'marketing suites' content in Q3 2026 but is sparse on counter-narratives ('when AI tools fail'), ROI proof for sub-$1,000/month budgets, and email-specific AI benchmarks — the exact angles missing from the SERP.",
+      "Copy.ai GTM Workflows content ranks well for enterprise-leaning queries but has no email marketing A/B test data, no LATAM angle, and ignores the AI hallucination risk conversation entirely despite it being the #1 brand-safety concern cited in 2026 marketing surveys.",
+      "Writesonic, gomega.ai, and moonrank.ai are flooding the SERP for AI SEO tool listicles (13–25 tools per post, reviewed on the same page); counter-narrative angles on tool failure and free-tier GEO monitoring guides are absent across all of them, leaving clear first-mover positions open."
+    ],
+    "trends": [
+      "GEO/AEO strategy gap: 47% of brands still lack a formal GEO strategy as of late 2026, yet AI-sourced traffic converts 23x better than traditional organic — creating a first-mover window for SMBs that move before the space saturates.",
+      "Agentic AI adoption inflection: 45% of marketing teams now run at least one agentic AI system (up from 15% in 2024), but only 7% of SMBs have deployed production agents — a massive addressable education and implementation gap.",
+      "AI hallucination as brand liability: hallucinations cost businesses $67.4B in 2024; a 2025 mathematical proof confirmed they cannot be fully eliminated under current LLM architectures, making detection protocols and brand-protection content a durable evergreen need.",
+      "WhatsApp commerce LATAM acceleration: 75% of LATAM consumers who message a brand on WhatsApp complete a purchase; Meta is now integrating WhatsApp with Facebook and Instagram ad management, creating a paid + organic dual-channel for SMBs for the first time in 2026.",
+      "AI SEO tool commoditization backlash: with 13–25 AI SEO tools appearing on a single SERP, SMB buyers show fatigue and are actively searching for 'what goes wrong' content — counter-narrative pieces on tool failure modes outperform listicles on time-on-page and earn significantly more backlinks."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "AI Hallucination in Marketing: The $67 Billion Risk SMBs Can't See — and How to Protect Your Brand in 2026",
+      "slug": "ai-hallucination-marketing-67-billion-risk-smbs-can-t-see",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "ai hallucination in marketing",
+      "intent": "informational / risk-awareness",
+      "rationale": "Striking-distance GSC signal (pos 14.6, 21 impr) on a topic absent from both our published archive and proposed list; $67.4B in documented 2024 damage provides a verifiable anchor, and no competitor has addressed the SMB-specific exposure (wrong pricing, false product attributes, hallucinated brand facts propagating across millions of AI answers with no retraction mechanism).",
+      "keywordRationale": "Someone searching 'ai hallucination in marketing' is a marketer or founder who just read a headline about AI fabricating facts and is urgently assessing whether their own brand is exposed — they are in early risk-triage mode, not looking for a tool review or a feature comparison. Today's top results are either academic AI research papers or enterprise compliance guides aimed at legal teams; nothing addresses the specific SMB scenario where a chatbot invents wrong pricing or misquotes a founder and the damage spreads silently across millions of AI answers before anyone notices.",
+      "outline": [
+        "What Is an AI Hallucination and Why Your SMB Is Uniquely Exposed",
+        "How Hallucinated Brand Facts Spread Across ChatGPT, Gemini, and Perplexity With No Retraction Mechanism",
+        "Real SMB Damage: Wrong Pricing, False Credentials, and Misattributed Quotes That Killed Pipeline",
+        "How to Detect AI Hallucinations About Your Business Right Now (Free 15-Minute Audit)",
+        "The 7-Step Brand Protection Protocol Every SMB Should Have in Place Before Year-End"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "15 High-Converting Landing Page Examples for SMBs in 2026: Real Pages, Real Data, No Agency Required",
+      "slug": "15-high-converting-landing-page-examples-smbs-2026-real",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "landing page examples for small business 2026",
+      "intent": "informational / inspiration and validation",
+      "rationale": "Google Autocomplete surfaces 'landing page examples' as the top related query from users who found our published checklist — it is a downstream intent gap in the same cluster we already own; the angle (show me real pages with data) is structurally different from our published checklist (elements) and cost guide (pricing), avoiding internal cannibalization while extending the content cluster.",
+      "keywordRationale": "Someone searching 'landing page examples' has already decided to build a landing page and needs to see what works before they start — they want tangible proof through real pages they can dissect, not a list of elements to check off. The SERP is dominated by tool vendors like Unbounce and Instapage showcasing their own templates with no conversion metrics; none provide SMB-specific teardowns with real performance data from businesses under $5M in revenue, which is exactly the proof point our audience needs to act.",
+      "outline": [
+        "What Separates a High-Converting SMB Landing Page From a Beautiful One That Doesn't Work",
+        "5 Lead Generation Pages That Beat Industry Benchmarks (With Conversion Rate Data)",
+        "5 Product and Service Pages That Close Without a Sales Call",
+        "5 Event, Webinar, and Free-Trial Pages With the Highest Registration Rates",
+        "How to Reverse-Engineer Any Landing Page With AI in Under 30 Minutes"
+      ]
+    },
+    {
+      "title": "Free GEO Monitoring Tools for Small Businesses in 2026: Track Your AI Visibility Without a $500/Month Platform",
+      "slug": "free-geo-monitoring-tools-small-businesses-2026-track-your",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "free geo tools for small business 2026",
+      "intent": "commercial investigation / tool discovery",
+      "rationale": "Striking-distance signal 'best geo seo tools for small business 2026' (pos 16.6, 65 impr) is already driving impressions; the proposed-but-unpublished 'Best GEO Tools for Small Businesses in 2026' covers the general paid-platform landscape — this piece targets the budget-constrained SMB who can't justify another SaaS bill and finds no free-tier-first guide anywhere on the current SERP.",
+      "keywordRationale": "A small business owner searching 'free geo tools for small business' has just discovered GEO — probably through a blog or LinkedIn post — and is immediately looking for a way to audit their AI visibility without adding another monthly subscription; they are in the 'convince myself before I commit money' stage and will bounce from any page that leads with a $500/month platform. The SERP today is dominated by vendor comparison posts that treat paid tools as the default starting point; a free-tier-first guide with a clear upgrade path when budgets grow is structurally absent.",
+      "outline": [
+        "Why Traditional Rank Trackers Miss 80% of Your AI Search Visibility",
+        "The 6 Best Free and Freemium Tools to Monitor Your Brand in ChatGPT, Gemini, and Perplexity",
+        "How to Build a Free GEO Visibility Dashboard in 30 Minutes",
+        "What to Do When AI Engines Ignore or Actively Misrepresent Your Business",
+        "When Free Tools Stop Being Enough: The $0–$150/Month Upgrade Path That Actually Makes Sense"
+      ]
+    },
+    {
+      "title": "Claude vs. ChatGPT for SMB Email Marketing in 2026: We Tested 120 Sequences — Here's Which AI Gets More Opens",
+      "slug": "claude-vs-chatgpt-smb-email-marketing-2026-we-tested-120",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "claude vs chatgpt email marketing 2026",
+      "intent": "commercial investigation / empirical comparison",
+      "rationale": "'Claude vs chatgpt for marketing' carries 250 impressions at position 38.8 — the largest ranking gap in the SIN EXPLOTAR bucket; this email-specific angle is distinct from the proposed 'Claude vs ChatGPT for Paid Ad Copy' and the proposed 3-way comparison, covering the channel with the highest documented SMB ROI that neither proposed piece addresses.",
+      "keywordRationale": "Someone searching 'claude vs chatgpt email marketing' already uses both tools and is trying to decide which to commit to for their email program — they want empirical performance data, not another feature-sheet comparison or opinion piece. The current SERP serves generic 'which AI is better overall' articles with no email-specific test methodology or performance metrics; a piece structured around actual sequence performance data (open rates, click-through, reply rates across 6 industries) fills a direct evidence gap that keeps appearing in the top-of-funnel impression data.",
+      "outline": [
+        "Test Setup: 120 Email Sequences, 6 SMB Industries, 90 Days of Real Send Data",
+        "Subject Lines Head-to-Head: Which AI Writes Copy That Actually Gets Opened",
+        "Body Copy and CTAs: Persuasion Tone, Reading Level, and Click-Through Differences",
+        "Full Drip Sequences vs. One-Off Emails: Where Each AI Consistently Falls Short",
+        "The Verdict: When to Use Claude, When to Use ChatGPT, and When to Combine Both"
+      ]
+    },
+    {
+      "title": "Paid Advertising for Mexican SMBs in 2026: Channels, Budgets, and Why AI Changes the Math Completely",
+      "slug": "paid-advertising-mexican-smbs-2026-channels-budgets-why-ai",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "advertising for mexican small businesses 2026",
+      "intent": "informational / strategic planning",
+      "rationale": "The GSC signal 'publicidad para pymes mexicanas' holds 57 impressions at position 4.1 in the SIN EXPLOTAR bucket — near page one, meaning Google already considers us relevant — and this paid-advertising-with-AI angle is distinct from the proposed Mexico pieces (which cover organic channels, WhatsApp as a sales funnel, and free AI tools) by focusing specifically on paid channel ROI benchmarks and AI-powered campaign management.",
+      "keywordRationale": "Someone searching for how to advertise a Mexican small business finds generic US-centric paid-ad guides that ignore WhatsApp click-to-chat campaigns, OXXO payment integrations, and the trust dynamics that make cold Meta creatives underperform in Mexico compared to the US — they need a localized playbook with real channel benchmarks, not a translated version of a US guide. The English-language SERP for this intent is nearly empty: most results are either in Spanish or target multinational advertisers, giving a bilingual-market-aware piece a clear path to page one.",
+      "outline": [
+        "The Mexican Digital Advertising Landscape in 2026: Market Size, Platform Share, and What's Shifted",
+        "Meta vs. Google vs. TikTok for Mexican SMBs: Channel-by-Channel ROI Benchmarks",
+        "WhatsApp Advertising in Mexico: How to Run Click-to-Chat Campaigns That Actually Convert",
+        "How AI Tools Change the Math: Running Mexican Ad Campaigns Without a Native-Language Agency",
+        "The 60-Day Paid Advertising Launch Plan for Mexican SMBs With Under $2,000/Month"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "When AI SEO Tools Actually Hurt Your Rankings: 6 Costly Mistakes Small Businesses Make in 2026",
+      "slug": "when-ai-seo-tools-actually-hurt-your-rankings-6-costly",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "ai seo tools mistakes small business 2026",
+      "intent": "informational / risk-avoidance",
+      "rationale": "We have two published 'Best AI SEO Tools' articles covering the upside case; this counter-narrative captures skeptical buyers and burned early adopters — an angle zero competitors are currently running — and differentiates explicitly from both 'The 12 Best SEO Tools for Small Businesses in 2026' and 'Best SEO Tools for Small Businesses in 2026' by arguing the opposite premise with a diagnostic framework.",
+      "keywordRationale": "Someone searching 'when do ai seo tools hurt rankings' or 'ai seo tool mistakes' has already purchased a tool, seen unexpected results, and is now questioning whether the tool is making things worse — they want validation and a diagnostic framework, not another recommendation list. The SERP is saturated with listicles pushing tools; there is no prominent 'what goes wrong' piece in the top 20 results for this intent cluster, making the counter-narrative a high-differentiation entry point that earns links precisely because it says what everyone else is afraid to say.",
+      "outline": [
+        "The 'Set It and Forget It' Myth: Why AI SEO Automation Still Requires Active Human Supervision",
+        "Over-Optimization Traps: How AI-Generated Content Triggers Google's Unhelpful Content Signals",
+        "Ignoring E-E-A-T While Chasing AI Content Volume: The Ranking Cliff Nobody Warns You About",
+        "When AI Technical Audits Surface False Positives and Bury the Real Problems",
+        "The 5-Point Output Audit: How to Check Your AI SEO Tool Before It Damages Your Site"
+      ]
+    },
+    {
+      "title": "GEO for Local Service Businesses in 2026: How Dentists, Plumbers, and Realtors Get Recommended by AI",
+      "slug": "geo-local-service-businesses-2026-how-dentists-plumbers",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "geo optimization local service business 2026",
+      "intent": "informational / implementation guide",
+      "rationale": "All our GEO content targets SMBs generically or ecommerce product pages; the proposed 'Why Your Local Business Doesn't Show Up in AI Search' covers the diagnostic problem while this piece covers the implementation solution for a specific vertical — local service providers — whose trust signals (licensing, reviews, proximity cues, GBP completeness) require a different GEO approach than content-marketing-heavy businesses.",
+      "keywordRationale": "A dentist or contractor searching for GEO guidance is asking something like 'how do I show up when someone asks ChatGPT for a plumber near me' — they have a hyper-local intent that generic GEO guides don't address because those guides assume the business's primary digital footprint is a content blog, not a Google Business Profile and a review portfolio. The SERP for local-service-specific GEO is nearly empty of actionable, vertical-aware content, making this an authority play in a segment with tens of millions of businesses worldwide.",
+      "outline": [
+        "Why AI Recommends Some Local Businesses and Not Others — It's Not Just Reviews",
+        "The Local GEO Audit: 10 Signals ChatGPT, Gemini, and Perplexity Actually Use to Pick a Recommendation",
+        "Google Business Profile for AI Visibility: The Fields Most Service Businesses Leave Incomplete",
+        "Schema Markup, Citation Consistency, and Review Recency: The Local GEO Trifecta",
+        "The 90-Day Local GEO Execution Plan for Dentists, Plumbers, Realtors, and Other Service Businesses"
+      ]
+    },
+    {
+      "title": "What Your SEO Analysis Is Missing in 2026: 7 AI Visibility Checks That Semrush and Ahrefs Don't Show",
+      "slug": "what-your-seo-analysis-missing-2026-7-ai-visibility-checks",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "seo analysis small business 2026 ai visibility",
+      "intent": "informational / gap-identification",
+      "rationale": "Striking-distance signal 'online seo analysis in 2026' sits at position 5.1 with 27 impressions; the proposed 'How to Run Your Own SEO Analysis in 2026' is a positive how-to guide for beginners — this piece targets the more advanced reader who already runs SEO analysis in Semrush or Ahrefs and has just discovered their report says nothing about AI search visibility, arguing that traditional analysis is now structurally incomplete.",
+      "keywordRationale": "Someone searching 'what does my seo analysis miss' or 'seo analysis ai visibility 2026' is already doing SEO work and has noticed a disconnect: their rankings look fine in Semrush but they're invisible in ChatGPT answers — they want a bridge between the tools they trust and the new GEO metrics they don't yet understand. Current top results either rehash traditional SEO basics or pitch GEO platforms without explaining the diagnostic gap; a piece that maps familiar Semrush or Ahrefs report sections to their GEO equivalents serves a middle-expertise reader that nobody else is targeting.",
+      "outline": [
+        "The Gap Between Traditional SEO Metrics and AI Search Visibility in 2026",
+        "LLM Brand Mention Analysis: How to Check Whether AI Engines Are Crediting Your Content",
+        "Structured Data and Schema Gaps That AI Engines Use to Rank Sources Over Yours",
+        "E-E-A-T Signals in Generative Search: What Google's Framework Actually Means for AI Answers",
+        "Building a Complete SEO + GEO Dashboard: Layering AI Visibility Checks on Top of Your Existing Semrush or Ahrefs Setup"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "From Nike's Playbook to Your Business: How to Build a Brand Story That AI Recommends in 2026",
+      "slug": "nike-s-playbook-your-business-how-build-brand-story-ai",
+      "lang": "en",
+      "priority": "baja",
+      "primaryKeyword": "brand storytelling framework small business 2026",
+      "intent": "informational / strategic",
+      "rationale": "We published 'How Nike Turns Storytelling Into A Branding Superpower' and rank at position 11.3 for 'nike storytelling'; this piece is the explicit next step — translating the Nike frameworks we described into a self-serve 5-part system for SMBs — capturing the same reader downstream without repeating the source article, and adding a GEO angle (brand stories that AI recommends) that the Nike piece predates.",
+      "keywordRationale": "Someone searching 'brand storytelling framework small business' just read about Nike or Apple's narrative and immediately asked: 'how does this apply to a business with 8 employees and no CMO?' — they need a translation layer, not more inspiration about brands with billion-dollar budgets. The SERP for this query is dominated by branding agency blogs offering generic hero-journey templates that require months of consulting work; a 5-part self-serve framework with AI-assisted implementation steps and an explicit GEO angle (how story structure affects whether AI cites you) is structurally different from everything currently ranking.",
+      "outline": [
+        "Why Brand Stories Get Cited by AI — and Generic 'About Us' Pages Don't",
+        "The 5-Part Narrative Framework: Hero, Conflict, Guide, Transformation, and Proof",
+        "Applying Nike's Formula to a $500K Business: A Step-by-Step Walkthrough",
+        "Turning Your Brand Story Into GEO-Ready Content Across Website, Social, and Email",
+        "The AI Brand Story Audit: Test Your Narrative Against What ChatGPT and Gemini Actually Surface About You"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "AI Customer Support Agents for SMBs in 2026: What $150/Month Gets You vs. a $150,000 Enterprise Platform",
+      "slug": "ai-customer-support-agents-smbs-2026-what-150-month-gets-you",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "ai customer support agent small business 2026",
+      "intent": "commercial investigation / pricing comparison",
+      "rationale": "Agentic AI is the #1 2026 marketing trend (45% of marketing teams, only 7% of SMBs deployed), and our existing agent content covers marketing and ad management agents — the customer support vertical with an explicit price-tier structure is uncovered in both our published and proposed archives, and the tier-comparison format follows the proven formula of our high-performing 'How Much Does a Landing Page Cost' piece.",
+      "keywordRationale": "A small business owner searching 'ai customer support agent for small business' is overwhelmed by enterprise platforms like Intercom and Zendesk — they suspect those tools are priced for companies 10× their size and want to know what actually exists at their budget before investing time in demos. The SERP currently serves either enterprise vendor landing pages or generic 2024 chatbot roundups; a 2026 guide structured explicitly around $0–$200, $200–$1,000, and enterprise tiers with feature-level comparisons and deployment timelines fills the SMB buyer's actual question without sending them to a sales call.",
+      "outline": [
+        "The State of AI Customer Support in 2026: What Has Actually Changed for SMBs",
+        "$0–$200/Month Tier: The Best Free and Budget AI Support Agents Tested on Real SMB Ticket Volumes",
+        "$200–$1,000/Month Tier: When the Upgrade Is Worth It and What You Concretely Gain",
+        "Enterprise AI Support Features SMBs Don't Need — and the Budget Traps They Create",
+        "The 3-Week Deployment Guide: Launch an AI Support Agent Without a Developer"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    }
+  ]
+}

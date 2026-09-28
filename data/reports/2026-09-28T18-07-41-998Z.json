@@ -1,0 +1,122 @@
+{
+  "days": 28,
+  "totals": {
+    "clicks": 61,
+    "sessions": 983,
+    "conversions": 0
+  },
+  "counts": {
+    "entran y se van": 1,
+    "sale y no la clican": 26,
+    "funcionando": 1,
+    "casi nadie la ve": 63,
+    "sin datos en GA4": 1
+  },
+  "recommendations": [
+    {
+      "kind": "technical-fix",
+      "target": "https://dev.faststrat.ai/",
+      "reason": "El subdominio de desarrollo está indexado y duplica el contenido de producción.",
+      "cause": "Google ve dos versiones del mismo contenido y reparte las señales de autoridad entre los dos dominios. Puede activar filtro de contenido duplicado contra el dominio principal.",
+      "evidence": "dev.faststrat.ai aparece en el hallazgo [entorno-indexado] con impresiones propias en Search Console.",
+      "sourceUrl": "",
+      "suggestion": "Añadir en el servidor de dev.faststrat.ai la cabecera HTTP: X-Robots-Tag: noindex, nofollow. Alternativamente, en el robots.txt de ese subdominio: User-agent: * / Disallow: /. Después solicitar la eliminación manual en Google Search Console > Herramientas > Eliminaciones para acelerar la desindexación.",
+      "priority": "alta"
+    },
+    {
+      "kind": "consolidate",
+      "target": "/hubspot-breeze-vs-jasper-ai-vs-copy-ai-in-2026-which-ai-tool/",
+      "reason": "Tres URLs compiten por la misma intención y aparecen juntas en la SERP, cediendo espacio a competidores.",
+      "cause": "Al buscar 'jasper vs copy.ai vs hubspot AI 2026', tanto /jasper-vs-copyai-vs-hubspot-ai-2026/ como /hubspot-breeze-vs-jasper-ai-vs-copy-ai-in-2026-which-ai-tool/ aparecen en los resultados al mismo tiempo, dividiendo la señal de autoridad y ocupando dos posiciones que podría usar un solo resultado más fuerte.",
+      "evidence": "3 URLs: /hubspot-breeze-vs-jasper-ai-vs-copy-ai-in-2026-which-ai-tool/ (821 impr, 1 clic, pos 5.0), /jasper-vs-copyai-vs-hubspot-ai-2026/ (644 impr, 0 clics, pos 3.2), /hubspot-breeze-v-jasper-ai-vs-copy-ai-in-2026-which-ai-tool/ (1 impr, 0 clics, pos 1.0). Total: 1.466 impr, 1 clic.",
+      "sourceUrl": "https://bestaiagenttools.com/marketing-ai-agents/",
+      "suggestion": "301 redirect /jasper-vs-copyai-vs-hubspot-ai-2026/ hacia /hubspot-breeze-vs-jasper-ai-vs-copy-ai-in-2026-which-ai-tool/ y 301 redirect /hubspot-breeze-v-jasper-ai-vs-copy-ai-in-2026-which-ai-tool/ hacia /hubspot-breeze-vs-jasper-ai-vs-copy-ai-in-2026-which-ai-tool/ Sin eliminar contenido de la canónica.",
+      "priority": "alta"
+    },
+    {
+      "kind": "consolidate",
+      "target": "/how-to-write-headlines-that-convert/",
+      "reason": "Cuatro pares de URLs duplicadas por barra final o typo de slug fragmentan autoridad sin motivo editorial.",
+      "cause": "Google trata /how-to-write-headlines-that-convert y /how-to-write-headlines-that-convert/ como URLs distintas, igual con /2026-year-agencies-adopt-ai-or-die sin barra final. Son duplicados técnicos sin diferencia de contenido que se resuelven con una regla de servidor, no con trabajo editorial.",
+      "evidence": "Hallazgos de canibalización: /how-to-write-headlines-that-convert (1 impr, pos 1.0) vs /how-to-write-headlines-that-convert/ (751 impr, 7 clics); /2026-year-agencies-adopt-ai-or-die (1 impr, pos 1.0) vs /2026-year-agencies-adopt-ai-or-die/ (347 impr, 2 clics); /how-nike-turns-storytelling-into-a-branding-superpower/ (116 impr, 2 clics, pos 7.5) vs /how-nike-turns-storytelling-into-a-branding-superpower-optimized/ (231 impr, 4 clics, pos 6.8).",
+      "sourceUrl": "",
+      "suggestion": "301 redirect /how-to-write-headlines-that-convert (sin barra) hacia /how-to-write-headlines-that-convert/. 301 redirect /2026-year-agencies-adopt-ai-or-die (sin barra) hacia /2026-year-agencies-adopt-ai-or-die/. 301 redirect /how-nike-turns-storytelling-into-a-branding-superpower/ hacia /how-nike-turns-storytelling-into-a-branding-superpower-optimized/. Configurar en el servidor una regla global que fuerce trailing slash en todas las rutas para prevenir recurrencia.",
+      "priority": "alta"
+    },
+    {
+      "kind": "consolidate",
+      "target": "/prompt-engineering-for-marketers-20-prompts/",
+      "reason": "Dos variantes drenan autoridad de la unica URL que genera trafico humano real en el sitio.",
+      "cause": "/prompt-engineering-for-marketers-2026/ acumula 79 impresiones a posicion 3.1 pero genera 0 clics, señal de trafico de IA sin conversion humana. La autoridad que acumula esa URL no beneficia a /prompt-engineering-for-marketers-20-prompts/ porque son URLs distintas para Google.",
+      "evidence": "/prompt-engineering-for-marketers-20-prompts/ es la unica pagina en estado 'funcionando': 453 impr, 5 clics, pos 21.8, 34 ses, 70s. /prompt-engineering-for-marketers-2026/ (79 impr, 0 clics, pos 3.1) y /prompt-engineering-for-marketers/ (1 impr, 0 clics, pos 1.0) son variantes sin trafico humano real.",
+      "sourceUrl": "",
+      "suggestion": "301 redirect /prompt-engineering-for-marketers-2026/ hacia /prompt-engineering-for-marketers-20-prompts/ y 301 redirect /prompt-engineering-for-marketers/ hacia /prompt-engineering-for-marketers-20-prompts/.",
+      "priority": "alta"
+    },
+    {
+      "kind": "rewrite-title",
+      "target": "/best-seo-tools-small-business-2026/",
+      "reason": "806 impresiones a posicion 4.6 con 1 clic. La SERP muestra dos URLs nuestras al mismo tiempo y los competidores prometen datos concretos de precio.",
+      "cause": "En la SERP para 'best SEO tools small business 2026', aparecen tanto /best-seo-tools-small-business-2026/ como /best-seo-tools-for-small-businesses-in-2026-honest-reviews-p/ (el slug truncado), competiendo entre si. Los competidores visibles usan conteos exactos y promesas de precio: '10 Must-Have SEO Tools', '13 Best AI SEO Tools', '9 Best SEO Tools'. El titulo actual 'The 12 Best SEO Tools for Small Businesses in 2026 (Free & Paid)' tiene el numero pero no diferencia en precio especifico ni en el angulo de IA.",
+      "evidence": "806 impr, 1 clic, pos 4.6. CTR real: 0.12%. CTR esperado en posicion 4-5: 5-8%.",
+      "sourceUrl": "https://trafficthinktank.com/seo-tools-for-small-business/",
+      "suggestion": "Nuevo titulo (71 caracteres): 'The 12 Best SEO Tools for Small Business 2026: What You Will Actually Pay'. Ademas: 301 redirect /best-seo-tools-for-small-businesses-in-2026-honest-reviews-p/ hacia /best-seo-tools-small-business-2026/ para eliminar el canibal que compite en la misma SERP.",
+      "priority": "alta"
+    },
+    {
+      "kind": "rewrite-title",
+      "target": "/mejores-bsp-de-whatsapp-para-latam-en-2026-comparativa-compl/",
+      "reason": "286 impresiones a posicion 4.9 y 0 clics. El slug truncado es visible en la SERP y los competidores nombran paises especificos.",
+      "cause": "Los competidores que aparecen al buscar 'mejores BSP WhatsApp LATAM 2026' incluyen ezcontact.ai con 'Comparativa Real para Mexico, Colombia y Argentina' y aurorainbox.com con 'Meta directo vs BSPs'. Nuestra URL muestra el slug cortado '-comparativa-compl', señal visual de contenido automatico. La ausencia de nombres de paises en el titulo hace el resultado mas generico que los especializados.",
+      "evidence": "286 impr, 0 clics, pos 4.9. 37 sesiones en GA4 via otros canales con solo 4s de permanencia promedio.",
+      "sourceUrl": "https://ezcontact.ai/es/blog/2026-07-05-mejores-bsp-whatsapp-latam-2026-mexico-colombia-argentina/",
+      "suggestion": "Nuevo titulo (70 caracteres): 'Los Mejores BSP WhatsApp para LATAM 2026: Mexico, Colombia y Argentina'. Cambiar el slug a /mejores-bsp-whatsapp-latam-2026/ (sin truncar) y configurar 301 redirect desde la URL antigua /mejores-bsp-de-whatsapp-para-latam-en-2026-comparativa-compl/ hacia la nueva. Actualizar H1 y meta description para incluir los tres paises y al menos un dato de precio especifico por plataforma.",
+      "priority": "alta"
+    },
+    {
+      "kind": "add-cta",
+      "target": "/prompt-engineering-for-marketers-20-prompts/",
+      "reason": "La unica pagina del sitio donde la gente realmente lee no pide nada y genera 0 conversiones.",
+      "cause": "Con 12 eventos de clic en todo el sitio de 3 usuarios, el problema no esta en la oferta de /get-pricing: esta en que el contenido no lleva a nadie hasta alli. Los visitantes de esta pagina acaban de leer 20 prompts accionables y estan en el momento de maxima receptividad del sitio.",
+      "evidence": "70s de permanencia promedio, 34 sesiones, 5 clics desde busqueda (maximo del sitio en engagement). 0 conversiones. Solo 12 eventos de clic de 3 usuarios registrados en todo el sitio.",
+      "sourceUrl": "",
+      "suggestion": "Insertar dentro del articulo, despues de la seccion de prompts de contenido (no al pie de pagina), un bloque con el texto: 'Quieres que FastStrat aplique estos prompts automaticamente a tu estrategia de contenido? [Ver como funciona]' apuntando a /get-pricing. Repetir el mismo CTA al final del articulo. El CTA tiene que estar dentro del flujo de lectura, no solo como elemento flotante o en el footer.",
+      "priority": "alta"
+    },
+    {
+      "kind": "add-cta",
+      "target": "/whatsapp-business-pymes-latam-guia-2026/",
+      "reason": "Segunda mayor permanencia del sitio (58s) y 0 conversiones. La audiencia esta evaluando implementar WhatsApp Business, no investigando academicamente.",
+      "cause": "Alguien que lee 58 segundos una guia de implementacion de WhatsApp Business para PYMEs esta tomando una decision operativa. Si el articulo no termina con un puente hacia FastStrat como herramienta que gestiona ese canal, la visita no tiene destino comercial.",
+      "evidence": "502 impr, 2 clics desde busqueda, pos 6.7, 9 ses en GA4, 58s de permanencia promedio. 0 conversiones.",
+      "sourceUrl": "",
+      "suggestion": "Añadir un bloque intermedio despues de la seccion de configuracion inicial con el texto: 'FastStrat automatiza las respuestas en WhatsApp Business para PYMEs sin equipo tecnico [Prueba gratis / Ver planes]' apuntando a /get-pricing. Repetir el CTA al final del articulo. No usar el mismo texto en los dos bloques para evitar que parezca plantilla.",
+      "priority": "alta"
+    },
+    {
+      "kind": "rewrite-title",
+      "target": "/marketing-ia-latam-tendencias-2026/",
+      "reason": "133 impresiones a posicion 4.4 y 0 clics. Una palabra en el titulo cede el clic a competidores que prometen lo mismo con mas credibilidad percibida.",
+      "cause": "La palabra 'clave' en '5 tendencias clave para PYMES' es generica. vistaceo.com usa '(concretas)' señalizando contenido practico, no aspiracional. El buscador que ve ambas opciones en la SERP elige la que promete ser menos vaga. Cambiar una palabra tiene costo cero y el potencial de recuperar clics que hoy se van a competidores sin ventaja real de contenido sobre nosotros.",
+      "evidence": "133 impr, 0 clics, pos 4.4. La pagina aparece en posicion 4 en la SERP al buscar 'marketing IA LATAM tendencias 2026'.",
+      "sourceUrl": "https://blog.vistaceo.com/tendencias-ia-2026-negocios-latam/",
+      "suggestion": "Nuevo titulo (69 caracteres): '5 Tendencias de Marketing IA en LATAM 2026 que Toda PYME Debe Conocer'. Actualizar la meta description para mencionar al menos dos de las tendencias por nombre concreto, no 'incluyendo las tendencias mas importantes del año'.",
+      "priority": "media"
+    },
+    {
+      "kind": "technical-fix",
+      "target": "/get-pricing",
+      "reason": "24 sesiones con 26s de permanencia promedio y 0 conversiones. No se puede diagnosticar si el problema es la oferta o la mecanica sin una prueba real.",
+      "cause": "Con 12 eventos de clic de 3 usuarios en todo el sitio, es posible que nadie haya intentado completar el formulario. Pero 24 sesiones con 26 segundos de lectura indica que hay personas que ven la oferta. Si el formulario tiene un error de envio silencioso, esas personas creyeron contactar y no paso nada.",
+      "evidence": "/get-pricing: 1 clic desde busqueda, 84 impr, pos 6.9, 24 ses, 26s promedio, 0 conversiones. Evento 'click' registrado solo 12 veces de 3 usuarios en todo el sitio.",
+      "sourceUrl": "",
+      "suggestion": "Hacer una prueba de envio real del formulario con un email de prueba y verificar tres cosas: (1) llega notificacion al equipo en menos de 5 minutos, (2) se muestra mensaje de confirmacion o redireccion visible en pantalla, (3) GA4 registra un evento de conversion asociado a ese envio. Si falla cualquiera de los tres, el embudo esta roto antes de poder evaluar si la oferta convence.",
+      "priority": "media"
+    }
+  ],
+  "limits": [
+    "Cero conversiones registradas en el periodo. Sin conversiones no se puede decir qué contenido convierte, solo qué se lee."
+  ],
+  "report": "## El panorama\n\nÚltimos 28 días: 61 clics desde búsqueda, 983 sesiones, 0 conversiones.\n\n**Antes de leer cualquier número más: el 64,6 % de las impresiones no son personas buscando.** De 5.370 impresiones totales, 3.469 vienen de consultas con estructura de instrucción para IA — `\"smb\" \"ai\" \"5\" \"human resource management\" or \"another ai agent could monitor the response\"` (1.827 impr, 0 clics), `\"sme\" or \"smb\" or \"mid-market\" and \"hubspot ai\" and (\"case study\" or \"customer story\")` (691 impr, 0 clics). En esas superficies la respuesta se sintetiza en pantalla y nadie hace clic. Rankear primero ahí no trae a nadie. Eliminando ese ruido, la demanda humana real es 1.901 impresiones con 12 clics: un CTR del 0,63 %.\n\nEl único canal donde la gente realmente lee es Google orgánico: 130 sesiones, 62 segundos de promedio. Todo lo demás es rebote o reconocimiento rápido: directo (675 sesiones, 13 s), asistentes de IA como origen (50 sesiones entre chatgpt.com, perplexity.ai y gemini.google.com, con 0–9 s de permanencia). FastStrat aparece como fuente en las respuestas de esos asistentes pero no retiene la visita — eso no es un problema técnico, es una decisión de negocio: el sitio está siendo citado sin ser visitado. Si eso es aceptable como estrategia de marca, bien; si no lo es, el camino es GEO (optimización para motores generativos), no SEO de título.\n\nEl reparto por dispositivo confirma el sesgo de IA: 838 sesiones en escritorio vs. 60 en móvil. El tráfico humano genuino tiende a ser más equilibrado; este desequilibrio es consistente con superficies de IA que consultan casi siempre desde escritorio.\n\n0 conversiones en 983 sesiones. Con solo 12 eventos de clic registrados de 3 usuarios en 1.673 visitas al sitio, el problema está antes del formulario: el contenido no le pide nada a nadie.\n\n---\n\n## Qué está funcionando y por qué\n\nUna sola página cumple: `/prompt-engineering-for-marketers-20-prompts/`. Posición 21,8 — segunda o tercera página de Google — y aun así genera 5 clics desde búsqueda, 34 sesiones y el mayor tiempo de permanencia del sitio: 70 segundos. Funciona porque el título promete un entregable concreto (20 prompts, un número), el formato es un blueprint copiable, y el visitante sabe exactamente qué va a encontrar antes de hacer clic y lo encuentra al llegar. Ese es el único patrón repetible en el sitio hoy: número específico + formato táctico + promesa cumplida.\n\nGoogle orgánico (62 s de promedio) es el único canal que vale: no hay ningún otro canal con más de 30 segundos de permanencia excepto mx.search.yahoo.com con 2 sesiones, que es ruido estadístico.\n\n---\n\n## Qué no está funcionando y por qué\n\n**El volumen de impresiones está inflado por IA, pero la canibalización destruye lo poco que sería humano.**\n\nEl sitio acumula 18 grupos de URLs que Google trata como competidoras. El más costoso: 9 URLs peleando por la intención \"herramientas SEO para PYMES\" que dispersan 2.194 impresiones y 4 clics. El segundo: 3 URLs para la comparación Jasper/Copy.ai/HubSpot que dispersan 1.466 impresiones y 1 clic. Cuando Google ve `/best-seo-tools-small-business-2026/` y `/seo-for-small-business-2026/` con intención idéntica, no consolida el ranking, lo parte; ninguna llega arriba con suficiente señal. Hay dos causas distintas en esos 18 grupos: (a) variantes de slug con/sin barra final — costo cero de corregir, una regla de redirect en el servidor — y (b) artículos distintos publicados sobre el mismo tema, resultado visible de publicación automatizada sin curaduría.\n\n**Las páginas del top 5 con cero clics tienen causas distintas para cada una.**\n\n`/jasper-vs-copyai-vs-hubspot-ai-2026/` está en posición 3,2 con 644 impresiones y 0 clics. El problema principal no es el título: al buscar \"jasper vs copy.ai vs hubspot AI 2026\", nuestras dos URLs (`/jasper-vs-copyai-vs-hubspot-ai-2026/` y `/hubspot-breeze-vs-jasper-ai-vs-copy-ai-in-2026-which-ai-tool/`) aparecen juntas en los resultados, compitiendo entre sí y cediendo espacio a bestaiagenttools.com, marketingmary.ai y mirra.my. Además, la consulta `\"sme\" or \"smb\" or \"mid-market\" and \"hubspot ai\" and (\"case study\" or \"customer story\")` (691 impr, 0 clics) es indistinguible de un prompt de IA; la mayor parte de esas 644 impresiones son de superficies que no clican.\n\n`/mejores-bsp-de-whatsapp-para-latam-en-2026-comparativa-compl/` está en posición 4,9 con 286 impresiones y 0 clics. Al buscar \"mejores BSP WhatsApp LATAM 2026\", los resultados que aparecen son de beexcc.com, ezcontact.ai y aurorainbox.com — todos con nombres de países concretos en el título (\"Comparativa Real para México, Colombia y Argentina\", \"Meta directo vs BSPs\") y con posicionamiento como plataformas especializadas. Nuestra URL además muestra el slug truncado `-comparativa-compl`, señal visual de contenido generado en masa. El clic va a quien promete más precisión geográfica y quién parece publicar de forma cuidada.\n\n`/marketing-ia-latam-tendencias-2026/` está en posición 4,4 con 133 impresiones y 0 clics, y no registra sesiones en GA4. Al buscar \"marketing IA LATAM tendencias 2026\", la página aparece efectivamente en posición 4 con el título \"Marketing con IA en LATAM 2026 | 5 tendencias clave para PYMES\". El problema es que vistaceo.com usa la palabra \"concretas\" en lugar de \"clave\", señalizando contenido práctico en vez de aspiracional, y Think with Google tiene autoridad de marca que somos incapaces de superar. Sin clics en 133 impresiones, o los competidores ganan el clic, o las impresiones son de consultas de IA.\n\n**Los slugs truncados delatan la fábrica de contenido.**\n\nCuatro URLs confirmadas con el slug cortado a media palabra: `/ai-organic-marketing-for-smbs-the-2026-playbook-to-cut-cac-w/`, `/best-seo-tools-for-small-businesses-in-2026-honest-reviews-p/`, y las variantes de `/ab-testing-small-business-when-worth-it`. Esa terminación aparece en la URL verde visible en el resultado de búsqueda. Para cualquier usuario que lo note, la señal es que el sitio publica en masa sin revisión humana — exactamente lo contrario a lo que una herramienta de marketing de confianza debería proyectar.\n\n**dev.faststrat.ai está indexado.**\n\nEl subdominio de desarrollo aparece en búsqueda con impressiones propias. Duplica el contenido de producción, divide las señales de autoridad y puede activar un filtro por contenido duplicado. Es el único arreglo que no tiene ningún argumento en contra y no cuesta nada.\n\n**El embudo de conversión no existe.**\n\n12 eventos de clic de 3 usuarios en 1.673 visitas al sitio. Las dos páginas donde la gente genuinamente lee — `/prompt-engineering-for-marketers-20-prompts/` (70 s) y `/whatsapp-business-pymes-latam-guia-2026/` (58 s) — no tienen CTA visible o no tienen ninguno. El contenido hace el trabajo y luego manda a la gente de vuelta a Google. La página `/get-pricing` recibió 24 sesiones con 26 segundos de permanencia promedio y 0 conversiones. No puedo determinar desde estos datos si el formulario falla técnicamente o si la oferta no convence; eso requiere un envío de prueba real.\n\nNota puntual: el archivo `/wp-content/uploads/2025/08/FastStrat-to-Debut-at-Colombia-Tech-Week-August-29-2025.pdf` aparece indexado y compite con `/faststrat-debuts-at-colombia-tech-week-2025/` (5 impresiones en total). Hay que añadir noindex al PDF. Es menor, pero un PDF de evento 2025 compitiendo con una página de contenido en 2026 es un recordatorio de que el CMS no tiene política de indexación para uploads.\n\n---\n\n## Lo que yo haría, por orden de impacto\n\n**1. Noindex dev.faststrat.ai** — antes que cualquier otra acción editorial. Cero trabajo de contenido, riesgo real de penalización activo.\n\n**2. 301 redirects para duplicados de barra final y typos de slug** — cero trabajo editorial, cinco minutos en el servidor. Consolidan autoridad sin tocar una sola línea de contenido.\n\n**3. Consolidar la comparación Jasper/Copy.ai/HubSpot** — 1.466 impresiones repartidas entre 3 URLs. Redirigir las dos variantes a la canónica elimina la competencia propia en la SERP y mueve toda la señal acumulada a una sola URL.\n\n**4. Consolidar el cluster de prompt engineering** — la variante en posición 3,1 está acumulando señales que no benefician a la única página \"funcionando\" del sitio. Un redirect mueve esa autoridad donde puede convertir.\n\n**5. Reescribir el título de `/best-seo-tools-small-business-2026/`** — 806 impresiones a posición 4,6 con 1 clic. La SERP confirma que nuestra URL truncada aparece al lado de la canónica, consumiendo espacio y dividiendo la intención. Arreglar el canibal + cambiar el título es el par de acciones con mayor retorno individual del sitio.\n\n**6. Reescribir el título y slug de la página de BSPs de WhatsApp LATAM** — 286 impresiones a posición 4,9 y 0 clics. El slug truncado visible en la SERP es un factor de rechazo inmediato; los competidores que nombran países concretos ganan el clic.\n\n**7. Añadir CTA a `/prompt-engineering-for-marketers-20-prompts/`** — la única página donde la gente lee (70 s). Es el punto de máxima receptividad del sitio y no pide nada.\n\n**8. Añadir CTA a `/whatsapp-business-pymes-latam-guia-2026/`** — 58 segundos de permanencia. Alguien que lee una guía de WhatsApp Business para PYMEs está evaluando implementar el canal, no investigando para un paper.\n\n**9. Reescribir el título de `/marketing-ia-latam-tendencias-2026/`** — cambio de una palabra con posible impacto en CTR, bajo costo, válido como experimento aunque el volumen humano sea incierto.\n\n**10. Auditar el formulario de `/get-pricing`** — 24 sesiones, 26 s de permanencia promedio, 0 conversiones. Hacer un envío de prueba real y confirmar que (a) llega la notificación al equipo, (b) se muestra confirmación en pantalla, (c) GA4 registra el evento de conversión. Si falla alguno, el embudo está roto en un punto que no se ve en los datos.",
+  "generadoEn": "2026-09-28T18:07:41.998Z"
+}
