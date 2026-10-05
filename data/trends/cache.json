@@ -173,11 +173,11 @@
     "t": {
       "termino": "landing page checklist",
       "direccion": "baja",
-      "cambioAnual": -96,
-      "nivelActual": 2,
+      "cambioAnual": -99,
+      "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-09-28T17:51:18.369Z"
+    "cuando": "2026-10-05T18:55:47.459Z"
   },
   "US|best whatsapp bsp latam": {
     "t": {
@@ -207,7 +207,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-09-21T16:03:31.542Z"
+    "cuando": "2026-10-05T18:55:49.126Z"
   },
   "US|aylesbury seo": {
     "t": {
@@ -227,7 +227,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-09-28T17:51:34.168Z"
+    "cuando": "2026-10-05T18:56:00.452Z"
   },
   "US|google search central seo starter guide structured data local business 2026": {
     "t": {
@@ -253,21 +253,21 @@
     "t": {
       "termino": "seo tools 2026",
       "direccion": "baja",
-      "cambioAnual": -86,
-      "nivelActual": 9,
+      "cambioAnual": -88,
+      "nivelActual": 7,
       "meses": 262
     },
-    "cuando": "2026-09-28T17:51:30.628Z"
+    "cuando": "2026-10-05T18:55:57.246Z"
   },
   "US|claude vs chatgpt for marketing": {
     "t": {
       "termino": "claude vs chatgpt for marketing",
-      "direccion": "sin-volumen",
-      "cambioAnual": 0,
-      "nivelActual": 0,
+      "direccion": "sube",
+      "cambioAnual": 100,
+      "nivelActual": 1,
       "meses": 262
     },
-    "cuando": "2026-09-28T17:51:38.809Z"
+    "cuando": "2026-10-05T18:56:06.595Z"
   },
   "US|whatsapp ai sales agent small business latam 2026": {
     "t": {
@@ -482,12 +482,12 @@
   "US|best ai seo tools for small businesses": {
     "t": {
       "termino": "best ai seo tools for small businesses",
-      "direccion": "sin-volumen",
-      "cambioAnual": 0,
+      "direccion": "baja",
+      "cambioAnual": -100,
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-09-28T17:51:32.486Z"
+    "cuando": "2026-10-05T18:55:58.875Z"
   },
   "US|ai marketing platforms hubspot jasper copy.ai market share": {
     "t": {
@@ -577,7 +577,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-09-28T17:51:25.364Z"
+    "cuando": "2026-10-05T18:55:52.520Z"
   },
   "US|claude vs chatgpt for marketing ads 2026": {
     "t": {
@@ -623,11 +623,11 @@
     "t": {
       "termino": "checklist landing page",
       "direccion": "baja",
-      "cambioAnual": -98,
-      "nivelActual": 1,
+      "cambioAnual": -99,
+      "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-09-28T17:51:27.034Z"
+    "cuando": "2026-10-05T18:55:55.677Z"
   },
   "US|hubspot jasper copy.ai neuroflash ai writing comparison 2026": {
     "t": {
@@ -637,7 +637,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-09-21T16:03:52.792Z"
+    "cuando": "2026-10-05T18:56:10.946Z"
   },
   "US|agent search optimization for small business": {
     "t": {
@@ -722,12 +722,12 @@
   "US|ai marketing saas pricing per client smb 2026 percentage of ad spend": {
     "t": {
       "termino": "ai marketing saas pricing per client smb 2026 percentage of ad spend",
-      "direccion": "sin-volumen",
-      "cambioAnual": 0,
+      "direccion": "baja",
+      "cambioAnual": -100,
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-09-28T17:51:21.880Z"
+    "cuando": "2026-10-05T18:55:50.856Z"
   },
   "US|ai website audit tool with scorecard": {
     "t": {
@@ -743,11 +743,11 @@
     "t": {
       "termino": "prompt engineering market",
       "direccion": "baja",
-      "cambioAnual": -95,
-      "nivelActual": 3,
+      "cambioAnual": -99,
+      "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-09-28T17:51:41.933Z"
+    "cuando": "2026-10-05T18:56:09.333Z"
   },
   "US|ai hallucination in marketing": {
     "t": {
@@ -798,5 +798,65 @@
       "meses": 262
     },
     "cuando": "2026-09-28T17:58:25.118Z"
+  },
+  "US|is ai-managed ad spend actually better than doing it yourself?": {
+    "t": {
+      "termino": "is ai-managed ad spend actually better than doing it yourself?",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-05T18:56:02.174Z"
+  },
+  "US|ai-managed ad spend vs diy": {
+    "t": {
+      "termino": "AI-managed ad spend vs DIY",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-05T19:05:00.286Z"
+  },
+  "US|ai-native seo tools vs semrush ahrefs small business 2026": {
+    "t": {
+      "termino": "AI-native SEO tools vs Semrush Ahrefs small business 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-05T19:05:03.579Z"
+  },
+  "US|geo tools small businesses paid vs free 2026": {
+    "t": {
+      "termino": "GEO tools small businesses paid vs free 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-05T19:05:05.256Z"
+  },
+  "US|best ai seo tools non-technical business owners 2026": {
+    "t": {
+      "termino": "best AI SEO tools non-technical business owners 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-05T19:05:11.765Z"
+  },
+  "US|prompt engineering geo-optimized content 2026": {
+    "t": {
+      "termino": "prompt engineering GEO-optimized content 2026",
+      "direccion": "baja",
+      "cambioAnual": -100,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-05T19:05:15.008Z"
   }
 }

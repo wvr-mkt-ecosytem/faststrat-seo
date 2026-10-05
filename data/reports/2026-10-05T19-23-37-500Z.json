@@ -1,0 +1,33 @@
+{
+  "days": 28,
+  "totals": {
+    "clicks": 65,
+    "sessions": 868,
+    "conversions": 0
+  },
+  "counts": {
+    "entran y se van": 1,
+    "sale y no la clican": 25,
+    "funcionando": 1,
+    "casi nadie la ve": 64,
+    "sin datos en GA4": 2
+  },
+  "recommendations": [
+    {
+      "kind": "add-cta",
+      "target": "Todos los artículos con más de 200 impresiones en Search Console",
+      "reason": "Solo 8 eventos de clic en 982 sesiones (2 usuarios únicos); el contenido no pide ninguna acción y el embudo se corta dentro del artículo",
+      "cause": "Los artículos terminan sin un siguiente paso visible. No hay evidencia de que ningún artículo enlace a /get-pricing. La causa no es que /get-pricing no convierta: es que nadie llega a verla desde el contenido. Con 0 conversiones tampoco es posible saber si el problema está en la app o en el tracking del evento de conversión.",
+      "evidence": "click: 8 eventos, 2 usuarios en 982 sesiones. /get-pricing: 23 sesiones, 18s, 0 conversiones. Ninguna sesión en /get-pricing proviene de artículos del blog.",
+      "sourceUrl": "",
+      "suggestion": "Añadir al final de cada artículo con más de 200 impresiones un bloque CTA contextual con enlace a /get-pricing. Ejemplos listos para copiar — artículos de herramientas SEO: '¿Listo para automatizar tu SEO con agentes de IA? Prueba FastStrat gratis, sin tarjeta de crédito → faststrat.ai/get-pricing'. Artículos de WhatsApp LATAM: 'Conecta WhatsApp con tu estrategia de marketing usando agentes de IA. Empieza hoy → faststrat.ai/get-pricing'. El bloque debe aparecer dos veces: después del primer scroll y al cierre del artículo. Una vez colocados, verificar en GA4 que el evento click dispara con destino /get-pricing; si hay clics pero 0 conversiones, el problema está en la página de precios o en el formulario de registro.",
+      "priority": "alta"
+    }
+  ],
+  "limits": [
+    "Cero conversiones registradas en el periodo. Sin conversiones no se puede decir qué contenido convierte, solo qué se lee.",
+    "El agente no devolvió el informe escrito, solo la lista de acciones."
+  ],
+  "report": "",
+  "generadoEn": "2026-10-05T19:23:37.500Z"
+}
