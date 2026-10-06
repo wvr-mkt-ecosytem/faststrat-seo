@@ -72,7 +72,63 @@ const ETIQUETA: Record<string, string> = {
   "technical-fix": "Arreglo técnico",
 };
 
-export function informeComoCorreo(informe: InformeGuardado, urlPanel?: string): { subject: string; html: string } {
+/**
+ * El mismo informe, en texto plano.
+ *
+ * POR QUÉ EXISTE: el correo iba solo en HTML, y un correo sin parte de texto es
+ * una de las señales de spam más viejas que existen —ningún cliente de correo
+ * humano manda HTML a secas—. El informe semanal acabó en spam durante semanas
+ * mientras el de ideas, con un HTML cuatro veces más corto, entraba a la bandeja.
+ * Se entregaba, sí: Resend lo daba por entregado y por abierto. Entregado a la
+ * carpeta de spam también es entregado.
+ *
+ * No es una traducción del HTML: es el mismo contenido escrito para leerse sin
+ * formato, que es lo que un filtro compara contra la parte HTML.
+ */
+function informeComoTexto(informe: InformeGuardado, fecha: string, urlPanel?: string): string {
+  const l: string[] = [];
+  l.push(`ANÁLISIS SEMANAL DE SEO · ${CLIENTE.dominio} · ${fecha}`);
+  l.push(`Ventana de ${informe.days} días`);
+  l.push("");
+  l.push(
+    `${informe.totals.clicks} clics · ${informe.totals.sessions} sesiones · ${informe.totals.conversions} conversiones`,
+  );
+
+  if (informe.report?.trim()) {
+    l.push("", "", informe.report.trim());
+  }
+
+  const acciones = informe.recommendations ?? [];
+  if (acciones.length) {
+    l.push("", "", "QUÉ HACER, POR PRIORIDAD", "");
+    acciones.forEach((r, i) => {
+      l.push(`${i + 1}. [${ETIQUETA[r.kind] ?? r.kind} · prioridad ${r.priority}] ${r.target}`);
+      l.push(`   ${r.reason}`);
+      l.push(`   Qué hacer: ${r.suggestion}`);
+      l.push("");
+    });
+  }
+
+  const limites = informe.limits ?? [];
+  if (limites.length) {
+    l.push("", "LO QUE ESTE ANÁLISIS NO PUEDE DECIR", "");
+    for (const x of limites) l.push(`- ${x}`);
+  }
+
+  if (urlPanel) l.push("", `Ver en el panel: ${urlPanel}/reports`);
+  l.push(
+    "",
+    "--",
+    `Generado por el analista · ventana de ${informe.days} días.`,
+    `Fuentes: Search Console y GA4 de ${CLIENTE.dominio}, más búsquedas en vivo de cada SERP citada.`,
+  );
+  return l.join("\n");
+}
+
+export function informeComoCorreo(
+  informe: InformeGuardado,
+  urlPanel?: string,
+): { subject: string; html: string; text: string } {
   const fecha = new Date(informe.generadoEn).toLocaleDateString("es", { day: "numeric", month: "long" });
 
   const acciones = (informe.recommendations ?? [])
@@ -142,5 +198,6 @@ export function informeComoCorreo(informe: InformeGuardado, urlPanel?: string): 
   return {
     subject: `${CLIENTE.nombre} · Análisis SEO de ${fecha} · ${(informe.recommendations ?? []).length} acciones`,
     html,
+    text: informeComoTexto(informe, fecha, urlPanel),
   };
 }
