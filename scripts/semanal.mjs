@@ -95,12 +95,23 @@ if (!soloIdeas) {
     // Nada avisó. Los datos de arriba sí eran válidos, así que el fichero se
     // guarda igual —tiene valor— pero la corrida NO puede darse por buena: si
     // se cae en silencio, se sigue cayendo cada lunes.
-    const vacio = !informe.report?.trim() && cuantas === 0;
-    if (vacio) {
-      console.error("  EL ANÁLISIS SALIÓ VACÍO. Los números se guardaron, pero el agente no produjo informe.");
+    // Sin informe escrito la corrida NO es buena, aunque traiga acciones.
+    //
+    // La condición era `!report && cuantas === 0`: hacían falta las DOS cosas
+    // para dar la alarma. El 5 de octubre llegó una acción y cero informe, así
+    // que pasó por buena, salió con código 0, y el correo del lunes llegó sin
+    // el análisis dentro. Verde en Actions, correo vacío en el buzón: el peor
+    // de los dos mundos, porque nada invita a mirar.
+    //
+    // El informe escrito es el producto. Las acciones son el apéndice.
+    const sinInforme = !informe.report?.trim();
+    if (sinInforme) {
+      console.error(`  SIN INFORME ESCRITO (${cuantas} acciones). Los números se guardaron.`);
       for (const l of informe.limits ?? []) console.error(`    ${l}`);
+      fallos.push("análisis (sin informe)");
+    }
+    if (sinInforme && cuantas === 0) {
       console.error("  No se manda correo: un informe en blanco no informa de nada.");
-      fallos.push("análisis (vacío)");
     } else {
       const destino = process.env.REPORT_EMAIL_TO;
       if (destino) {

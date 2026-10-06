@@ -111,7 +111,8 @@ QUÉ DEVOLVER
 
 Dos cosas: un informe escrito y la lista de acciones. El informe es lo que se lee; las acciones son lo que se ejecuta.
 
-El informe va en "report", en Markdown, en español, y tiene esta forma:
+El informe va en Markdown, en español, detrás del marcador <<<INFORME>>> que se
+explica más abajo —NUNCA dentro del JSON— y tiene esta forma:
 
 ## El panorama
 Los totales del periodo y qué significan. Si el volumen no es demanda real, se dice AQUÍ y no más abajo, porque cambia la lectura de todo lo demás.
@@ -149,6 +150,87 @@ Ese JSON sí tiene que ser válido y no puede llevar nada alrededor`;
 /** Resume una página en una línea, para que quepan muchas en el prompt. */
 const line = (p: Joined) =>
   `${p.path} | ${p.clicks} clics, ${p.impressions} impr, pos ${p.position}, ${p.sessions} ses, ${p.avgEngagement}s, ${p.conversions} conv | ${p.verdict}`;
+
+/**
+ * Saca el informe y las acciones de la respuesta cruda del agente.
+ *
+ * Vive fuera de `analyse` para poder comprobarse: `analyse` tarda dieciocho
+ * minutos y gasta cupo de la suscripción, así que la única forma de probar que
+ * esto lee bien una respuesta era esperar al lunes siguiente. Las dos veces que
+ * falló —3 de septiembre y 5 de octubre— se descubrió por el correo.
+ *
+ * El informe y el JSON se leen por separado, cada uno de su marcador. Antes el
+ * informe iba DENTRO del JSON, en un campo de texto, y una corrida real de 9,8
+ * minutos se perdió entera: el modelo no consiguió escapar un documento
+ * Markdown de cuatro secciones dentro de una cadena, el JSON.parse falló y se
+ * perdieron las dos cosas a la vez. Separarlos hace que un fallo al escribir el
+ * informe ya no se lleve por delante las recomendaciones.
+ */
+export function leerRespuesta(raw: string): {
+  report: string;
+  recommendations: Recommendation[];
+  error?: string;
+} {
+  const texto = raw ?? "";
+  const iInf = texto.indexOf("<<<INFORME>>>");
+  const iAcc = texto.indexOf("<<<ACCIONES>>>");
+
+  let report = "";
+  if (iInf !== -1) {
+    report = texto.slice(iInf + "<<<INFORME>>>".length, iAcc === -1 ? undefined : iAcc).trim();
+  } else if (iAcc > 0) {
+    // Falta el marcador de apertura, pero el informe está escrito.
+    //
+    // El 5 de octubre el analista gastó 18,4 minutos, escribió el informe y el
+    // sistema lo tiró a la basura: sin <<<INFORME>>> no se leía NADA de lo que
+    // venía antes de <<<ACCIONES>>>, y el correo del lunes salió con una acción
+    // y la nota "el agente no devolvió el informe escrito". El informe sí
+    // existía. Lo que faltaba era una etiqueta.
+    //
+    // Un marcador es una comodidad para leer la respuesta, no un requisito para
+    // que el trabajo cuente. Si hay texto delante de las acciones, ese texto ES
+    // el informe.
+    report = texto.slice(0, iAcc).replace(/^```(?:markdown)?/i, "").trim();
+  }
+
+  const bloque = iAcc !== -1 ? texto.slice(iAcc + "<<<ACCIONES>>>".length) : texto;
+  const m = bloque.match(/\{[\s\S]*\}/);
+  if (!m) {
+    // Sin JSON no hay acciones, pero el informe que ya se leyó se conserva: los
+    // números y el texto siguen valiendo.
+    const pista = texto.trim().slice(0, 400).replace(/\s+/g, " ");
+    return {
+      report,
+      recommendations: [],
+      error:
+        "El agente no devolvió ningún bloque JSON, así que no hay recomendaciones en esta corrida. " +
+        (pista ? `Empezaba así: "${pista}"` : "No devolvió absolutamente nada."),
+    };
+  }
+
+  try {
+    const json = JSON.parse(m[0]);
+    // Si metió el informe dentro del JSON —que es lo que pedía el prompt hasta
+    // hoy, porque se había quedado una frase vieja contradiciendo al formato—
+    // también vale. La forma de la respuesta es problema nuestro, no del lector.
+    if (!report && typeof json.report === "string") report = json.report.trim();
+    return { report, recommendations: json.recommendations ?? [] };
+  } catch (e) {
+    // Se guarda un trozo de LO QUE SÍ devolvió. La corrida del 3 de septiembre
+    // gastó 12,5 minutos de agente, dejó solo este aviso y no hubo forma de
+    // saber por qué: ni el error, ni la respuesta, nada. Un fallo que no deja
+    // rastro obliga a repetir el gasto solo para volver a verlo.
+    const pista = texto.trim().slice(0, 400).replace(/\s+/g, " ");
+    return {
+      report,
+      recommendations: [],
+      error:
+        "El agente no devolvió un JSON válido, así que no hay recomendaciones en esta corrida. " +
+        `Motivo: ${e instanceof Error ? e.message : String(e)}. ` +
+        (pista ? `Empezaba así: "${pista}"` : "No devolvió absolutamente nada."),
+    };
+  }
+}
 
 export async function analyse(days = 28): Promise<AnalystResult> {
   // Si Search Console falla, esto TIENE que reventar. Antes se tragaba el
@@ -389,45 +471,10 @@ Da las recomendaciones en JSON.`;
     throw e;
   }
 
-  let recommendations: Recommendation[] = [];
-  let report = "";
-  try {
-    const clean = raw
-      .trim()
-      .replace(/^```(?:json)?/i, "")
-      .replace(/```$/, "")
-      .trim();
-    // El informe y el JSON se leen por separado, cada uno de su marcador.
-    //
-    // Antes el informe iba DENTRO del JSON, en un campo de texto, y una corrida
-    // real de 9,8 minutos se perdió entera: el modelo no consiguió escapar un
-    // documento Markdown de cuatro secciones dentro de una cadena, el JSON.parse
-    // falló y se perdieron las dos cosas a la vez, el informe y las acciones.
-    // Separarlos hace que un fallo al escribir el informe ya no se lleve por
-    // delante las recomendaciones.
-    const iInf = raw.indexOf("<<<INFORME>>>");
-    const iAcc = raw.indexOf("<<<ACCIONES>>>");
-    if (iInf !== -1) {
-      report = raw.slice(iInf + "<<<INFORME>>>".length, iAcc === -1 ? undefined : iAcc).trim();
-    }
-    const bloque = iAcc !== -1 ? raw.slice(iAcc + "<<<ACCIONES>>>".length) : raw;
-    const m = bloque.match(/\{[\s\S]*\}/);
-    recommendations = m ? JSON.parse(m[0]).recommendations ?? [] : [];
-  } catch (e) {
-    // Devolver el análisis sin recomendaciones y decirlo es mejor que fingir
-    // que no hubo respuesta: los números de arriba siguen siendo válidos.
-    //
-    // Pero se guarda un trozo de LO QUE SÍ devolvió. La corrida del 3 de
-    // septiembre gastó 12,5 minutos de agente, dejó exactamente este aviso y no
-    // hubo forma de saber por qué: ni el error, ni la respuesta, nada. Un fallo
-    // que no deja rastro obliga a repetir el gasto solo para volver a verlo.
-    const pista = (raw ?? "").trim().slice(0, 400).replace(/\s+/g, " ");
-    limits.push(
-      "El agente no devolvió un JSON válido, así que no hay recomendaciones en esta corrida. " +
-        `Motivo: ${e instanceof Error ? e.message : String(e)}. ` +
-        (pista ? `Empezaba así: "${pista}"` : "No devolvió absolutamente nada."),
-    );
-  }
+  const leido = leerRespuesta(raw);
+  let recommendations: Recommendation[] = leido.recommendations;
+  const report = leido.report;
+  if (leido.error) limits.push(leido.error);
 
   // "No inventes cifras" era solo una instrucción en el prompt, y una
   // instrucción no es una garantía. Aquí se comprueba: si una recomendación
