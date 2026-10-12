@@ -177,7 +177,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-10-05T18:55:47.459Z"
+    "cuando": "2026-10-12T19:29:03.515Z"
   },
   "US|best whatsapp bsp latam": {
     "t": {
@@ -187,7 +187,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-09-28T17:51:35.893Z"
+    "cuando": "2026-10-12T19:29:20.863Z"
   },
   "US|seo for latam local business directory": {
     "t": {
@@ -227,7 +227,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-10-05T18:56:00.452Z"
+    "cuando": "2026-10-12T19:29:17.086Z"
   },
   "US|google search central seo starter guide structured data local business 2026": {
     "t": {
@@ -267,7 +267,7 @@
       "nivelActual": 1,
       "meses": 262
     },
-    "cuando": "2026-10-05T18:56:06.595Z"
+    "cuando": "2026-10-12T19:29:25.741Z"
   },
   "US|whatsapp ai sales agent small business latam 2026": {
     "t": {
@@ -627,7 +627,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-10-05T18:55:55.677Z"
+    "cuando": "2026-10-12T19:29:10.036Z"
   },
   "US|hubspot jasper copy.ai neuroflash ai writing comparison 2026": {
     "t": {
@@ -722,12 +722,12 @@
   "US|ai marketing saas pricing per client smb 2026 percentage of ad spend": {
     "t": {
       "termino": "ai marketing saas pricing per client smb 2026 percentage of ad spend",
-      "direccion": "baja",
-      "cambioAnual": -100,
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-10-05T18:55:50.856Z"
+    "cuando": "2026-10-12T19:29:06.874Z"
   },
   "US|ai website audit tool with scorecard": {
     "t": {
@@ -858,5 +858,85 @@
       "meses": 262
     },
     "cuando": "2026-10-05T19:05:15.008Z"
+  },
+  "US|seo for small business 2026": {
+    "t": {
+      "termino": "seo for small business 2026",
+      "direccion": "baja",
+      "cambioAnual": -99,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-12T19:29:24.084Z"
+  },
+  "US|chatgpt ads for small business 2026": {
+    "t": {
+      "termino": "ChatGPT ads for small business 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-12T19:35:00.237Z"
+  },
+  "US|is a/b testing worth it for small business 2026": {
+    "t": {
+      "termino": "is A/B testing worth it for small business 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-12T19:35:02.003Z"
+  },
+  "US|copy.ai pricing 2026 plans cost smb": {
+    "t": {
+      "termino": "Copy.ai pricing 2026 plans cost SMB",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-12T19:35:05.460Z"
+  },
+  "US|ai shopping recommendations small business 2026": {
+    "t": {
+      "termino": "AI shopping recommendations small business 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-12T19:35:07.213Z"
+  },
+  "US|ai brand misrepresentation audit small business 2026": {
+    "t": {
+      "termino": "AI brand misrepresentation audit small business 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-12T19:35:10.805Z"
+  },
+  "US|copy.ai gtm automation smb workflow 2026": {
+    "t": {
+      "termino": "Copy.ai GTM automation SMB workflow 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-12T19:35:12.563Z"
+  },
+  "US|google ads vs meta ads vs tiktok ads mexico smb benchmarks 2026": {
+    "t": {
+      "termino": "Google ads vs Meta ads vs TikTok ads Mexico SMB benchmarks 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-12T19:35:14.390Z"
   }
 }

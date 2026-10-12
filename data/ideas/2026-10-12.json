@@ -1,0 +1,228 @@
+{
+  "weekOf": "2026-10-12",
+  "generatedAt": "2026-10-12T19:35:17.290Z",
+  "source": "auto-weekly",
+  "summary": "Ten ideas anchored in three October 2026 breaking-news hooks (ChatGPT Visual Ads, PMax asset A/B testing, Google Ads AI localization), four high-intent GSC signals still un-stacked (A/B testing pos 5.1, Copy.ai pricing pos 6.2, SEO analysis pos 7.4, Mexico pos 8.1), and white-space gaps Jasper and Writesonic are actively leaving open for SMBs.",
+  "research": {
+    "competitors": [
+      "Jasper's October 2026 blog is 100% enterprise-facing: AI governance at scale, hallucination monitoring for financial services, product content for AI shopping engines — almost no SMB-accessible practical guides, leaving that ground uncontested.",
+      "Copy.ai repositioned in 2026 as 'AI OS for go-to-market teams'; their content covers agentic GTM workflows and pipeline automation, but publishes nothing about their own pricing transparency or how an SMB with no ops team actually activates the platform.",
+      "Writesonic owns the GEO/AI-search-visibility lane (blog categories: AI Search, GEO, SEO Insights) and recently added cross-platform AI citation tracking, but ignores paid-ad channels entirely and publishes zero LATAM-specific content.",
+      "HubSpot dominates broad 'state of AI' roundups (86.4% of marketers use AI, 85% use agents per their October 2026 report) and 27-tool listicles, but no one is slicing that agent-adoption data into SMB-actionable breakdowns that address the 7%-in-production gap."
+    ],
+    "trends": [
+      "ChatGPT Visual Ads launched October 5, 2026: image-rich ad units inside ChatGPT image-generation flows targeting 1.2B weekly users — US pilot rolls out late October, creating a narrow first-mover window before inventory CPMs normalize.",
+      "Google Ads rolled out PMax asset-group A/B testing on October 2, 2026: SMBs can now experiment with headlines, images, and Gemini-generated video inside Performance Max without a full campaign restructure — Asset Studio creates video from product URLs at no added cost.",
+      "Google AI Overviews now appear on 14% of all shopping queries and 83% of 'best [product]' searches; product-schema completeness and buyer-guide 'best-of' content are the two highest-leverage moves for SMB ecommerce AI visibility.",
+      "Google Ads October 2026 update introduced AI localization, automatically adapting ad copy and landing page language for cross-border or multilingual audiences — directly actionable for LATAM SMBs targeting US Hispanic markets without a translation layer.",
+      "Agentic AI crossed the mainstream threshold: 87% of marketers run generative AI in at least one workflow in 2026 (up from 51% in 2024), yet only 7% of SMB teams have production agents — the adoption gap represents compounding competitive advantage for SMBs that move first."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "ChatGPT Visual Ads in 2026: The SMB First-Mover Guide Before CPMs Explode",
+      "slug": "chatgpt-visual-ads-2026-smb-first-mover-guide-before-cpms",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "ChatGPT ads for small business 2026",
+      "intent": "Commercial investigation — SMB marketers evaluating whether to test ChatGPT's new image-based ad format before broader rollout saturates inventory and drives CPMs up.",
+      "rationale": "OpenAI launched image-rich visual ad units inside ChatGPT on October 5, 2026, targeting 1.2B weekly users; no competitor has published an SMB-specific guide, making this a zero-competition first-mover window that closes once the US pilot goes national.",
+      "keywordRationale": "Someone searching 'ChatGPT ads for small business 2026' wants to know whether this new channel is worth testing on a limited budget and how to get in before costs rise — they are not looking for a news recap. Current top results are TechCrunch-style announcements and agency explainers with no implementation depth; we can outrank them by being the only resource that covers setup, creative specs, budget floors, and conversion measurement together in one place.",
+      "outline": [
+        "What ChatGPT Visual Ads Are and How They Differ From Google and Meta (The October 2026 Format Explained)",
+        "Who Gets Access First — and How SMBs Can Apply for the US Pilot",
+        "Creative Specs, Budget Floors, and What $500/Month Looks Like Inside ChatGPT",
+        "Measuring Whether ChatGPT Ads Are Actually Driving Conversions: The Measurement Setup",
+        "The 3 SMB Categories Most Likely to Win Early — and 2 That Should Wait"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Is A/B Testing Worth It for Small Businesses? Now That Google Makes It Free Inside Performance Max, the Answer Changed",
+      "slug": "b-testing-worth-small-businesses-now-google-makes-free",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "is A/B testing worth it for small business 2026",
+      "intent": "Informational with strong commercial undercurrent — SMB owners skeptical of A/B testing's ROI want to know whether Google's new PMax asset-group experiment feature changes the cost-benefit math.",
+      "rationale": "GSC shows 'is a/b testing worth the effort for a small business' at position 5.1 with 22 impressions — one optimized article away from page one — and Google's October 2, 2026 PMax A/B launch removes the traffic-volume and specialist-time barriers that were the main objections, making all existing answers outdated.",
+      "keywordRationale": "People asking this question are skeptical: they believe A/B testing requires traffic volumes and agency time they don't have. Current top results are generic CRO articles written before PMax asset experiments existed and never address the cost objection with real numbers; we win by leading with the specific Google update that kills the objection and then walking them straight from skepticism to their first live experiment.",
+      "outline": [
+        "Why Small Businesses Always Lost the A/B Testing Debate — Until October 2026",
+        "How PMax Asset-Group Experiments Work: A Plain-English Walk-Through",
+        "Setting Up Your First A/B Test Inside Google Ads: Step-by-Step Guide",
+        "What to Test First — Headlines, Images, or Video — and How to Read the Results",
+        "When A/B Testing Still Isn't Worth It for Your SMB and What to Do Instead"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Writesonic vs. Copy.ai in 2026: They're Completely Different Products Now — Here's Which One SMBs Actually Need",
+      "slug": "writesonic-vs-copy-ai-2026-they-re-completely-different",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "Writesonic vs Copy.ai 2026 small business",
+      "intent": "Commercial investigation — SMBs choosing between the two tools after both underwent major repositioning in 2026 (Writesonic → GEO/AI-search platform; Copy.ai → AI OS for GTM).",
+      "rationale": "Published comparisons cover HubSpot vs. Jasper vs. Copy.ai, but Writesonic's pivot to GEO citation tracking and Copy.ai's pivot to agentic GTM workflows make them two fundamentally different product categories today — a head-to-head that no existing FastStrat article addresses and no competitor has framed clearly for SMBs.",
+      "keywordRationale": "Someone searching this comparison in October 2026 is confused because both tools used to be 'AI writers' and now claim to do completely different things — and most reviews are 12 months out of date. Current top results still frame both as copywriting tools; we win by naming the repositioning explicitly and using it as the organizing principle of the entire comparison.",
+      "outline": [
+        "How Writesonic and Copy.ai Both Reinvented Themselves in 2026 (The Repositioning Story)",
+        "Writesonic's GEO and AI-Search Toolkit: Features, Pricing, and Who It Actually Helps",
+        "Copy.ai's GTM AI OS: Workflows, Integrations, and the SMB Learning Curve",
+        "Head-to-Head: 5 Real SMB Use Cases Tested in Both Tools",
+        "The Decision Tree: Which One to Buy Based on Your Top Marketing Priority"
+      ]
+    },
+    {
+      "title": "Copy.ai 2026 Pricing Breakdown: What You Actually Get on Each Plan — and When the Upgrade Pays Off",
+      "slug": "copy-ai-2026-pricing-breakdown-what-you-actually-get-each",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "Copy.ai pricing 2026 plans cost SMB",
+      "intent": "Informational / transactional — bottom-of-funnel prospects who have already shortlisted Copy.ai and want transparent tier-by-tier cost and value analysis before purchasing.",
+      "rationale": "GSC shows 'copy.ai pricing 2024 2025 plans cost per month free tier' at position 6.2; our published comparisons evaluate Copy.ai against Jasper and HubSpot but never break down its own pricing tiers in isolation — a completely different purchase-stage intent that existing articles don't serve.",
+      "keywordRationale": "Searchers on this query are at the bottom of the funnel: they've decided Copy.ai is a contender and want to know exactly what each tier unlocks, where the value cliff between plans is, and whether the free tier is a real trial or a feature-gated demo. Current ranking pages are Copy.ai's own pricing page or affiliate sites with stale 2024 numbers; we win with a current, honest breakdown that includes workflow-run limits, seat caps, and what changed with the GTM OS repositioning.",
+      "outline": [
+        "Copy.ai's 2026 Plan Structure: Free, Starter, Team, and Enterprise at a Glance",
+        "What the Free Plan Actually Lets You Do — and Exactly Where It Cuts You Off",
+        "Starter vs. Team: The 5 Feature Differences That Make or Break the Upgrade Decision",
+        "Hidden Costs: Workflow Run Limits, Seat Caps, and Integrations That Add Up",
+        "Is Copy.ai Worth It for Your SMB? An Honest Verdict by Use Case and Team Size"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Why AI Shopping Recommendations Favor Big Retailers — and 7 Product-Page Moves That Help SMBs Compete in 2026",
+      "slug": "why-ai-shopping-recommendations-favor-big-retailers-7",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "AI shopping recommendations small business 2026",
+      "intent": "Informational with commercial urgency — SMB ecommerce owners who have noticed their products absent from AI Overviews and ChatGPT shopping answers want to understand why and what to fix.",
+      "rationale": "The already-proposed 'GEO for SMB Product Pages' frames this as a how-to guide from a neutral starting point; this article leads with the structural inequality angle — AI Overviews now appear on 83% of 'best product' searches and the algorithm heavily favors large catalogs — which is a more urgent, shareable hook targeting a different searcher mindset and using data published after the original proposal.",
+      "keywordRationale": "Searchers here have already experienced the problem: they search their product category in ChatGPT or Google AI Overviews and their brand simply does not appear. Most current results tell SMBs to 'add schema markup' without naming why large retailers structurally win; we can outrank by naming the bias first and then delivering seven concrete product-data moves with an attribute checklist that overcomes it.",
+      "outline": [
+        "Why AI Overviews Appear on 83% of 'Best Product' Searches — and Why Most SMBs Are Invisible",
+        "The Catalog-Size Advantage: Why Large Retailers Win AI Recommendations by Default",
+        "The 7 Product-Page Changes That Increase AI Citation Probability (With Attribute Checklist)",
+        "How to Write Product Descriptions That AI Shopping Engines Actually Recommend",
+        "Tracking Your AI Shopping Visibility: Free Tools and a 30-Day Measurement Template"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "How Google Ads AI Localization Changes LATAM and US Hispanic Targeting for SMBs in 2026: Setup and First Results",
+      "slug": "how-google-ads-ai-localization-changes-latam-us-hispanic",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "Google Ads AI localization LATAM SMB 2026",
+      "intent": "Informational — LATAM SMBs and US-based agencies managing Spanish-language accounts want to implement the new Google Ads AI localization feature released October 2026 before Q4 campaigns launch.",
+      "rationale": "Google's AI localization feature is a brand-new October 2026 development with zero coverage in any FastStrat article; it directly addresses our LATAM audience's core pain — running effective Spanish/Portuguese ad copy without a translation specialist — and creates a natural entry point for cross-border US Hispanic targeting, a topic no prior article touches.",
+      "keywordRationale": "Someone searching this just saw the Google Ads October changelog and needs practical setup instructions in time for Q4 — they are not looking for a background explainer on why localization matters. Current results are news snippets with no implementation depth; we rank by being the first guide that walks through enabling the feature, shows LATAM-specific campaign examples, and explains how it interacts with existing PMax and Search campaigns.",
+      "outline": [
+        "What Google Ads AI Localization Does — and What It Doesn't (The October 2026 Feature Explained)",
+        "Enabling AI Localization for Spanish, Portuguese, and English-Spanish Mixed Campaigns",
+        "5 LATAM Campaign Types That Benefit Most — and 2 Where Manual Copy Still Wins",
+        "How AI Localization Interacts With Your Existing PMax and Search Campaigns",
+        "30-Day Measurement Plan: How to Know Whether AI Localization Is Actually Helping Q4 Performance"
+      ]
+    },
+    {
+      "title": "Is AI Misrepresenting Your Business? How to Audit and Correct Your Brand's AI Profile in 2026",
+      "slug": "ai-misrepresenting-your-business-how-audit-correct-your",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "AI brand misrepresentation audit small business 2026",
+      "intent": "Informational / problem-aware — SMB owners who have discovered incorrect or outdated information about their business in ChatGPT, Gemini, or Perplexity responses and want a hands-on correction workflow.",
+      "rationale": "Published 'AI Hallucination in Marketing' frames the issue as a $67B financial risk (abstract, scary); Jasper just published an enterprise-level monitoring guide; this article owns the SMB fix-it angle — not the risk, not enterprise governance, but exactly what a business owner with no dedicated AI team does in the next 20 minutes after finding a problem.",
+      "keywordRationale": "Searchers on this query have already experienced the problem firsthand — an AI described their business incorrectly to a potential customer — and they want a step-by-step correction workflow, not another risk explainer. Existing results are either enterprise governance frameworks or generic hallucination primers; we win with a four-step audit-and-correction guide that is executable solo in under an hour.",
+      "outline": [
+        "The 5 Ways AI Engines Most Commonly Misrepresent Small Businesses (With Real Examples)",
+        "The 20-Minute AI Brand Audit: How to Check ChatGPT, Gemini, and Perplexity in One Session",
+        "Why AI Gets Your Business Wrong — and What Actually Influences What It Knows About You",
+        "The Correction Playbook: 6 Actions That Update How AI Engines Describe Your Brand",
+        "Building a 90-Day AI Brand Monitoring Routine Without Expensive Paid Tools"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Beyond Copywriting: How to Use Copy.ai's GTM Workflow Automation as Your SMB Marketing OS in 2026",
+      "slug": "beyond-copywriting-how-use-copy-ai-s-gtm-workflow-automation",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "Copy.ai GTM automation SMB workflow 2026",
+      "intent": "Informational / educational — SMBs already subscribed to Copy.ai as a writing tool who don't realize it now operates as a full GTM automation platform and want to extract more value without upgrading.",
+      "rationale": "The proposed 'Copy.ai GTM Workflows vs. Jasper Brand Studio' article is a buying-decision comparison; this is a hands-on activation guide for current Copy.ai subscribers who feel they're only using 20% of the product — a different audience at a different funnel stage that our published comparisons have never addressed.",
+      "keywordRationale": "Searchers here already pay for Copy.ai but feel underserved by it; they are not comparison-shopping, they want to know which workflows to turn on first. Current results are product-page documentation and listicle comparisons that assume the reader is still deciding whether to buy; we win by skipping the sales pitch and going straight to four concrete GTM automations that an SMB can activate in an afternoon.",
+      "outline": [
+        "Copy.ai in 2026 Is Not a Writing Tool Anymore — Here's What It Actually Does Now",
+        "The 4 GTM Workflows Every SMB Should Activate First: Lead Nurture, Competitive Intel, Content Repurpose, Outreach",
+        "Connecting Copy.ai to Your CRM, Email Platform, and Analytics Stack in 30 Minutes",
+        "How to Build a Custom AI Workflow From Scratch: A Plain-English Walk-Through",
+        "What Copy.ai Cannot Automate Yet — and What to Use Instead"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Google vs. Meta vs. TikTok Ads in Mexico in 2026: Real CPM, CPA, and ROAS Benchmarks for SMBs",
+      "slug": "google-vs-meta-vs-tiktok-ads-mexico-2026-real-cpm-cpa-roas",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "Google ads vs Meta ads vs TikTok ads Mexico SMB benchmarks 2026",
+      "intent": "Commercial investigation — Mexican SMBs and agencies managing Mexican accounts want platform-specific benchmark data to make Q4 budget allocation decisions before campaigns launch.",
+      "rationale": "Proposed 'Paid Advertising for Mexican SMBs in 2026' and 'Digital Marketing in Mexico in 2026' are broad strategy overviews; this article leads with raw numbers (CPM, CPA, ROAS benchmarks per platform per vertical) — a completely different intent tier that answers a budget-allocation question, not a strategic orientation question, and is differentiated by data format alone.",
+      "keywordRationale": "A Mexican SMB owner or local agency media buyer searching this wants a table, not a strategy essay: which platform is cheapest to reach Mexican audiences, which converts best by industry, and what a normal CPA looks like in Q4. Existing ranking results are US-centric benchmark reports that don't break out Mexico at all; owning that country-level data gap is our sustainable competitive moat for this query.",
+      "outline": [
+        "The 2026 Mexican Digital Ad Landscape: Platform Reach, User Demographics, and Penetration Rates",
+        "CPM and CPC Benchmarks by Platform: Google Search, Meta Feed, and TikTok In-Feed in Mexico Q3 2026",
+        "Conversion Benchmarks by Vertical: Retail, Local Services, Food and Beverage, Education",
+        "How AI Bidding Changes the Math: Smart Bidding vs. Advantage+ vs. TikTok Smart Performance in Mexican Campaigns",
+        "Q4 Budget Allocation Playbook: Where to Put Your Next $5,000 in Mexican Paid Media"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "The 2026 SMB SEO Checklist: 5 Google Checks, 5 AI Overviews Checks, 5 ChatGPT Visibility Checks",
+      "slug": "2026-smb-seo-checklist-5-google-checks-5-ai-overviews-checks",
+      "lang": "en",
+      "priority": "baja",
+      "primaryKeyword": "SMB SEO checklist 2026 Google AI search",
+      "intent": "Informational — small business owners who need a single structured, self-executable checklist that covers traditional search, AI Overviews, and ChatGPT visibility as three distinct surfaces in one document.",
+      "rationale": "Published 'The 12 Best SEO Tools for Small Businesses in 2026' is a tool list; proposed 'How to Run Your Own SEO Analysis in 2026' is a process guide; this 15-point checklist is a different content format (printable, scannable) serving the 'complete seo analysis guide for business owners for 2026' query at pos 7.4 with a three-surface structural hook that no existing FastStrat article or top-ranking competitor uses.",
+      "keywordRationale": "Searchers on SEO checklist queries want a document they can execute in a single 90-minute session — not a tool review and not a 3,000-word guide. The specific insight no current ranking page offers is treating Google, AI Overviews, and ChatGPT as three separate visibility surfaces with separate action items, which maps to how search actually works in late 2026 and gives the article a structural defensibility that generic checklists cannot replicate.",
+      "outline": [
+        "Why One SEO Checklist No Longer Covers Everything: Google, AI Overviews, and ChatGPT Are Three Different Games in 2026",
+        "The 5-Point Google SEO Checklist: Technical, On-Page, and Local Signals SMBs Most Often Miss",
+        "The 5-Point AI Overviews Checklist: Schema, E-E-A-T, and Structured Answers That Trigger AIO Appearances",
+        "The 5-Point ChatGPT and Perplexity Visibility Checklist: Citations, Source Authority, and Brand Mentions",
+        "Monthly Maintenance Routine: How to Keep All 15 Checks Green Without Hiring an Agency"
+      ]
+    }
+  ]
+}
