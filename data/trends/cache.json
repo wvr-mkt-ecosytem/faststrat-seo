@@ -207,7 +207,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-10-05T18:55:49.126Z"
+    "cuando": "2026-10-19T16:40:48.810Z"
   },
   "US|aylesbury seo": {
     "t": {
@@ -577,7 +577,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-10-05T18:55:52.520Z"
+    "cuando": "2026-10-19T16:40:57.749Z"
   },
   "US|claude vs chatgpt for marketing ads 2026": {
     "t": {
@@ -743,11 +743,11 @@
     "t": {
       "termino": "prompt engineering market",
       "direccion": "baja",
-      "cambioAnual": -99,
+      "cambioAnual": -100,
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-10-05T18:56:09.333Z"
+    "cuando": "2026-10-19T16:41:08.942Z"
   },
   "US|ai hallucination in marketing": {
     "t": {
@@ -938,5 +938,65 @@
       "meses": 262
     },
     "cuando": "2026-10-12T19:35:14.390Z"
+  },
+  "US|headlines that convert": {
+    "t": {
+      "termino": "headlines that convert",
+      "direccion": "sube",
+      "cambioAnual": 100,
+      "nivelActual": 1,
+      "meses": 262
+    },
+    "cuando": "2026-10-19T16:40:59.410Z"
+  },
+  "US|checklista landing page": {
+    "t": {
+      "termino": "checklista landing page",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-19T16:41:01.089Z"
+  },
+  "US|headlines that convert 2026": {
+    "t": {
+      "termino": "headlines that convert 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-19T16:47:50.513Z"
+  },
+  "US|ai marketing agency pricing per client 2026": {
+    "t": {
+      "termino": "ai marketing agency pricing per client 2026",
+      "direccion": "sube",
+      "cambioAnual": 100,
+      "nivelActual": 8,
+      "meses": 262
+    },
+    "cuando": "2026-10-19T16:47:53.782Z"
+  },
+  "US|faceless ai brand case studies small business 2026": {
+    "t": {
+      "termino": "faceless ai brand case studies small business 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-19T16:48:00.502Z"
+  },
+  "US|ai first content strategy small business blog 2026": {
+    "t": {
+      "termino": "ai first content strategy small business blog 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-10-19T16:48:04.095Z"
   }
 }

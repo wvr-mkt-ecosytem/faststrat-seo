@@ -1,0 +1,213 @@
+{
+  "weekOf": "2026-10-19",
+  "generatedAt": "2026-10-19T16:48:07.132Z",
+  "source": "auto-weekly",
+  "summary": "Ten ideas anchored to four high-confidence GSC signals — a trending 'claude vs chatgpt' query (+100% YoY), a pos-6.2 agency pricing query with 101 impressions, the 'headlines that convert' trend spike, and the untouched WhatsApp AI agent gap for LATAM — layered with Jasper's enterprise exodus, Writesonic's GEO pivot, HubSpot's AI-first editorial announcement (10/19/26), and the faceless brand economy reaching 38% of new creator ventures.",
+  "research": {
+    "competitors": [
+      "HubSpot published 'What actually happened when our blog went AI-first: A manager's account' today (10/19/26) — their editorial case study targets CMO-level teams; the SMB-scale translation (real tools, sub-$200/mo stack, organic lead outcomes) is entirely uncovered on the SERP.",
+      "Jasper explicitly repositioned as an enterprise Marketing Hub in 2026 — blog now covers AI crawler audits, content freshness for GEO, and multi-audience governance for CMOs; small business owners who adopted Jasper for copywriting are functionally orphaned by the content strategy and no competitor has published the SMB exit-guide yet.",
+      "Writesonic rebranded as 'AI Search Growth Engine' with GEO monitoring across ChatGPT, Perplexity, Gemini, Grok, and Claude — they own the GEO tracking content space ($49–$249/mo), but their competitor benchmarking angle and SMB ROI story remain underexplored in independent reviews.",
+      "Copy.ai rebranded to 'AI-Native GTM Platform' for B2B sales ops — recent blog posts focus on deal risk scoring and territory routing for sales teams; SMB-friendly GTM and billing workflow content that does not require a dedicated sales ops function is a clear gap their editorial team is ignoring."
+    ],
+    "trends": [
+      "Agentic marketing loops replacing single-prompt AI: 51% of US SMBs under 500 employees now use marketing automation (up 13 pts from 2025) and the defining shift is from 'AI generates a draft' to 'AI plans, creates, tests, and reports in a closed loop' — daily human oversight is becoming optional for routine content operations.",
+      "WhatsApp AI commerce is the dominant LATAM growth vector: WhatsApp AI agents now drive $18.2B in Latin American e-commerce at 50.8% CAGR — SMBs report 3–5x higher after-hours conversion and 40–60% faster response time; the WhatsApp + CRM + AI agent stack is becoming the de-facto sales infrastructure across Mexico, Brazil, and Colombia.",
+      "GEO is the biggest SMB blind spot of 2026: Enterprise teams universally have GEO initiatives; most SMB teams have not started — prompt tracking (which AI surfaces mention your brand, in what context, against which competitors) is becoming as important as keyword ranking, and the first-mover window for SMBs is still wide open.",
+      "Faceless AI brand economy reaches mainstream in 2026: 38% of all new creator monetization ventures launched this year are faceless, powered by AI voice cloning, AI video generation, and avatar tools — top performers earn $80K+/month; SMBs are beginning to apply the same playbook to product marketing, thought leadership, and content-led acquisition.",
+      "AI-first editorial strategy is now a strategic differentiator: HubSpot's first-person account of going AI-first (10/19/26), combined with 86.4% marketer AI adoption and 40.6% updating strategy for AEO/AI search, signals that 'how automated is your content operation?' has moved from a tactical question to a competitive positioning decision for 2026 content teams."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "How to Build a WhatsApp AI Sales Agent for Your LATAM Business in 2026: From First Message to Closed Deal",
+      "slug": "how-build-whatsapp-ai-sales-agent-your-latam-business-2026",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "whatsapp ai sales agent latam 2026",
+      "intent": "How-to / Informational — SMB owner in Mexico, Colombia, or Brazil who already uses WhatsApp Business and wants to automate lead qualification and sales follow-up with an AI agent, not just a rule-based chatbot.",
+      "rationale": "We published a BSP comparison and WhatsApp pricing breakdown — both upstream of the AI agent setup decision. With $18.2B in LATAM WhatsApp AI commerce at 50.8% CAGR and businesses reporting 3–5x after-hours conversion lifts, the operational setup guide is the logical next-step article we haven't written and no competitor has written for the SMB segment.",
+      "keywordRationale": "Someone searching this has already chosen WhatsApp as their primary sales channel and needs the operational blueprint: which tool, what conversation flow, how to qualify leads, how to hand off to a human rep. The current SERP is dominated by tool vendor landing pages (WATI, Kommo, Yalo) and generic WhatsApp automation overviews — none walks through the full architecture from inbound message to CRM entry in plain language for a non-technical business owner.",
+      "outline": [
+        "Why LATAM SMBs Need a WhatsApp AI Agent in 2026 — Not Just a Chatbot",
+        "Choosing Your Stack: WATI vs. Kommo vs. ManyChat for Budgets Under $500/Month",
+        "Building the Conversation Flow: The 5-Step AI Qualification Script That Pre-Closes Leads",
+        "Connecting WhatsApp to Your CRM: No-Code Setup for HubSpot, Pipedrive, and Notion",
+        "Measuring What Matters: Response Time, Qualification Rate, and After-Hours Conversion"
+      ]
+    },
+    {
+      "title": "Claude vs. ChatGPT for Social Media Content in 2026: We Created 300 Posts and Here's Which AI Gets More Engagement",
+      "slug": "claude-vs-chatgpt-social-media-content-2026-we-created-300",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "claude vs chatgpt social media content 2026",
+      "intent": "Commercial investigation — marketer already using at least one AI tool for social who is deciding whether to switch or specialize by platform, with specific interest in which model writes better captions, hooks, and threads without heavy prompting.",
+      "rationale": "'Claude vs. ChatGPT for marketing' is trending UP +100% YoY with 158 impressions at position 38.9 — the biggest upside of any trending signal in this batch. We have proposed email sequences, paid ad copy, and Spanish-language versions of this comparison; social media content is a distinct use case with different evaluation axes (voice consistency, platform-native tone, hook structure, hashtag logic) that has never appeared in our proposed or published queue.",
+      "keywordRationale": "Someone writing this query has social content as their primary responsibility and wants a verdict, not a feature table. They want to know which AI writes Instagram captions that don't read as AI, which one nails LinkedIn hooks, and which one adapts to TikTok vs. email tone without extra prompting. The current SERP is dominated by generic AI writing tool roundups that review social as one bullet point among many — no one has tested social-specific output quality head-to-head with real engagement data.",
+      "outline": [
+        "How We Set Up the Test: 300 Posts, 6 Platforms, Same Brand Brief, Zero Manual Editing",
+        "Instagram and TikTok Captions: Which AI Writes Hooks That Don't Feel Robotic",
+        "LinkedIn Thought Leadership and Long-Form: Claude's Voice Edge vs. ChatGPT's Structure",
+        "Twitter/X Threads and Short-Form Bursts: Speed vs. Originality in Side-by-Side Output",
+        "Final Verdict and Workflow: When to Use Claude, When to Use ChatGPT, When to Use Both"
+      ]
+    },
+    {
+      "title": "Headlines That Actually Convert in 2026: 12 Formulas Backed by Real SMB A/B Test Data",
+      "slug": "headlines-actually-convert-2026-12-formulas-backed-real-smb",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "headlines that convert 2026",
+      "intent": "Informational / CRO — marketer or SMB owner writing landing pages, email subject lines, or ad headlines who wants tested conversion formulas, not AI citation visibility tips.",
+      "rationale": "'Headlines that convert' is trending UP +100% YoY (39 impressions, pos 18.2). The previously proposed 'Headlines That Get Cited by AI in 2026: 14 Formulas' targets GEO and AI Overviews visibility — a completely different goal. This article targets conversion rate optimization: what headline structures make a real human click or buy, measured by CTR and conversion data from SMB A/B tests, not by ChatGPT citation frequency.",
+      "keywordRationale": "Someone searching 'headlines that convert' is in active CRO mode — they have a page or campaign underperforming and need formulas they can apply today. They are not thinking about Perplexity citations; they want to know what headline structure triggers a purchase decision. The top SERP results are copywriting listicles from 2019–2022 that predate AI content saturation and the attention compression of 2025–2026 buyer behavior — a 2026-calibrated, data-backed version owns this space.",
+      "outline": [
+        "Why the Old Headline Formulas Are Underperforming in 2026 and What Changed",
+        "The 4 Conversion Levers Every Headline Must Activate: Specificity, Curiosity, Urgency, and Proof",
+        "12 Headline Formulas With Real SMB A/B Test Results",
+        "Platform Rules: What Works on a Landing Page vs. Email Subject Line vs. Google Ad Headline",
+        "How to Test Your Own Headlines in 48 Hours Without a CRO Agency"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "How Small Marketing Agencies Should Bill Clients for AI Tool Costs in 2026: The Pass-Through Pricing Model That Protects Margins",
+      "slug": "how-small-marketing-agencies-should-bill-clients-ai-tool",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "ai marketing agency pricing per client 2026",
+      "intent": "Operational / Commercial — agency owner with 1–10 staff building or revising their service pricing to account for AI SaaS subscriptions, who needs to know whether to fold AI tool costs into their retainer, charge them as line items, or model them as a percentage of ad spend.",
+      "rationale": "'AI marketing saas pricing per client smb 2026 percentage of ad spend' sits at position 6.2 with 101 impressions — the best-positioned striking-distance signal in this batch by conversion likelihood. Previously proposed pieces address this from the buyer side (market benchmarks, what agencies charge) or the tool cost side (margin math). This is the operational layer missing from both: how to structure client contracts so AI SaaS fees are billed through without destroying the relationship or the P&L — an angle no published or proposed article has addressed.",
+      "keywordRationale": "This searcher is an agency operator, not a buyer. They are not shopping for a tool — they are trying to figure out whether Jasper at $59/month and HubSpot AI at $800/month go into the retainer, appear as pass-through invoices, or get absorbed into overhead. Every top SERP result answers the buyer question ('how much does an agency cost?') — there is essentially nothing written from the agency side of this pricing conversation, which makes the search intent underserved by a wide margin.",
+      "outline": [
+        "Why AI Tool Costs Are Eating Agency Margins in 2026 and Why Ignoring It Is No Longer an Option",
+        "3 Billing Models: All-Inclusive Retainer, Pass-Through Line Item, and Percentage of Ad Spend",
+        "Per-Tool Cost Benchmarks: What You Actually Pay for Jasper, Copy.ai, Writesonic, and HubSpot AI",
+        "How to Write the AI Cost Clause Into Your Client Contract Without Losing the Deal",
+        "Real Math: A 3-Client Agency Scenario With Margins Before and After the Repricing"
+      ],
+      "trend": {
+        "direccion": "sube",
+        "cambioAnual": 100,
+        "nivelActual": 8
+      }
+    },
+    {
+      "title": "Jasper Is an Enterprise Platform Now: What That Means for SMBs — and 5 Alternatives That Actually Fit Your Budget in 2026",
+      "slug": "jasper-enterprise-platform-now-what-means-smbs-5",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "jasper ai smb alternative 2026",
+      "intent": "Commercial investigation — SMB owner or small agency currently on Jasper who has noticed the product moving upmarket; wants to confirm whether their plan still delivers value at their scale and, if not, a vetted shortlist of alternatives.",
+      "rationale": "Jasper explicitly repositioned as an enterprise marketing hub with governance features, multi-audience generation, and GEO content freshness aimed at CMO teams. Our published 'HubSpot Breeze vs Jasper AI vs Copy.ai in 2026' is a feature-and-pricing comparison between three tools; this is specifically about Jasper's strategic exit from the SMB market and what the decision tree looks like for small teams still paying for it — a different narrative, different search intent, and different primary keyword.",
+      "keywordRationale": "Someone searching 'jasper ai smb alternative' has already sensed the value proposition shifted — their plan got pricier, the UI got more complex, or the marketing stopped speaking to them. They want confirmation their instinct is right plus a clear, vetted shortlist. Most SERP results are Jasper affiliate reviews written before the enterprise pivot that don't acknowledge the repositioning — an honest, post-pivot alternative guide fills a blind spot in this query's coverage.",
+      "outline": [
+        "Jasper's Enterprise Pivot in 2026: What Changed in the Product and the Pricing",
+        "When Jasper Still Makes Sense for Small Teams Under 10 People",
+        "5 SMB-Friendly Alternatives: Copy.ai, Writesonic, Notion AI, Surfer AI, and Claude API",
+        "Side-by-Side: Pricing, Brand Voice Controls, and Workflow Fit at the SMB Scale",
+        "How to Migrate Your Templates and Brand Voice Without Starting From Scratch"
+      ]
+    },
+    {
+      "title": "Writesonic in 2026 Is No Longer an AI Writer — It's a GEO Platform: What SMBs Get for $49–$249/Month",
+      "slug": "writesonic-2026-no-longer-ai-writer-s-geo-platform-what-smbs",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "writesonic geo platform review 2026",
+      "intent": "Commercial investigation — SMB or small agency evaluating Writesonic after its GEO rebrand, wants to know whether the AI writing features are still worth it or if the product is now a specialized monitoring tool that doesn't serve their content creation needs.",
+      "rationale": "'Best geo seo tools for small business 2026' sits in GSC striking distance (39 impr, pos 20). The previously proposed 'Free vs. Paid GEO Tools for SMBs in 2026' is a broad, multi-tool tier breakdown. This is a single-tool, post-pivot deep review for an SMB deciding specifically about Writesonic — a more purchase-ready intent, a different competitive keyword, and a different content format (review vs. comparison guide).",
+      "keywordRationale": "Someone searching for a Writesonic GEO review in 2026 already knows about the rebrand and is in final evaluation mode — they are comparing it against Rankability, Radarkit, or a manual spreadsheet approach. The current SERP is almost entirely pre-pivot Writesonic reviews that evaluate copywriting output quality; none assess the GEO monitoring dashboard, competitor benchmarking, Action Center, or geographic query simulation from an SMB ROI standpoint, leaving the real purchase question unanswered.",
+      "outline": [
+        "Writesonic's Pivot: From AI Copywriter to AI Search Growth Engine — Timeline and What Actually Changed",
+        "What the GEO Dashboard Shows: Brand Mention Rate, Competitor Benchmarking, and Geographic Simulations",
+        "The AI Writing Features in 2026: Still Useful or Just a Legacy Bonus?",
+        "Pricing Reality: What $49, $99, and $249 Per Month Actually Unlock for an SMB",
+        "Verdict: Who Should Buy Writesonic GEO in 2026 and Who Should Look Elsewhere"
+      ]
+    },
+    {
+      "title": "How SMBs Are Building Faceless AI Brands in 2026: 7 Real Case Studies and the Playbook Behind Each",
+      "slug": "how-smbs-building-faceless-ai-brands-2026-7-real-case",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "faceless ai brand case studies small business 2026",
+      "intent": "Informational — SMB owner considering whether a faceless content brand is viable for their industry, needs real proof of concept through documented examples before committing budget and tools to the strategy.",
+      "rationale": "'Faceless personal brand case studies success stories 2026' appears in GSC striking distance at position 6.8 with 20 impressions — a long-tail signal that indicates high intent from someone already past the awareness stage. The faceless creator economy reached 38% of new monetization ventures in 2026 with top performers at $80K+/month; an SMB-specific case study format hasn't appeared in our proposed or published queue, and Jasper, HubSpot, and Copy.ai blogs have not touched this angle.",
+      "keywordRationale": "Someone writing this exact query has already decided they're interested in faceless branding and needs social proof plus a replicable blueprint, not a definition. The current SERP serves YouTube creator-economy channels (monetization focus, not business marketing) and generic 'how to start faceless content' guides that don't address SMB use cases such as local services, e-commerce, or B2B SaaS. The case-study format combined with an SMB framing fills that gap directly.",
+      "outline": [
+        "Why More SMBs Are Going Faceless in 2026 and What the Data Shows",
+        "7 Case Studies: Industry, Tools Used, Revenue Model, and First 90-Day Traffic Results",
+        "The Faceless SMB Playbook: AI Avatar, Voice, Visual Identity, and Publishing Cadence",
+        "Tool Stack Under $150/Month: AI Voice, AI Video Generation, and Scheduling",
+        "The Risks: Brand Trust, Platform Disclosure Rules, and When Showing a Real Face Still Wins"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "You Got Your SEO Analysis — Now What? The 30-Day SMB Action Plan for 2026",
+      "slug": "you-got-your-seo-analysis-now-what-30-day-smb-action-plan",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "seo analysis action plan small business 2026",
+      "intent": "How-to / Informational — SMB owner who has run an SEO audit with a tool (Semrush, Ahrefs, or our AI Website Scorecard) and now holds a list of flagged issues but doesn't know how to triage, prioritize, or sequence them into a practical work sprint.",
+      "rationale": "'Complete SEO analysis guide for business owners for 2026' (pos 7.0, 25 impressions) and 'online SEO analysis in 2026 the business owner's complete guide' (pos 5.7, 21 impressions) are both in GSC striking distance. We published 'AI Website Audit Tool with Scorecard: The SMB Self-Audit Guide for 2026' and multiple SEO tool guides covering how to run an analysis; none covers what to do immediately after — triage, prioritization, and a 30-day execution sprint. This is the explicit next step in the journey our existing content creates.",
+      "keywordRationale": "Someone at this query stage has data already in hand and is overwhelmed — they have 40+ issues flagged and no framework for deciding which one moves the needle first. The search is a signal of action-readiness, not research mode. Today's top SERP results serve more how-to-audit content to someone who has already completed the audit; the gap is the post-analysis phase, and it is consistently empty across the tools and blogs that own the upstream audit content.",
+      "outline": [
+        "Why Most SMB SEO Audits Die in a Spreadsheet and How to Break the Pattern",
+        "The Triage Framework: Quick Wins, Core Fixes, and Long Bets — How to Sort 40 Issues Into 3 Buckets",
+        "Week 1–2: Technical Fixes You Can Execute Without a Developer",
+        "Week 3–4: On-Page Optimization and Content Gap Priorities That Move Rankings",
+        "How to Measure Progress in 30 Days: The 5 Metrics That Tell You If It Is Working"
+      ]
+    },
+    {
+      "title": "What Happens When an SMB Goes AI-First With Their Blog in 2026: A 90-Day Experiment With Real Traffic Data",
+      "slug": "what-happens-when-smb-goes-ai-first-their-blog-2026-90-day",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "ai first content strategy small business blog 2026",
+      "intent": "Informational — SMB owner or solo marketer weighing how far to automate their blog content, wanting a realistic independent case study with real outcomes before committing to an AI-first publishing workflow.",
+      "rationale": "HubSpot published 'What actually happened when our blog went AI-first: A manager's account' today (10/19/26), validating this as a live editorial debate with active search interest. Their version targets enterprise editorial teams. We have a direct first-mover opportunity for the SMB translation: same experiment format, different scale (1–3 person team), different tools (sub-$200/month), different success metrics (organic leads and rankings, not editorial quality scores). Not proposed or published by us before.",
+      "keywordRationale": "Someone searching this is past 'should I use AI for content?' — they're asking what actually happens if they go all-in. They want real numbers, real failures, and an unvarnished outcome, not a vendor case study. The SERP today is dominated by AI tool provider success stories and theoretical guides on AI content strategy; an independent SMB experiment with unedited traffic data and workflow failures does not yet exist as a content format and will stand out sharply against the existing results.",
+      "outline": [
+        "What AI-First Actually Means in Practice for a 1–3 Person Marketing Team in 2026",
+        "Month 1: Workflow Design, Tool Stack Under $200/Month, and First 10 Articles Published",
+        "Month 2: The Traffic Data — Rankings, Impressions, Clicks, and What Surprised Us",
+        "Month 3: Quality Problems We Hit and the Hybrid Model We Landed On",
+        "The Honest Verdict: When AI-First Saves Time and When It Costs More Than It Saves"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "How to Track Your Competitors in AI Search in 2026: The SMB Guide to Competitive GEO Intelligence",
+      "slug": "how-track-your-competitors-ai-search-2026-smb-guide",
+      "lang": "en",
+      "priority": "baja",
+      "primaryKeyword": "competitive geo tracking small business 2026",
+      "intent": "Informational / Tool evaluation — SMB or agency that already understands GEO and now wants to benchmark their brand's AI search presence against specific competitors across ChatGPT, Perplexity, and Google AI Overviews.",
+      "rationale": "'Best geo seo tools for small business 2026' in GSC (39 impr, pos 20). We have proposed 'Free vs. Paid GEO Tools for SMBs in 2026' (broad tool tier breakdown) and 'Free GEO Monitoring Tools for Small Businesses in 2026' (self-monitoring). This is the third distinct GEO angle: competitive intelligence — not which tools exist, not how to monitor your own brand, but how to benchmark your AI visibility against Competitor X in your specific niche. Writesonic GEO's competitor benchmarking feature and tools like Radarkit now make this operationally viable for SMBs at under $100/month.",
+      "keywordRationale": "Someone searching competitive GEO tracking already knows what GEO is and has likely set up basic monitoring for their own brand; now they want the next level — who is winning in AI search in their niche and what content or citation moves they are making to get there. This is a strategy-hungry query from a growth or content lead, not a beginner. The current SERP has no results addressing this from an SMB perspective; the rare competitive GEO content that exists assumes enterprise budgets of $500+/month and enterprise-scale content teams.",
+      "outline": [
+        "Why Competitive GEO Matters More Than Keyword Rankings for SMBs in 2026",
+        "What to Track: Brand Mention Rate, Sentiment, Context, and Recommended-For Query Sets",
+        "Tools That Show You Competitor AI Visibility: Writesonic GEO, Radarkit, Scrunch, and Manual Prompting",
+        "How to Set Up a Weekly Competitive GEO Report in Under 2 Hours",
+        "What to Do When a Competitor Outranks You in AI Search: Content Fixes and Citation Strategy"
+      ]
+    }
+  ]
+}
