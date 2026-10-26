@@ -173,11 +173,11 @@
     "t": {
       "termino": "landing page checklist",
       "direccion": "baja",
-      "cambioAnual": -99,
-      "nivelActual": 0,
+      "cambioAnual": -98,
+      "nivelActual": 1,
       "meses": 262
     },
-    "cuando": "2026-10-12T19:29:03.515Z"
+    "cuando": "2026-10-26T16:20:49.832Z"
   },
   "US|best whatsapp bsp latam": {
     "t": {
@@ -187,7 +187,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-10-12T19:29:20.863Z"
+    "cuando": "2026-10-26T16:21:05.335Z"
   },
   "US|seo for latam local business directory": {
     "t": {
@@ -262,12 +262,12 @@
   "US|claude vs chatgpt for marketing": {
     "t": {
       "termino": "claude vs chatgpt for marketing",
-      "direccion": "sube",
-      "cambioAnual": 100,
+      "direccion": "baja",
+      "cambioAnual": -89,
       "nivelActual": 1,
       "meses": 262
     },
-    "cuando": "2026-10-12T19:29:25.741Z"
+    "cuando": "2026-10-26T16:21:12.427Z"
   },
   "US|whatsapp ai sales agent small business latam 2026": {
     "t": {
@@ -482,12 +482,12 @@
   "US|best ai seo tools for small businesses": {
     "t": {
       "termino": "best ai seo tools for small businesses",
-      "direccion": "baja",
-      "cambioAnual": -100,
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-10-05T18:55:58.875Z"
+    "cuando": "2026-10-26T16:20:57.973Z"
   },
   "US|ai marketing platforms hubspot jasper copy.ai market share": {
     "t": {
@@ -623,11 +623,11 @@
     "t": {
       "termino": "checklist landing page",
       "direccion": "baja",
-      "cambioAnual": -99,
-      "nivelActual": 0,
+      "cambioAnual": -98,
+      "nivelActual": 1,
       "meses": 262
     },
-    "cuando": "2026-10-12T19:29:10.036Z"
+    "cuando": "2026-10-26T16:20:54.554Z"
   },
   "US|hubspot jasper copy.ai neuroflash ai writing comparison 2026": {
     "t": {
@@ -727,7 +727,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-10-12T19:29:06.874Z"
+    "cuando": "2026-10-26T16:20:52.906Z"
   },
   "US|ai website audit tool with scorecard": {
     "t": {
@@ -752,12 +752,12 @@
   "US|ai hallucination in marketing": {
     "t": {
       "termino": "ai hallucination in marketing",
-      "direccion": "sin-volumen",
-      "cambioAnual": 0,
-      "nivelActual": 0,
+      "direccion": "sube",
+      "cambioAnual": 100,
+      "nivelActual": 1,
       "meses": 262
     },
-    "cuando": "2026-09-28T17:58:10.083Z"
+    "cuando": "2026-10-26T16:21:02.443Z"
   },
   "US|advertising for mexican small businesses 2026": {
     "t": {
@@ -863,11 +863,11 @@
     "t": {
       "termino": "seo for small business 2026",
       "direccion": "baja",
-      "cambioAnual": -99,
-      "nivelActual": 0,
+      "cambioAnual": -95,
+      "nivelActual": 2,
       "meses": 262
     },
-    "cuando": "2026-10-12T19:29:24.084Z"
+    "cuando": "2026-10-26T16:21:08.256Z"
   },
   "US|chatgpt ads for small business 2026": {
     "t": {
