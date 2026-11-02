@@ -1,0 +1,206 @@
+{
+  "weekOf": "2026-11-02",
+  "generatedAt": "2026-11-02T20:00:23.628Z",
+  "source": "auto-weekly",
+  "summary": "Ten differentiated ideas anchored on rising GSC signals (B2B prompting gap, GA4 post-setup, landing-page headline formulas, AI SEO budget tier, MercadoLibre Ads) and on 2026 research gaps (GEO failure modes, three-way Claude/ChatGPT/Gemini comparison, B2B execution gap, proactive brand entity management, Mexican content marketing formats). (1 idea(s) descartada(s): 1 por repetir algo ya propuesto o escrito, 0 por pisarse con otro título.)",
+  "research": {
+    "competitors": [
+      "Hootsuite published 'The best AI copywriting tools for 2026' just 19 days ago covering Jasper, Copy.ai, Writesonic and HubSpot AI as generic feature lists with no SMB-specific pricing math or failure-mode guidance — a clear depth gap we can exploit.",
+      "HubSpot blog runs both 'Claude vs. ChatGPT: A marketer's guide' and 'GEO for small business' with strong domain authority, but both are written for 30-50 person teams; budget constraints, one-person marketing setups, and LATAM context are systematically underserved.",
+      "AboutMartech's '11 AI Content Tools Real Marketing Teams Actually Use (Tested in 2026)' correctly slots Copy.ai for GTM automation and Jasper for brand governance, but every claim is feature-based with no before/after outcome data — experiment-framed content would outrank it on trust.",
+      "A cluster of DA-40-60 review sites (OneLittleWeb, GetAira, TrustVor, Driven-Metrics) dominate 'best AI SEO tools for small business 2026' with long listicles; none organizes by budget tier or isolates the under-$50/month decision, which is where most real SMB purchase intent sits."
+    ],
+    "trends": [
+      "Agentic AI adoption by marketing teams jumped from 15% in 2024 to 45% in 2026 (Salesforce State of Marketing); top-performing SMB teams are nearly 2x more likely to use AI agents than underperformers — the adoption gap is now a live editorial angle with hard data.",
+      "B2B AI execution gap: 95% of B2B marketers use AI in some workflow in 2026 but only ~39% report genuine performance gains (MarketScale, 2026) — the gap is attributed to shallow prompting and workflow misuse rather than model limitations, a strong hook for data-led content.",
+      "GEO is hitting mainstream: Gartner projects 70% of local search queries will include an AI-generated answer by end of 2026; the smart-practitioner frame is now a 50/50 split with traditional local SEO — opening space for 'failure modes' and 'what not to do' content that doesn't yet exist.",
+      "AI Overviews are measurably cutting organic CTR by 18–47% depending on query type (Improvado, 2026), making proactive brand entity management — ensuring AI systems cite your business correctly before errors occur — an urgent new content category distinct from the reactive audit pieces already published.",
+      "MercadoLibre Ads and retail media networks (Meta Shops, TikTok Shop) are becoming the dominant e-commerce growth lever for LATAM SMBs in 2026; virtually no English-language SMB marketing content covers MercadoLibre Ads strategy with real campaign structure and ACOS benchmarks."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "Does Prompt Quality Actually Change Your B2B Marketing Results? We Tested 3 AI Tools With 6 Prompt Styles — Here's the Data",
+      "slug": "does-prompt-quality-actually-change-your-b2b-marketing",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "does prompting matter for AI B2B marketing",
+      "intent": "informational / investigative — B2B marketers who suspect their AI outputs are mediocre and want evidence on whether the prompt itself is the variable to fix",
+      "rationale": "GSC shows 'does prompting matter for ai b2b marketing' at pos 15.8 with real search volume; the published 'Prompt Engineering for Marketers: Blueprint for SEO & Content' is a conceptual guide and all proposed prompt pieces are tactic-specific (paid ads, agentic systems, GEO content) — this is the only empirical, experiment-framed treatment of the diagnostic question B2B marketers are actually asking.",
+      "keywordRationale": "The searcher is a B2B marketer already using AI who is underwhelmed by results and asking a root-cause question: is the prompt the problem, or the tool? Most top-ranking content skips straight to prompt tips without validating the premise with data — we can own the query by leading with a controlled comparison before offering the fix, which is a structural approach no competitor currently takes for this specific search.",
+      "outline": [
+        "H2: The 95/39 Gap: Why Most B2B Marketers Are Using AI but Not Getting Results",
+        "H2: The Test Setup — 3 Tools, 6 Prompt Styles, 4 Real B2B Marketing Tasks",
+        "H2: What the Data Shows: Where Prompt Quality Moved the Needle Most (and Where It Didn't)",
+        "H2: The 4 Prompt Habits That Consistently Improved Output Quality Across All Tools",
+        "H2: When the Problem Isn't the Prompt — It's the Workflow"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "What to Do With GA4 After Setup: 7 Weekly Reports That Turn Analytics Into Real SMB Marketing Decisions",
+      "slug": "what-do-ga4-after-setup-7-weekly-reports-turn-analytics-into",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "GA4 reports for small business marketing decisions",
+      "intent": "practical / how-to — business owners who completed GA4 setup (or read a setup guide) and now face a dashboard they don't know how to translate into actions",
+      "rationale": "FastStrat already publishes and ranks for 'GA4 Setup for Small Businesses in 2026' (pos 7.4 in GSC); this is the logical next-step piece that captures the same audience 30–60 days post-setup before they abandon the tool — the 'what to do after' angle is entirely absent from both the published and proposed FastStrat corpus and is the natural conversion from a setup guide that already performs.",
+      "keywordRationale": "The searcher completed setup, sees charts, and is asking 'now what?' — they don't want more installation instructions. Top-ranking GA4 content for small businesses is either too technical (aimed at data analysts) or too generic ('check your traffic'); an SMB-framed guide built around 7 named, opinionated weekly reports with explicit decision triggers would outrank every generic analytics explainer currently up.",
+      "outline": [
+        "H2: The Setup-to-Insight Gap: Why Most SMBs Open GA4 and Give Up After Two Weeks",
+        "H2: The 7 Weekly Reports That Actually Drive Marketing Decisions (Not Just Data)",
+        "H2: How to Read Each Report Without a Data Background",
+        "H2: 5 Automated Alerts That Eliminate Manual Dashboard Checking",
+        "H2: Building Your 15-Minute Weekly Analytics Ritual as an SMB Owner"
+      ]
+    },
+    {
+      "title": "Landing Page Headlines That Pass AI Optimization Checks in 2026: 8 Formula Types With Before/After Rewrites",
+      "slug": "landing-page-headlines-pass-ai-optimization-checks-2026-8",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "landing page headline formula 2026",
+      "intent": "practical / how-to — founders and marketers actively rewriting landing pages who need formulas that satisfy both human conversion and AI citation criteria",
+      "rationale": "Two GSC signals converge: 'landing page headline formula' at pos 15.1 and 'headline formulas' at pos 27.8 (SIN EXPLOTAR); the proposed 'Headlines That Actually Convert in 2026' covers general conversion formulas while 'Headlines That Get Cited by AI in 2026' covers AI citation formulas for general content — neither isolates landing page headlines specifically at the intersection of conversion and AEO, which is exactly what the GSC query signals.",
+      "keywordRationale": "The searcher is in execution mode rewriting a landing page and needs a formula they can apply immediately — not a theory of good copywriting. Top-ranking content gives general headline frameworks (curiosity, urgency, benefit) without testing them against how AI Overviews and ChatGPT actually extract and cite landing page copy; a before/after rewrite format with AI-check validation would be materially more useful than anything currently ranking for this query.",
+      "outline": [
+        "H2: Why Landing Page Headlines Matter More in 2026 — The AEO Dimension Most Guides Still Ignore",
+        "H2: The 8 Headline Formula Types That Pass Both Conversion Tests and AI Citation Checks",
+        "H2: Before/After Rewrites Across 4 SMB Industries",
+        "H2: How to Run a 10-Minute AI Optimization Check on Any Landing Page Headline",
+        "H2: The Headline + Subheadline Pair: Why the Formula Only Works With the Right Support Copy"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "AI SEO Tools Under $50/Month in 2026: What You Actually Get — and Whether It's Enough for a Growing SMB",
+      "slug": "ai-seo-tools-under-50-month-2026-what-you-actually-get",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "affordable AI SEO tools small business 2026",
+      "intent": "commercial investigation — small business owners with tight budgets who've seen $89–$299/month tools in every roundup and want to know if the budget tier is a viable option",
+      "rationale": "GSC shows 'best ai seo tools for small businesses 2026' at 129 impr, pos 18.4 with demand rising +100% YoY; research confirms 73% of SMBs waste $400–$800/year on overlapping features — the published pieces cover the full market and proposed pieces target setup speed or the vs-Semrush angle, but none organizes the decision around the $50/month ceiling where the majority of real SMB purchases actually land.",
+      "keywordRationale": "The searcher has seen $89–$299/month tools in every roundup and is asking whether there is a real under-$50 option or whether they have to upgrade. Current top-ranking articles mention budget tools in passing within large listicles but never treat affordability as the organizing principle — a piece that reviews the under-$50 tier exclusively, names exactly what features you lose, and tells you when to upgrade would out-serve every generic comparison for this intent.",
+      "outline": [
+        "H2: Why Most AI SEO Tool Roundups Are Useless for SMBs on a Real Budget",
+        "H2: The Under-$50/Month AI SEO Tools Worth Considering in 2026 (Tested Side by Side)",
+        "H2: What You Give Up at the Budget Tier — and When That Actually Matters for an SMB",
+        "H2: The $0–$50 Stack That Covers 80% of SMB SEO Needs Without Overlapping Features",
+        "H2: When You've Outgrown the Budget Tier: 5 Signals That Justify the Upgrade"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "MercadoLibre Ads in 2026: The LATAM SMB Playbook for Getting Real Sales Without Burning Your Product Advertising Budget",
+      "slug": "mercadolibre-ads-2026-latam-smb-playbook-getting-real-sales",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "MercadoLibre Ads strategy for SMBs 2026",
+      "intent": "practical / how-to — LATAM small business owners and agency managers running or planning product advertising on MercadoLibre who need a campaign structure that doesn't waste budget",
+      "rationale": "GSC shows 'mercado ads precios para vender más en meli' already at pos 5.2 — just outside top-5 — and MercadoLibre Ads is the single largest e-commerce advertising channel for LATAM SMBs; it appears in zero published or proposed FastStrat pieces, making this a completely unoccupied topic with active, confirmed search demand from a core audience segment that no competitor in the English-language SMB marketing space is serving.",
+      "keywordRationale": "The searcher sells on MercadoLibre and is trying to understand if paid product ads are worth the cost and how to configure campaigns to avoid overpaying. Virtually all top results are official MercadoLibre help pages or generic e-commerce advice with no ACOS benchmarks or bid strategy specifics; a practitioner-framed English-language guide with real budget allocation, category-level CPCs, and a 30-day optimization cycle would rank distinctly above generic content in this underserved cluster.",
+      "outline": [
+        "H2: MercadoLibre Ads in 2026 — How the Auction Works and Why Most SMBs Overpay From Day One",
+        "H2: Product Advertising (PPA) vs. Display vs. Brand Ads: Which Format Fits Your Stage and Catalog Size",
+        "H2: Campaign Structure for SMBs: Budget Allocation by Category and SKU Volume",
+        "H2: Bid Strategy and Pricing: How to Read ACOS, Set Targets, and Know When to Pull Back",
+        "H2: The 30-Day MercadoLibre Ads Optimization Cycle for SMBs With No Dedicated Analyst"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "When GEO Backfires: 6 Optimization Mistakes That Are Making AI Search Engines Ignore Your SMB in 2026",
+      "slug": "when-geo-backfires-6-optimization-mistakes-making-ai-search",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "GEO optimization mistakes small business 2026",
+      "intent": "diagnostic / problem-aware — business owners who have applied GEO tactics and still don't see their brand cited in AI answers, looking for what they did wrong",
+      "rationale": "GSC shows 'best geo seo tools for small business 2026' at pos 20.0 and GEO appears across multiple published and proposed FastStrat pieces — every single one is a 'how to do it' guide; the contrarian 'when it backfires / failure modes' angle is not covered anywhere in the corpus and directly serves implementers mid-experiment, which is the audience most likely to convert to FastStrat's platform.",
+      "keywordRationale": "The searcher has read GEO guides, applied some tactics, and is still invisible in ChatGPT or Perplexity results — they are not a beginner looking for a definition, they're an implementer seeking a diagnosis. Top-ranking GEO content is almost entirely instructional and misses the diagnostic layer entirely; a structured failure-modes piece would rank for a semantically distinct query cluster (mistakes, backfires, not working) while serving as a natural AI citation reference due to its list structure and specific claim density.",
+      "outline": [
+        "H2: The GEO Promise vs. Reality: Why Brands That Follow the Guides Still Don't Get Cited",
+        "H2: Mistake 1–2: Entity Inconsistency and Schema Conflicts That Confuse AI Retrieval Models",
+        "H2: Mistake 3–4: Over-Optimizing for One AI Engine While Ignoring the Others",
+        "H2: Mistake 5–6: Content Depth and Freshness Problems That Cause AI Systems to Skip Your Pages",
+        "H2: The GEO Diagnostic Checklist: 10 Checks to Run Before Assuming Your Strategy Is Working"
+      ]
+    },
+    {
+      "title": "Why 95% of B2B Marketers Use AI but Only 39% See Real Results — And the 4 Workflow Fixes That Actually Close the Gap",
+      "slug": "why-95-b2b-marketers-use-ai-but-only-39-see-real-results-4",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "B2B AI marketing results gap 2026",
+      "intent": "analytical / thought leadership — B2B marketing managers who have adopted AI tools and are facing an organizational ceiling where output volume isn't translating to pipeline",
+      "rationale": "Research surfaces a compelling and concrete 2026 data point (MarketScale: 95% adoption, ~39% effectiveness) that no proposed FastStrat piece has used as a primary hook; the closest proposed piece ('What the State of AI in Marketing 2026 Report Actually Means for SMBs') broadly translates enterprise findings, while this piece frames the B2B execution gap specifically and prescribes workflow-level fixes rather than tool recommendations — a meaningfully different organizational angle.",
+      "keywordRationale": "The searcher has gone through the initial AI productivity boost, hit a ceiling, and is now asking why organizational results haven't followed. Most AI marketing content is still aspirational ('AI will transform your marketing') or tactical ('use this prompt'); a piece that names the gap with verified numbers and delivers four specific workflow-level fixes operates at a layer of organizational specificity that almost nothing currently ranking addresses for this query intent.",
+      "outline": [
+        "H2: The 95/39 Paradox: What the Numbers Actually Mean for B2B Marketing Teams",
+        "H2: Why AI Tool Adoption Alone Doesn't Move the Revenue Needle",
+        "H2: Workflow Fix 1 and 2: Scoping AI to High-Leverage Tasks and Building Human Review Checkpoints",
+        "H2: Workflow Fix 3 and 4: Connecting AI Output to CRM Signals and Measuring the Right KPIs",
+        "H2: The B2B AI Marketing Maturity Model: Where Your Team Sits and What the Next Stage Requires"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Content Marketing for Mexican SMBs in 2026: Trust-First Formats That Consistently Outperform Global Playbooks",
+      "slug": "content-marketing-mexican-smbs-2026-trust-first-formats",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "content marketing for Mexican small businesses 2026",
+      "intent": "strategic / how-to — Mexican SMB owners or marketers managing content who find that standard content marketing frameworks produce low engagement in their local market",
+      "rationale": "GSC shows 'marketing mexico' at pos 17.7 and 'pymes en mexico 2026' at pos 7.8; existing FastStrat Mexico pieces cover B2B strategy ('B2B Marketing in Mexico in 2026'), paid advertising ('Google vs. Meta vs. TikTok Ads in Mexico'), and broad channel lists — none addresses organic content formats and the trust dynamics unique to Mexican buyers, completing the Mexico content cluster with the layer that's missing.",
+      "keywordRationale": "The searcher is a Mexican business owner or marketer who has tried content marketing advice from US-based sources and found it lands flat with local audiences — they are looking for locally-grounded format and tone guidance, not generic SEO tips. Most content ranking for Mexico marketing keywords is either basic digital marketing theory or broad channel overviews; a format-specific, trust-dynamics-led piece grounded in Mexican audience behavior would immediately outperform on relevance for this intent.",
+      "outline": [
+        "H2: Why US Content Marketing Playbooks Underperform in Mexico — The Trust-First Buying Dynamic",
+        "H2: The 5 Content Formats That Build Credibility Fastest With Mexican Audiences",
+        "H2: WhatsApp, YouTube, and TikTok: The Distribution Channels Where Mexican Content Actually Lives",
+        "H2: AI Tools for Spanish-Language Content Creation: What Works and Where They Still Fall Short in 2026",
+        "H2: Building a 90-Day Content Calendar for a Mexican SMB With a One-Person Marketing Team"
+      ],
+      "trend": {
+        "direccion": "sube",
+        "cambioAnual": 100,
+        "nivelActual": 3
+      }
+    },
+    {
+      "title": "Your Brand Is Being Summarized by AI Right Now: How to Feed AI Search Engines the Right Story Before They Get It Wrong",
+      "slug": "your-brand-being-summarized-ai-right-now-how-feed-ai-search",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "brand entity management AI search 2026",
+      "intent": "strategic / how-to — brand owners who understand the AI hallucination risk and want a proactive playbook for shaping what AI systems say about their business before errors occur",
+      "rationale": "Research confirms brand hallucination is a rising structural risk for SMBs with insufficient web presence; the proposed 'Is AI Misrepresenting Your Business? How to Audit and Correct Your Brand's AI Profile in 2026' is reactive (audit after damage) and the proposed 'AI Hallucination in Marketing: The $67 Billion Risk SMBs Can't See' is risk-education-focused — this piece takes the proactive infrastructure angle (how to build the information layer that feeds AI engines correctly), which is structurally absent from the corpus.",
+      "keywordRationale": "The searcher has seen their business mentioned incorrectly in an AI answer or read about the risk, and wants to know what to do before the damage occurs — not after. Current top-ranking content for brand hallucination and AI misrepresentation is almost entirely reactive (audit, correct, dispute), missing the structural, proactive layer entirely; a piece that treats brand entity management as a deliberate content strategy — schema markup, entity anchors, authoritative source seeding — occupies a distinct and under-served ranking position.",
+      "outline": [
+        "H2: How AI Search Engines Learn What to Say About Your Business (And Why the Default Is Often Wrong)",
+        "H2: The Brand Entity Audit: 5 Places AI Is Currently Pulling Information About Your SMB",
+        "H2: Building Your Brand's AI-Readable Information Layer: Schema, FAQs, and Entity Anchors",
+        "H2: The Content Seeding Strategy: How to Feed AI Systems Accurate Brand Data Across Sources",
+        "H2: Monitoring and Updating Your Brand's AI Profile: A Quarterly Maintenance Checklist"
+      ]
+    }
+  ]
+}

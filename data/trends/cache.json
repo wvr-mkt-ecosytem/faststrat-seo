@@ -173,11 +173,11 @@
     "t": {
       "termino": "landing page checklist",
       "direccion": "baja",
-      "cambioAnual": -98,
-      "nivelActual": 1,
+      "cambioAnual": -100,
+      "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-10-26T16:20:49.832Z"
+    "cuando": "2026-11-02T19:52:47.647Z"
   },
   "US|best whatsapp bsp latam": {
     "t": {
@@ -187,7 +187,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-10-26T16:21:05.335Z"
+    "cuando": "2026-11-02T19:53:04.702Z"
   },
   "US|seo for latam local business directory": {
     "t": {
@@ -202,12 +202,12 @@
   "US|best ai seo tools for small businesses 2026": {
     "t": {
       "termino": "best ai seo tools for small businesses 2026",
-      "direccion": "sin-volumen",
-      "cambioAnual": 0,
-      "nivelActual": 0,
+      "direccion": "sube",
+      "cambioAnual": 100,
+      "nivelActual": 8,
       "meses": 262
     },
-    "cuando": "2026-10-19T16:40:48.810Z"
+    "cuando": "2026-11-02T19:52:51.154Z"
   },
   "US|aylesbury seo": {
     "t": {
@@ -487,7 +487,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-10-26T16:20:57.973Z"
+    "cuando": "2026-11-02T19:52:56.105Z"
   },
   "US|ai marketing platforms hubspot jasper copy.ai market share": {
     "t": {
@@ -623,11 +623,11 @@
     "t": {
       "termino": "checklist landing page",
       "direccion": "baja",
-      "cambioAnual": -98,
-      "nivelActual": 1,
+      "cambioAnual": -100,
+      "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-10-26T16:20:54.554Z"
+    "cuando": "2026-11-02T19:52:52.732Z"
   },
   "US|hubspot jasper copy.ai neuroflash ai writing comparison 2026": {
     "t": {
@@ -754,10 +754,10 @@
       "termino": "ai hallucination in marketing",
       "direccion": "sube",
       "cambioAnual": 100,
-      "nivelActual": 1,
+      "nivelActual": 8,
       "meses": 262
     },
-    "cuando": "2026-10-26T16:21:02.443Z"
+    "cuando": "2026-11-02T19:53:01.224Z"
   },
   "US|advertising for mexican small businesses 2026": {
     "t": {
@@ -863,11 +863,11 @@
     "t": {
       "termino": "seo for small business 2026",
       "direccion": "baja",
-      "cambioAnual": -95,
-      "nivelActual": 2,
+      "cambioAnual": -93,
+      "nivelActual": 3,
       "meses": 262
     },
-    "cuando": "2026-10-26T16:21:08.256Z"
+    "cuando": "2026-11-02T19:53:06.380Z"
   },
   "US|chatgpt ads for small business 2026": {
     "t": {
@@ -944,10 +944,10 @@
       "termino": "headlines that convert",
       "direccion": "sube",
       "cambioAnual": 100,
-      "nivelActual": 1,
+      "nivelActual": 8,
       "meses": 262
     },
-    "cuando": "2026-10-19T16:40:59.410Z"
+    "cuando": "2026-11-02T19:52:57.786Z"
   },
   "US|checklista landing page": {
     "t": {
@@ -998,5 +998,75 @@
       "meses": 262
     },
     "cuando": "2026-10-19T16:48:04.095Z"
+  },
+  "US|ga4 setup small business": {
+    "t": {
+      "termino": "ga4 setup small business",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-02T19:52:59.537Z"
+  },
+  "US|does prompting matter for ai b2b marketing": {
+    "t": {
+      "termino": "does prompting matter for AI B2B marketing",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-02T20:00:09.370Z"
+  },
+  "US|landing page headline formula 2026": {
+    "t": {
+      "termino": "landing page headline formula 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-02T20:00:12.593Z"
+  },
+  "US|affordable ai seo tools small business 2026": {
+    "t": {
+      "termino": "affordable AI SEO tools small business 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-02T20:00:14.216Z"
+  },
+  "US|mercadolibre ads strategy for smbs 2026": {
+    "t": {
+      "termino": "MercadoLibre Ads strategy for SMBs 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-02T20:00:15.825Z"
+  },
+  "US|b2b ai marketing results gap 2026": {
+    "t": {
+      "termino": "B2B AI marketing results gap 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-02T20:00:19.088Z"
+  },
+  "US|content marketing for mexican small businesses 2026": {
+    "t": {
+      "termino": "content marketing for Mexican small businesses 2026",
+      "direccion": "sube",
+      "cambioAnual": 100,
+      "nivelActual": 3,
+      "meses": 262
+    },
+    "cuando": "2026-11-02T20:00:20.724Z"
   }
 }
