@@ -1,0 +1,157 @@
+{
+  "weekOf": "2026-11-09",
+  "generatedAt": "2026-11-09T20:22:22.341Z",
+  "source": "auto-weekly",
+  "summary": "Ten ideas built on trending GSC signals and live 2026 research: a paid-ad AI showdown, automated weekly recap workflows, the client-side pricing exposé, TikTok Shop for LATAM, first-party data foundations, martech consolidation, AI reporting tool comparisons, short-form video production, homepage AEO, and AI-driven micro-influencer campaigns — all in angles not yet proposed or published. (3 idea(s) descartada(s): 3 por repetir algo ya propuesto o escrito, 0 por pisarse con otro título.)",
+  "research": {
+    "competitors": [
+      "HubSpot Blog dominates 'Claude vs ChatGPT for marketing' (hubspot.com/marketing/claude-vs-chatgpt) but covers writing tone and general quality; no piece connects model output to paid ad performance metrics like CTR or ROAS — open lane for a performance-focused SMB angle.",
+      "Improvado and Whatagraph own the AI reporting-tools space (improvado.io/blog/top-ai-reporting-tools, whatagraph.com/blog/articles/ai-reporting-tools) but target agencies with 50+ client portfolios; nothing exists for the SMB comparing tools under $100/month with a 1–3 channel DIY setup.",
+      "Hootsuite, onelittleweb, and Writesonic rank for 2026 AI tool roundups but lead with feature lists rather than workflow guidance or ROI evidence — gap exists for outcome-driven comparisons tied to measurable SMB results and LATAM context.",
+      "TikTok Shop for LATAM SMBs is virtually unclaimed in English-language SaaS content — none of the major competitors (Jasper, Copy.ai, HubSpot) have published on it, making the first-mover position fully available."
+    ],
+    "trends": [
+      "Agentic AI is now mainstream for lean teams: 45% of marketing teams use at least one agentic system in 2026 (up from 15% in 2024 per Salesforce State of Marketing), with 80% of SMB marketers expecting major ROI gains — 'how to adopt' content is urgently timely.",
+      "Social commerce via TikTok Shop and Instagram Shopping is accelerating in LATAM, with short-form video now the #1 organic-channel priority for SMBs in 2026; AI scripting and production tools create a real competitive edge for resource-constrained teams.",
+      "First-party data and privacy-safe measurement are now prerequisite infrastructure: AI personalization tools assume owned-audience data to function, making CRM hygiene and email list building a marketing-strategy topic, not just a technical one.",
+      "Martech consolidation is a confirmed 2026 priority: SMBs are cutting tool counts as AI platforms (Writesonic, Copy.ai) expand into multi-function suites, and 'reduce your stack without losing capability' content resonates strongly with renewal-fatigued teams.",
+      "Creator and micro-influencer AI curation is emerging as an affordable alternative to paid ads: AI tools now handle influencer discovery, brief generation, and performance measurement at a fraction of agency cost, making this a 2026 growth tactic for lean SMB teams."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "Can AI Write Your Weekly Marketing Performance Recap? We Tested 5 Workflows — From GA4 Export to One-Click Summary",
+      "slug": "can-ai-write-your-weekly-marketing-performance-recap-we",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "can ai write up my weekly marketing performance recap",
+      "intent": "Procedural / tool validation — a time-strapped SMB owner or solo marketer asking whether AI can automate a specific recurring task they currently do manually every Friday.",
+      "rationale": "The query 'can ai write up my weekly marketing performance recap?' surfaces at position 5.9 with 49 impressions — high conversion intent, fully conversational, and completely unclaimed in our published library and proposal backlog; it targets precisely the SMB pain of manual weekly reporting.",
+      "keywordRationale": "This search phrasing reveals someone who is already doing this task manually and is looking for a way out — not researching AI in general. Current top results (Swydo, Whatagraph, Improvado) point to agency-tier tools starting at $200+/month and never answer the DIY question under $50/month using tools the SMB already has. We can own this by showing the exact GA4 export + Claude prompt chain that generates a usable recap in under 10 minutes.",
+      "outline": [
+        "The SMB Reporting Problem: Why Friday Afternoon Recaps Eat 4 Hours and Produce 400 Words Nobody Acts On",
+        "Workflow 1: The GA4 + Claude Manual Export Method — Free, 15 Minutes, No New Tools Required",
+        "Workflow 2: Google Looker Studio Connected to an AI Summarizer — Free Setup Plus $20/Month",
+        "Workflow 3: Whatagraph or Swydo Auto-Summary — What SMBs Actually Get for $49–$79/Month",
+        "Workflows 4–5: Zapier + Sheets + AI and the Full Agentic Option — When Each Upgrade Is Worth It"
+      ]
+    },
+    {
+      "title": "First-Party Data for SMBs in 2026: The Foundation Every AI Marketing Tool Assumes You Have — But Nobody Tells You to Build",
+      "slug": "first-party-data-smbs-2026-foundation-every-ai-marketing",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "first party data strategy small business 2026",
+      "intent": "Educational / strategic — an SMB owner or marketer realizing their AI tools are underperforming and discovering the owned-data foundation is the missing piece.",
+      "rationale": "Every tool category FastStrat covers — from GA4 to ad AI to email agents — depends on first-party data to function well, yet we have zero content on how SMBs actually build this asset; this fills a foundational gap that makes all other FastStrat content more actionable and ties the entire content library together.",
+      "keywordRationale": "Searches for 'first party data small business' come from owners who've heard the term in vendor pitches but have no roadmap. HubSpot, Salesforce, and Segment dominate results with content written for mid-market teams with CDPs and data engineers — not for a 3-person SMB with a Mailchimp list and a Squarespace site. We can win by translating enterprise data strategy into a day-one SMB action plan.",
+      "outline": [
+        "Why Your AI Marketing Tools Underperform: The First-Party Data Problem Most SMBs Don't Know They Have",
+        "The 4 First-Party Data Assets Every SMB Must Build in 2026: Email List, CRM Records, Pixel Events, and Review Volume",
+        "How to Build a Lead Capture System That Grows Your Data Asset Without Buying Ads",
+        "Connecting Your Data to AI Tools: GA4, Meta Pixel, and Your Email Platform in One Clean Low-Code Setup",
+        "The Monthly 20-Minute Data Audit That Keeps Your Entire AI Marketing Stack Accurate and Compliant"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Cut Your Martech Stack From 12 Tools to 5 in 2026: The AI Consolidation Playbook for SMBs Who Are Over-Stacked and Under-Results",
+      "slug": "cut-your-martech-stack-12-tools-5-2026-ai-consolidation",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "martech stack consolidation AI small business 2026",
+      "intent": "Problem-aware / cost-driven — an SMB owner facing multiple SaaS renewals and looking for a framework to rationalize subscriptions without sacrificing marketing capability.",
+      "rationale": "Martech consolidation is confirmed as a top 2026 priority in multiple trend reports and AI platforms are specifically replacing multi-tool setups — yet we have no content on how SMBs should audit and simplify their stacks; the angle has strong conversion potential because it starts with a recognized pain and ends with a FastStrat-aligned recommendation.",
+      "keywordRationale": "Someone searching for martech consolidation advice is managing a live renewal decision, not window-shopping. Most results come from enterprise consultancies (Gartner, Forrester) or large vendors that recommend adding their own tool rather than actually reducing the stack. We can win by being the only result that is genuinely honest about what can and should be cut — and what a lean 5-tool setup actually looks like for an SMB.",
+      "outline": [
+        "The SMB Martech Bloat Problem in 2026: How the Average Small Business Ends Up Paying for 12 Tools It Never Fully Uses",
+        "The Consolidation Audit: A 5-Question Framework to Identify Every Tool That Can Be Cut or Replaced Today",
+        "Category-by-Category: Which AI Platforms Now Cover What Used to Require 2–3 Separate Subscriptions",
+        "The Lean 5-Tool Stack: SEO, Content, Email, Ads, and Reporting for Under $200 Per Month",
+        "How to Execute the Migration Without Losing Data, Rankings, or Live Campaigns in the Process"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "AI Marketing Reporting Tools for SMBs in 2026: 6 Platforms That Kill the Friday Afternoon Excel Session",
+      "slug": "ai-marketing-reporting-tools-smbs-2026-6-platforms-kill",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "AI marketing reporting tools small business 2026",
+      "intent": "Commercial investigation — a marketer or SMB owner actively evaluating tools to automate their recurring performance reporting process and comparing options by price and effort.",
+      "rationale": "We have published GA4 Setup and proposed '5 Free AI Marketing Audits' but have nothing on automated recurring reporting tools — this fills the content gap between 'I set up GA4' and 'I never want to manually build a report again,' and naturally reinforces the weekly-recap workflow article above without duplicating it.",
+      "keywordRationale": "Searches for AI reporting tools surface Improvado, Whatagraph, and Databox — all reviewed from an agency perspective at pricing starting at $200+/month with feature sets built for 50-client portfolios. The SMB who needs to report on 1–3 channels for their own business or one client has no authoritative guide built for them. We can own the under-$100/month, 1–3 channel, self-serve segment entirely.",
+      "outline": [
+        "Why Manual Marketing Reports Are a 2024 Problem AI Already Solved — If You Know Which Tool to Use",
+        "The 6 Platforms Compared: Whatagraph, Swydo, DashThis, Databox, AgencyAnalytics, and the Claude DIY Option",
+        "Head-to-Head Scorecard: Setup Time, Data Sources, AI Summary Quality, and Monthly Price for SMBs",
+        "The $20/Month DIY Build: GA4 + Google Sheets + Claude Prompt Chain That Generates a Weekly Summary Automatically",
+        "Which Tool Should an SMB Choose? A Decision Matrix by Channel Count, Reporting Frequency, and Budget"
+      ]
+    },
+    {
+      "title": "AI-Scripted Short-Form Video for SMBs in 2026: From Blank Page to Posted Reel in Under 60 Minutes",
+      "slug": "ai-scripted-short-form-video-smbs-2026-blank-page-posted",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "AI short form video content creation small business 2026",
+      "intent": "Procedural — an SMB owner or solo marketer who knows they need Reels and TikToks but has no video production experience, no crew, and no idea where to start.",
+      "rationale": "Short-form video is the #1 organic channel priority for SMBs in 2026 per multiple trend reports, yet we have zero content on AI-assisted video production — a critical gap given that our audience (lean teams with no creative staff) benefits most from AI scripting and B-roll sourcing tools.",
+      "keywordRationale": "Searches around 'AI video for small business' land on tool-specific landing pages (Lumen5, Synthesia, Canva AI) or generic YouTube tutorials — nobody has published an authoritative end-to-end workflow guide for someone with zero video experience who needs a repeatable weekly system. We can be the definitive how-to for this audience that every tool vendor is assuming already knows what they're doing.",
+      "outline": [
+        "Why Short-Form Video Is No Longer Optional for SMBs in 2026 — and Why AI Finally Makes It Feasible Without a Crew",
+        "Step 1 — AI Ideation: Turning One Weekly Business Event Into 5 Reel Hook Options in 10 Minutes",
+        "Step 2 — AI Scripting: The 60-Second Script Template That Works Across TikTok, Instagram Reels, and YouTube Shorts",
+        "Step 3 — Production Without a Camera: B-Roll Libraries, AI Voiceover, and On-Screen Text Tools Under $30/Month",
+        "Step 4 — Publishing and Measuring: The Weekly Cadence That Builds Reach Without Burning Out a Solo Operator"
+      ]
+    },
+    {
+      "title": "The SMB Homepage Optimization Checklist for 2026: 32 Elements That Win Over Both AI Search Engines and First-Time Human Visitors",
+      "slug": "smb-homepage-optimization-checklist-2026-32-elements-win",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "homepage checklist small business 2026",
+      "intent": "Informational / task completion — a business owner rebuilding or auditing their main website homepage and looking for a structured checklist to follow systematically.",
+      "rationale": "Google Autocomplete for 'landing page checklist' — a query we already rank for — surfaces 'home page checklist' as a direct sibling intent; a homepage serves fundamentally different goals than a landing page (brand discovery, SEO, returning visitors vs. a single paid-traffic CTA), so this is a genuinely distinct document that fills a natural content gap, not a variation of our published landing page checklist.",
+      "keywordRationale": "Someone searching 'home page checklist' is not looking for a landing page guide — they want to know if their main site homepage is performing its job for every visitor type, including AI crawlers. Current results mix landing-page-focused content that answers the wrong question with generic web design listicles from 2022–2023 that predate GEO and AI Overviews entirely. We can be the first checklist that covers both human conversion elements and AI search visibility signals in one document.",
+      "outline": [
+        "Homepage vs. Landing Page: Why the Same Checklist Doesn't Work for Both and What Your Homepage Is Actually Responsible For",
+        "Section 1 — Above the Fold (8 Checks): Headline Clarity, Value Proposition, Primary CTA, Load Speed, and AI-Readable Structure",
+        "Section 2 — Trust and Authority (8 Checks): Social Proof, Certifications, Media Mentions, and Entity Signals AI Search Engines Scan First",
+        "Section 3 — Navigation and Conversion Flow (8 Checks): Menu Logic, Internal Linking, Mobile Behavior, and Secondary CTA Placement",
+        "Section 4 — AI Search Visibility (8 Checks): Schema Markup, FAQ Block, Entity Clarity, and the 3 Signals Google AI Overviews Prioritize When Summarizing Your Brand"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "How SMBs Are Using AI to Run Micro-Influencer Campaigns in 2026: Finding, Briefing, and Measuring Without Hiring an Agency",
+      "slug": "how-smbs-using-ai-run-micro-influencer-campaigns-2026",
+      "lang": "en",
+      "priority": "baja",
+      "primaryKeyword": "AI micro influencer marketing small business 2026",
+      "intent": "Strategic / how-to — an SMB owner who believes influencer marketing requires an agency or a large budget and needs to be shown the AI-powered alternative.",
+      "rationale": "Creator and influencer AI curation is confirmed as a top 2026 SMB marketing trend, and all existing influencer content in search results targets mid-market brands using platforms like Grin or AspireIQ; we have zero content in this category and can own the under-$500 campaign budget angle where AI tools fully replace agency sourcing and reporting.",
+      "keywordRationale": "Searches for 'micro influencer marketing small business' land on influencer platform vendor pages (Grin, AspireIQ, Later) that require annual contracts or large minimum spends — not a single result is written for the SMB with a $200–$500 campaign budget who wants to run this independently. We can fill that gap completely and be the first practical guide for this underserved segment.",
+      "outline": [
+        "Why Micro-Influencer Campaigns Outperform Paid Ads for SMBs in 2026 — and Why AI Finally Makes Them Manageable Without a PR Team",
+        "Step 1 — AI-Assisted Creator Discovery: Finding 10 Qualified Micro-Influencers in Your Niche in Under an Hour Using Free and $20/Month Tools",
+        "Step 2 — The AI-Written Outreach and Brief Template That Gets a 40%+ Response Rate Without a PR Background",
+        "Step 3 — Content Review and Approval: How to Use AI to Check That Deliverables Meet Brand Guidelines Before You Pay",
+        "Step 4 — Measuring ROI Without an Agency Dashboard: The 4 Metrics That Matter for a $200–$500 Campaign Budget"
+      ]
+    }
+  ]
+}

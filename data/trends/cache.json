@@ -173,21 +173,21 @@
     "t": {
       "termino": "landing page checklist",
       "direccion": "baja",
-      "cambioAnual": -100,
-      "nivelActual": 0,
+      "cambioAnual": -94,
+      "nivelActual": 2,
       "meses": 262
     },
-    "cuando": "2026-11-02T19:52:47.647Z"
+    "cuando": "2026-11-09T20:15:15.562Z"
   },
   "US|best whatsapp bsp latam": {
     "t": {
       "termino": "best whatsapp bsp latam",
-      "direccion": "sin-volumen",
-      "cambioAnual": 0,
-      "nivelActual": 0,
+      "direccion": "sube",
+      "cambioAnual": 100,
+      "nivelActual": 8,
       "meses": 262
     },
-    "cuando": "2026-11-02T19:53:04.702Z"
+    "cuando": "2026-11-09T20:15:31.090Z"
   },
   "US|seo for latam local business directory": {
     "t": {
@@ -253,11 +253,11 @@
     "t": {
       "termino": "seo tools 2026",
       "direccion": "baja",
-      "cambioAnual": -88,
+      "cambioAnual": -80,
       "nivelActual": 7,
       "meses": 262
     },
-    "cuando": "2026-10-05T18:55:57.246Z"
+    "cuando": "2026-11-09T20:15:23.378Z"
   },
   "US|claude vs chatgpt for marketing": {
     "t": {
@@ -623,11 +623,11 @@
     "t": {
       "termino": "checklist landing page",
       "direccion": "baja",
-      "cambioAnual": -100,
-      "nivelActual": 0,
+      "cambioAnual": -94,
+      "nivelActual": 2,
       "meses": 262
     },
-    "cuando": "2026-11-02T19:52:52.732Z"
+    "cuando": "2026-11-09T20:15:21.870Z"
   },
   "US|hubspot jasper copy.ai neuroflash ai writing comparison 2026": {
     "t": {
@@ -722,12 +722,12 @@
   "US|ai marketing saas pricing per client smb 2026 percentage of ad spend": {
     "t": {
       "termino": "ai marketing saas pricing per client smb 2026 percentage of ad spend",
-      "direccion": "sin-volumen",
-      "cambioAnual": 0,
+      "direccion": "baja",
+      "cambioAnual": -100,
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-10-26T16:20:52.906Z"
+    "cuando": "2026-11-09T20:15:17.301Z"
   },
   "US|ai website audit tool with scorecard": {
     "t": {
@@ -737,7 +737,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-09-28T17:51:28.818Z"
+    "cuando": "2026-11-09T20:15:37.049Z"
   },
   "US|prompt engineering market": {
     "t": {
@@ -747,17 +747,17 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-10-19T16:41:08.942Z"
+    "cuando": "2026-11-09T20:15:38.574Z"
   },
   "US|ai hallucination in marketing": {
     "t": {
       "termino": "ai hallucination in marketing",
       "direccion": "sube",
       "cambioAnual": 100,
-      "nivelActual": 8,
+      "nivelActual": 7,
       "meses": 262
     },
-    "cuando": "2026-11-02T19:53:01.224Z"
+    "cuando": "2026-11-09T20:15:29.536Z"
   },
   "US|advertising for mexican small businesses 2026": {
     "t": {
@@ -863,11 +863,11 @@
     "t": {
       "termino": "seo for small business 2026",
       "direccion": "baja",
-      "cambioAnual": -93,
-      "nivelActual": 3,
+      "cambioAnual": -98,
+      "nivelActual": 1,
       "meses": 262
     },
-    "cuando": "2026-11-02T19:53:06.380Z"
+    "cuando": "2026-11-09T20:15:32.622Z"
   },
   "US|chatgpt ads for small business 2026": {
     "t": {
@@ -942,12 +942,12 @@
   "US|headlines that convert": {
     "t": {
       "termino": "headlines that convert",
-      "direccion": "sube",
-      "cambioAnual": 100,
-      "nivelActual": 8,
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-11-02T19:52:57.786Z"
+    "cuando": "2026-11-09T20:15:24.939Z"
   },
   "US|checklista landing page": {
     "t": {
@@ -1007,7 +1007,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-11-02T19:52:59.537Z"
+    "cuando": "2026-11-09T20:15:20.400Z"
   },
   "US|does prompting matter for ai b2b marketing": {
     "t": {
@@ -1068,5 +1068,55 @@
       "meses": 262
     },
     "cuando": "2026-11-02T20:00:20.724Z"
+  },
+  "US|can ai write up my weekly marketing performance recap?": {
+    "t": {
+      "termino": "can ai write up my weekly marketing performance recap?",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-09T20:15:26.509Z"
+  },
+  "US|nike storytelling": {
+    "t": {
+      "termino": "nike storytelling",
+      "direccion": "baja",
+      "cambioAnual": -94,
+      "nivelActual": 1,
+      "meses": 262
+    },
+    "cuando": "2026-11-09T20:15:28.002Z"
+  },
+  "US|first party data strategy small business 2026": {
+    "t": {
+      "termino": "first party data strategy small business 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-09T20:22:12.824Z"
+  },
+  "US|martech stack consolidation ai small business 2026": {
+    "t": {
+      "termino": "martech stack consolidation AI small business 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-09T20:22:14.412Z"
+  },
+  "US|homepage checklist small business 2026": {
+    "t": {
+      "termino": "homepage checklist small business 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-09T20:22:19.553Z"
   }
 }
