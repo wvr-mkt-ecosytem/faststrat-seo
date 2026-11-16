@@ -1,0 +1,184 @@
+{
+  "weekOf": "2026-11-16",
+  "generatedAt": "2026-11-16T20:02:58.551Z",
+  "source": "auto-weekly",
+  "summary": "Ten ideas targeting completely uncovered content pillars — social commerce, AI content quality, GEO measurement, live shopping, co-marketing, and AI maturity — with the four highest-priority angles anchored in real GSC striking-distance signals and rising 2026 trends. (2 idea(s) descartada(s): 1 por repetir algo ya propuesto o escrito, 1 por pisarse con otro título.)",
+  "research": {
+    "competitors": [
+      "Jasper has fully pivoted to enterprise with its 2026 State of AI in Marketing report (1,400-marketer survey, financial-services governance content, 'AI maturity as ROI predictor' research) — abandoning SMB editorial almost entirely and leaving a wide-open lane for anyone who speaks directly to owners and small teams.",
+      "Writesonic is aggressively owning GEO measurement space ('7 GEO KPIs Every Brand Must Measure,' 'GEO Action Center,' '10 GEO Platforms Tested') but writes exclusively for agencies and enterprise brands — every piece assumes a $500+/month tool budget, locking out the entire SMB segment.",
+      "HubSpot dominates broad 'AI for small business' with mega-listicles (27 tools, 35 tools, State of Marketing 2026 with 1,500 marketers) but provides almost no implementation depth — their content answers 'what' and rarely 'how in two hours with $50/month,' which is where SMBs actually need help.",
+      "Copy.ai shifted its editorial focus from copywriting features to GTM workflow automation and sales processes; their November 10, 2026 'AI Slop: Avoiding Low-Quality AI Content' post signals a new quality-vs-quantity content angle that no SMB-focused publication has picked up yet — a first-mover gap."
+    ],
+    "trends": [
+      "Social commerce crossed $2.11T globally in 2026 (up from $1.63T in 2025); TikTok Shop delivers a 4.7% in-app conversion rate vs Instagram Shopping's 2.1%, and TikTok LIVE now accounts for 14% of TikTok Shop GMV — making live selling the most underexploited SMB growth channel of the year.",
+      "Agentic AI for SMBs moved from hype to operational reality: autonomous workflows managing lead response, content scheduling, and customer support are available at $20–$150/month, allowing two-person teams to run marketing operations that previously required a five-person agency retainer.",
+      "AI content quality ('AI slop') is now a recognized brand risk — 91% of marketing teams use AI (Jasper 2026 State of AI data) but content saturation is triggering audience trust erosion; brands that demonstrate human-in-the-loop editorial standards are gaining measurable authority advantages in both organic and AI search.",
+      "GEO/AEO measurement is the missing layer in AI search strategy: brands have invested in optimization but lack SMB-appropriate KPIs to prove ROI — Writesonic and Peec AI (€89/month, top pick for under-10-person teams) are defining the enterprise stack while the sub-$200/month measurement gap remains entirely unserved.",
+      "AI avatar and AI clone content is emerging as the bridge between faceless-brand scale and personal-brand trust — described as the highest-converting faceless content format in 2026, letting solopreneurs and tiny teams produce relationship-level video without filming overhead or personal exposure."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "TikTok Shop vs Instagram Shopping for SMBs in 2026: Which Platform Actually Converts for Your Product Category?",
+      "slug": "tiktok-shop-vs-instagram-shopping-smbs-2026-which-platform",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "tiktok shop vs instagram shopping small business 2026",
+      "intent": "commercial comparison",
+      "rationale": "No existing FastStrat article covers social commerce or in-app selling at all — this opens a completely new content pillar anchored in the fastest-growing commerce format of 2026 ($2.11T market, TikTok Shop 4.7% conversion vs Instagram's 2.1%), where zero competitor blogs have published an SMB-first head-to-head.",
+      "keywordRationale": "Someone searching this is an SMB owner who has already heard about in-app selling and needs a verdict before committing setup time and budget — they want to know which platform wins for their specific product type, not another market-size overview. Existing top results are either platform-agnostic e-commerce guides written for large retailers or opinion pieces that never benchmark fees, conversion rates, or audience demographics by product niche, leaving a clear gap for a head-to-head with real SMB-applicable numbers.",
+      "outline": [
+        "The $2.11T Social Commerce Shift: Why SMBs Can No Longer Treat In-App Selling as a Side Experiment",
+        "TikTok Shop in 2026: Setup Requirements, Seller Fees, Fulfillment Options, and Audience Demographics",
+        "Instagram Shopping in 2026: Native Checkout Strengths, Country Limitations, and the Right Product-Market Fit",
+        "Head-to-Head: Conversion Rates, Cost Per Sale, and Audience Fit Across 6 SMB Product Categories",
+        "Which Platform to Start With — and the 30-Day First-Sale Action Plan for Each"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Copy.ai vs Jasper for B2B Marketing in 2026: Which AI Actually Fits a Long Sales Cycle?",
+      "slug": "copy-ai-vs-jasper-b2b-marketing-2026-which-ai-actually-fits",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "copy.ai vs jasper for b2b marketing 2026",
+      "intent": "commercial comparison",
+      "rationale": "Differentiates from 'Jasper vs. Copy.ai vs. HubSpot AI' and 'HubSpot Breeze vs Jasper AI vs Copy.ai' (both general SMB roundups) by narrowing exclusively to B2B use cases — ABM content, LinkedIn, case studies, long-cycle email sequences — where the tool trade-offs are completely different from B2C copywriting workflows.",
+      "keywordRationale": "The person searching 'copy.ai vs jasper for b2b' is a B2B marketer evaluating tools for a specific workflow — account-based content, LinkedIn outreach, or multi-stakeholder nurture — who already knows both tools exist and needs a scenario-by-scenario verdict, not a feature checklist. Top results today are generic AI writing comparisons or affiliate roundups that lump B2B and B2C together without testing the specific assets that actually drive B2B pipeline, so a head-to-head on five concrete B2B scenarios would outperform everything currently ranking.",
+      "outline": [
+        "Why B2B Marketing AI Needs Are Fundamentally Different From B2C (Longer Cycles, Multi-Stakeholder Content, Brand Governance)",
+        "Copy.ai GTM Workflows for B2B: Account-Based Content, Sales Sequences, and Pipeline-Stage Messaging",
+        "Jasper for B2B: Brand Voice Governance at Scale, Multi-Channel Campaign Execution, and What It Costs",
+        "Head-to-Head on 5 Core B2B Scenarios: Long-Form Blog, LinkedIn Posts, ABM Emails, Case Studies, Sales Decks",
+        "Our Verdict: Which Tool Wins by B2B Team Size, Budget, and Use-Case Priority"
+      ],
+      "trend": {
+        "direccion": "sube",
+        "cambioAnual": 100,
+        "nivelActual": 8
+      }
+    },
+    {
+      "title": "AI Slop Is Eroding SMB Marketing Credibility: How to Detect, Score, and Fix It Before Your Audience Does",
+      "slug": "ai-slop-eroding-smb-marketing-credibility-how-detect-score",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "ai slop marketing content smb 2026",
+      "intent": "informational / problem-aware",
+      "rationale": "Completely new topic for FastStrat — Copy.ai just published 'AI Slop: Avoiding Low-Quality AI Content' (Nov 10, 2026) signaling an emerging editorial trend; this piece takes the angle of detection and repair for SMBs who have already published low-quality AI content, which is more urgent and actionable than prevention-only guides.",
+      "keywordRationale": "Someone searching this has already published AI content and is worried their audience — or search engines — is detecting the quality drop; they're not looking for a definition of AI slop but for a 15-minute audit protocol they can run this week. Results today are either abstract explainers ('what is AI slop') or enterprise brand-safety pieces that don't give a small team the specific checklist they need to triage their existing content library.",
+      "outline": [
+        "What 'AI Slop' Actually Is — and Why 91% AI Adoption Makes It Every SMB's Problem, Not Just Big Brands",
+        "7 Warning Signs Your Published Marketing Content Has Gone Slop (Checklist With Real Examples)",
+        "The 15-Minute AI Content Quality Audit Any SMB Can Run Today",
+        "Prompting and Editorial Workflow Protocols That Prevent Slop Before It Enters Your Content Calendar",
+        "How to Rebuild Audience Trust and Search Authority After a Quality Drop"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "GEO KPIs for SMBs in 2026: 8 Metrics That Actually Prove Your AI Search Optimization Is Working",
+      "slug": "geo-kpis-smbs-2026-8-metrics-actually-prove-your-ai-search",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "geo kpis small business 2026",
+      "intent": "informational / measurement",
+      "rationale": "Differentiates from all existing FastStrat GEO pieces ('When GEO Backfires,' 'Free vs Paid GEO Tools,' 'Free GEO Monitoring Tools') by flipping from optimization tactics to proof-of-ROI measurement — the gap Writesonic owns for enterprise but that nobody has addressed for the sub-$200/month SMB budget.",
+      "keywordRationale": "Someone searching GEO KPIs for small businesses has already started optimizing for AI search and now needs to prove it's working — either to themselves, a business partner, or a client paying for the work; they're not looking for another optimization checklist. Writesonic's '7 GEO KPIs' article dominates the SERP but maps every metric to $500+/month platforms, leaving SMBs with no actionable measurement stack they can actually afford to run.",
+      "outline": [
+        "Why Traditional SEO Metrics Miss Everything That Happens Inside AI-Generated Answers",
+        "Tier 1 — Visibility KPIs: Brand Mention Rate and Share of AI Answer by Query Category",
+        "Tier 2 — Traffic KPIs: AI-Referred Sessions, Zero-Click Conversion Proxies, and Dark Traffic Attribution",
+        "Tier 3 — Authority KPIs: Citation Diversity Score, Source Freshness, and Co-Citation Partners",
+        "The $0–$200/Month GEO Measurement Stack: Free Tools, Lightweight Trackers, and a Weekly Reporting Template"
+      ]
+    },
+    {
+      "title": "AI Avatar, Faceless Content, or Personal Brand: The SMB Decision Framework for 2026",
+      "slug": "ai-avatar-faceless-content-personal-brand-smb-decision",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "ai avatar vs faceless brand vs personal brand smb 2026",
+      "intent": "decision / commercial",
+      "rationale": "Differentiates from the proposed 'How SMBs Are Building Faceless AI Brands in 2026: 7 Real Case Studies' (examples-first) by delivering a decision framework — a 10-question diagnostic that tells founders which model fits their business right now, before they invest in production setup or software.",
+      "keywordRationale": "The person searching this is a founder who has seen all three models in the wild and needs to commit to one before spending money on equipment, software, or a creator retainer — they're past 'what is faceless content' and want a structured way to decide based on their business type. SERP results today are split between faceless-brand enthusiast posts and personal-branding coaches, with nothing that benchmarks all three models on trust speed, content scalability, and business-exit value from an operator's perspective.",
+      "outline": [
+        "Three Models, Three Trade-Offs: Trust Speed, Production Scale, and Business Sellability Compared Side by Side",
+        "When AI Avatar Content Wins: The High-Ticket, Time-Poor Founder's Play and What It Actually Costs in 2026",
+        "When Faceless Content Scales Best: Evergreen Niches, Multi-Channel Distribution, and No Filming Overhead",
+        "When Personal Brand Still Beats Both: Relationship-Driven Services and High-Consideration Purchase Decisions",
+        "The 10-Question Decision Checklist: Which Model Fits Your SMB Stage, Niche, and Team Size Right Now"
+      ]
+    },
+    {
+      "title": "Co-Marketing for SMBs in 2026: How to Find, Pitch, and Execute Brand Collaborations With AI — No Agency Required",
+      "slug": "co-marketing-smbs-2026-how-find-pitch-execute-brand",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "brand collaboration strategy small business 2026",
+      "intent": "how-to / growth",
+      "rationale": "Completely new topic for FastStrat — no existing or proposed article covers co-marketing or brand collaboration; it addresses a GSC signal ('brand collaboration case studies,' 54 impressions, position 68) where we currently have zero authority and can establish an early foothold with a practical AI-assisted guide before any competitor stakes the angle.",
+      "keywordRationale": "Someone searching 'brand collaboration strategy small business' is an SMB owner who has seen co-marketing work for larger brands and wants a reproducible process for finding partners and executing deals on a tight budget — they want a workflow, not inspiration. Top results are either big-brand case study roundups (Nike x Off-White, Spotify x Starbucks) that offer no actionable framework for a $5K/month marketing budget, or generic partnership guides with no AI component and no attribution model.",
+      "outline": [
+        "Why Co-Marketing Is the Most Underused Growth Lever for SMBs With Under $10K/Month Marketing Budgets",
+        "Using AI to Identify Collaboration-Ready Partners: Audience Overlap Analysis, Complementary Offers, and Competitor Gaps",
+        "The AI-Written Collaboration Pitch: What to Include, What to Skip, and Real Before/After Examples",
+        "Four Collaboration Structures That Work for SMBs: Co-Created Content, Joint Webinars, Bundle Offers, and Cross-Promotions",
+        "Measuring Co-Marketing ROI: Attribution Models, Revenue Split Frameworks, and Whether to Renew"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Are You a Beginner, Builder, or Operator? The SMB Marketing AI Maturity Self-Assessment for 2026",
+      "slug": "you-beginner-builder-operator-smb-marketing-ai-maturity-self",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "ai marketing maturity model small business 2026",
+      "intent": "assessment / awareness",
+      "rationale": "Completely new topic for FastStrat — no existing article benchmarks SMBs by AI adoption stage; it converts Jasper's 2026 research insight ('AI maturity is the strongest predictor of marketing ROI') into an SMB-accessible self-assessment that every tool-comparison and tactic article on the site implicitly assumes you've already completed.",
+      "keywordRationale": "Someone searching this suspects they're not extracting full value from their AI marketing tools and wants a diagnostic framework — not another tool recommendation, but a structured way to identify which bottleneck is actually holding their results back. Jasper's maturity research is the most credible source on this topic but it lives behind a gated enterprise report; no freely accessible, action-oriented SMB version exists that maps each stage to the five highest-ROI next moves a small team can make this month.",
+      "outline": [
+        "Why AI Maturity Is Now the Strongest Predictor of Marketing ROI — and What Jasper's 2026 Data Shows",
+        "The Three-Stage SMB AI Maturity Model: What Each Stage Looks Like in a Real Two-to-Five-Person Team",
+        "Stage 1 — Beginner: Diagnosing the Gap and the 5 High-ROI Quick Wins to Move Up Fast",
+        "Stage 2 — Builder: Connecting Standalone Tools Into Workflows That Run Without Daily Input",
+        "Stage 3 — Operator: Agentic Marketing, Autonomous Content Calendars, and Closed-Loop Measurement"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Beyond the Blast: How SMBs Are Building Adaptive AI Email Sequences That React to Behavior in 2026",
+      "slug": "beyond-blast-how-smbs-building-adaptive-ai-email-sequences",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "adaptive ai email sequence small business 2026",
+      "intent": "how-to / implementation",
+      "rationale": "Differentiates from the proposed 'Claude vs. ChatGPT for SMB Email Marketing in 2026' (tool comparison deciding which AI to use) by focusing on workflow architecture — how to design behavior-triggered, branching sequences using any AI-connected ESP — making it a complementary implementation guide rather than a redundant comparison.",
+      "keywordRationale": "Someone searching adaptive AI email sequences already knows what email automation is and wants to upgrade from static drip campaigns to sequences that actually change based on what subscribers click, open, or ignore — they need logic maps and CRM setup steps, not another email marketing primer. Most top results are ESP feature pages (Klaviyo, Mailchimp, ActiveCampaign) that describe adaptive capability without showing the actual workflow design, branching rules, or the prompts that make AI-assisted personalization work at the SMB scale.",
+      "outline": [
+        "Why Static Email Drip Sequences Are Costing SMBs Opens, Replies, and Pipeline in 2026",
+        "What Makes a Sequence 'Adaptive': Triggers, Behavioral Branches, and the Signals AI Can Actually Read",
+        "Building Your First 6-Email Adaptive Flow: Tools, Prompt Templates, and Branch Logic Maps",
+        "Integrating With Your CRM and ESP: HubSpot, Klaviyo, and ActiveCampaign Setup in Under 90 Minutes",
+        "Real SMB Results: Open Rates, Reply Rates, and Revenue Per Email From 3 Case Studies"
+      ]
+    }
+  ]
+}

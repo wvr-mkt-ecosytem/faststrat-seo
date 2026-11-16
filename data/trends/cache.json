@@ -202,12 +202,12 @@
   "US|best ai seo tools for small businesses 2026": {
     "t": {
       "termino": "best ai seo tools for small businesses 2026",
-      "direccion": "sube",
-      "cambioAnual": 100,
-      "nivelActual": 8,
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-11-02T19:52:51.154Z"
+    "cuando": "2026-11-16T19:55:45.945Z"
   },
   "US|aylesbury seo": {
     "t": {
@@ -1118,5 +1118,55 @@
       "meses": 262
     },
     "cuando": "2026-11-09T20:22:19.553Z"
+  },
+  "US|tiktok shop vs instagram shopping small business 2026": {
+    "t": {
+      "termino": "tiktok shop vs instagram shopping small business 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-16T20:02:45.754Z"
+  },
+  "US|copy.ai vs jasper for b2b marketing 2026": {
+    "t": {
+      "termino": "copy.ai vs jasper for b2b marketing 2026",
+      "direccion": "sube",
+      "cambioAnual": 100,
+      "nivelActual": 8,
+      "meses": 262
+    },
+    "cuando": "2026-11-16T20:02:47.299Z"
+  },
+  "US|ai slop marketing content smb 2026": {
+    "t": {
+      "termino": "ai slop marketing content smb 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-16T20:02:48.853Z"
+  },
+  "US|brand collaboration strategy small business 2026": {
+    "t": {
+      "termino": "brand collaboration strategy small business 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-16T20:02:54.252Z"
+  },
+  "US|ai marketing maturity model small business 2026": {
+    "t": {
+      "termino": "ai marketing maturity model small business 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-16T20:02:55.833Z"
   }
 }
