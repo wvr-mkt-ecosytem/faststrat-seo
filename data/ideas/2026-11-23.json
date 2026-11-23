@@ -1,0 +1,233 @@
+{
+  "weekOf": "2026-11-23",
+  "generatedAt": "2026-11-23T21:59:17.195Z",
+  "source": "auto-weekly",
+  "summary": "Ten new-angle ideas anchored in the multi-agent team redesign, local SEO×GEO convergence, LATAM language bias in AI search, review-to-GEO strategy, agentic commerce readiness, and three conversion-focused pieces (GA4 audiences for ads, agency pricing models, pricing-page AEO) — all structurally differentiated from the 60+ pieces already proposed or published.",
+  "research": {
+    "competitors": [
+      "Jasper launched a multi-agent platform and GEO Hub (June 2026), pivoting their entire blog to enterprise AI maturity and campaign execution — zero SMB-level guides on how to restructure a 1–5 person team around AI agents, leaving that implementation question wide open for a challenger to own.",
+      "HubSpot and Writesonic dominate 'best AI tools for small business' listicles but neither covers agency pricing models for AI-enhanced services or LATAM-specific GEO strategy — all frameworks assume a US-English audience and a technical in-house marketing team.",
+      "Copy.ai has fully abandoned SMB-friendly content and pivoted to enterprise GTM workflow automation, creating a trust gap for solo marketers and small agencies who need accessible guides on billing models, pricing structures, and lean AI workflows.",
+      "Ahrefs, Semrush, and Search Engine Journal aggressively cover GEO/AEO trends but every checklist, case study, and example is US-English-first — local SEO meeting AI search and Spanish-language GEO optimization are consistent blind spots across all major competitors in 2026."
+    ],
+    "trends": [
+      "Agentic AI is the dominant 2026 marketing shift: 91% of teams now use AI but most SMBs still run a 'tools + prompts' model — Jasper's multi-agent platform launch signals the industry has moved to AI teammates, requiring a new org structure that no SMB-focused guide has yet mapped.",
+      "Agentic commerce is accelerating at extreme speed: AI referral traffic to US retail grew 393% YoY in Q1 2026 and converts 42% better than non-AI traffic — AI shopping agents evaluate structured product data (JSON-LD, pricing APIs, inventory feeds) instead of browsing pages, creating a critical readiness gap for SMB stores.",
+      "Local SEO and GEO are merging but require different tactics: ChatGPT recommends only 1.2% of businesses that appear in Google's local 3-pack, meaning most local SMBs are invisible to AI search even with solid Maps rankings — a playbook covering both simultaneously does not yet exist for SMBs.",
+      "Spanish-language content has a structural disadvantage in AI search: AI engines trained predominantly on English data consistently surface English-language sources for mixed-language queries, leaving LATAM and US Hispanic SMBs absent from AI-generated answers — a GEO gap distinct from traditional bilingual SEO.",
+      "Customer reviews are confirmed GEO trust signals in 2026: AI search engines cite Google Reviews, G2, and Trustpilot as authority proof points in generated answers, with review specificity and cross-platform density outranking star ratings — turning review strategy into a GEO discipline, not just reputation management."
+    ]
+  },
+  "ideas": [
+    {
+      "title": "How to Rebuild Your SMB Marketing Team for the Multi-Agent AI Era in 2026: Roles, Responsibilities, and What Still Needs a Human",
+      "slug": "how-rebuild-your-smb-marketing-team-multi-agent-ai-era-2026",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "ai marketing team structure smb 2026",
+      "intent": "informational/strategic — marketing leads at SMBs trying to decide how to reorganize a 1–5 person team around AI agents rather than individual tools",
+      "rationale": "Unlike every existing FastStrat piece, which covers tools, workflows, and content formats, this is the first org-design piece in our library — Jasper's multi-agent platform launch signals the market has moved from 'which tool do I use?' to 'how do I restructure my team to run on agents?', a question our entire catalog currently leaves unanswered.",
+      "keywordRationale": "Someone searching this has already adopted AI tools and is now asking a harder structural question: how do I redesign my team so agents do real work instead of just drafting copy? Every top result is either a Jasper enterprise whitepaper or a generic 'AI is transforming marketing' think-piece — nobody has built the specific SMB org chart with named agent roles, human checkpoints, and a transition plan for a 2–5 person team.",
+      "outline": [
+        "Why the 'one person + a stack of AI tools' model is breaking down in 2026",
+        "The 4-role model for multi-agent marketing teams: Strategist, Orchestrator, Quality Editor, and Distribution Owner",
+        "Which tasks to delegate to AI agents first — and which will break if you try",
+        "How to hire, retrain, or reassign people when agents absorb repetitive work",
+        "The 90-day transition plan for a 2–5 person team going agent-first without disrupting live campaigns"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "From GA4 Setup to Real Ad Results: How to Build Retargeting Audiences That Cut Your SMB's CPL in 2026",
+      "slug": "ga4-setup-real-ad-results-how-build-retargeting-audiences",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "ga4 audiences retargeting small business 2026",
+      "intent": "how-to/practical — SMB owners who set up GA4 (or just read our setup guide) and now want to turn their analytics data into lower-cost paid ad conversions on Meta and Google",
+      "rationale": "Our published GA4 setup guide answers 'how do I install it' and our proposed weekly reports piece answers 'what do I read' — this piece answers the third, revenue-driving question that neither existing piece covers: 'how do I turn GA4 audience data into better-converting Google and Meta campaigns?'",
+      "keywordRationale": "Someone searching GA4 audiences or retargeting keywords has already completed the setup step and is asking 'now what do I do with this data to make my ads cheaper?' The top results are Google's own documentation (dry and technical) or agency explainers that assume a large ad budget — nobody has written the SMB-specific segment guide connecting a small GA4 property to a $300–$800/month Meta or Google campaign.",
+      "outline": [
+        "Why GA4 first-party audiences outperform third-party pixel data for SMBs in a cookieless 2026",
+        "The 6 audience segments every SMB should build first: high-intent visitors, blog readers, cart abandoners, repeat buyers, form-starters, and lookalikes",
+        "Step-by-step: how to export GA4 audiences to Google Ads and Meta Ads Manager without breaking your attribution",
+        "Bid adjustments and campaign types that work best for each segment on a sub-$1K/month budget",
+        "How to know in 30 days whether your GA4 audiences are actually moving CPL — and what to do if they're not"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Local SEO Meets AI Search in 2026: The SMB Playbook for Ranking on Google Maps AND Getting Cited by ChatGPT Simultaneously",
+      "slug": "local-seo-meets-ai-search-2026-smb-playbook-ranking-google",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "local seo ai search smb 2026",
+      "intent": "informational/strategic — local SMB owners who sense that 'SEO' now means two different things (traditional local search and AI-generated answers) and want one coherent strategy for both",
+      "rationale": "All our existing GEO pieces (GEO KPIs, When GEO Backfires, Free GEO Monitoring, AEO Checklist) are written for digital or national brands — none address the specific mechanics of local SEO meeting AI search, which is the gap that affects the majority of SMBs with a physical address, since research confirms ChatGPT recommends only 1.2% of businesses that appear in Google's local 3-pack.",
+      "keywordRationale": "Someone searching 'local SEO AI search' is asking a question that Google's own documentation does not answer: how do I appear both in the Maps Pack AND in the AI Overview paragraph above it? The top results are either classic local SEO guides with zero AI search content, or GEO theory pieces that never mention Google Business Profile, NAP, or proximity signals — the overlap between these two optimization tracks doesn't exist in any published piece today.",
+      "outline": [
+        "The two-track local search reality in 2026: Google Maps Pack, AI Overviews, and ChatGPT location queries now run on overlapping but distinct signals",
+        "The shared signals: 5 optimizations that boost both Maps rankings and AI citations at the same time",
+        "The diverging signals: what GEO requires that your Google Business Profile alone will never deliver",
+        "NAP consistency in the AI era: why structured entity data now matters more than directory citations",
+        "A 30-day local SEO + GEO sprint for a business with a physical address and under $200/month in tools"
+      ]
+    },
+    {
+      "title": "Why AI Search Engines Rank English First — and the GEO Fixes Every LATAM SMB Needs Before 2027",
+      "slug": "why-ai-search-engines-rank-english-first-geo-fixes-every",
+      "lang": "en",
+      "priority": "alta",
+      "primaryKeyword": "geo spanish content latam ai search 2026",
+      "intent": "informational/strategic — LATAM or US Hispanic SMBs realizing their Spanish-language website content is invisible to AI-generated answers even when their audience asks AI questions in Spanish",
+      "rationale": "Unlike our proposed 'Claude vs. ChatGPT for Spanish-Language Marketing' (a tool comparison) and 'Content Marketing for Mexican SMBs' (format strategy), this piece addresses the structural GEO disadvantage Spanish-language brands face due to English-dominant AI training data — a mechanism that no FastStrat piece has explained and that no major competitor has covered either.",
+      "keywordRationale": "A LATAM marketer searching this topic is experiencing something specific and frustrating: they optimize their Spanish content, but ChatGPT and Perplexity still cite their US competitor's English page when answering their customers' questions. Every GEO piece in the top results assumes the brand is publishing in English — there is no guide that explains the bias mechanism or gives actionable fixes for bilingual or Spanish-only brands competing for AI citations.",
+      "outline": [
+        "The language bias in AI training data: why ChatGPT knows less about LATAM markets than a Google search would",
+        "Three scenarios where Spanish-language content systematically loses to English in AI-generated answers — and why",
+        "Bilingual content architecture: when to publish in both languages, when Spanish-only works, and when translation actually hurts your GEO",
+        "7 structural GEO fixes for Spanish-language pages: schema entities, E-E-A-T signals, hreflang, and cross-reference strategy",
+        "How to monitor your brand's presence in Spanish-language AI queries without a paid tool"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Flat Fee, Percentage of Ad Spend, or Hybrid? The 2026 Pricing Model Decision for Small Marketing Agencies Selling AI Services",
+      "slug": "flat-fee-percentage-ad-spend-hybrid-2026-pricing-model",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "ai marketing agency pricing models 2026 percentage ad spend",
+      "intent": "decision/commercial — small agency owners and freelancers building a sustainable pricing structure for AI-enhanced services as the gap between hours worked and client value delivered continues to widen",
+      "rationale": "Our proposed 'Pass-Through Pricing Model' piece covers cost recovery as a single billing strategy, but the GSC query 'ai marketing saas pricing per client smb 2026 percentage of ad spend' (174 impr, pos 6.1, striking distance) signals that agency owners are asking an upstream question — which billing model to adopt in the first place — making this a necessary companion piece with a broader and different angle.",
+      "keywordRationale": "Someone searching this phrase is a marketing agency owner — not a buyer — specifically asking whether the percentage-of-spend model (the classic agency standard) still makes sense when AI tools cut execution hours by 60% while simultaneously delivering more output. The top results are all client-side explainers ('how much should I pay an agency') — zero agency-side pricing calculators or model comparisons exist in the top 10 for this query.",
+      "outline": [
+        "Why the old 15% of ad spend model breaks when AI cuts your execution time in half",
+        "Flat fee vs. percentage of spend vs. hybrid: the real margin math for a 1–5 person AI-first agency",
+        "How to price AI tool subscriptions into your retainer without undercharging or alarming clients",
+        "The 2026 pricing decision calculator: inputs, outputs, and guardrails for different client sizes and campaign types",
+        "Scripts for the pricing conversation: how to explain AI efficiency gains without racing your margin to zero"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "Is Your SMB Store Ready for AI Shopping Agents? The Agentic Commerce Readiness Checklist for 2026",
+      "slug": "your-smb-store-ready-ai-shopping-agents-agentic-commerce",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "agentic commerce smb ecommerce readiness checklist 2026",
+      "intent": "informational/diagnostic — ecommerce SMB owners who've heard about AI shopping agents and want to know whether their current store setup will get picked or skipped when AI agents buy on behalf of customers",
+      "rationale": "Unlike our proposed 'UCP vs. ACP protocols' piece (infrastructure theory for marketers) and 'Why AI Shopping Recommendations Favor Big Retailers' (product page SEO for human discovery), this piece addresses what comes after both: the structured product data, pricing accuracy, and inventory feeds that AI agents query when no human is browsing — a checklist angle confirmed by AI referral traffic growing 393% YoY and converting 42% better in Q1 2026.",
+      "keywordRationale": "Someone searching agentic commerce + SMB is a Shopify or WooCommerce store owner who just read that AI agents are starting to shop for people and is urgently asking 'does my store need to change right now, and what specifically do I fix?' The top results are all enterprise-level agentic commerce reports from Gartner, Commercetools, and Shopify — nobody has written a simple diagnostic checklist for a store doing $10K–$500K/year in revenue.",
+      "outline": [
+        "What AI shopping agents actually evaluate when choosing a product — and why it has nothing to do with your homepage design",
+        "The 5 store signals that make AI agents choose your product over a larger competitor's: pricing accuracy, real-time inventory, review density, return policy clarity, and schema markup",
+        "The JSON-LD structured data checklist: price, availability, shipping speed, and product attributes that make your catalog machine-readable",
+        "Review density and freshness: the minimum threshold AI agents need to trust your product over a name brand",
+        "The 30-day agentic commerce readiness sprint: free steps first, then the sub-$50/month tool upgrades"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "When AI-Managed Ads Actually Underperform: 7 Campaign Scenarios Where Human Judgment Still Wins in 2026",
+      "slug": "when-ai-managed-ads-actually-underperform-7-campaign",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "ai ad automation limitations smb campaign types 2026",
+      "intent": "informational/contrarian — SMB owners or marketers who tried Performance Max or Meta Advantage+ and got mixed results, wanting a clear framework for when to override automation instead of fighting it",
+      "rationale": "Unlike our proposed 90-day AI-managed ad spend test (which answers 'is automation better overall?'), this piece answers the sharper follow-on question that burned marketers are asking: 'in which specific campaign types does AI bidding actively hurt results, and what do I do about it?' — a failure-mode typology that serves a different and more frustrated segment of the same audience.",
+      "keywordRationale": "Someone searching AI ad automation failures is experiencing real campaign losses — negative ROAS on new product launches, wasted budget on niche B2B audiences, collapsed local conversion rates — and wants a clear decision framework for when to take back control. The top results are platform documentation and paid agency case studies that never acknowledge automation failures, leaving a trust gap that a candid SMB-focused failure-case guide can fill.",
+      "outline": [
+        "The automation promise vs. the SMB reality: why Performance Max and Advantage+ underdeliver for a specific subset of small accounts",
+        "7 campaign scenarios where AI bidding actively hurts SMB results: new product launches, niche B2B audiences, low-volume local campaigns, seasonal spikes, rebrands, price-sensitive verticals, and negative-margin SKUs",
+        "The manual override playbook: which campaign controls to reclaim first and in what order",
+        "How to structure a hybrid campaign that lets AI optimize what it's good at while keeping human judgment on the levers that matter",
+        "The 3-question pre-launch test to know before you go live whether a campaign should be automated or kept manual"
+      ]
+    },
+    {
+      "title": "WhatsApp AI for B2B Lead Nurturing in LATAM: From Cold Intro to Signed Contract in 2026",
+      "slug": "whatsapp-ai-b2b-lead-nurturing-latam-cold-intro-signed",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "whatsapp b2b lead nurturing latam ai 2026",
+      "intent": "how-to/practical — B2B SaaS founders, service businesses, and agencies in LATAM looking to build a WhatsApp nurturing sequence that closes $5K–$50K deals, not just confirms appointments",
+      "rationale": "Unlike our proposed 'How to Build a WhatsApp AI Sales Agent for Your LATAM Business' (a B2C purchase flow from first message to closed deal), this piece addresses the structurally different B2B use case: multi-stage education sequences, multi-stakeholder decisions, and longer nurturing timelines that a single B2C transaction playbook cannot serve.",
+      "keywordRationale": "A LATAM B2B marketer searching WhatsApp + B2B + nurturing is trying to solve a specific problem: their prospects won't respond to email but will respond on WhatsApp, and they need a multi-touch sequence that moves someone from 'interested' to 'contract signed' over days or weeks without sounding automated. Every result for this query is either a generic WhatsApp Business setup guide or a retail automation — zero B2B nurturing sequence playbooks exist in LATAM-focused search results.",
+      "outline": [
+        "Why WhatsApp is the LATAM B2B CRM your CRM has never heard of — and why that's an asymmetric advantage for now",
+        "The 5-stage B2B nurturing sequence designed for WhatsApp: intro, education, objection handling, proposal, and contract close",
+        "AI message templates for each stage — and how to personalize them without sounding like a bot",
+        "BSP and CRM integration options that keep your B2B pipeline visible to the whole team, not just one rep's phone",
+        "Compliance, opt-in, and LGPD/GDPR considerations for B2B WhatsApp outreach in Mexico, Brazil, and Colombia"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "How Customer Reviews Become Your Strongest GEO Signal in 2026: The SMB Review-to-Citation Framework",
+      "slug": "how-customer-reviews-become-your-strongest-geo-signal-2026",
+      "lang": "en",
+      "priority": "media",
+      "primaryKeyword": "customer reviews geo signal ai search citations smb 2026",
+      "intent": "informational/strategic — SMBs who collect reviews but have never thought of them as an AI-search asset, now realizing that review content specificity and cross-platform density directly shape what AI engines cite as social proof",
+      "rationale": "No existing FastStrat piece connects review management to GEO — our brand hallucination and GEO content covers what AI says about your brand and how to correct it, but not how the content, specificity, and cross-platform density of customer reviews shapes what AI engines decide to cite as authority proof points, a structurally distinct optimization layer confirmed by 2026 research showing AI evaluates review quality over quantity.",
+      "keywordRationale": "Someone searching reviews + AI search + 2026 is asking a question that neither the reputation management category (Birdeye, Podium) nor the GEO tools category (Jasper GEO Hub, Surfer) has answered: does the content of my reviews affect whether AI mentions my brand in its answers, and if so what specifically do I change? The top results are all brand monitoring tools with no strategic framework — this is an open gap connecting two FastStrat topic clusters (GEO and social proof) in a way no competitor has yet published.",
+      "outline": [
+        "Why AI search engines cite reviews: how ChatGPT, Perplexity, and Google AI Overviews use user-generated content as authority signals in generated answers",
+        "The 4 review attributes that make AI engines choose your testimonial over a competitor's: recency, specificity, keyword density, and cross-platform consistency",
+        "How to generate GEO-optimized reviews: the ask sequence, the response prompt, and the platform hierarchy for 2026",
+        "Embedding reviews in your site architecture so AI crawlers can find, parse, and attribute them correctly",
+        "Measuring review-driven GEO impact: how to track when a review gets cited and what it does to your AI visibility score"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    },
+    {
+      "title": "The SMB Pricing Page That Gets Featured in AI Comparison Searches: 11 Structural Elements for 2026",
+      "slug": "smb-pricing-page-gets-featured-ai-comparison-searches-11",
+      "lang": "en",
+      "priority": "baja",
+      "primaryKeyword": "pricing page optimization ai search smb saas 2026",
+      "intent": "how-to/commercial — SaaS founders and service businesses who want their pricing page to show up when AI engines answer 'how much does X cost' or synthesize competitor price comparisons",
+      "rationale": "Unlike our published landing page checklist (conversion-focused for lead gen) and our proposed Landing Page AEO Checklist (AI-search structural elements for campaign pages), the pricing page requires a fundamentally different optimization logic: it must simultaneously convert human visitors who are comparison-shopping AND appear as a citation when AI engines synthesize 'how much does X cost' or 'cheapest X alternative' answers — a distinct surface that neither existing piece addresses.",
+      "keywordRationale": "Someone searching pricing page + AI search is a founder or marketer who's noticed that ChatGPT and Perplexity now synthesize competitor pricing comparisons from pricing pages — and their own page never gets cited in those answers. The top results are standard CRO guides from 2022–2024 with no AI search angle, or GEO theory pieces that only use blog post examples — nobody has written the intersection of pricing page CRO and AEO for SMBs.",
+      "outline": [
+        "How AI engines read your pricing page: what gets cited vs. what gets ignored when ChatGPT synthesizes price comparison answers",
+        "The 11 structural elements of a 2026 pricing page that ranks in AI comparison searches and converts human visitors",
+        "Pricing page schema markup: the 3 JSON-LD types that signal your page as a pricing authority to AI crawlers",
+        "The 'why we cost what we cost' and FAQ sections: the hidden GEO multiplier most pricing pages skip entirely",
+        "How to A/B test pricing page changes without accidentally losing your AI search citations in the process"
+      ],
+      "trend": {
+        "direccion": "sin-volumen",
+        "cambioAnual": 0,
+        "nivelActual": 0
+      }
+    }
+  ]
+}

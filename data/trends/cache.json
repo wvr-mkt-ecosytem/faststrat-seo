@@ -173,21 +173,21 @@
     "t": {
       "termino": "landing page checklist",
       "direccion": "baja",
-      "cambioAnual": -94,
-      "nivelActual": 2,
+      "cambioAnual": -98,
+      "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-11-09T20:15:15.562Z"
+    "cuando": "2026-11-23T21:48:04.631Z"
   },
   "US|best whatsapp bsp latam": {
     "t": {
       "termino": "best whatsapp bsp latam",
       "direccion": "sube",
       "cambioAnual": 100,
-      "nivelActual": 8,
+      "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-11-09T20:15:31.090Z"
+    "cuando": "2026-11-23T21:48:24.392Z"
   },
   "US|seo for latam local business directory": {
     "t": {
@@ -207,7 +207,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-11-16T19:55:45.945Z"
+    "cuando": "2026-11-23T21:48:13.316Z"
   },
   "US|aylesbury seo": {
     "t": {
@@ -623,11 +623,11 @@
     "t": {
       "termino": "checklist landing page",
       "direccion": "baja",
-      "cambioAnual": -94,
-      "nivelActual": 2,
+      "cambioAnual": -98,
+      "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-11-09T20:15:21.870Z"
+    "cuando": "2026-11-23T21:48:20.768Z"
   },
   "US|hubspot jasper copy.ai neuroflash ai writing comparison 2026": {
     "t": {
@@ -722,12 +722,12 @@
   "US|ai marketing saas pricing per client smb 2026 percentage of ad spend": {
     "t": {
       "termino": "ai marketing saas pricing per client smb 2026 percentage of ad spend",
-      "direccion": "baja",
-      "cambioAnual": -100,
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-11-09T20:15:17.301Z"
+    "cuando": "2026-11-23T21:48:06.320Z"
   },
   "US|ai website audit tool with scorecard": {
     "t": {
@@ -743,21 +743,21 @@
     "t": {
       "termino": "prompt engineering market",
       "direccion": "baja",
-      "cambioAnual": -100,
-      "nivelActual": 0,
+      "cambioAnual": -95,
+      "nivelActual": 1,
       "meses": 262
     },
-    "cuando": "2026-11-09T20:15:38.574Z"
+    "cuando": "2026-11-23T21:48:29.912Z"
   },
   "US|ai hallucination in marketing": {
     "t": {
       "termino": "ai hallucination in marketing",
       "direccion": "sube",
       "cambioAnual": 100,
-      "nivelActual": 7,
+      "nivelActual": 8,
       "meses": 262
     },
-    "cuando": "2026-11-09T20:15:29.536Z"
+    "cuando": "2026-11-23T21:48:19.193Z"
   },
   "US|advertising for mexican small businesses 2026": {
     "t": {
@@ -863,11 +863,11 @@
     "t": {
       "termino": "seo for small business 2026",
       "direccion": "baja",
-      "cambioAnual": -98,
-      "nivelActual": 1,
+      "cambioAnual": -88,
+      "nivelActual": 3,
       "meses": 262
     },
-    "cuando": "2026-11-09T20:15:32.622Z"
+    "cuando": "2026-11-23T21:48:22.730Z"
   },
   "US|chatgpt ads for small business 2026": {
     "t": {
@@ -947,7 +947,7 @@
       "nivelActual": 0,
       "meses": 262
     },
-    "cuando": "2026-11-09T20:15:24.939Z"
+    "cuando": "2026-11-23T21:48:11.287Z"
   },
   "US|checklista landing page": {
     "t": {
@@ -1083,11 +1083,11 @@
     "t": {
       "termino": "nike storytelling",
       "direccion": "baja",
-      "cambioAnual": -94,
+      "cambioAnual": -96,
       "nivelActual": 1,
       "meses": 262
     },
-    "cuando": "2026-11-09T20:15:28.002Z"
+    "cuando": "2026-11-23T21:48:15.252Z"
   },
   "US|first party data strategy small business 2026": {
     "t": {
@@ -1168,5 +1168,95 @@
       "meses": 262
     },
     "cuando": "2026-11-16T20:02:55.833Z"
+  },
+  "US|copy.ai vs jasper for b2b": {
+    "t": {
+      "termino": "copy.ai vs jasper for b2b",
+      "direccion": "sube",
+      "cambioAnual": 100,
+      "nivelActual": 7,
+      "meses": 262
+    },
+    "cuando": "2026-11-23T21:48:17.189Z"
+  },
+  "US|ai marketing team structure smb 2026": {
+    "t": {
+      "termino": "ai marketing team structure smb 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-23T21:59:00.504Z"
+  },
+  "US|ga4 audiences retargeting small business 2026": {
+    "t": {
+      "termino": "ga4 audiences retargeting small business 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-23T21:59:02.104Z"
+  },
+  "US|geo spanish content latam ai search 2026": {
+    "t": {
+      "termino": "geo spanish content latam ai search 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-23T21:59:05.444Z"
+  },
+  "US|ai marketing agency pricing models 2026 percentage ad spend": {
+    "t": {
+      "termino": "ai marketing agency pricing models 2026 percentage ad spend",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-23T21:59:07.278Z"
+  },
+  "US|agentic commerce smb ecommerce readiness checklist 2026": {
+    "t": {
+      "termino": "agentic commerce smb ecommerce readiness checklist 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-23T21:59:08.948Z"
+  },
+  "US|whatsapp b2b lead nurturing latam ai 2026": {
+    "t": {
+      "termino": "whatsapp b2b lead nurturing latam ai 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-23T21:59:12.405Z"
+  },
+  "US|customer reviews geo signal ai search citations smb 2026": {
+    "t": {
+      "termino": "customer reviews geo signal ai search citations smb 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-23T21:59:14.362Z"
+  },
+  "US|pricing page optimization ai search smb saas 2026": {
+    "t": {
+      "termino": "pricing page optimization ai search smb saas 2026",
+      "direccion": "sin-volumen",
+      "cambioAnual": 0,
+      "nivelActual": 0,
+      "meses": 262
+    },
+    "cuando": "2026-11-23T21:59:15.994Z"
   }
 }
